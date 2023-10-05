@@ -1,6 +1,9 @@
-#include <libc.h>
+#include "minishell.h"
 
 int	main(void)
 {
-	printf("hi!");
+	printf("minishell >");
+	// lexer
+	// parser
+	// command
 }
