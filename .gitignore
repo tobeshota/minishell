@@ -1,0 +1,14 @@
+# debug files
+.vscode/
+*.dSTM/
+
+# output files
+*.out
+minishell
+
+# object files
+*.o
+
+# test files
+tmp/
+*.txt
