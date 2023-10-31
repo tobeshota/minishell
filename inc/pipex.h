@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/10/31 15:30:29 by toshota          ###   ########.fr       */
+/*   Updated: 2023/10/31 16:04:09 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,8 @@
 # define PIPEX_H
 
 # include "libft.h"
+# include "define.h"
 # include <sys/types.h>
-
-typedef struct s_pipex_data
-{
-	int		infile_fd;
-	int		outfile_fd;
-	char	**cmd_absolute_path;
-	char	**cmd_absolute_path_with_option;
-	int		**pipe_fd;
-}			t_pipex_data;
 
 # define TRUE 1
 # define FALSE 0

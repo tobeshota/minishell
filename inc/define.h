@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 13:12:10 by toshota           #+#    #+#             */
-/*   Updated: 2023/10/31 14:35:23 by toshota          ###   ########.fr       */
+/*   Updated: 2023/10/31 16:03:54 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,16 @@ typedef struct s_parser
 	t_parser				*next;
 	t_parser				*prev;
 }							t_parser;
+
+typedef struct s_pipex_data
+{
+	int		infile_fd;
+	int		outfile_fd;
+	char	**cmd_absolute_path;
+	char	**cmd_absolute_path_with_option;
+	int		**pipe_fd;
+}			t_pipex_data;
+
 
 // color
 #define BLACK	"\x1b[30m"
