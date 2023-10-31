@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 13:12:10 by toshota           #+#    #+#             */
-/*   Updated: 2023/10/31 13:13:20 by toshota          ###   ########.fr       */
+/*   Updated: 2023/10/31 14:35:23 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,17 @@ typedef struct s_parser
 	t_parser				*next;
 	t_parser				*prev;
 }							t_parser;
+
+// color
+#define BLACK	"\x1b[30m"
+#define RED		"\x1b[31m"
+#define GREEN	"\x1b[32m"
+#define YELLOW	"\x1b[33m"
+#define BLUE	"\x1b[34m"
+#define MAGENTA	"\x1b[35m"
+#define CYAN	"\x1b[36m"
+#define WHITE	"\x1b[37m"
+#define BOLD	"\x1b[1m"
+#define DEFAULT	"\x1b[0m\x1b[39m"
 
 #endif

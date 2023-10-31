@@ -8,6 +8,7 @@ minishell
 
 # object files
 *.o
+*.a
 
 # test files
 tmp/
