@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/10/31 15:14:19 by toshota          ###   ########.fr       */
+/*   Updated: 2023/10/31 15:22:56 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,34 +75,34 @@ void	get_cmd_option(int argc, char **argv, char ***cmd_absolute_path,
 }
 
 static void	get_cmd_absolute_path_with_option(int argc, char **argv,
-		char ***cmd_option, t_data *data)
+		char ***cmd_option, t_pipex_data *pipex_data)
 {
 	int	cmd_i;
 
-	data->cmd_absolute_path_with_option = (char **)malloc(sizeof(char *)
+	pipex_data->cmd_absolute_path_with_option = (char **)malloc(sizeof(char *)
 			* (get_cmd_count(argc, argv) + 1));
-	check_malloc(data->cmd_absolute_path_with_option);
+	check_malloc(pipex_data->cmd_absolute_path_with_option);
 	cmd_i = 0;
-	while (data->cmd_absolute_path[cmd_i])
+	while (pipex_data->cmd_absolute_path[cmd_i])
 	{
-		data->cmd_absolute_path_with_option[cmd_i] \
-		= ft_strjoin(data->cmd_absolute_path[cmd_i],
+		pipex_data->cmd_absolute_path_with_option[cmd_i] \
+		= ft_strjoin(pipex_data->cmd_absolute_path[cmd_i],
 			cmd_option[0][cmd_i]);
 		cmd_i++;
 	}
-	data->cmd_absolute_path_with_option[cmd_i] = NULL;
+	pipex_data->cmd_absolute_path_with_option[cmd_i] = NULL;
 }
 
-void	get_cmd_absolute_path(int argc, char **argv, char **envp, t_data *data)
+void	get_cmd_absolute_path(int argc, char **argv, char **envp, t_pipex_data *pipex_data)
 {
 	char	**env_path;
 	char	**cmd_option;
 
 	get_env_path(&env_path, envp);
-	get_cmd_name_from_arg(argc, argv, &data->cmd_absolute_path);
-	get_cmd_option(argc, argv, &data->cmd_absolute_path, &cmd_option);
-	add_absolute_path_to_cmd_name(&data->cmd_absolute_path, env_path, envp);
-	get_cmd_absolute_path_with_option(argc, argv, &cmd_option, data);
+	get_cmd_name_from_arg(argc, argv, &pipex_data->cmd_absolute_path);
+	get_cmd_option(argc, argv, &pipex_data->cmd_absolute_path, &cmd_option);
+	add_absolute_path_to_cmd_name(&pipex_data->cmd_absolute_path, env_path, envp);
+	get_cmd_absolute_path_with_option(argc, argv, &cmd_option, pipex_data);
 	all_free_tab(env_path);
 	all_free_tab(cmd_option);
 }
