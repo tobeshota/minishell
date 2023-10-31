@@ -1,0 +1,6 @@
+*.o
+pipex
+*.a
+.vscode*
+infile
+outfile
