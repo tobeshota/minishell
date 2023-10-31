@@ -3,39 +3,51 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+         #
+#    By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/26 19:52:48 by toshota           #+#    #+#              #
-#    Updated: 2023/10/05 13:27:22 by cjia             ###   ########.fr        #
+#    Updated: 2023/10/31 13:29:49 by toshota          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	=	minishell
-CC		=	cc
-CFLAGS	=	-Wall -Wextra -Werror
-RM		=	rm -f
-LIBFT	=   libft/
-LIBS	=	libft/libft.a
-INCS	=	minishell.h
-SRCS	=	main.c
-OBJS	=	$(SRCS:.c=.o)
+NAME			=	minishell
+CC				=	cc
+CFLAGS			=	-Wall -Wextra -Werror -g -fsanitize=address
+RM				=	rm -rf
+LIBFT_DIR		=   libft/
+LIBS			=	libft/libft.a
+INCS			=	-I inc/ -I libft/inc/
+SRCS_DIR		=	srcs/
+OBJS_DIR		=	objs/
 
-$(NAME):	$(OBJS)
-	@ make -C $(LIBFT)
-	@ $(CC) $(CFLAGS) -o $(NAME) $(OBJS)
+# echo srcs/**/*.c
+SRCS		=	srcs/main.c
+
+OBJS		=	$(patsubst $(SRCS_DIR)%.c, $(OBJS_DIR)%.o, $(SRCS))
+
+
 
 all:		$(NAME)
 
-.c.o:		$(OBJS)
-	@ $(CC) $(CFLAGS) -I $(INCS) -c $< -o $@
+$(NAME):	$(OBJS) Makefile
+	@ make bonus -C $(LIBFT_DIR)
+	@ $(CC) $(CFLAGS) $(LIBS) $(INCS) $(OBJS) -o $@
+	@ echo "compile to create an executable file: ./$@"
+
+$(OBJS_DIR)%.o : $(SRCS_DIR)%.c
+	@ mkdir -p $(@D)
+	@ $(CC) $(CFLAGS) $(INCS) -c $< -o $@
 
 clean:
-	@ make clean -C $(LIBFT)
-	@ $(RM) $(OBJS)
+	@ make clean -C $(LIBFT_DIR)
+	@ $(RM) $(OBJS_DIR)
+	@ echo $@
 
-fclean:		clean
-	@ make fclean -C $(LIBFT)
+fclean:
+	@ make fclean -C $(LIBFT_DIR)
+	@ $(RM) $(OBJS_DIR)
 	@ $(RM) $(NAME)
+	@ echo $@
 
 re:			fclean all
 
