@@ -6,11 +6,11 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:51:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/09/25 13:34:18 by toshota          ###   ########.fr       */
+/*   Updated: 2023/10/31 15:14:19 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex.h"
+#include "pipex.h"
 
 int	get_cmd_count(int argc, char **argv)
 {

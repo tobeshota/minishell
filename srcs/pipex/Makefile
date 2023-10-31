@@ -6,7 +6,7 @@
 #    By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/26 19:52:48 by toshota           #+#    #+#              #
-#    Updated: 2023/10/31 15:10:47 by toshota          ###   ########.fr        #
+#    Updated: 2023/10/31 15:13:37 by toshota          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,13 +33,13 @@ all:		$(NAME)
 
 $(NAME):	$(OBJS) Makefile
 	@ make -C $(LIBFT_DIR)
-	@ $(CC) $(CFLAGS) $(LIBFT_DIR)libft.a -I ../../libft/inc/ $(OBJS) -o $(NAME)
+	@ $(CC) $(CFLAGS) $(LIBFT_DIR)libft.a -I ../../libft/inc/ -I ../../inc/ $(OBJS) -o $(NAME)
 	@ echo "compile to create an executable file: ./pipex"
 
 bonus:		all
 
 .c.o:		$(OBJS)
-	@ $(CC) $(CFLAGS) -I ../../libft/inc/ -c $< -o $@
+	@ $(CC) $(CFLAGS) -I ../../libft/inc/ -I ../../inc/ -c $< -o $@
 
 clean:
 	@ make clean -C $(LIBFT_DIR)
