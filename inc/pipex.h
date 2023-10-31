@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/10/31 15:22:56 by toshota          ###   ########.fr       */
+/*   Updated: 2023/10/31 15:30:29 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ void		proc_here_doc(char *limitter, int infile_fd);
 int			is_cmd_relative_path(char ***cmd_absolute_path, int cmd_i);
 int			is_cmd_alreadly_absollute_path(char ***cmd_absolute_path,
 				int cmd_i);
-void		pipex(char **envp, t_pipex_data *pipex_data);
+void		do_pipe(char **envp, t_pipex_data *pipex_data);
+int			pipex(int argc, char **argv, char **envp);
 void		get_pipex_data(int argc, char **argv, char **envp, t_pipex_data *pipex_data);
 void		end_pipex(char **argv, t_pipex_data *pipex_data);
 
