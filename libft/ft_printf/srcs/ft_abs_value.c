@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_abs_value.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/31 12:34:25 by toshota           #+#    #+#             */
-/*   Updated: 2023/10/31 12:34:25 by toshota          ###   ########.fr       */
+/*   Created: 2023/06/11 11:00:51 by tobeshota         #+#    #+#             */
+/*   Updated: 2023/10/13 00:32:57 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "ft_printf.h"
 
-int	main(void)
+long	ft_abs_value(long n)
 {
-	ft_printf("minishell >");
-	// lexer
-	// parser
-	// command
+	if (n < 0)
+		n *= -1;
+	return (n);
 }

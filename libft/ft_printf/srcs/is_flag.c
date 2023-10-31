@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   is_flag.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/31 12:34:25 by toshota           #+#    #+#             */
-/*   Updated: 2023/10/31 12:34:25 by toshota          ###   ########.fr       */
+/*   Created: 2023/06/11 10:58:15 by tobeshota         #+#    #+#             */
+/*   Updated: 2023/10/13 00:32:57 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "ft_printf.h"
 
-int	main(void)
+int	is_flag(int c)
 {
-	ft_printf("minishell >");
-	// lexer
-	// parser
-	// command
+	return (c == '-' || c == '0' || c == '#' || c == ' ' || c == '+');
 }

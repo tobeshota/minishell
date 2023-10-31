@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   strlen_upto_per.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/31 12:34:25 by toshota           #+#    #+#             */
-/*   Updated: 2023/10/31 12:34:25 by toshota          ###   ########.fr       */
+/*   Created: 2023/06/11 11:01:03 by tobeshota         #+#    #+#             */
+/*   Updated: 2023/10/13 00:32:57 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "ft_printf.h"
 
-int	main(void)
+int	strlen_upto_per(const char *str)
 {
-	ft_printf("minishell >");
-	// lexer
-	// parser
-	// command
+	int	len_upto_per;
+
+	len_upto_per = 0;
+	while (str[len_upto_per] != '\0' && str[len_upto_per] != '%')
+		len_upto_per++;
+	return (len_upto_per);
 }

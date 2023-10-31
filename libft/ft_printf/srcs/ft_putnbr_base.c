@@ -1,21 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putnbr_base.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/31 12:34:25 by toshota           #+#    #+#             */
-/*   Updated: 2023/10/31 12:34:25 by toshota          ###   ########.fr       */
+/*   Created: 2023/06/10 21:35:46 by tobeshota         #+#    #+#             */
+/*   Updated: 2023/10/13 00:32:57 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
+#include "ft_printf.h"
 
-int	main(void)
+void	ft_putnbr_base(unsigned long long nb, char *base)
 {
-	ft_printf("minishell >");
-	// lexer
-	// parser
-	// command
+	unsigned long long	base_len;
+
+	base_len = ft_strlen(base);
+	if (nb < 0)
+	{
+		put(STDOUT_FILENO, "-", 1);
+		nb *= -1;
+	}
+	if (nb >= base_len)
+	{
+		ft_putnbr_base(nb / base_len, base);
+		ft_putnbr_base(nb % base_len, base);
+	}
+	else
+		put(STDOUT_FILENO, &base[nb], 1);
 }
