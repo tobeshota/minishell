@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 13:37:16 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/10/27 11:35:50 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/11/01 09:54:43 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,29 +49,5 @@ typedef enum s_tokens
 	LESS_LESS,
 	NONE = 0,
 }	t_tokens;
-
-// typedef struct s_lexer
-// {
-// 	char			*str;
-// 	t_tokens		token;
-// 	int				i;
-// 	struct s_lexer	*next;
-// 	struct s_lexer	*prev;
-// }	t_lexer;
-
-// typedef struct s_tools
-// {
-// 	char					*args;
-// 	char					**paths;
-// 	char					**envp;
-// 	struct s_simple_cmds	*simple_cmds;
-// 	t_lexer					*lexer_list;
-// 	char					*pwd;
-// 	char					*old_pwd;
-// 	int						pipes;
-// 	int						*pid;
-// 	bool					heredoc;
-// 	bool					reset;
-// }	t_tools;
 
 #endif
