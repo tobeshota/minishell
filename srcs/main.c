@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 12:34:25 by toshota           #+#    #+#             */
-/*   Updated: 2023/10/31 14:36:17 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/01 16:10:00 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,3 +19,14 @@ int	main(void)
 	// parser
 	// command
 }
+
+/*
+
+< infile "cat -n"
+
+<< EOF cat | sort > outfile
+cat infile >> outfile
+
+cd /Users/toshota
+
+*/

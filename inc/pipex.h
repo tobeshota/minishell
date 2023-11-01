@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/10/31 16:04:09 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/01 17:33:32 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define INFILE_HERE_DOC 1
 # define OUTFILE 2
 # define OUTFILE_HERE_DOC 3
-# define INFILE_NOT_SPECIFIED_BECAUSE_OF_HERE_DOC 0
+# define NOT_SPECIFIED 0
 
 int			open_file(char *file, int file_type);
 void		close_pipe(int *pipe_fd);
@@ -59,7 +59,7 @@ char		*get_pwd_for_relative_path(char ***pwd_path,
 				int down_count_from_pwd);
 void		get_pipe(t_pipex_data *pipex_data, int cmd_i);
 char		*get_infile(char **argv);
-char		*get_outfile(int argc, char **argv);
+char		*get_outfile(char **argv)
 int			is_specified_here_doc(char **argv);
 void		proc_here_doc(char *limitter, int infile_fd);
 int			is_cmd_relative_path(char ***cmd_absolute_path, int cmd_i);

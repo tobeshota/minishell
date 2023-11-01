@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/10/31 15:14:19 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/01 17:38:57 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 int	is_specified_here_doc(char **argv)
 {
-	return (ft_strlen(argv[1]) == ft_strlen("here_doc") && (!ft_strncmp(argv[1],
-				"here_doc", ft_strlen(argv[1]))));
+	return (ft_strlen(argv[0]) == ft_strlen("<<") && (!ft_strncmp(argv[0], "<<", ft_strlen(argv[0]))));
 }
 
 void	proc_here_doc(char *limitter, int infile_fd)

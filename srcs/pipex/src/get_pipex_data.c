@@ -45,9 +45,9 @@ static void	get_infile_fd(char **argv, int *infile_fd)
 static void	get_outfile_fd(int argc, char **argv, int *outfile_fd)
 {
 	if (is_specified_here_doc(argv))
-		*outfile_fd = open_file(get_outfile(argc, argv), OUTFILE_HERE_DOC);
+		*outfile_fd = open_file(get_outfile(argv), OUTFILE_HERE_DOC);
 	else
-		*outfile_fd = open_file(get_outfile(argc, argv), OUTFILE);
+		*outfile_fd = open_file(get_outfile(argv), OUTFILE);
 }
 
 static void	malloc_multiple_pipe(int argc, char **argv, t_pipex_data *pipex_data)
