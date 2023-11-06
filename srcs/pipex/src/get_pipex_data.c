@@ -33,7 +33,7 @@ int	get_cmd_count(int argc, char **argv)
 
 static void	get_infile_fd(char **argv, int *infile_fd)
 {
-	if (is_specified_here_doc(argv))
+	if (get_infile(argv))
 	{
 		*infile_fd = open_file(HERE_DOC_FILE_PATH, INFILE_HERE_DOC);
 		proc_here_doc(argv[2], *infile_fd);

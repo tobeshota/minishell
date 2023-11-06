@@ -6,28 +6,11 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/01 17:35:25 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/06 17:32:58 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-
-static int	is_specified_infile(char *str)
-{
-	return (ft_strlen(str) == ft_strlen("<") && (!ft_strncmp(str, "<", ft_strlen(str))));
-}
-
-static int	is_specified_outfile_overwriting(char *str)
-{
-	return (ft_strlen(str) == ft_strlen(">") && (!ft_strncmp(str, ">", ft_strlen(str))));
-}
-
-static int	is_specified_outfile_apend(char *str)
-{
-	return (ft_strlen(str) == ft_strlen(">>") && (!ft_strncmp(str, ">>", ft_strlen(str))));
-}
-
 
 // infile	< の直後のファイル
 char	*get_infile(char **argv)
@@ -38,7 +21,7 @@ char	*get_infile(char **argv)
 	// argvに < が来るまで探す
 	while(argv[arg_i])
 	{
-		// < の次にある文字列をinfileとする
+		// < の次にある文字列を infile とする
 		if(is_specified_infile(argv[arg_i]))
 			return argv[arg_i + 1];
 		arg_i++;
@@ -55,7 +38,7 @@ char	*get_outfile(char **argv)
 	// argvに > または >> が来るまで探す
 	while(argv[arg_i])
 	{
-		// >の次にある文字列をinfileとする
+		// > または >> の次にある文字列を outfile とする
 		if(is_specified_outfile_overwriting(argv[arg_i]) || is_specified_outfile_apend(argv[arg_i]))
 			return argv[arg_i + 1];
 		arg_i++;

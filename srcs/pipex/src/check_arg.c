@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/01 17:33:40 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/06 17:28:34 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,6 @@ static int	is_argv_valid(int argc, char **argv)
 
 void	check_arg(int argc, char **argv)
 {
-	// if (is_argc_valid(argc, argv) == FALSE)
-	// 	exit(1);
 	if (is_argv_valid(argc, argv) == FALSE)
 		exit(1);
 }

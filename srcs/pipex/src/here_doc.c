@@ -6,16 +6,11 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/01 17:38:57 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/06 17:32:09 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-int	is_specified_here_doc(char **argv)
-{
-	return (ft_strlen(argv[0]) == ft_strlen("<<") && (!ft_strncmp(argv[0], "<<", ft_strlen(argv[0]))));
-}
 
 void	proc_here_doc(char *limitter, int infile_fd)
 {
