@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/15 14:42:20 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/16 20:51:39 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	put_error(char *err_msg)
 char	*ft_strrnchr(const char *s, int c, int n)
 {
 	char	ch;
-	int		i;
+	size_t	i;
 	int		count;
 
 	ch = (char)c;

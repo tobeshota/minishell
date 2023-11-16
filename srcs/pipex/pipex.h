@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/15 13:27:13 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/16 20:48:37 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,10 @@ void		check_wait(int ret);
 void		check_unlink(int ret);
 void		check_arg(char **argv);
 void		check_is_path_found(char *path);
-int			get_cmd_count(int argc, char **argv);
-int			is_cmd(char *str);
-void		get_cmd_option(int argc, char **argv, char ***cmd_absolute_path,
-				char ***cmd_option);
-void		get_cmd_absolute_path(int argc, char **argv, char **envp,
+int			get_cmd_count(char **argv);
+int			is_cmd(char **argv, int arg_i);
+int			is_limitter(char **argv, int arg_i);
+void		get_cmd_absolute_path(char **argv, char **envp,
 				t_pipex_data *pipex_data);
 void		add_absolute_path_to_cmd_name(char ***cmd_absolute_path,
 				char **env_path, char **envp);
@@ -73,7 +72,7 @@ char		*get_pwd_for_relative_path(char ***pwd_path,
 void		get_pipe(t_pipex_data *pipex_data, int cmd_i);
 char		*get_infile(char **argv);
 char		*get_outfile(char **argv);
-void		proc_here_doc(char *limitter, int infile_fd);
+void		proc_here_doc(char *limitter, t_pipex_data *pipex_data);
 int			is_cmd_relative_path(char ***cmd_absolute_path, int cmd_i);
 int			is_cmd_alreadly_absollute_path(char ***cmd_absolute_path,
 				int cmd_i);

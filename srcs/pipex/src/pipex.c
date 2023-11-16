@@ -6,11 +6,21 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:32:48 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/16 16:09:36 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/16 21:20:04 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
+
+static int get_argc_for_debug(char **argv)
+{
+	int arg_i;
+
+	arg_i = 0;
+	while(argv[arg_i])
+		arg_i++;
+	return arg_i;
+}
 
 static void get_envp_for_debug(char ***envp)
 {
@@ -84,35 +94,31 @@ int	pipex(int argc, char **argv, char **envp)
 	return (0);
 }
 
-
-// >> ファイルが生成される問題をなんとかする！
 int	main(int argc, char **argv, char **envp)
 {
-// argv = ft_split("< infile cat | cat > outfile", ' ');
-argc = 6;
-argv = (char **)malloc(sizeof(char *) * (argc + 1));
-argv[0] = ft_strdup("<");
-argv[1] = ft_strdup("infile");
-argv[2] = ft_strdup("cat");
-argv[3] = ft_strdup("|");
-argv[4] = ft_strdup("cat -n");
-argv[5] = ft_strdup(">");
-argv[6] = ft_strdup("outfile");
-argv[7] = NULL;
+argv = ft_split("< infile cat | cat | cat | sort > outfile", ' ');
 
-// argv[0] = ft_strdup("sort infile");
+// これを動くようにする！
+// argv = (char **)malloc(sizeof(char *) * 200);
+// argv[0] = ft_strdup("cat infile");
+// argv[1] = ft_strdup("|");
+// argv[2] = ft_strdup("cat");
+// argv[3] = ft_strdup(">");
+// argv[4] = ft_strdup("outfile");
+// argv[5] = NULL;
+
+// argv[0] = ft_strdup("cat infile");
 // argv[1] = NULL;
 
-
-
+argc = get_argc_for_debug(argv);
 get_envp_for_debug(&envp);
 	pipex(argc, argv, envp);
-free(argv);
-free(envp);
+all_free_tab(argv);
+all_free_tab(envp);
 	return 0;
 }
 
-// __attribute__((destructor)) static void destructor()
-// {
-// 	system("leaks -q pipex");
-// }
+__attribute__((destructor)) static void destructor()
+{
+	system("leaks -q pipex");
+}

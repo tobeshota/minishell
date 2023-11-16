@@ -6,13 +6,13 @@
 #    By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/26 19:52:48 by toshota           #+#    #+#              #
-#    Updated: 2023/11/15 14:14:57 by toshota          ###   ########.fr        #
+#    Updated: 2023/11/16 20:41:50 by toshota          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			=	pipex
 CC				=	cc -g
-# CFLAGS			=	-Wall -Wextra -Werror
+CFLAGS			=	-Wall -Wextra -Werror
 AR				=	ar rc
 RM				=	rm -f
 LIBFT_DIR		=	libft/

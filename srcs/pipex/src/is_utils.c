@@ -6,17 +6,23 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/15 13:26:46 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/16 17:49:10 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
 
+int is_limitter(char **argv, int arg_i)
+{
+	return (arg_i > 0 && is_specified_here_doc(argv[arg_i-1]));
+}
+
 // !access(str, X_OK)	a.out
 // access(str, F_OK)	cat < << >> > |
-int	is_cmd(char *str)
+// LIMITTERでない（前の文字が<<でない）
+int	is_cmd(char **argv, int arg_i)
 {
-	return (!access(str, X_OK) || (access(str, F_OK) && !is_specified_operators(str)));
+	return (!access(argv[arg_i], X_OK) || (access(argv[arg_i], F_OK) && !is_specified_operators(argv[arg_i]) && !is_limitter(argv, arg_i)));
 }
 
 int	is_cmd_relative_path(char ***cmd_absolute_path, int cmd_i)
