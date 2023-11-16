@@ -6,16 +6,11 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/10/31 15:22:56 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/15 13:35:50 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-
-int	is_cmd(char *str)
-{
-	return (!access(str, X_OK) || access(str, F_OK));
-}
+#include "../pipex.h"
 
 static void	get_cmd_name_from_arg(int argc, char **argv,
 		char ***cmd_absolute_path)
@@ -26,12 +21,13 @@ static void	get_cmd_name_from_arg(int argc, char **argv,
 	*cmd_absolute_path = (char **)malloc(sizeof(char *) * (get_cmd_count(argc,
 					argv) + 1));
 	check_malloc(*cmd_absolute_path);
-	if (is_specified_here_doc(argv))
-		arg_i = 3;
-	else
-		arg_i = 2;
+arg_i = 0;
+// if (is_specified_here_doc(argv))
+// 	arg_i = 3;
+// else
+// 	arg_i = 2;
 	cmd_i = 0;
-	while (arg_i < argc - 1)
+	while (argv[arg_i])
 	{
 		if (is_cmd(argv[arg_i]))
 		{
@@ -54,12 +50,13 @@ void	get_cmd_option(int argc, char **argv, char ***cmd_absolute_path,
 	*cmd_option = (char **)malloc(sizeof(char *) * (get_cmd_count(argc, argv)
 				+ 1));
 	check_malloc(*cmd_option);
-	if (is_specified_here_doc(argv))
-		arg_i = 3;
-	else
-		arg_i = 2;
+arg_i = 0;
+// if (is_specified_here_doc(argv))
+// 	arg_i = 3;
+// else
+// 	arg_i = 2;
 	cmd_i = 0;
-	while (arg_i < argc - 1)
+	while (argv[arg_i])
 	{
 		if (is_cmd(argv[arg_i]))
 		{
@@ -98,7 +95,8 @@ void	get_cmd_absolute_path(int argc, char **argv, char **envp, t_pipex_data *pip
 	char	**env_path;
 	char	**cmd_option;
 
-	get_env_path(&env_path, envp);
+	// get_env_path(&env_path, envp);
+env_path = ft_split("PATH=/Library/Frameworks/Python.framework/Versions/3.6/bin/:/Users/tobeshota/anaconda3/condabin/:/opt/homebrew/opt/node@18/bin/:/Users/tobeshota/.cargo/bin/:/usr/local/Qt-5.15.10/bin/:/opt/homebrew/opt/pyqt@5/5 5.15.7_2/bin/:/opt/homebrew/opt/qt@5/bin/:/Users/tobeshota/.nodebrew/current/bin/:/Users/tobeshota/.pyenv/shims/:/Users/tobeshota/.pyenv/bin/:/Library/Frameworks/Python.framework/Versions/3.10/bin/:/usr/local/bin/:/usr/bin/:/bin/:/usr/sbin/:/sbin/:/opt/X11/bin/:/Users/tobeshota/workspace/command", ':');
 	get_cmd_name_from_arg(argc, argv, &pipex_data->cmd_absolute_path);
 	get_cmd_option(argc, argv, &pipex_data->cmd_absolute_path, &cmd_option);
 	add_absolute_path_to_cmd_name(&pipex_data->cmd_absolute_path, env_path, envp);

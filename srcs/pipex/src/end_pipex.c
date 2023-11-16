@@ -6,11 +6,11 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:54:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/10/31 15:22:56 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/15 11:40:30 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../pipex.h"
 
 static void	all_free_int(int **ptr)
 {
@@ -27,11 +27,16 @@ static void	all_free_int(int **ptr)
 	ptr = NULL;
 }
 
-void	end_pipex(char **argv, t_pipex_data *pipex_data)
+static int is_file_exist(char *file)
+{
+	return !access(file, F_OK);
+}
+
+void	end_pipex(t_pipex_data *pipex_data)
 {
 	all_free_tab(pipex_data->cmd_absolute_path);
 	all_free_tab(pipex_data->cmd_absolute_path_with_option);
 	all_free_int(pipex_data->pipe_fd);
-	if (is_specified_here_doc(argv))
+	if (is_file_exist(HERE_DOC_FILE_PATH))
 		check_unlink(unlink(HERE_DOC_FILE_PATH));
 }

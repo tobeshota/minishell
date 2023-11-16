@@ -10,44 +10,72 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../pipex.h"
 
 int	get_cmd_count(int argc, char **argv)
 {
 	int	cmd_count;
-	int	i;
+	int	arg_i;
 
 	cmd_count = 0;
-	if (is_specified_here_doc(argv))
-		i = 3;
-	else
-		i = 2;
-	while (i < argc - 1)
+	arg_i = 0;
+	// if (is_specified_here_doc(argv))
+	// 	arg_i = 3;
+	// else
+	// 	arg_i = 2;
+	while (argv[arg_i])
 	{
-		if (is_cmd(argv[i]))
+		if (is_cmd(argv[arg_i]))
 			cmd_count++;
-		i++;
+		arg_i++;
 	}
 	return (cmd_count);
 }
 
-static void	get_infile_fd(char **argv, int *infile_fd)
+// < の次のファイルを infile とする
+// << が来たら標準入力を求め，それを/tmp/here_docに格納する
+// << と < が両方来た場合には，来た順番から/tmp/here_docに追記していく？
+static void	get_infile_fd(char **argv, t_pipex_data *pipex_data)
 {
-	if (get_infile(argv))
+	int arg_i;
+
+	arg_i = 0;
+	pipex_data->infile_fd = STDIN_FILENO;
+	while(argv[arg_i])
 	{
-		*infile_fd = open_file(HERE_DOC_FILE_PATH, INFILE_HERE_DOC);
-		proc_here_doc(argv[2], *infile_fd);
+		if (is_specified_infile(argv[arg_i]))
+			pipex_data->infile_fd = open_file(argv[arg_i+1], INFILE);
+		else if (is_specified_here_doc(argv[arg_i]))
+			proc_here_doc(argv[arg_i+1], pipex_data->infile_fd);
+		arg_i++;
 	}
-	else
-		*infile_fd = open_file(get_infile(argv), INFILE);
+	// if (get_infile(argv))
+	// {
+	// 	*infile_fd = open_file(HERE_DOC_FILE_PATH, INFILE_HERE_DOC);
+	// 	proc_here_doc(argv[2], *infile_fd);
+	// }
+	// else
+	// 	*infile_fd = open_file(get_infile(argv), INFILE);
 }
 
-static void	get_outfile_fd(int argc, char **argv, int *outfile_fd)
+static void	get_outfile_fd(char **argv, t_pipex_data *pipex_data)
 {
-	if (is_specified_here_doc(argv))
-		*outfile_fd = open_file(get_outfile(argv), OUTFILE_HERE_DOC);
-	else
-		*outfile_fd = open_file(get_outfile(argv), OUTFILE);
+	int arg_i;
+
+	arg_i = 0;
+	pipex_data->outfile_fd = STDOUT_FILENO;
+	while(argv[arg_i])
+	{
+		if (is_specified_outfile_overwriting(argv[arg_i]))
+			pipex_data->outfile_fd = open_file(argv[arg_i+1], OUTFILE_OVER_WRITING);
+		else if (is_specified_outfile_apend(argv[arg_i]))
+			pipex_data->outfile_fd = open_file(argv[arg_i], OUTFILE_APEND);
+		arg_i++;
+	}
+	// if (is_specified_here_doc(argv))
+	// 	*outfile_fd = open_file(get_outfile(argv), OUTFILE_APEND);
+	// else
+	// 	*outfile_fd = open_file(get_outfile(argv), OUTFILE_OVER_WRITING);
 }
 
 static void	malloc_multiple_pipe(int argc, char **argv, t_pipex_data *pipex_data)
@@ -69,8 +97,8 @@ static void	malloc_multiple_pipe(int argc, char **argv, t_pipex_data *pipex_data
 
 void	get_pipex_data(int argc, char **argv, char **envp, t_pipex_data *pipex_data)
 {
+	get_infile_fd(argv, pipex_data);
+	get_outfile_fd(argv, pipex_data);
 	get_cmd_absolute_path(argc, argv, envp, pipex_data);
-	get_infile_fd(argv, &pipex_data->infile_fd);
-	get_outfile_fd(argc, argv, &pipex_data->outfile_fd);
 	malloc_multiple_pipe(argc, argv, pipex_data);
 }

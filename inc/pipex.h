@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/06 17:33:49 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/08 16:20:56 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,9 @@ void	get_pipex_data(int argc, char **argv, char **envp,
 void	end_pipex(char **argv, t_pipex_data *pipex_data);
 
 // is_specified_file
-int		is_specified_here_doc(char **argv);
-int		is_specified_infile(char *str);
-int		is_specified_here_doc(char **argv);
-int		is_specified_outfile_overwriting(char *str);
-int		is_specified_outfile_apend(char *str);
+char *get_infile(char **argv);
+char *get_here_doc(char **argv);
+char *get_outfile_overwriting(char **argv);
+char *get_outfile_apend(char **argv);
 
 #endif

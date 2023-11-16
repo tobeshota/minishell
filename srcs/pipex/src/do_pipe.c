@@ -6,11 +6,11 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/10/31 15:27:30 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/16 16:02:59 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../pipex.h"
 
 static void	wait_children(int cmd_i)
 {
@@ -26,29 +26,35 @@ static void	wait_children(int cmd_i)
 
 static void	set_input_fd(t_pipex_data *pipex_data, int cmd_i)
 {
-	if (cmd_i == 0)
+	if (pipex_data->infile_fd != STDIN_FILENO)
 	{
-		check_dup(dup2(pipex_data->infile_fd, STDIN_FILENO));
-		check_close(close(pipex_data->infile_fd));
-	}
-	else
-	{
-		check_dup(dup2(pipex_data->pipe_fd[cmd_i - 1][0], STDIN_FILENO));
-		close_pipe(pipex_data->pipe_fd[cmd_i - 1]);
+		if (cmd_i == 0)
+		{
+			check_dup(dup2(pipex_data->infile_fd, STDIN_FILENO));
+			check_close(close(pipex_data->infile_fd));
+		}
+		else
+		{
+			check_dup(dup2(pipex_data->pipe_fd[cmd_i - 1][0], STDIN_FILENO));
+			close_pipe(pipex_data->pipe_fd[cmd_i - 1]);
+		}
 	}
 }
 
 static void	set_output_fd(t_pipex_data *pipex_data, int cmd_i)
 {
-	if (pipex_data->cmd_absolute_path[cmd_i + 1] != NULL)
+	if (pipex_data->outfile_fd != STDOUT_FILENO)
 	{
-		check_dup(dup2(pipex_data->pipe_fd[cmd_i][1], STDOUT_FILENO));
-		close_pipe(pipex_data->pipe_fd[cmd_i]);
-	}
-	else
-	{
-		check_dup(dup2(pipex_data->outfile_fd, STDOUT_FILENO));
-		check_close(close(pipex_data->outfile_fd));
+		if (pipex_data->cmd_absolute_path[cmd_i + 1] != NULL)
+		{
+			check_dup(dup2(pipex_data->pipe_fd[cmd_i][1], STDOUT_FILENO));
+			close_pipe(pipex_data->pipe_fd[cmd_i]);
+		}
+		else
+		{
+			check_dup(dup2(pipex_data->outfile_fd, STDOUT_FILENO));
+			check_close(close(pipex_data->outfile_fd));
+		}
 	}
 }
 

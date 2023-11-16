@@ -6,11 +6,11 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/10/31 15:22:56 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/15 14:44:10 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../pipex.h"
 
 void	get_env_path(char ***env_path, char **envp)
 {
@@ -55,8 +55,10 @@ char	*get_pwd_for_relative_path(char ***pwd_path, int down_count_from_pwd)
 {
 	int	delete_len;
 
-	delete_len = ft_strlen(ft_strrnchr(pwd_path[0][0], '/', down_count_from_pwd)
-			+ 1);
+	if (ft_strrnchr(pwd_path[0][0], '/', down_count_from_pwd) == NULL)
+		delete_len = 0;
+	else
+		delete_len = ft_strlen(ft_strrnchr(pwd_path[0][0], '/', down_count_from_pwd) + 1);
 	return (ft_substr(pwd_path[0][0], 0, ft_strlen(pwd_path[0][0])
 			- delete_len));
 }

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_func2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 10:03:29 by toshota           #+#    #+#             */
-/*   Updated: 2023/10/31 15:14:19 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/13 16:57:55 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../pipex.h"
 
 void	check_dup(int ret)
 {

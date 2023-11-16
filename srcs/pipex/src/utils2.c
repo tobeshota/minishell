@@ -6,11 +6,11 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/10/31 15:14:19 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/15 11:01:07 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../pipex.h"
 
 int	open_file(char *file, int file_type)
 {
@@ -21,10 +21,10 @@ int	open_file(char *file, int file_type)
 	else if (file_type == INFILE_HERE_DOC)
 		fd = open(file, O_RDWR | O_CREAT | O_APPEND,
 				S_IRWXU | S_IRWXG | S_IRWXO);
-	else if (file_type == OUTFILE)
+	else if (file_type == OUTFILE_OVER_WRITING)
 		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC,
 				S_IRWXU | S_IRWXG | S_IRWXO);
-	else if (file_type == OUTFILE_HERE_DOC)
+	else if (file_type == OUTFILE_APEND)
 		fd = open(file, O_WRONLY | O_CREAT | O_APPEND,
 				S_IRWXU | S_IRWXG | S_IRWXO);
 	else

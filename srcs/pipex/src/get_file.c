@@ -6,11 +6,11 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/06 17:32:58 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/13 16:57:55 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../pipex.h"
 
 // infile	< の直後のファイル
 char	*get_infile(char **argv)
