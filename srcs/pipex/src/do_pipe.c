@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/16 16:02:59 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/17 14:28:20 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,26 +24,52 @@ static void	wait_children(int cmd_i)
 	}
 }
 
+// 最初の文字が-だったらオプション[option]．そうでなければ引数[argment]
+int is_parameter_arg(char *cmd_parameter)
+{
+	return (cmd_parameter[0] != '\0' && cmd_parameter[0] != '-');
+}
+
+int get_cmd_arg_fd(t_pipex_data *pipex_data, int cmd_i)
+{
+	int cmd_arg_fd;
+	char *cmd_parameter;
+
+	cmd_parameter = ft_substr(pipex_data->cmd_absolute_path_with_parameter[cmd_i], strlen_until_c(pipex_data->cmd_absolute_path_with_parameter[cmd_i], ' ')+1, ft_strlen(pipex_data->cmd_absolute_path_with_parameter[cmd_i]));
+	check_malloc(cmd_parameter);
+	if (is_parameter_arg(cmd_parameter))
+		cmd_arg_fd = open_file(cmd_parameter, INFILE);
+	else
+		cmd_arg_fd = NOT_SPECIFIED;
+	free(cmd_parameter);
+	return cmd_arg_fd;
+}
+
 static void	set_input_fd(t_pipex_data *pipex_data, int cmd_i)
 {
-	if (pipex_data->infile_fd != STDIN_FILENO)
+	int cmd_arg_fd;
+
+	cmd_arg_fd = get_cmd_arg_fd(pipex_data, cmd_i);
+	if (cmd_arg_fd != NOT_SPECIFIED)
 	{
-		if (cmd_i == 0)
-		{
-			check_dup(dup2(pipex_data->infile_fd, STDIN_FILENO));
-			check_close(close(pipex_data->infile_fd));
-		}
-		else
-		{
-			check_dup(dup2(pipex_data->pipe_fd[cmd_i - 1][0], STDIN_FILENO));
-			close_pipe(pipex_data->pipe_fd[cmd_i - 1]);
-		}
+		check_dup(dup2(cmd_arg_fd, STDIN_FILENO));
+		check_close(close(cmd_arg_fd));
+	}
+	else if (cmd_i == 0)
+	{
+		check_dup(dup2(pipex_data->infile_fd, STDIN_FILENO));
+		check_close(close(pipex_data->infile_fd));
+	}
+	else
+	{
+		check_dup(dup2(pipex_data->pipe_fd[cmd_i - 1][0], STDIN_FILENO));
+		close_pipe(pipex_data->pipe_fd[cmd_i - 1]);
 	}
 }
 
 static void	set_output_fd(t_pipex_data *pipex_data, int cmd_i)
 {
-	if (pipex_data->outfile_fd != STDOUT_FILENO)
+	if (!is_fd_default(pipex_data->outfile_fd, STDOUT_FILENO))
 	{
 		if (pipex_data->cmd_absolute_path[cmd_i + 1] != NULL)
 		{
@@ -62,7 +88,7 @@ static void	exec_child(char **envp, t_pipex_data *pipex_data, int cmd_i)
 {
 	char	**cmd;
 
-	cmd = ft_split(pipex_data->cmd_absolute_path_with_option[cmd_i], ' ');
+	cmd = ft_split(pipex_data->cmd_absolute_path_with_parameter[cmd_i], ' ');
 	check_malloc(cmd);
 	set_input_fd(pipex_data, cmd_i);
 	set_output_fd(pipex_data, cmd_i);

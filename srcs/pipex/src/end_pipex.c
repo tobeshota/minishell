@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:54:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/15 11:40:30 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/17 12:35:03 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int is_file_exist(char *file)
 void	end_pipex(t_pipex_data *pipex_data)
 {
 	all_free_tab(pipex_data->cmd_absolute_path);
-	all_free_tab(pipex_data->cmd_absolute_path_with_option);
+	all_free_tab(pipex_data->cmd_absolute_path_with_parameter);
 	all_free_int(pipex_data->pipe_fd);
 	if (is_file_exist(HERE_DOC_FILE_PATH))
 		check_unlink(unlink(HERE_DOC_FILE_PATH));

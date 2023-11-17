@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:32:48 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/16 21:20:04 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/17 14:32:42 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,19 +96,24 @@ int	pipex(int argc, char **argv, char **envp)
 
 int	main(int argc, char **argv, char **envp)
 {
-argv = ft_split("< infile cat | cat | cat | sort > outfile", ' ');
+// argv = ft_split("< infile cat | cat | cat | sort > outfile", ' ');
 
-// これを動くようにする！
 // argv = (char **)malloc(sizeof(char *) * 200);
 // argv[0] = ft_strdup("cat infile");
 // argv[1] = ft_strdup("|");
 // argv[2] = ft_strdup("cat");
-// argv[3] = ft_strdup(">");
+// argv[3] = ft_strdup(">>");
 // argv[4] = ft_strdup("outfile");
 // argv[5] = NULL;
 
+// これ動くようにする！
+argv[0] = ft_strdup("> outfile");
+argv[1] = NULL;
+
 // argv[0] = ft_strdup("cat infile");
-// argv[1] = NULL;
+// argv[1] = ft_strdup(">>");
+// argv[2] = ft_strdup("outfile");
+// argv[3] = NULL;
 
 argc = get_argc_for_debug(argv);
 get_envp_for_debug(&envp);

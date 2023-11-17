@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/16 20:48:37 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/17 12:36:22 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_pipex_data
 	int		infile_fd;
 	int		outfile_fd;
 	char	**cmd_absolute_path;
-	char	**cmd_absolute_path_with_option;
+	char	**cmd_absolute_path_with_parameter;
 	int		**pipe_fd;
 }			t_pipex_data;
 
@@ -60,6 +60,7 @@ void		check_is_path_found(char *path);
 int			get_cmd_count(char **argv);
 int			is_cmd(char **argv, int arg_i);
 int			is_limitter(char **argv, int arg_i);
+int			is_fd_default(int fd, int default_fd);
 void		get_cmd_absolute_path(char **argv, char **envp,
 				t_pipex_data *pipex_data);
 void		add_absolute_path_to_cmd_name(char ***cmd_absolute_path,
