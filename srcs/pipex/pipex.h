@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/17 17:05:55 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/18 00:26:42 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,11 @@ int			get_down_count_from_pwd(char *relative_path);
 char		*get_pwd_for_relative_path(char ***pwd_path,
 				int down_count_from_pwd);
 void		get_pipe(t_pipex_data *pipex_data, int cmd_i);
-char		*get_infile(char **argv);
-char		*get_outfile(char **argv);
 void		proc_here_doc(char *limitter, t_pipex_data *pipex_data);
 int			is_cmd_relative_path(char ***cmd_absolute_path, int cmd_i);
 int			is_cmd_alreadly_absollute_path(char ***cmd_absolute_path,
 				int cmd_i);
-void		do_pipe(char **envp, t_pipex_data *pipex_data);
+void		do_pipe(char **envp, t_pipex_data *pipex_data, char **argv);
 int			pipex(int argc, char **argv, char **envp);
 void		get_pipex_data(int argc, char **argv, char **envp,
 				t_pipex_data *pipex_data);
@@ -89,6 +87,9 @@ int			is_specified_here_doc(char *str);
 int			is_specified_outfile_overwriting(char *str);
 int			is_specified_outfile_apend(char *str);
 int			is_specified_operators(char *str);
+
+void	get_infile_fd(t_pipex_data *pipex_data, int cmd_i, char **argv);
+void	get_outfile_fd(t_pipex_data *pipex_data, int cmd_i, char **argv);
 
 // is_file_ok
 int is_file_exist(char *file);

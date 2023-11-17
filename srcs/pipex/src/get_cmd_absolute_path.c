@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/17 12:35:03 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/18 00:45:06 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,7 @@ void	get_cmd_absolute_path(char **argv, char **envp, t_pipex_data *pipex_data)
 	char	**env_path;
 	char	**cmd_parameter;
 
-	// get_env_path(&env_path, envp);
-env_path = ft_split("PATH=/Library/Frameworks/Python.framework/Versions/3.6/bin/:/Users/tobeshota/anaconda3/condabin/:/opt/homebrew/opt/node@18/bin/:/Users/tobeshota/.cargo/bin/:/usr/local/Qt-5.15.10/bin/:/opt/homebrew/opt/pyqt@5/5 5.15.7_2/bin/:/opt/homebrew/opt/qt@5/bin/:/Users/tobeshota/.nodebrew/current/bin/:/Users/tobeshota/.pyenv/shims/:/Users/tobeshota/.pyenv/bin/:/Library/Frameworks/Python.framework/Versions/3.10/bin/:/usr/local/bin/:/usr/bin/:/bin/:/usr/sbin/:/sbin/:/opt/X11/bin/:/Users/tobeshota/workspace/command", ':');
+	get_env_path(&env_path, envp);
 	get_cmd_name_from_arg(argv, &pipex_data->cmd_absolute_path);
 	get_cmd_parameter(argv, &pipex_data->cmd_absolute_path, &cmd_parameter);
 	add_absolute_path_to_cmd_name(&pipex_data->cmd_absolute_path, env_path, envp);

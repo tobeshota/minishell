@@ -6,7 +6,7 @@
 #    By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/26 19:52:48 by toshota           #+#    #+#              #
-#    Updated: 2023/11/17 16:58:57 by toshota          ###   ########.fr        #
+#    Updated: 2023/11/18 00:26:40 by toshota          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,10 +18,10 @@ RM				=	rm -f
 LIBFT_DIR		=	libft/
 
 SRCS_DIR		=	src/
-SRCS_FILES		=	check_arg.c check_func1.c check_func2.c \
+SRCS_FILES		=	check_func1.c check_func2.c \
 					end_pipex.c get_cmd_absolute_path.c \
 					get_cmd_absolute_path_utils.c get_pipex_data.c \
-					get_file.c get_utils.c here_doc.c is_utils.c \
+					get_utils.c here_doc.c is_utils.c \
 					pipex.c do_pipe.c utils1.c utils2.c is_specified_file.c \
 					is_specified_control_operators.c is_file_ok.c
 

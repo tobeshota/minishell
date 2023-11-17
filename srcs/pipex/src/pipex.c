@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:32:48 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/17 18:05:23 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/18 00:51:32 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ CONDA_EXE=/Users/tobeshota/anaconda3/bin/conda \
 SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.tUhcHRa0j9/Listeners \
 __CF_USER_TEXT_ENCODING=0x1F5:0x1:0xE \
 _CE_CONDA= \
-PATH=/Library/Frameworks/Python.framework/Versions/3.6/bin:/opt/homebrew/opt/node@18/bin:/usr/local/Qt-5.15.10/bin:/opt/homebrew/opt/pyqt@5/5 5.15.7_2/bin:/opt/homebrew/opt/qt@5/bin:/Users/tobeshota/.nodebrew/current/bin:/Users/tobeshota/.pyenv/shims:/Users/tobeshota/.pyenv/bin:/Library/Frameworks/Python.framework/Versions/3.10/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/Users/tobeshota/anaconda3/condabin:/opt/homebrew/opt/node@18/bin:/Users/tobeshota/.cargo/bin:/usr/local/Qt-5.15.10/bin:/opt/homebrew/opt/pyqt@5/5 5.15.7_2/bin:/opt/homebrew/opt/qt@5/bin:/Users/tobeshota/.nodebrew/current/bin:/Users/tobeshota/.pyenv/bin:/Library/Frameworks/Python.framework/Versions/3.10/bin:/Users/tobeshota/workspace/command:/Users/tobeshota/workspace/command \
+PATH=/Library/Frameworks/Python.framework/Versions/3.6/bin:/opt/homebrew/opt/node@18/bin:/usr/local/Qt-5.15.10/bin:/opt/homebrew/opt/pyqt@5/55.15.7_2/bin:/opt/homebrew/opt/qt@5/bin:/Users/tobeshota/.nodebrew/current/bin:/Users/tobeshota/.pyenv/shims:/Users/tobeshota/.pyenv/bin:/Library/Frameworks/Python.framework/Versions/3.10/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/Users/tobeshota/anaconda3/condabin:/opt/homebrew/opt/node@18/bin:/Users/tobeshota/.cargo/bin:/usr/local/Qt-5.15.10/bin:/opt/homebrew/opt/pyqt@5/55.15.7_2/bin:/opt/homebrew/opt/qt@5/bin:/Users/tobeshota/.nodebrew/current/bin:/Users/tobeshota/.pyenv/bin:/Library/Frameworks/Python.framework/Versions/3.10/bin:/Users/tobeshota/workspace/command:/Users/tobeshota/workspace/command \
 LaunchInstanceID=4C3A25E0-D525-4249-A7DF-6528E2911523 \
 AWS_DEFAULT_REGION=ap-northeast-1 \
 __CFBundleIdentifier=com.microsoft.VSCode \
@@ -68,7 +68,7 @@ SECURITYSESSIONID=186a3 \
 COLORTERM=truecolor \
 _=./pipex \
 OLDPWD=/Users/tobeshota/Desktop/pipex_for_minishell/src \
-", '\n');
+", ' ');
 }
 
 // 引数として，「変数展開された」，「コマンドとオプションが一つにまとまった(by parser)」文字列がくる
@@ -89,7 +89,7 @@ int	pipex(int argc, char **argv, char **envp)
 	t_pipex_data	pipex_data;
 
 	get_pipex_data(argc, argv, envp, &pipex_data);
-	do_pipe(envp, &pipex_data);
+	do_pipe(envp, &pipex_data, argv);
 	end_pipex(&pipex_data);
 	return (0);
 }
@@ -105,10 +105,14 @@ int	pipex(int argc, char **argv, char **envp)
 */
 int	main(int argc, char **argv, char **envp)
 {
-// int i = 0;
 argv = ft_split("< infile cat | cat | cat | sort >> outfile", ' ');
 
+// int i = 0;
 // argv = (char **)malloc(sizeof(char *) * 200);
+
+// argv[i++] = ft_strdup("echo infile");
+
+// < infile sort | cat infile2 >> outfile
 // argv[i++] = ft_strdup("<");
 // argv[i++] = ft_strdup("infile");
 // argv[i++] = ft_strdup("sort");
@@ -117,24 +121,46 @@ argv = ft_split("< infile cat | cat | cat | sort >> outfile", ' ');
 // argv[i++] = ft_strdup(">>");
 // argv[i++] = ft_strdup("outfile");
 
+// > outfile ls | echo Hello
+// argv[i++] = ft_strdup(">");
+// argv[i++] = ft_strdup("outfile");
+// argv[i++] = ft_strdup("ls");
+// argv[i++] = ft_strdup("|");
+// argv[i++] = ft_strdup("echo Hello");
+
+// ls -la > outfile | cat infile
 // argv[i++] = ft_strdup("ls -la");
 // argv[i++] = ft_strdup(">");
 // argv[i++] = ft_strdup("outfile");
 // argv[i++] = ft_strdup("|");
-// argv[i++] = ft_strdup("echo outfile");
-// argv[i++] = ft_strdup("");
+// argv[i++] = ft_strdup("cat infile");
 
+// << EOF cat -n > outfile
 // argv[i++] = ft_strdup("<<");
 // argv[i++] = ft_strdup("EOF");
-// argv[i++] = ft_strdup("cat");
+// argv[i++] = ft_strdup("cat -n");
 // argv[i++] = ft_strdup(">");
 // argv[i++] = ft_strdup("outfile");
 
+// cat infile << EOF > outfile
 // argv[i++] = ft_strdup("cat infile");
 // argv[i++] = ft_strdup("<<");
 // argv[i++] = ft_strdup("EOF");
 // argv[i++] = ft_strdup(">");
 // argv[i++] = ft_strdup("outfile");
+
+// >> outfile < infile2 cat infile | cat -n < infile2 >> outfile2
+// argv[i++] = ft_strdup(">>");
+// argv[i++] = ft_strdup("outfile");
+// argv[i++] = ft_strdup("<");
+// argv[i++] = ft_strdup("infile2");
+// argv[i++] = ft_strdup("cat infile");
+// argv[i++] = ft_strdup("|");
+// argv[i++] = ft_strdup("cat -n");
+// argv[i++] = ft_strdup("<");
+// argv[i++] = ft_strdup("infile2");
+// argv[i++] = ft_strdup(">>");
+// argv[i++] = ft_strdup("outfile2");
 
 // argv[i] = NULL;
 argc = get_argc_for_debug(argv);
