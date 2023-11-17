@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:32:48 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/17 14:32:42 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/17 15:42:08 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,24 +96,39 @@ int	pipex(int argc, char **argv, char **envp)
 
 int	main(int argc, char **argv, char **envp)
 {
-// argv = ft_split("< infile cat | cat | cat | sort > outfile", ' ');
+int i = 0;
+// argv = ft_split("< infile cat | cat | cat | sort >> outfile", ' ');
 
 // argv = (char **)malloc(sizeof(char *) * 200);
-// argv[0] = ft_strdup("cat infile");
-// argv[1] = ft_strdup("|");
-// argv[2] = ft_strdup("cat");
-// argv[3] = ft_strdup(">>");
-// argv[4] = ft_strdup("outfile");
-// argv[5] = NULL;
+// argv[i++] = ft_strdup("<");
+// argv[i++] = ft_strdup("infile");
+// argv[i++] = ft_strdup("sort");
+// argv[i++] = ft_strdup("|");
+// argv[i++] = ft_strdup("cat infile");
+// argv[i++] = ft_strdup(">>");
+// argv[i++] = ft_strdup("outfile");
+// argv[i] = NULL;
 
-// これ動くようにする！
-argv[0] = ft_strdup("> outfile");
-argv[1] = NULL;
+// argv[i++] = ft_strdup("cat");
+// argv[i++] = ft_strdup("<");
+// argv[i++] = ft_strdup("infile");
+// argv[i++] = ft_strdup("<");
+// argv[i++] = ft_strdup("infile2");
+// argv[i++] = ft_strdup(">>");
+// argv[i++] = ft_strdup("outfile");
+// argv[i] = NULL;
 
-// argv[0] = ft_strdup("cat infile");
-// argv[1] = ft_strdup(">>");
-// argv[2] = ft_strdup("outfile");
-// argv[3] = NULL;
+// argv[i++] = ft_strdup("<<");
+// argv[i++] = ft_strdup("EOF");
+// argv[i++] = ft_strdup("cat");
+// argv[i++] = ft_strdup(">");
+// argv[i++] = ft_strdup("outfile");
+// argv[i] = NULL;
+
+argv[i++] = ft_strdup("cat infile");
+argv[i++] = ft_strdup(">>");
+argv[i++] = ft_strdup("outfile");
+argv[i] = NULL;
 
 argc = get_argc_for_debug(argv);
 get_envp_for_debug(&envp);

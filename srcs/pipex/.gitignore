@@ -3,5 +3,5 @@
 pipex
 *.a
 .vscode*
-infile
+infile*
 outfile
