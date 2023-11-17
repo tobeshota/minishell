@@ -1,4 +1,5 @@
 # debug files
+.DS_Store
 .vscode/
 *.dSTM/
 infile*
