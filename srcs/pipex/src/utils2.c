@@ -6,12 +6,15 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/15 11:01:07 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/17 17:06:35 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
 
+// エラーメッセージ（）はここで出し，fd = -1を返すようにする
+// bash: infile: Permission denied
+// bash: infilea: No such file or directory
 int	open_file(char *file, int file_type)
 {
 	int	fd;

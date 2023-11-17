@@ -6,7 +6,7 @@
 #    By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/26 19:52:48 by toshota           #+#    #+#              #
-#    Updated: 2023/11/16 20:41:50 by toshota          ###   ########.fr        #
+#    Updated: 2023/11/17 16:58:57 by toshota          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRCS_FILES		=	check_arg.c check_func1.c check_func2.c \
 					get_cmd_absolute_path_utils.c get_pipex_data.c \
 					get_file.c get_utils.c here_doc.c is_utils.c \
 					pipex.c do_pipe.c utils1.c utils2.c is_specified_file.c \
-					is_specified_control_operators.c
+					is_specified_control_operators.c is_file_ok.c
 
 SRCS			=	$(addprefix $(SRCS_DIR), $(SRCS_FILES))
 OBJS			=	$(SRCS:.c=.o)

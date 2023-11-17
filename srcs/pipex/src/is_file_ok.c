@@ -1,37 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   end_pipex.c                                        :+:      :+:    :+:   */
+/*   is_file_ok.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/24 12:54:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/17 16:56:03 by toshota          ###   ########.fr       */
+/*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
+/*   Updated: 2023/11/17 16:57:51 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
 
-static void	all_free_int(int **ptr)
+int is_file_exist(char *file)
 {
-	int	i;
-
-	i = 0;
-	while (ptr[i])
-	{
-		free(ptr[i]);
-		ptr[i] = NULL;
-		i++;
-	}
-	free(ptr);
-	ptr = NULL;
+	return !access(file, F_OK);
 }
 
-void	end_pipex(t_pipex_data *pipex_data)
+int is_file_readable(char *file)
 {
-	all_free_tab(pipex_data->cmd_absolute_path);
-	all_free_tab(pipex_data->cmd_absolute_path_with_parameter);
-	all_free_int(pipex_data->pipe_fd);
-	if (is_file_exist(HERE_DOC_FILE_PATH))
-		check_unlink(unlink(HERE_DOC_FILE_PATH));
+	return !access(file, R_OK);
+}
+
+int is_file_writable(char *file)
+{
+	return !access(file, W_OK);
+}
+
+int is_file_exectable(char *file)
+{
+	return !access(file, X_OK);
 }

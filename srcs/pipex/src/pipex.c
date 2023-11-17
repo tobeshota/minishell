@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:32:48 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/17 15:42:08 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/17 18:05:23 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,42 +94,49 @@ int	pipex(int argc, char **argv, char **envp)
 	return (0);
 }
 
+// > outfile ls | echo Hello
+// > は次の｜が来るまでの出力先を指定している
+/* 入出力先が指定される範囲は次の｜が来るまでである．
+
+>> outfile < infile cat | cat < infile2 >> outfile2
+出力先の優先順位は ">>" == ">" > "|"である．">>"や">"と"｜"の両方が出力先として指定されたとき，">>"や">"が優先される．
+
+>> outfile < infile cat | cat >> outfile2
+*/
 int	main(int argc, char **argv, char **envp)
 {
-int i = 0;
-// argv = ft_split("< infile cat | cat | cat | sort >> outfile", ' ');
+// int i = 0;
+argv = ft_split("< infile cat | cat | cat | sort >> outfile", ' ');
 
 // argv = (char **)malloc(sizeof(char *) * 200);
 // argv[i++] = ft_strdup("<");
 // argv[i++] = ft_strdup("infile");
 // argv[i++] = ft_strdup("sort");
 // argv[i++] = ft_strdup("|");
-// argv[i++] = ft_strdup("cat infile");
+// argv[i++] = ft_strdup("cat infile2");
 // argv[i++] = ft_strdup(">>");
 // argv[i++] = ft_strdup("outfile");
-// argv[i] = NULL;
 
-// argv[i++] = ft_strdup("cat");
-// argv[i++] = ft_strdup("<");
-// argv[i++] = ft_strdup("infile");
-// argv[i++] = ft_strdup("<");
-// argv[i++] = ft_strdup("infile2");
-// argv[i++] = ft_strdup(">>");
+// argv[i++] = ft_strdup("ls -la");
+// argv[i++] = ft_strdup(">");
 // argv[i++] = ft_strdup("outfile");
-// argv[i] = NULL;
+// argv[i++] = ft_strdup("|");
+// argv[i++] = ft_strdup("echo outfile");
+// argv[i++] = ft_strdup("");
 
 // argv[i++] = ft_strdup("<<");
 // argv[i++] = ft_strdup("EOF");
 // argv[i++] = ft_strdup("cat");
 // argv[i++] = ft_strdup(">");
 // argv[i++] = ft_strdup("outfile");
+
+// argv[i++] = ft_strdup("cat infile");
+// argv[i++] = ft_strdup("<<");
+// argv[i++] = ft_strdup("EOF");
+// argv[i++] = ft_strdup(">");
+// argv[i++] = ft_strdup("outfile");
+
 // argv[i] = NULL;
-
-argv[i++] = ft_strdup("cat infile");
-argv[i++] = ft_strdup(">>");
-argv[i++] = ft_strdup("outfile");
-argv[i] = NULL;
-
 argc = get_argc_for_debug(argv);
 get_envp_for_debug(&envp);
 	pipex(argc, argv, envp);

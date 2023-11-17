@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/17 12:36:22 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/17 17:05:55 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,12 @@ int			is_specified_here_doc(char *str);
 int			is_specified_outfile_overwriting(char *str);
 int			is_specified_outfile_apend(char *str);
 int			is_specified_operators(char *str);
+
+// is_file_ok
+int is_file_exist(char *file);
+int is_file_readable(char *file);
+int is_file_writable(char *file);
+int is_file_exectable(char *file);
 
 // is_specified_control_operators
 int			is_specified_semicolon(char *str);

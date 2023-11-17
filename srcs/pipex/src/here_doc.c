@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/17 15:40:20 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/17 16:43:21 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	proc_here_doc(char *limitter, t_pipex_data *pipex_data)
 	char	*line;
 	char	*limitter_endl;
 
-pipex_data->infile_fd = open_file(HERE_DOC_FILE_PATH, INFILE_HERE_DOC);
+	pipex_data->infile_fd = open_file(HERE_DOC_FILE_PATH, INFILE_HERE_DOC);
 	ft_printf("> ");
 	line = get_next_line(STDIN_FILENO);
 	limitter_endl = ft_strjoin(limitter, "\n");
