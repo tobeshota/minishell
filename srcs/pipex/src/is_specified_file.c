@@ -6,11 +6,11 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 17:31:16 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/15 13:27:32 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/18 00:58:55 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex.h"
+#include "pipex.h"
 
 int	is_specified_infile(char *str)
 {

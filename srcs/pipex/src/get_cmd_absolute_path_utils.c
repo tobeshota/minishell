@@ -6,11 +6,11 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/16 20:43:23 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/18 01:17:41 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex.h"
+#include "pipex.h"
 
 static void	check_cmd_exist(char *env_path)
 {
@@ -65,8 +65,6 @@ static void	convert_relative_path_to_absolute_path(char ***cmd_absolute_path,
 	char	*pwd_for_relative_path;
 
 	get_pwd(&pwd, envp);
-// pwd = ft_split("/Users/tobeshota/Desktop/pipex_for_minishell/", ':');
-
 	pwd_for_relative_path = get_pwd_for_relative_path(&pwd,
 			get_down_count_from_pwd(cmd_absolute_path[0][cmd_i]));
 	delete_relative_path(cmd_absolute_path, cmd_i);
@@ -94,7 +92,6 @@ void	add_absolute_path_to_cmd_name(char ***cmd_absolute_path,
 		}
 		if (is_cmd_alreadly_absollute_path(cmd_absolute_path, cmd_i))
 			continue ;
-		add_absolute_from_env_path(cmd_absolute_path, env_path,
-			cmd_i);
+		add_absolute_from_env_path(cmd_absolute_path, env_path, cmd_i);
 	}
 }

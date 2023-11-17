@@ -6,11 +6,11 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/17 17:06:35 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/18 01:20:34 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex.h"
+#include "pipex.h"
 
 // エラーメッセージ（）はここで出し，fd = -1を返すようにする
 // bash: infile: Permission denied
@@ -63,5 +63,17 @@ void	check_is_path_found(char *path)
 	{
 		put_error("PATH not found\n");
 		exit(1);
+	}
+}
+
+void	wait_children(int cmd_i)
+{
+	int	i;
+
+	i = 0;
+	while (i < cmd_i)
+	{
+		check_wait(wait(NULL));
+		i++;
 	}
 }
