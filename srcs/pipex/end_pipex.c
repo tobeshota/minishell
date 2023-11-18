@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:54:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/18 16:16:06 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/18 21:34:30 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	all_free_int(int **ptr)
 	int	i;
 
 	i = 0;
-	while (ptr[i])
+	while (ptr && ptr[i])
 	{
 		free(ptr[i]);
 		ptr[i] = NULL;

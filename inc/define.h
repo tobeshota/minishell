@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 13:12:10 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/18 19:38:36 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/18 22:19:32 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,11 @@ typedef struct s_pipex_data
 # define BOLD "\x1b[1m"
 # define DEFAULT "\x1b[0m\x1b[39m"
 
-# define MINISHELL_PROMPT GREEN "minishell $ " DEFAULT
-# define EXIT_MSG "\nlogout\n\nSaving session...\n...copying shared history...\n...saving history...truncating history files...\n...completed.\n\n[プロセスが完了しました]\n"
+# define MINISHELL_PROMPT "\x1b[32mminishell $ \x1b[0m\x1b[39m"
+# define EXIT_MSG "\nlogout\n\nSaving session...\n\
+...copying shared history...\n\
+...saving history...truncating history files...\n\
+...completed.\n\n\
+[プロセスが完了しました]\n"
 
 #endif

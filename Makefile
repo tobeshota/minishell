@@ -6,14 +6,14 @@
 #    By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/26 19:52:48 by toshota           #+#    #+#              #
-#    Updated: 2023/11/18 18:10:49 by toshota          ###   ########.fr        #
+#    Updated: 2023/11/18 22:23:43 by toshota          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			=	minishell
-CC				=	cc -lreadline -g
+CC				=	cc -g
 #  -fsanitize=address
-# CFLAGS			=	-Wall -Wextra -Werror
+CFLAGS			=	-Wall -Wextra -Werror
 RM				=	rm -rf
 LIBFT_DIR		=   libft/
 LIBS			=	libft/libft.a
@@ -33,7 +33,7 @@ all:		$(NAME)
 
 $(NAME):	$(OBJS) Makefile
 	@ make bonus -C $(LIBFT_DIR)
-	@ $(CC) $(CFLAGS) $(LIBS) $(INCS) $(OBJS) -o $@
+	@ $(CC) $(CFLAGS) -lreadline $(LIBS) $(INCS) $(OBJS) -o $@
 	@ echo "compile to create an executable file: ./$@"
 
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c

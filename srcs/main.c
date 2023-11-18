@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 12:34:25 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/18 19:37:40 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/18 22:14:08 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,28 @@ static void put_arg_for_debug(char **argv)
 	int i;
 
 	i = -1;
-	ft_printf("%ssplited:%s ", BOLD, DEFAULT);
+	ft_printf("%ssplitted:%s ", BOLD, DEFAULT);
 	while(argv[++i])
 		ft_printf("\"%s\"\t", argv[i]);
 	if(argv[0] != NULL)
 		ft_printf("\n");
 }
 
-int	main(int argc, char **argv, char **envp)
+int pipex_debug(int argc, char **argv, char **envp)
+{
+	int i = 0;
+
+	argv = (char **)malloc(INT_MAX);
+//
+argv[i++] = ft_strdup("ll");
+//
+	argv[i] = NULL;
+	pipex(argc, argv, envp);
+	all_free_tab(argv);
+	return 0;
+}
+
+int minishell(int argc, char **argv, char **envp)
 {
 	char *input;
 
@@ -32,9 +46,9 @@ int	main(int argc, char **argv, char **envp)
 	while(input)
 	{
 		argv = ft_split(input, '"');	//	lexer + parser
+		free(input);
 		put_arg_for_debug(argv);
 		pipex(argc, argv, envp);
-		free(input);
 		all_free_tab(argv);
 		input = readline(MINISHELL_PROMPT);
 	}
@@ -42,6 +56,11 @@ int	main(int argc, char **argv, char **envp)
 	return (0);
 }
 
+int	main(int argc, char **argv, char **envp)
+{
+	minishell(argc, argv, envp);
+	// pipex_debug(argc, argv, envp);
+}
 
 __attribute__((destructor)) static void destructor()
 {

@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 01:18:05 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/18 18:24:02 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/18 21:54:09 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,16 @@ static int	malloc_multiple_pipe(int argc, char **argv,
 	return (TRUE);
 }
 
+static void	init_pipex_data(t_pipex_data *pipex_data)
+{
+	ft_bzero(pipex_data, sizeof(t_pipex_data));
+	pipex_data->infile_fd = STDIN_FILENO;
+	pipex_data->outfile_fd = STDOUT_FILENO;
+}
+
 int	get_pipex_data(int argc, char **argv, char **envp, t_pipex_data *pipex_data)
 {
+	init_pipex_data(pipex_data);
 	if (get_infile_fd(pipex_data, 0, argv) == FALSE)
 		return (FALSE);
 	if (get_outfile_fd(pipex_data, 0, argv) == FALSE)

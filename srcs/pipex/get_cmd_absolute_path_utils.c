@@ -6,17 +6,19 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/18 16:21:13 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/18 22:11:47 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static int	is_cmd_exist(char *env_path)
+static int	is_cmd_exist(char *env_path, char *cmd)
 {
 	if (env_path == NULL)
 	{
-		put_error("command not found\n");
+		put_error("-bash: ");
+		put_error(cmd);
+		put_error(": command not found\n");
 		return (FALSE);
 	}
 	return (TRUE);
@@ -27,7 +29,9 @@ static int	add_absolute_from_env_path(char ***cmd_absolute_path,
 {
 	int		env_i;
 	char	*tmp;
+	char	*cmd;
 
+	cmd = check_malloc(ft_strdup(cmd_absolute_path[0][cmd_i]));
 	env_i = 0;
 	while (env_path[env_i])
 	{
@@ -43,9 +47,9 @@ static int	add_absolute_from_env_path(char ***cmd_absolute_path,
 		free(tmp);
 		env_i++;
 	}
-	if (is_cmd_exist(env_path[env_i]) == FALSE)
-		return (FALSE);
-	return (TRUE);
+	if (is_cmd_exist(env_path[env_i], cmd) == FALSE)
+		return (free(cmd), FALSE);
+	return (free(cmd), TRUE);
 }
 
 static void	delete_relative_path(char ***cmd_absolute_path, int cmd_i)

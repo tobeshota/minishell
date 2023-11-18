@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/18 16:16:44 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/18 21:39:01 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	all_free_tab(char **ptr)
 	int	i;
 
 	i = 0;
-	while (ptr[i])
+	while (ptr && ptr[i])
 	{
 		free(ptr[i]);
 		ptr[i] = NULL;
