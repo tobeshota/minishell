@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/18 15:10:53 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/18 15:47:20 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define NOT_SPECIFIED 0
 
 int		open_file(char *file, int file_type);
-void	close_pipe(int *pipe_fd);
+int	close_pipe(int *pipe_fd);
 void	add_slash_eos(char ***path);
 void	all_free_tab(char **ptr);
 void	put_error(char *err_msg);
@@ -38,7 +38,7 @@ int	check_open(int ret);
 int	check_close(int ret);
 int	is_pipe_successfully(int ret);
 int	is_fork_successfully(pid_t child_pid);
-void	check_dup(int ret);
+int	check_dup(int ret);
 int	check_execve(int ret);
 void	check_wait(int ret);
 int	is_success_to_unlink(int ret);

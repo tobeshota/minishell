@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/18 15:13:08 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/18 15:49:19 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,11 @@ static int set_input_fd(t_pipex_data *pipex_data, int cmd_i, char **argv)
 		return FALSE;
 	cmd_arg_fd = get_cmd_arg_fd(pipex_data, cmd_i);
 	if (cmd_arg_fd != NOT_SPECIFIED)
-	{
-		check_dup(dup2(cmd_arg_fd, STDIN_FILENO));
-		check_close(close(cmd_arg_fd));
-	}
-	if (is_fd_default(pipex_data->infile_fd, STDIN_FILENO) && cmd_i != 0)
-	{
-		check_dup(dup2(pipex_data->pipe_fd[cmd_i - 1][0], STDIN_FILENO));
-		close_pipe(pipex_data->pipe_fd[cmd_i - 1]);
-	}
+		return check_dup(dup2(cmd_arg_fd, STDIN_FILENO)) && check_close(close(cmd_arg_fd));
+	else if (is_fd_default(pipex_data->infile_fd, STDIN_FILENO) && cmd_i != 0)
+		return check_dup(dup2(pipex_data->pipe_fd[cmd_i - 1][0], STDIN_FILENO)) && close_pipe(pipex_data->pipe_fd[cmd_i - 1]);
 	else
-	{
-		check_dup(dup2(pipex_data->infile_fd, STDIN_FILENO));
-		check_close(close(pipex_data->infile_fd));
-	}
-	return TRUE;
+		return check_dup(dup2(pipex_data->infile_fd, STDIN_FILENO)) && check_close(close(pipex_data->infile_fd));
 }
 
 static void	set_output_fd(t_pipex_data *pipex_data, int cmd_i, char **argv)
@@ -89,8 +79,8 @@ int	do_pipe(char **envp, t_pipex_data *pipex_data, char **argv)
 			return FALSE;
 		if (child_pid == 0 && exec_child(envp, pipex_data, cmd_i, argv) == FALSE)
 			return FALSE;
-		if (cmd_i > 0)
-			close_pipe(pipex_data->pipe_fd[cmd_i - 1]);
+		if (cmd_i > 0 && close_pipe(pipex_data->pipe_fd[cmd_i - 1]) == FALSE)
+			return FALSE;
 		cmd_i++;
 	}
 	wait_children(cmd_i);

@@ -6,19 +6,20 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 10:03:29 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/18 15:07:53 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/18 15:43:00 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	check_dup(int ret)
+int	check_dup(int ret)
 {
 	if (ret == -1)
 	{
 		put_error("failed to dup\n");
-		exit(1);
+		return FALSE;
 	}
+	return TRUE;
 }
 
 int	check_execve(int ret)
