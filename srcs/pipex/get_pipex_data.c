@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 01:18:05 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/18 14:25:42 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/18 15:16:46 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,10 @@ static int malloc_multiple_pipe(int argc, char **argv,
 	int	i;
 
 	i = argc - argc;
-	pipex_data->pipe_fd = (int **)malloc(sizeof(int *) * (get_cmd_count(argv)
-				+ 1));
-	check_malloc(pipex_data->pipe_fd);
+	pipex_data->pipe_fd = (int **)check_malloc(malloc(sizeof(int *) * (get_cmd_count(argv) + 1)));
 	while (i < get_cmd_count(argv))
 	{
-		pipex_data->pipe_fd[i] = (int *)malloc(sizeof(int) * 2);
-		check_malloc(pipex_data->pipe_fd);
+		pipex_data->pipe_fd[i] = (int *)check_malloc(malloc(sizeof(int) * 2));
 		i++;
 	}
 	pipex_data->pipe_fd[i] = NULL;

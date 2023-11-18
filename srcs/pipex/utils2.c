@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/18 14:53:33 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/18 15:17:35 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ void	add_slash_eos(char ***path)
 	while (path[0][i])
 	{
 		tmp = path[0][i];
-		path[0][i] = ft_strjoin(path[0][i], "/");
-		check_malloc(path[0][i]);
+		path[0][i] = check_malloc(ft_strjoin(path[0][i], "/"));
 		free(tmp);
 		i++;
 	}

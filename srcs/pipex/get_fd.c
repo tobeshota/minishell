@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 01:22:30 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/18 15:06:06 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/18 15:16:11 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,7 @@ int	get_cmd_arg_fd(t_pipex_data *pipex_data, int cmd_i)
 	int		cmd_arg_fd;
 	char	*cmd_parameter;
 
-	cmd_parameter = ft_substr \
-	(pipex_data->cmd_absolute_path_with_parameter[cmd_i],
-			strlen_until_c(pipex_data->cmd_absolute_path_with_parameter[cmd_i],
-				' ') + 1,
-			ft_strlen(pipex_data->cmd_absolute_path_with_parameter[cmd_i]));
-	check_malloc(cmd_parameter);
+	cmd_parameter = check_malloc(ft_substr(pipex_data->cmd_absolute_path_with_parameter[cmd_i], strlen_until_c(pipex_data->cmd_absolute_path_with_parameter[cmd_i], ' ') + 1, ft_strlen(pipex_data->cmd_absolute_path_with_parameter[cmd_i])));
 	if (is_parameter_arg(cmd_parameter))
 		cmd_arg_fd = open_file(cmd_parameter, INFILE);
 	else

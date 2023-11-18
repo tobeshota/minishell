@@ -6,19 +6,20 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/18 15:00:35 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/18 15:11:04 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	check_malloc(void *ptr)
+void	*check_malloc(void *ptr)
 {
 	if (ptr == NULL)
 	{
 		put_error("failed to malloc\n");
 		exit(1);
 	}
+	return ptr;
 }
 
 int	check_open(int fd)

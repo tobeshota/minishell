@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/18 14:25:32 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/18 15:15:38 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,14 @@ static void	get_cmd_name_from_arg(char **argv, char ***cmd_absolute_path)
 	int	arg_i;
 	int	cmd_i;
 
-	*cmd_absolute_path = (char **)malloc(sizeof(char *) * (get_cmd_count(argv)
-				+ 1));
-	check_malloc(*cmd_absolute_path);
+	*cmd_absolute_path = (char **)check_malloc(malloc(sizeof(char *) * (get_cmd_count(argv) + 1)));
 	arg_i = 0;
 	cmd_i = 0;
 	while (argv[arg_i])
 	{
 		if (is_cmd(argv, arg_i))
 		{
-			cmd_absolute_path[0][cmd_i] = ft_substr(argv[arg_i], 0,
-					strlen_until_c(argv[arg_i], ' '));
-			check_malloc(cmd_absolute_path[0][cmd_i]);
+			cmd_absolute_path[0][cmd_i] = check_malloc(ft_substr(argv[arg_i], 0, strlen_until_c(argv[arg_i], ' ')));
 			cmd_i++;
 		}
 		arg_i++;
@@ -42,19 +38,14 @@ static void	get_cmd_parameter(char **argv, char ***cmd_absolute_path,
 	int	arg_i;
 	int	cmd_i;
 
-	*cmd_parameter = (char **)malloc(sizeof(char *) * (get_cmd_count(argv)
-				+ 1));
-	check_malloc(*cmd_parameter);
+	*cmd_parameter = (char **)check_malloc(malloc(sizeof(char *) * (get_cmd_count(argv) + 1)));
 	arg_i = 0;
 	cmd_i = 0;
 	while (argv[arg_i])
 	{
 		if (is_cmd(argv, arg_i))
 		{
-			cmd_parameter[0][cmd_i] = ft_substr(argv[arg_i],
-					ft_strlen(cmd_absolute_path[0][cmd_i]),
-					ft_strlen(argv[arg_i]));
-			check_malloc(cmd_parameter[0][cmd_i]);
+			cmd_parameter[0][cmd_i] = check_malloc(ft_substr(argv[arg_i], ft_strlen(cmd_absolute_path[0][cmd_i]), ft_strlen(argv[arg_i])));
 			cmd_i++;
 		}
 		arg_i++;
@@ -67,16 +58,11 @@ static void	get_cmd_absolute_path_with_parameter(char **argv,
 {
 	int	cmd_i;
 
-	pipex_data->cmd_absolute_path_with_parameter = \
-	(char **)malloc(sizeof(char *) * (get_cmd_count(argv) + 1));
-	check_malloc(pipex_data->cmd_absolute_path_with_parameter);
+	pipex_data->cmd_absolute_path_with_parameter = (char **)check_malloc(malloc(sizeof(char *) * (get_cmd_count(argv) + 1)));
 	cmd_i = 0;
 	while (pipex_data->cmd_absolute_path[cmd_i])
 	{
-		pipex_data->cmd_absolute_path_with_parameter[cmd_i] = \
-		ft_strjoin(pipex_data->cmd_absolute_path[cmd_i], \
-		cmd_parameter[0][cmd_i]);
-		check_malloc(pipex_data->cmd_absolute_path_with_parameter[cmd_i]);
+		pipex_data->cmd_absolute_path_with_parameter[cmd_i] = check_malloc(ft_strjoin(pipex_data->cmd_absolute_path[cmd_i], cmd_parameter[0][cmd_i]));
 		cmd_i++;
 	}
 	pipex_data->cmd_absolute_path_with_parameter[cmd_i] = NULL;

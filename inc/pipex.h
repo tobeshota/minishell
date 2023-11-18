@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/18 15:07:34 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/18 15:10:53 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	all_free_tab(char **ptr);
 void	put_error(char *err_msg);
 char	*ft_strrnchr(const char *s, int c, int n);
 size_t	strlen_until_c(char *str, char c);
-void	check_malloc(void *ptr);
+void	*check_malloc(void *ptr);
 int	check_open(int ret);
 int	check_close(int ret);
 int	is_pipe_successfully(int ret);

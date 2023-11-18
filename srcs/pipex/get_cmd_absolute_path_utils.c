@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/18 14:24:02 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/18 15:12:53 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,11 @@ static int add_absolute_from_env_path(char ***cmd_absolute_path,
 	env_i = 0;
 	while (env_path[env_i])
 	{
-		tmp = ft_strjoin(env_path[env_i], cmd_absolute_path[0][cmd_i]);
-		check_malloc(tmp);
+		tmp = check_malloc(ft_strjoin(env_path[env_i], cmd_absolute_path[0][cmd_i]));
 		if (!access(tmp, X_OK))
 		{
 			free(cmd_absolute_path[0][cmd_i]);
-			cmd_absolute_path[0][cmd_i] = ft_strdup(tmp);
-			check_malloc(cmd_absolute_path[0][cmd_i]);
+			cmd_absolute_path[0][cmd_i] = check_malloc(ft_strdup(tmp));
 			free(tmp);
 			break ;
 		}
@@ -54,13 +52,10 @@ static void	delete_relative_path(char ***cmd_absolute_path, int cmd_i)
 	char	*tmp;
 
 	tmp = cmd_absolute_path[0][cmd_i];
-	cmd_absolute_path[0][cmd_i] = ft_strtrim(cmd_absolute_path[0][cmd_i],
-			"../");
-	check_malloc(cmd_absolute_path[0][cmd_i]);
+	cmd_absolute_path[0][cmd_i] = check_malloc(ft_strtrim(cmd_absolute_path[0][cmd_i], "../"));
 	free(tmp);
 	tmp = cmd_absolute_path[0][cmd_i];
-	cmd_absolute_path[0][cmd_i] = ft_strtrim(cmd_absolute_path[0][cmd_i], "./");
-	check_malloc(cmd_absolute_path[0][cmd_i]);
+	cmd_absolute_path[0][cmd_i] = check_malloc(ft_strtrim(cmd_absolute_path[0][cmd_i], "./"));
 	free(tmp);
 }
 
@@ -77,9 +72,7 @@ static int	convert_relative_path_to_absolute_path(char ***cmd_absolute_path,
 			get_down_count_from_pwd(cmd_absolute_path[0][cmd_i]));
 	delete_relative_path(cmd_absolute_path, cmd_i);
 	tmp = cmd_absolute_path[0][cmd_i];
-	cmd_absolute_path[0][cmd_i] = ft_strjoin(pwd_for_relative_path,
-			cmd_absolute_path[0][cmd_i]);
-	check_malloc(cmd_absolute_path[0][cmd_i]);
+	cmd_absolute_path[0][cmd_i] = check_malloc(ft_strjoin(pwd_for_relative_path, cmd_absolute_path[0][cmd_i]));
 	free(tmp);
 	all_free_tab(pwd);
 	free(pwd_for_relative_path);

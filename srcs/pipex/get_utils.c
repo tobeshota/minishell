@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/18 14:47:14 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/18 15:17:16 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ int	get_env_path(char ***env_path, char **envp)
 		i++;
 	if (is_path_found(envp[i]) == FALSE)
 		return FALSE;
-	*env_path = ft_split(envp[i] + ft_strlen("PATH="), ':');
-	check_malloc(env_path);
+	*env_path = check_malloc(ft_split(envp[i] + ft_strlen("PATH="), ':'));
 	add_slash_eos(env_path);
 	return TRUE;
 }
@@ -36,8 +35,7 @@ int	get_pwd(char ***pwd_path, char **envp)
 		i++;
 	if(is_path_found(envp[i]) == FALSE)
 		return FALSE;
-	*pwd_path = ft_split(envp[i] + ft_strlen("PWD="), ':');
-	check_malloc(pwd_path);
+	*pwd_path = check_malloc(ft_split(envp[i] + ft_strlen("PWD="), ':'));
 	add_slash_eos(pwd_path);
 	return TRUE;
 }
@@ -65,9 +63,7 @@ char	*get_pwd_for_relative_path(char ***pwd_path, int down_count_from_pwd)
 	else
 		delete_len = ft_strlen(ft_strrnchr(pwd_path[0][0], '/',
 					down_count_from_pwd) + 1);
-	pwd_for_relative_path = ft_substr(pwd_path[0][0], 0, ft_strlen(pwd_path[0][0])
-			- delete_len);
-	check_malloc(pwd_for_relative_path);
+	pwd_for_relative_path = check_malloc(ft_substr(pwd_path[0][0], 0, ft_strlen(pwd_path[0][0]) - delete_len));
 	return pwd_for_relative_path;
 }
 

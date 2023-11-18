@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/18 15:08:58 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/18 15:13:08 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,7 @@ static int	exec_child(char **envp, t_pipex_data *pipex_data, int cmd_i,
 {
 	char	**cmd;
 
-	cmd = ft_split(pipex_data->cmd_absolute_path_with_parameter[cmd_i], ' ');
-	check_malloc(cmd);
+	cmd = check_malloc(ft_split(pipex_data->cmd_absolute_path_with_parameter[cmd_i], ' '));
 	if(set_input_fd(pipex_data, cmd_i, argv) == FALSE)
 		return FALSE;
 	set_output_fd(pipex_data, cmd_i, argv);
