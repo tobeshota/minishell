@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 12:34:46 by toshota           #+#    #+#             */
-/*   Updated: 2023/10/31 16:16:21 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/18 17:10:12 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,7 @@
 # include "libft.h"
 # include "parser.h"
 # include "pipex.h"
+# include <readline/history.h>
+# include <readline/readline.h>
 
 #endif
