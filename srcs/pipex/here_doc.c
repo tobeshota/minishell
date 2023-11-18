@@ -6,18 +6,20 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/18 00:58:55 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/18 15:01:29 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	proc_here_doc(char *limitter, t_pipex_data *pipex_data)
+int	proc_here_doc(char *limitter, t_pipex_data *pipex_data)
 {
 	char	*line;
 	char	*limitter_endl;
 
 	pipex_data->infile_fd = open_file(HERE_DOC_FILE_PATH, INFILE_HERE_DOC);
+	if (check_open(pipex_data->infile_fd) == FALSE)
+		return (FALSE);
 	ft_printf("> ");
 	line = get_next_line(STDIN_FILENO);
 	limitter_endl = ft_strjoin(limitter, "\n");
@@ -29,8 +31,10 @@ void	proc_here_doc(char *limitter, t_pipex_data *pipex_data)
 		ft_printf("> ");
 		line = get_next_line(STDIN_FILENO);
 	}
-	free(line);
-	free(limitter_endl);
-	check_close(close(pipex_data->infile_fd));
+	if (check_close(close(pipex_data->infile_fd)) == FALSE)
+		return (free(line), free(limitter_endl), FALSE);
 	pipex_data->infile_fd = open_file(HERE_DOC_FILE_PATH, INFILE_HERE_DOC);
+	if (check_open(pipex_data->infile_fd) == FALSE)
+		return (free(line), free(limitter_endl), FALSE);
+	return (free(line), free(limitter_endl), TRUE);
 }

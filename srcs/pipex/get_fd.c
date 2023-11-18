@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 01:22:30 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/18 01:28:26 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/18 15:06:06 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	get_start_pos(int pipe_count, char **argv)
 	return (arg_i);
 }
 
-void	get_infile_fd(t_pipex_data *pipex_data, int cmd_i, char **argv)
+int	get_infile_fd(t_pipex_data *pipex_data, int cmd_i, char **argv)
 {
 	int	arg_i;
 
@@ -35,11 +35,17 @@ void	get_infile_fd(t_pipex_data *pipex_data, int cmd_i, char **argv)
 	while (argv[arg_i] && !is_specified_pipe(argv[arg_i]))
 	{
 		if (is_specified_infile(argv[arg_i]))
+		{
 			pipex_data->infile_fd = open_file(argv[arg_i + 1], INFILE);
+			if (check_open(pipex_data->infile_fd) == FALSE)
+				return FALSE;
+		}
 		else if (is_specified_here_doc(argv[arg_i]))
-			proc_here_doc(argv[arg_i + 1], pipex_data);
+			if (proc_here_doc(argv[arg_i + 1], pipex_data) == FALSE)
+				return FALSE;
 		arg_i++;
 	}
+	return TRUE;
 }
 
 void	get_outfile_fd(t_pipex_data *pipex_data, int cmd_i, char **argv)

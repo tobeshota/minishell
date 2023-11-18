@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/18 00:58:55 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/18 15:00:35 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,38 +21,42 @@ void	check_malloc(void *ptr)
 	}
 }
 
-void	check_open(int fd)
+int	check_open(int fd)
 {
 	if (fd == -1)
 	{
 		put_error("failed to open\n");
-		exit(1);
+		return FALSE;
 	}
+	return TRUE;
 }
 
-void	check_close(int ret)
+int	check_close(int ret)
 {
 	if (ret < 0)
 	{
 		put_error("failed to close\n");
-		exit(1);
+		return FALSE;
 	}
+	return TRUE;
 }
 
-void	check_pipe(int ret)
+int	is_pipe_successfully(int ret)
 {
 	if (ret < 0)
 	{
 		put_error("failed to create pipe\n");
-		exit(1);
+		return FALSE;
 	}
+	return TRUE;
 }
 
-void	check_fork(pid_t child_pid)
+int	is_fork_successfully(pid_t child_pid)
 {
 	if (child_pid < 0)
 	{
 		put_error("failed to fork\n");
-		exit(1);
+		return FALSE;
 	}
+	return TRUE;
 }

@@ -6,13 +6,13 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 01:18:05 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/18 01:27:32 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/18 14:25:42 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static void	malloc_multiple_pipe(int argc, char **argv,
+static int malloc_multiple_pipe(int argc, char **argv,
 		t_pipex_data *pipex_data)
 {
 	int	i;
@@ -28,11 +28,15 @@ static void	malloc_multiple_pipe(int argc, char **argv,
 		i++;
 	}
 	pipex_data->pipe_fd[i] = NULL;
+	return TRUE;
 }
 
-void	get_pipex_data(int argc, char **argv, char **envp,
+int	get_pipex_data(int argc, char **argv, char **envp,
 		t_pipex_data *pipex_data)
 {
-	get_cmd_absolute_path(argv, envp, pipex_data);
-	malloc_multiple_pipe(argc, argv, pipex_data);
+	if (get_cmd_absolute_path(argv, envp, pipex_data) == FALSE)
+		return FALSE;
+	if (malloc_multiple_pipe(argc, argv, pipex_data) == FALSE)
+		return FALSE;
+	return TRUE;
 }

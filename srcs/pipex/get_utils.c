@@ -6,36 +6,40 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/18 01:19:20 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/18 14:47:14 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	get_env_path(char ***env_path, char **envp)
+int	get_env_path(char ***env_path, char **envp)
 {
 	int	i;
 
 	i = 0;
 	while (envp[i] && ft_strncmp(envp[i], "PATH=", ft_strlen("PATH=")))
 		i++;
-	check_is_path_found(envp[i]);
+	if (is_path_found(envp[i]) == FALSE)
+		return FALSE;
 	*env_path = ft_split(envp[i] + ft_strlen("PATH="), ':');
 	check_malloc(env_path);
 	add_slash_eos(env_path);
+	return TRUE;
 }
 
-void	get_pwd(char ***pwd_path, char **envp)
+int	get_pwd(char ***pwd_path, char **envp)
 {
 	int	i;
 
 	i = 0;
 	while (envp[i] && ft_strncmp(envp[i], "PWD=", ft_strlen("PWD=")))
 		i++;
-	check_is_path_found(envp[i]);
+	if(is_path_found(envp[i]) == FALSE)
+		return FALSE;
 	*pwd_path = ft_split(envp[i] + ft_strlen("PWD="), ':');
 	check_malloc(pwd_path);
 	add_slash_eos(pwd_path);
+	return TRUE;
 }
 
 int	get_down_count_from_pwd(char *relative_path)
@@ -54,20 +58,22 @@ int	get_down_count_from_pwd(char *relative_path)
 char	*get_pwd_for_relative_path(char ***pwd_path, int down_count_from_pwd)
 {
 	int	delete_len;
+	char *pwd_for_relative_path;
 
 	if (ft_strrnchr(pwd_path[0][0], '/', down_count_from_pwd) == NULL)
 		delete_len = 0;
 	else
 		delete_len = ft_strlen(ft_strrnchr(pwd_path[0][0], '/',
 					down_count_from_pwd) + 1);
-	return (ft_substr(pwd_path[0][0], 0, ft_strlen(pwd_path[0][0])
-			- delete_len));
+	pwd_for_relative_path = ft_substr(pwd_path[0][0], 0, ft_strlen(pwd_path[0][0])
+			- delete_len);
+	check_malloc(pwd_for_relative_path);
+	return pwd_for_relative_path;
 }
 
-void	get_pipe(t_pipex_data *pipex_data, int cmd_i)
+int	get_pipe(t_pipex_data *pipex_data, int cmd_i)
 {
-	int	ret;
-
-	ret = pipe(pipex_data->pipe_fd[cmd_i]);
-	check_pipe(ret);
+	if(is_pipe_successfully(pipe(pipex_data->pipe_fd[cmd_i])) == FALSE)
+		return FALSE;
+	return TRUE;
 }
