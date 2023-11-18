@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 10:03:29 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/18 15:43:00 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/18 16:16:00 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int	check_dup(int ret)
 	if (ret == -1)
 	{
 		put_error("failed to dup\n");
-		return FALSE;
+		return (FALSE);
 	}
-	return TRUE;
+	return (TRUE);
 }
 
 int	check_execve(int ret)
@@ -27,18 +27,19 @@ int	check_execve(int ret)
 	if (ret == -1)
 	{
 		put_error("failed to execve\n");
-		return FALSE;
+		return (FALSE);
 	}
-	return TRUE;
+	return (TRUE);
 }
 
-void	check_wait(int ret)
+int	check_wait(int ret)
 {
 	if (ret == -1)
 	{
 		put_error("failed to wait\n");
-		exit(1);
+		return (FALSE);
 	}
+	return (TRUE);
 }
 
 int	is_success_to_unlink(int ret)
@@ -46,7 +47,7 @@ int	is_success_to_unlink(int ret)
 	if (ret == -1)
 	{
 		put_error("failed to unlink\n");
-		return FALSE;
+		return (FALSE);
 	}
-	return TRUE;
+	return (TRUE);
 }

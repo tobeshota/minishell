@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:32:48 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/18 14:50:22 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/18 16:16:41 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ int	pipex(int argc, char **argv, char **envp)
 	t_pipex_data	pipex_data;
 
 	if (get_pipex_data(argc, argv, envp, &pipex_data) == FALSE)
-		return (void)end_pipex(&pipex_data), 1;
+		return ((void)end_pipex(&pipex_data), 1);
 	if (do_pipe(envp, &pipex_data, argv) == FALSE)
-		return (void)end_pipex(&pipex_data), 1;
+		return ((void)end_pipex(&pipex_data), 1);
 	if (end_pipex(&pipex_data) == FALSE)
-		return 1;
+		return (1);
 	return (0);
 }
 
@@ -111,7 +111,7 @@ argv = ft_split("< infile cat | cat | cat | sort >> outfile", ' ');
 // argv[i] = NULL;
 pipex(argc, argv, envp);
 all_free_tab(argv);
-	return 0;
+	return (0);
 }*/
 
 // __attribute__((destructor)) static void destructor()
