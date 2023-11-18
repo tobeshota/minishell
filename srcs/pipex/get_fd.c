@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 01:22:30 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/18 15:16:11 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/18 15:53:17 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	get_infile_fd(t_pipex_data *pipex_data, int cmd_i, char **argv)
 	return TRUE;
 }
 
-void	get_outfile_fd(t_pipex_data *pipex_data, int cmd_i, char **argv)
+int	get_outfile_fd(t_pipex_data *pipex_data, int cmd_i, char **argv)
 {
 	int	arg_i;
 
@@ -57,12 +57,14 @@ void	get_outfile_fd(t_pipex_data *pipex_data, int cmd_i, char **argv)
 	while (argv[arg_i] && !is_specified_pipe(argv[arg_i]))
 	{
 		if (is_specified_outfile_overwriting(argv[arg_i]))
-			pipex_data->outfile_fd = open_file(argv[arg_i + 1],
-					OUTFILE_OVER_WRITING);
+			pipex_data->outfile_fd = open_file(argv[arg_i + 1], OUTFILE_OVER_WRITING);
 		else if (is_specified_outfile_apend(argv[arg_i]))
 			pipex_data->outfile_fd = open_file(argv[arg_i + 1], OUTFILE_APEND);
+		if (check_open(pipex_data->outfile_fd) == FALSE)
+			return FALSE;
 		arg_i++;
 	}
+	return TRUE;
 }
 
 static int	is_parameter_arg(char *cmd_parameter)

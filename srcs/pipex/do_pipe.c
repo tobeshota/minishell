@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/18 15:49:19 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/18 15:57:09 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,26 @@ static int set_input_fd(t_pipex_data *pipex_data, int cmd_i, char **argv)
 		return check_dup(dup2(pipex_data->infile_fd, STDIN_FILENO)) && check_close(close(pipex_data->infile_fd));
 }
 
-static void	set_output_fd(t_pipex_data *pipex_data, int cmd_i, char **argv)
+static int set_output_fd(t_pipex_data *pipex_data, int cmd_i, char **argv)
 {
-	get_outfile_fd(pipex_data, cmd_i, argv);
+	if(get_outfile_fd(pipex_data, cmd_i, argv) == FALSE)
+		return FALSE;
 	if (is_fd_default(pipex_data->outfile_fd, STDOUT_FILENO)
 		&& pipex_data->cmd_absolute_path[cmd_i + 1] != NULL)
 	{
-		check_dup(dup2(pipex_data->pipe_fd[cmd_i][1], STDOUT_FILENO));
-		close_pipe(pipex_data->pipe_fd[cmd_i]);
+		if(check_dup(dup2(pipex_data->pipe_fd[cmd_i][1], STDOUT_FILENO)) == FALSE)
+			return FALSE;
+		if(close_pipe(pipex_data->pipe_fd[cmd_i]) == FALSE)
+			return FALSE;
 	}
 	else if (!is_fd_default(pipex_data->outfile_fd, STDOUT_FILENO))
 	{
-		check_dup(dup2(pipex_data->outfile_fd, STDOUT_FILENO));
-		check_close(close(pipex_data->outfile_fd));
+		if(check_dup(dup2(pipex_data->outfile_fd, STDOUT_FILENO)) == FALSE)
+			return FALSE;
+		if(check_close(close(pipex_data->outfile_fd)) == FALSE)
+			return FALSE;
 	}
+	return TRUE;
 }
 
 static int	exec_child(char **envp, t_pipex_data *pipex_data, int cmd_i,
@@ -51,7 +57,8 @@ static int	exec_child(char **envp, t_pipex_data *pipex_data, int cmd_i,
 	cmd = check_malloc(ft_split(pipex_data->cmd_absolute_path_with_parameter[cmd_i], ' '));
 	if(set_input_fd(pipex_data, cmd_i, argv) == FALSE)
 		return FALSE;
-	set_output_fd(pipex_data, cmd_i, argv);
+	if(set_output_fd(pipex_data, cmd_i, argv) == FALSE)
+		return FALSE;
 	if(check_execve(execve(pipex_data->cmd_absolute_path[cmd_i], cmd, envp)) == FALSE)
 		return FALSE;
 	return TRUE;

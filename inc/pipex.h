@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/18 15:47:20 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/18 15:51:37 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int		is_specified_outfile_apend(char *str);
 int		is_specified_operators(char *str);
 
 int	get_infile_fd(t_pipex_data *pipex_data, int cmd_i, char **argv);
-void	get_outfile_fd(t_pipex_data *pipex_data, int cmd_i, char **argv);
+int	get_outfile_fd(t_pipex_data *pipex_data, int cmd_i, char **argv);
 
 // is_file_ok
 int		is_file_exist(char *file);
