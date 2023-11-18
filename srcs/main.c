@@ -6,30 +6,24 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 12:34:25 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/18 18:26:04 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/18 19:37:40 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// void put_arg(char **argv)
-// {
-// 	int i;
+static void put_arg_for_debug(char **argv)
+{
+	int i;
 
-// 	i = -1;
-// 	while(argv[++i])
-// 		ft_printf("[%s]", argv[i]);
-// 	ft_printf("\n");
-// }
+	i = -1;
+	ft_printf("%ssplited:%s ", BOLD, DEFAULT);
+	while(argv[++i])
+		ft_printf("\"%s\"\t", argv[i]);
+	if(argv[0] != NULL)
+		ft_printf("\n");
+}
 
-// int main(int argc, char **argv, char **envp)
-// {
-// 	argv = ft_split("> outfile", ' ');
-// 	pipex(argc, argv, envp);
-// 	all_free_tab(argv);
-// }
-
-// > outfile >> outfile2を実装する！
 int	main(int argc, char **argv, char **envp)
 {
 	char *input;
@@ -37,17 +31,14 @@ int	main(int argc, char **argv, char **envp)
 	input = readline(MINISHELL_PROMPT);
 	while(input)
 	{
-		argv = ft_split(input, ' ');
-		// lexer
-		// parser
-		// >> outfile < infile2 cat | cat < infile2 >> outfile2
-		// put_arg(argv);
+		argv = ft_split(input, '"');	//	lexer + parser
+		put_arg_for_debug(argv);
 		pipex(argc, argv, envp);
 		free(input);
 		all_free_tab(argv);
 		input = readline(MINISHELL_PROMPT);
 	}
-	ft_printf("exit");
+	ft_printf(EXIT_MSG);
 	return (0);
 }
 
