@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 12:34:25 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/18 22:14:08 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/18 22:39:39 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ static void put_arg_for_debug(char **argv)
 	int i;
 
 	i = -1;
-	ft_printf("%ssplitted:%s ", BOLD, DEFAULT);
+	if(argv[0] != NULL)
+		ft_printf("%ssplitted:%s ", BOLD, DEFAULT);
 	while(argv[++i])
 		ft_printf("\"%s\"\t", argv[i]);
 	if(argv[0] != NULL)
