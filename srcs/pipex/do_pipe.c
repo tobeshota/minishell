@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/18 21:32:01 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/19 10:40:52 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static int	exec_child(char **envp, t_pipex_data *pipex_data, int cmd_i,
 static int	get_child(pid_t *child_pid)
 {
 	*child_pid = fork();
-	if (is_fork_successfully(*child_pid) == FALSE)
+	if (check_fork(*child_pid) == FALSE)
 		return (FALSE);
 	return (TRUE);
 }

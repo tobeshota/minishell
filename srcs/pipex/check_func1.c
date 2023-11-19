@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/18 16:15:58 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/19 10:41:01 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	check_close(int ret)
 	return (TRUE);
 }
 
-int	is_pipe_successfully(int ret)
+int	check_pipe(int ret)
 {
 	if (ret < 0)
 	{
@@ -52,7 +52,7 @@ int	is_pipe_successfully(int ret)
 	return (TRUE);
 }
 
-int	is_fork_successfully(pid_t child_pid)
+int	check_fork(pid_t child_pid)
 {
 	if (child_pid < 0)
 	{

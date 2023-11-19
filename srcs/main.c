@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 12:34:25 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/18 22:39:39 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/19 10:46:04 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,11 @@ int minishell(int argc, char **argv, char **envp)
 	input = readline(MINISHELL_PROMPT);
 	while(input)
 	{
-		argv = ft_split(input, '"');	//	lexer + parser
+		// 本来はft_splitでなくlexerとparser．いまは区切り文字','で分割している
+		// 【入力例】ls -l,|,wc -l
+		// 【入力例】cat infile,>,outfile
+		argv = ft_split(input, ',');
+
 		free(input);
 		put_arg_for_debug(argv);
 		pipex(argc, argv, envp);

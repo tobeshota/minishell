@@ -6,17 +6,29 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/18 15:17:27 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/19 10:40:06 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+static int	check_is_limitter_specified(char *limitter)
+{
+	if (limitter == NULL)
+	{
+		put_error("-bash: syntax error near unexpected token `newline'\n");
+		return (FALSE);
+	}
+	return (TRUE);
+}
 
 int	proc_here_doc(char *limitter, t_pipex_data *pipex_data)
 {
 	char	*line;
 	char	*limitter_endl;
 
+	if (check_is_limitter_specified(limitter) == FALSE)
+		return (FALSE);
 	pipex_data->infile_fd = open_file(HERE_DOC_FILE_PATH, INFILE_HERE_DOC);
 	if (check_open(pipex_data->infile_fd) == FALSE)
 		return (FALSE);

@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/18 16:16:21 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/19 10:41:01 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	*get_pwd_for_relative_path(char ***pwd_path, int down_count_from_pwd)
 
 int	get_pipe(t_pipex_data *pipex_data, int cmd_i)
 {
-	if (is_pipe_successfully(pipe(pipex_data->pipe_fd[cmd_i])) == FALSE)
+	if (check_pipe(pipe(pipex_data->pipe_fd[cmd_i])) == FALSE)
 		return (FALSE);
 	return (TRUE);
 }

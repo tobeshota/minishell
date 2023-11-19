@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/18 16:15:51 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/19 10:41:17 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ size_t	strlen_until_c(char *str, char c);
 void	*check_malloc(void *ptr);
 int		check_open(int ret);
 int		check_close(int ret);
-int		is_pipe_successfully(int ret);
-int		is_fork_successfully(pid_t child_pid);
+int		check_pipe(int ret);
+int		check_fork(pid_t child_pid);
 int		check_dup(int ret);
 int		check_execve(int ret);
 int		check_wait(int ret);
-int		is_success_to_unlink(int ret);
+int		check_unlink(int ret);
 void	check_arg(char **argv);
 int		is_path_found(char *path);
 int		get_cmd_count(char **argv);

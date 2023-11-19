@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 10:03:29 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/18 16:16:00 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/19 10:41:17 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	check_wait(int ret)
 	return (TRUE);
 }
 
-int	is_success_to_unlink(int ret)
+int	check_unlink(int ret)
 {
 	if (ret == -1)
 	{
