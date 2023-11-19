@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/19 10:40:52 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/19 21:33:18 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static int	set_output_fd(t_pipex_data *pipex_data, int cmd_i, char **argv)
 	return (TRUE);
 }
 
-static int	exec_child(char **envp, t_pipex_data *pipex_data, int cmd_i,
+static int	exec_child(char ***envp, t_pipex_data *pipex_data, int cmd_i,
 		char **argv)
 {
 	char	**cmd;
@@ -72,7 +72,7 @@ static int	exec_child(char **envp, t_pipex_data *pipex_data, int cmd_i,
 	if (set_output_fd(pipex_data, cmd_i, argv) == FALSE)
 		return (FALSE);
 	if (check_execve(execve(pipex_data->cmd_absolute_path[cmd_i], cmd,
-				envp)) == FALSE)
+				*envp)) == FALSE)
 		return (FALSE);
 	return (TRUE);
 }
@@ -85,7 +85,7 @@ static int	get_child(pid_t *child_pid)
 	return (TRUE);
 }
 
-int	do_pipe(char **envp, t_pipex_data *pipex_data, char **argv)
+int	do_pipe(char ***envp, t_pipex_data *pipex_data, char **argv)
 {
 	int		cmd_i;
 	pid_t	child_pid;
