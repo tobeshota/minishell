@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/19 21:33:17 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/20 10:51:08 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 # include "libft.h"
 # include <sys/types.h>
 
-# define TRUE 1
-# define FALSE 0
 # define HERE_DOC_FILE_PATH "/tmp/here_doc"
 # define INFILE 0
 # define INFILE_HERE_DOC 1

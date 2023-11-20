@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/18 22:11:47 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/20 10:50:56 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ static int	is_cmd_exist(char *env_path, char *cmd)
 		put_error("-bash: ");
 		put_error(cmd);
 		put_error(": command not found\n");
-		return (FALSE);
+		return (false);
 	}
-	return (TRUE);
+	return (true);
 }
 
 static int	add_absolute_from_env_path(char ***cmd_absolute_path,
@@ -47,9 +47,9 @@ static int	add_absolute_from_env_path(char ***cmd_absolute_path,
 		free(tmp);
 		env_i++;
 	}
-	if (is_cmd_exist(env_path[env_i], cmd) == FALSE)
-		return (free(cmd), FALSE);
-	return (free(cmd), TRUE);
+	if (is_cmd_exist(env_path[env_i], cmd) == false)
+		return (free(cmd), false);
+	return (free(cmd), true);
 }
 
 static void	delete_relative_path(char ***cmd_absolute_path, int cmd_i)
@@ -73,8 +73,8 @@ static int	convert_relative_path_to_absolute_path(char ***cmd_absolute_path,
 	char	**pwd;
 	char	*pwd_for_relative_path;
 
-	if (get_pwd(&pwd, envp) == FALSE)
-		return (FALSE);
+	if (get_pwd(&pwd, envp) == false)
+		return (false);
 	pwd_for_relative_path = get_pwd_for_relative_path(&pwd,
 			get_down_count_from_pwd(cmd_absolute_path[0][cmd_i]));
 	delete_relative_path(cmd_absolute_path, cmd_i);
@@ -84,7 +84,7 @@ static int	convert_relative_path_to_absolute_path(char ***cmd_absolute_path,
 	free(tmp);
 	all_free_tab(pwd);
 	free(pwd_for_relative_path);
-	return (TRUE);
+	return (true);
 }
 
 int	add_absolute_path_to_cmd_name(char ***cmd_absolute_path, char **env_path,
@@ -98,15 +98,15 @@ int	add_absolute_path_to_cmd_name(char ***cmd_absolute_path, char **env_path,
 		if (is_cmd_relative_path(cmd_absolute_path, cmd_i))
 		{
 			if (convert_relative_path_to_absolute_path(cmd_absolute_path, cmd_i,
-					envp) == FALSE)
-				return (FALSE);
+					envp) == false)
+				return (false);
 			continue ;
 		}
 		if (is_cmd_alreadly_absollute_path(cmd_absolute_path, cmd_i))
 			continue ;
 		if (add_absolute_from_env_path(cmd_absolute_path, env_path,
-				cmd_i) == FALSE)
-			return (FALSE);
+				cmd_i) == false)
+			return (false);
 	}
-	return (TRUE);
+	return (true);
 }

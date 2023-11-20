@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/19 10:40:06 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/20 10:50:56 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ static int	check_is_limitter_specified(char *limitter)
 	if (limitter == NULL)
 	{
 		put_error("-bash: syntax error near unexpected token `newline'\n");
-		return (FALSE);
+		return (false);
 	}
-	return (TRUE);
+	return (true);
 }
 
 int	proc_here_doc(char *limitter, t_pipex_data *pipex_data)
@@ -27,11 +27,11 @@ int	proc_here_doc(char *limitter, t_pipex_data *pipex_data)
 	char	*line;
 	char	*limitter_endl;
 
-	if (check_is_limitter_specified(limitter) == FALSE)
-		return (FALSE);
+	if (check_is_limitter_specified(limitter) == false)
+		return (false);
 	pipex_data->infile_fd = open_file(HERE_DOC_FILE_PATH, INFILE_HERE_DOC);
-	if (check_open(pipex_data->infile_fd) == FALSE)
-		return (FALSE);
+	if (check_open(pipex_data->infile_fd) == false)
+		return (false);
 	ft_printf("> ");
 	line = get_next_line(STDIN_FILENO);
 	limitter_endl = check_malloc(ft_strjoin(limitter, "\n"));
@@ -42,10 +42,10 @@ int	proc_here_doc(char *limitter, t_pipex_data *pipex_data)
 		ft_printf("> ");
 		line = get_next_line(STDIN_FILENO);
 	}
-	if (check_close(close(pipex_data->infile_fd)) == FALSE)
-		return (free(line), free(limitter_endl), FALSE);
+	if (check_close(close(pipex_data->infile_fd)) == false)
+		return (free(line), free(limitter_endl), false);
 	pipex_data->infile_fd = open_file(HERE_DOC_FILE_PATH, INFILE_HERE_DOC);
-	if (check_open(pipex_data->infile_fd) == FALSE)
-		return (free(line), free(limitter_endl), FALSE);
-	return (free(line), free(limitter_endl), TRUE);
+	if (check_open(pipex_data->infile_fd) == false)
+		return (free(line), free(limitter_endl), false);
+	return (free(line), free(limitter_endl), true);
 }

@@ -6,12 +6,14 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 13:12:10 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/18 22:19:32 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/20 10:50:14 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DEFINE_H
 # define DEFINE_H
+
+# include <stdbool.h>
 
 typedef enum e_file_type	t_file_type;
 typedef struct s_file		t_file;

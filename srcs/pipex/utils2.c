@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/18 16:16:46 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/20 10:50:56 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ int	open_file(char *file, int file_type)
 
 int	close_pipe(int *pipe_fd)
 {
-	if (check_close(close(pipe_fd[0])) == FALSE)
-		return (FALSE);
-	if (check_close(close(pipe_fd[1])) == FALSE)
-		return (FALSE);
-	return (TRUE);
+	if (check_close(close(pipe_fd[0])) == false)
+		return (false);
+	if (check_close(close(pipe_fd[1])) == false)
+		return (false);
+	return (true);
 }
 
 void	add_slash_eos(char ***path)
@@ -64,9 +64,9 @@ int	is_path_found(char *path)
 	if (path == NULL)
 	{
 		put_error("PATH not found\n");
-		return (FALSE);
+		return (false);
 	}
-	return (TRUE);
+	return (true);
 }
 
 int	wait_children(int cmd_i)
@@ -76,9 +76,9 @@ int	wait_children(int cmd_i)
 	i = 0;
 	while (i < cmd_i)
 	{
-		if (check_wait(wait(NULL)) == FALSE)
-			return (FALSE);
+		if (check_wait(wait(NULL)) == false)
+			return (false);
 		i++;
 	}
-	return (TRUE);
+	return (true);
 }

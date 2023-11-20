@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 01:18:05 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/18 21:54:09 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/20 10:50:56 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	malloc_multiple_pipe(int argc, char **argv,
 		i++;
 	}
 	pipex_data->pipe_fd[i] = NULL;
-	return (TRUE);
+	return (true);
 }
 
 static void	init_pipex_data(t_pipex_data *pipex_data)
@@ -39,13 +39,13 @@ static void	init_pipex_data(t_pipex_data *pipex_data)
 int	get_pipex_data(int argc, char **argv, char **envp, t_pipex_data *pipex_data)
 {
 	init_pipex_data(pipex_data);
-	if (get_infile_fd(pipex_data, 0, argv) == FALSE)
-		return (FALSE);
-	if (get_outfile_fd(pipex_data, 0, argv) == FALSE)
-		return (FALSE);
-	if (get_cmd_absolute_path(argv, envp, pipex_data) == FALSE)
-		return (FALSE);
-	if (malloc_multiple_pipe(argc, argv, pipex_data) == FALSE)
-		return (FALSE);
-	return (TRUE);
+	if (get_infile_fd(pipex_data, 0, argv) == false)
+		return (false);
+	if (get_outfile_fd(pipex_data, 0, argv) == false)
+		return (false);
+	if (get_cmd_absolute_path(argv, envp, pipex_data) == false)
+		return (false);
+	if (malloc_multiple_pipe(argc, argv, pipex_data) == false)
+		return (false);
+	return (true);
 }

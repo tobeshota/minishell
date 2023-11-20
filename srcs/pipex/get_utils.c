@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/19 10:41:01 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/20 10:50:56 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ int	get_env_path(char ***env_path, char **envp)
 	i = 0;
 	while (envp[i] && ft_strncmp(envp[i], "PATH=", ft_strlen("PATH=")))
 		i++;
-	if (is_path_found(envp[i]) == FALSE)
-		return (FALSE);
+	if (is_path_found(envp[i]) == false)
+		return (false);
 	*env_path = check_malloc(ft_split(envp[i] + ft_strlen("PATH="), ':'));
 	add_slash_eos(env_path);
-	return (TRUE);
+	return (true);
 }
 
 int	get_pwd(char ***pwd_path, char **envp)
@@ -33,11 +33,11 @@ int	get_pwd(char ***pwd_path, char **envp)
 	i = 0;
 	while (envp[i] && ft_strncmp(envp[i], "PWD=", ft_strlen("PWD=")))
 		i++;
-	if (is_path_found(envp[i]) == FALSE)
-		return (FALSE);
+	if (is_path_found(envp[i]) == false)
+		return (false);
 	*pwd_path = check_malloc(ft_split(envp[i] + ft_strlen("PWD="), ':'));
 	add_slash_eos(pwd_path);
-	return (TRUE);
+	return (true);
 }
 
 int	get_down_count_from_pwd(char *relative_path)
@@ -70,7 +70,7 @@ char	*get_pwd_for_relative_path(char ***pwd_path, int down_count_from_pwd)
 
 int	get_pipe(t_pipex_data *pipex_data, int cmd_i)
 {
-	if (check_pipe(pipe(pipex_data->pipe_fd[cmd_i])) == FALSE)
-		return (FALSE);
-	return (TRUE);
+	if (check_pipe(pipe(pipex_data->pipe_fd[cmd_i])) == false)
+		return (false);
+	return (true);
 }
