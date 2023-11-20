@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/20 12:50:31 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/20 14:26:07 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static bool	exec_child(char ***envp, t_pipex_data *pipex_data, int cmd_i,
 ft_printf("[%s]\n", pipex_data->cmd_absolute_path[cmd_i]);
 	if (is_cmd_builtin(pipex_data->cmd_absolute_path[cmd_i]))
 		//	今実行している自分のPIDをkillする必要あり．どうやるのかひろさんに聞く
-		exit(execve_builtin(pipex_data->cmd_absolute_path[cmd_i], cmd, envp));
+		exit(execve_builtin(pipex_data->cmd_absolute_path[cmd_i], cmd, envp, pipex_data));
 	else
 		return (check_execve(execve(pipex_data->cmd_absolute_path[cmd_i], cmd, *envp)));
 }
