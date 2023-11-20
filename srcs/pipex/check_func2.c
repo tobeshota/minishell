@@ -6,13 +6,13 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 10:03:29 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/20 10:50:56 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/20 11:04:59 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	check_dup(int ret)
+bool	check_dup(int ret)
 {
 	if (ret == -1)
 	{
@@ -22,7 +22,7 @@ int	check_dup(int ret)
 	return (true);
 }
 
-int	check_execve(int ret)
+bool	check_execve(int ret)
 {
 	if (ret == -1)
 	{
@@ -32,7 +32,7 @@ int	check_execve(int ret)
 	return (true);
 }
 
-int	check_wait(int ret)
+bool	check_wait(int ret)
 {
 	if (ret == -1)
 	{
@@ -42,7 +42,7 @@ int	check_wait(int ret)
 	return (true);
 }
 
-int	check_unlink(int ret)
+bool	check_unlink(int ret)
 {
 	if (ret == -1)
 	{

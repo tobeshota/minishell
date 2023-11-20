@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:54:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/20 10:50:56 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/20 10:57:10 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	all_free_int(int **ptr)
 	ptr = NULL;
 }
 
-int	end_pipex(t_pipex_data *pipex_data)
+bool	end_pipex(t_pipex_data *pipex_data)
 {
 	all_free_tab(pipex_data->cmd_absolute_path);
 	all_free_tab(pipex_data->cmd_absolute_path_with_parameter);

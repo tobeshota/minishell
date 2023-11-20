@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/20 10:50:56 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/20 11:05:48 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	*check_malloc(void *ptr)
 	return (ptr);
 }
 
-int	check_open(int fd)
+bool	check_open(int fd)
 {
 	if (fd == -1)
 	{
@@ -32,7 +32,7 @@ int	check_open(int fd)
 	return (true);
 }
 
-int	check_close(int ret)
+bool	check_close(int ret)
 {
 	if (ret < 0)
 	{
@@ -42,7 +42,7 @@ int	check_close(int ret)
 	return (true);
 }
 
-int	check_pipe(int ret)
+bool	check_pipe(int ret)
 {
 	if (ret < 0)
 	{
@@ -52,7 +52,7 @@ int	check_pipe(int ret)
 	return (true);
 }
 
-int	check_fork(pid_t child_pid)
+bool	check_fork(pid_t child_pid)
 {
 	if (child_pid < 0)
 	{

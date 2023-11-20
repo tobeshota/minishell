@@ -6,13 +6,13 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/20 10:50:56 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/20 11:14:57 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static int	is_cmd_exist(char *env_path, char *cmd)
+static bool	is_cmd_exist(char *env_path, char *cmd)
 {
 	if (env_path == NULL)
 	{
@@ -24,7 +24,7 @@ static int	is_cmd_exist(char *env_path, char *cmd)
 	return (true);
 }
 
-static int	add_absolute_from_env_path(char ***cmd_absolute_path,
+static bool	add_absolute_from_env_path(char ***cmd_absolute_path,
 		char **env_path, int cmd_i)
 {
 	int		env_i;
@@ -66,7 +66,7 @@ static void	delete_relative_path(char ***cmd_absolute_path, int cmd_i)
 	free(tmp);
 }
 
-static int	convert_relative_path_to_absolute_path(char ***cmd_absolute_path,
+static bool	convert_relative_path_to_absolute_path(char ***cmd_absolute_path,
 		int cmd_i, char **envp)
 {
 	char	*tmp;
@@ -87,8 +87,8 @@ static int	convert_relative_path_to_absolute_path(char ***cmd_absolute_path,
 	return (true);
 }
 
-int	add_absolute_path_to_cmd_name(char ***cmd_absolute_path, char **env_path,
-		char **envp)
+bool	add_absolute_path_to_cmd_name(char ***cmd_absolute_path,
+		char **env_path, char **envp)
 {
 	int	cmd_i;
 

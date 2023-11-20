@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 01:22:30 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/20 10:50:56 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/20 11:08:49 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	get_start_pos(int pipe_count, char **argv)
 	return (arg_i);
 }
 
-int	get_infile_fd(t_pipex_data *pipex_data, int cmd_i, char **argv)
+bool	get_infile_fd(t_pipex_data *pipex_data, int cmd_i, char **argv)
 {
 	int	arg_i;
 
@@ -48,7 +48,7 @@ int	get_infile_fd(t_pipex_data *pipex_data, int cmd_i, char **argv)
 	return (true);
 }
 
-int	get_outfile_fd(t_pipex_data *pipex_data, int cmd_i, char **argv)
+bool	get_outfile_fd(t_pipex_data *pipex_data, int cmd_i, char **argv)
 {
 	int	arg_i;
 
@@ -68,7 +68,7 @@ int	get_outfile_fd(t_pipex_data *pipex_data, int cmd_i, char **argv)
 	return (true);
 }
 
-static int	is_parameter_arg(char *cmd_parameter)
+static bool	is_parameter_arg(char *cmd_parameter)
 {
 	return (cmd_parameter[0] != '\0' && cmd_parameter[0] != '-'
 		&& is_file_exist(cmd_parameter));
@@ -84,7 +84,7 @@ int	get_cmd_arg_fd(t_pipex_data *pipex_data, int cmd_i)
 	strlen_until_c \
 	(pipex_data->cmd_absolute_path_with_parameter[cmd_i], ' ') + 1, \
 	ft_strlen(pipex_data->cmd_absolute_path_with_parameter[cmd_i])));
-	if (is_parameter_arg(cmd_parameter))
+	if (is_parameter_arg(cmd_parameter) == true)
 		cmd_arg_fd = open_file(cmd_parameter, INFILE);
 	else
 		cmd_arg_fd = NOT_SPECIFIED;

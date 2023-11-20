@@ -6,13 +6,13 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/20 10:50:56 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/20 11:02:48 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	get_env_path(char ***env_path, char **envp)
+bool	get_env_path(char ***env_path, char **envp)
 {
 	int	i;
 
@@ -26,7 +26,7 @@ int	get_env_path(char ***env_path, char **envp)
 	return (true);
 }
 
-int	get_pwd(char ***pwd_path, char **envp)
+bool	get_pwd(char ***pwd_path, char **envp)
 {
 	int	i;
 
@@ -68,7 +68,7 @@ char	*get_pwd_for_relative_path(char ***pwd_path, int down_count_from_pwd)
 	return (pwd_for_relative_path);
 }
 
-int	get_pipe(t_pipex_data *pipex_data, int cmd_i)
+bool	get_pipe(t_pipex_data *pipex_data, int cmd_i)
 {
 	if (check_pipe(pipe(pipex_data->pipe_fd[cmd_i])) == false)
 		return (false);

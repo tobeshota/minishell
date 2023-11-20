@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/20 10:50:56 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/20 11:02:04 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	open_file(char *file, int file_type)
 	return (fd);
 }
 
-int	close_pipe(int *pipe_fd)
+bool	close_pipe(int *pipe_fd)
 {
 	if (check_close(close(pipe_fd[0])) == false)
 		return (false);
@@ -59,7 +59,7 @@ void	add_slash_eos(char ***path)
 	}
 }
 
-int	is_path_found(char *path)
+bool	is_path_found(char *path)
 {
 	if (path == NULL)
 	{
@@ -69,7 +69,7 @@ int	is_path_found(char *path)
 	return (true);
 }
 
-int	wait_children(int cmd_i)
+bool	wait_children(int cmd_i)
 {
 	int	i;
 

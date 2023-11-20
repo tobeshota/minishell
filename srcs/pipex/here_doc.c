@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/20 10:50:56 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/20 10:59:32 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	check_is_limitter_specified(char *limitter)
 	return (true);
 }
 
-int	proc_here_doc(char *limitter, t_pipex_data *pipex_data)
+bool	proc_here_doc(char *limitter, t_pipex_data *pipex_data)
 {
 	char	*line;
 	char	*limitter_endl;

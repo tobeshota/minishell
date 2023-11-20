@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/20 10:50:56 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/20 11:14:18 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ static void	get_cmd_absolute_path_with_parameter(char **argv,
 	pipex_data->cmd_absolute_path_with_parameter[cmd_i] = NULL;
 }
 
-int	get_cmd_absolute_path(char **argv, char **envp, t_pipex_data *pipex_data)
+bool	get_cmd_absolute_path(char **argv, char **envp,
+		t_pipex_data *pipex_data)
 {
 	char	**env_path;
 	char	**cmd_parameter;

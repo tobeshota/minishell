@@ -6,13 +6,13 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/20 10:50:56 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/20 11:07:47 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static int	set_input_fd(t_pipex_data *pipex_data, int cmd_i, char **argv)
+static bool	set_input_fd(t_pipex_data *pipex_data, int cmd_i, char **argv)
 {
 	if (get_infile_fd(pipex_data, cmd_i, argv) == false
 		|| check_open(get_cmd_arg_fd(pipex_data, cmd_i)) == false)
@@ -39,7 +39,7 @@ static int	set_input_fd(t_pipex_data *pipex_data, int cmd_i, char **argv)
 	}
 }
 
-static int	set_output_fd(t_pipex_data *pipex_data, int cmd_i, char **argv)
+static bool	set_output_fd(t_pipex_data *pipex_data, int cmd_i, char **argv)
 {
 	if (get_outfile_fd(pipex_data, cmd_i, argv) == false)
 		return (false);
@@ -60,7 +60,7 @@ static int	set_output_fd(t_pipex_data *pipex_data, int cmd_i, char **argv)
 	return (true);
 }
 
-static int	exec_child(char ***envp, t_pipex_data *pipex_data, int cmd_i,
+static bool	exec_child(char ***envp, t_pipex_data *pipex_data, int cmd_i,
 		char **argv)
 {
 	char	**cmd;
@@ -77,7 +77,7 @@ static int	exec_child(char ***envp, t_pipex_data *pipex_data, int cmd_i,
 	return (true);
 }
 
-static int	get_child(pid_t *child_pid)
+static bool	get_child(pid_t *child_pid)
 {
 	*child_pid = fork();
 	if (check_fork(*child_pid) == false)
@@ -85,7 +85,7 @@ static int	get_child(pid_t *child_pid)
 	return (true);
 }
 
-int	do_pipe(char ***envp, t_pipex_data *pipex_data, char **argv)
+bool	do_pipe(char ***envp, t_pipex_data *pipex_data, char **argv)
 {
 	int		cmd_i;
 	pid_t	child_pid;
