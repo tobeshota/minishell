@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 12:34:25 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/20 12:22:30 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/20 14:16:40 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int pipex_debug(int argc, char **argv, char **envp)
 argv[i++] = ft_strdup("export");
 //
 	argv[i] = NULL;
-	pipex(argc, argv, envp);
+	pipex(argc, argv, &envp);
 	all_free_tab(argv);
 	return 0;
 }
@@ -53,7 +53,7 @@ int minishell(int argc, char **argv, char **envp)
 
 		free(input);
 		put_arg_for_debug(argv);
-		pipex(argc, argv, envp);
+		pipex(argc, argv, &envp);
 		all_free_tab(argv);
 		input = readline(MINISHELL_PROMPT);
 	}

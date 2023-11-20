@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:32:48 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/20 11:01:48 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/20 14:15:57 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@
 【0】正常終了
 
 */
-int	pipex(int argc, char **argv, char **envp)
+int	pipex(int argc, char **argv, char ***envp)
 {
 	t_pipex_data	pipex_data;
 
-	if (get_pipex_data(argc, argv, envp, &pipex_data) == false)
+	if (get_pipex_data(argc, argv, *envp, &pipex_data) == false)
 		return ((void)end_pipex(&pipex_data), 1);
-	if (do_pipe(&envp, &pipex_data, argv) == false)
+	if (do_pipe(envp, &pipex_data, argv) == false)
 		return ((void)end_pipex(&pipex_data), 1);
 	if (end_pipex(&pipex_data) == false)
 		return (1);
