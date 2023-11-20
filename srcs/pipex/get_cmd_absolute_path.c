@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/20 11:14:18 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/20 15:04:48 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	get_cmd_name_from_arg(char **argv, char ***cmd_absolute_path)
 	cmd_absolute_path[0][cmd_i] = NULL;
 }
 
-static void	get_cmd_parameter(char **argv, char ***cmd_absolute_path,
+void	get_cmd_parameter(char **argv, char ***cmd_absolute_path,
 		char ***cmd_parameter)
 {
 	int	arg_i;

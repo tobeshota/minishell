@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/20 14:15:44 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/21 00:35:04 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ bool	get_env_path(char ***env_path, char **envp);
 bool	get_pwd(char ***pwd_path, char **envp);
 int		get_down_count_from_pwd(char *relative_path);
 int		get_cmd_arg_fd(t_pipex_data *pipex_data, int cmd_i);
+void	get_cmd_parameter(char **argv, char ***cmd_absolute_path,
+		char ***cmd_parameter);
 char	*get_pwd_for_relative_path(char ***pwd_path, int down_count_from_pwd);
 bool	get_pipe(t_pipex_data *pipex_data, int cmd_i);
 bool	proc_here_doc(char *limitter, t_pipex_data *pipex_data);

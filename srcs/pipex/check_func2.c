@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 10:03:29 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/20 12:46:21 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/21 00:40:05 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ bool	check_execve(int ret)
 	if (ret == -1)
 	{
 		put_error("failed to execve\n");
-		return (false);
+		exit(126);
 	}
 	return (true);
 }
