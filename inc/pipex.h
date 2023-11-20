@@ -6,13 +6,14 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/20 11:06:34 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/20 11:45:46 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
+# include "buildin.h"
 # include "define.h"
 # include "libft.h"
 # include <sys/types.h>

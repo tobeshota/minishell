@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/20 11:10:23 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/20 11:53:53 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,7 @@ bool	is_limitter(char **argv, int arg_i)
 
 bool	is_cmd(char **argv, int arg_i)
 {
-	return (!access(argv[arg_i], X_OK) || (access(argv[arg_i], F_OK)
-			&& !is_specified_operators(argv[arg_i]) && !is_limitter(argv,
-				arg_i)));
+	return (is_file_exectable(argv[arg_i]) || (!is_file_exist(argv[arg_i]) && !is_specified_operators(argv[arg_i]) && !is_limitter(argv, arg_i)));
 }
 
 bool	is_cmd_relative_path(char ***cmd_absolute_path, int cmd_i)
