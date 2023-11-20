@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/20 11:14:57 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/20 12:01:26 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static bool	is_cmd_exist(char *env_path, char *cmd)
 {
+	if (is_cmd_builtin(cmd))
+		return (true);
 	if (env_path == NULL)
 	{
 		put_error("-bash: ");
@@ -37,7 +39,7 @@ static bool	add_absolute_from_env_path(char ***cmd_absolute_path,
 	{
 		tmp = check_malloc(ft_strjoin(env_path[env_i],
 					cmd_absolute_path[0][cmd_i]));
-		if (!access(tmp, X_OK))
+		if (is_file_exectable(tmp) == true)
 		{
 			free(cmd_absolute_path[0][cmd_i]);
 			cmd_absolute_path[0][cmd_i] = check_malloc(ft_strdup(tmp));

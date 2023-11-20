@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 12:34:25 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/20 11:50:09 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/20 12:22:30 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int pipex_debug(int argc, char **argv, char **envp)
 
 	argv = (char **)malloc(INT_MAX);
 //
-argv[i++] = ft_strdup("ll");
+argv[i++] = ft_strdup("export");
 //
 	argv[i] = NULL;
 	pipex(argc, argv, envp);
