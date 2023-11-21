@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/20 14:26:07 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/21 12:16:25 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,18 +65,22 @@ static bool	exec_child(char ***envp, t_pipex_data *pipex_data, int cmd_i,
 {
 	char	**cmd;
 
-	cmd = check_malloc \
-	(ft_split(pipex_data->cmd_absolute_path_with_parameter[cmd_i], ' '));
 	if (set_input_fd(pipex_data, cmd_i, argv) == false)
 		return (false);
 	if (set_output_fd(pipex_data, cmd_i, argv) == false)
 		return (false);
 ft_printf("[%s]\n", pipex_data->cmd_absolute_path[cmd_i]);
 	if (is_cmd_builtin(pipex_data->cmd_absolute_path[cmd_i]))
+	{
 		//	今実行している自分のPIDをkillする必要あり．どうやるのかひろさんに聞く
-		exit(execve_builtin(pipex_data->cmd_absolute_path[cmd_i], cmd, envp, pipex_data));
+		return (check_exec(exec_builtin(envp, pipex_data, cmd_i)));
+	}
 	else
-		return (check_execve(execve(pipex_data->cmd_absolute_path[cmd_i], cmd, *envp)));
+	{
+		cmd = check_malloc \
+		(ft_split(pipex_data->cmd_absolute_path_with_parameter[cmd_i], ' '));
+		return (check_exec(execve(pipex_data->cmd_absolute_path[cmd_i], cmd, *envp)));
+	}
 }
 
 static bool	get_child(pid_t *child_pid)
@@ -87,26 +91,45 @@ static bool	get_child(pid_t *child_pid)
 	return (true);
 }
 
+// builitin_cmdの場合，子プロセスでは実行しない．
 bool	do_pipe(char ***envp, t_pipex_data *pipex_data, char **argv)
 {
 	int		cmd_i;
+	int		builtin_cmd_count;
 	pid_t	child_pid;
 
 	cmd_i = 0;
+	builtin_cmd_count = 0;
 	while (pipex_data->cmd_absolute_path[cmd_i])
 	{
 		if (get_pipe(pipex_data, cmd_i) == false)
 			return (false);
-		if (get_child(&child_pid) == false)
-			return (false);
-		if (child_pid == 0 && exec_child(envp, pipex_data, cmd_i,
-				argv) == false)
-			return (false);
+		if (is_cmd_builtin(pipex_data->cmd_absolute_path[cmd_i]))
+		{
+			if (exec_child(envp, pipex_data, cmd_i, argv) == false)
+				return (false);
+			builtin_cmd_count++;
+		}
+		else
+		{
+			if (get_child(&child_pid) == false)
+				return (false);
+			if (child_pid == 0 && exec_child(envp, pipex_data, cmd_i, argv) == false)
+				return (false);
+		}
 		if (cmd_i > 0 && close_pipe(pipex_data->pipe_fd[cmd_i - 1]) == false)
 			return (false);
 		cmd_i++;
+
+		// if (!is_cmd_builtin(pipex_data->cmd_absolute_path[cmd_i]) && get_child(&child_pid) == false)
+		// 	return (false);
+		// if ((is_cmd_builtin(pipex_data->cmd_absolute_path[cmd_i]) || child_pid == 0) && exec_child(envp, pipex_data, cmd_i,
+		// 		argv) == false)
+		// 	return (false);
+		// if (cmd_i > 0 && close_pipe(pipex_data->pipe_fd[cmd_i - 1]) == false)
+		// 	return (false);
+		// if(!is_cmd_builtin(pipex_data->cmd_absolute_path[cmd_i]))
+		// 	cmd_i++;
 	}
-	if (wait_children(cmd_i) == false)
-		return (false);
-	return (true);
+	return (wait_children(cmd_i - builtin_cmd_count));
 }

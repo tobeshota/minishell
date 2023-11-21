@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 12:34:25 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/21 00:57:57 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/21 12:34:46 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	pipex_debug(int argc, char **argv, char **envp)
 	i = 0;
 	argv = (char **)malloc(INT_MAX);
 	//
-	argv[i++] = ft_strdup("cd /Users/tobeshota");
+	argv[i++] = ft_strdup("pwd");
 	//
 	argv[i] = NULL;
 	pipex(argc, argv, &envp);
@@ -65,8 +65,8 @@ int	minishell(int argc, char **argv, char **envp)
 
 int	main(int argc, char **argv, char **envp)
 {
-	// minishell(argc, argv, envp);
-	pipex_debug(argc, argv, envp);
+	minishell(argc, argv, envp);
+	// pipex_debug(argc, argv, envp);
 }
 
 __attribute__((destructor)) static void destructor()

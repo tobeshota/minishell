@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/20 14:24:23 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/21 12:10:02 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "buildin.h"
+#include "builtin.h"
 
-int	execve_env(char **envp, t_pipex_data *pipex_data)
+int	exec_unset(char ***envp)
 {
-	int	i;
-
-	i = -1;
-	while (envp[++i])
-		ft_putendl_fd(envp[i], pipex_data->outfile_fd);
 	return (true);
 }

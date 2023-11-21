@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 10:03:29 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/21 00:40:05 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/21 12:05:25 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ bool	check_dup(int ret)
 	return (true);
 }
 
-bool	check_execve(int ret)
+bool	check_exec(int ret)
 {
 	if (ret == -1)
 	{

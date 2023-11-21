@@ -6,14 +6,14 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/21 00:35:04 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/21 12:05:25 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
-# include "buildin.h"
+# include "builtin.h"
 # include "define.h"
 # include "libft.h"
 # include <sys/types.h>
@@ -38,7 +38,7 @@ bool	check_close(int ret);
 bool	check_pipe(int ret);
 bool	check_fork(pid_t child_pid);
 bool	check_dup(int ret);
-bool	check_execve(int ret);
+bool	check_exec(int ret);
 bool	check_wait(int ret);
 bool	check_unlink(int ret);
 bool	is_path_found(char *path);

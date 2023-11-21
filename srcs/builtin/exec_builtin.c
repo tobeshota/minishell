@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execve_builtin.c                                   :+:      :+:    :+:   */
+/*   exec_builtin.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 12:01:50 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/20 14:30:57 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/21 12:00:11 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "buildin.h"
+#include "builtin.h"
 
 static bool	is_specified_builtin_cmd(char *cmd, char *builtin_cmd)
 {
@@ -29,23 +29,30 @@ bool	is_cmd_builtin(char *cmd)
 		|| is_specified_builtin_cmd(cmd, "exit"));
 }
 
-int	execve_builtin(char *cmd, char **cmd_with_parameter, char ***envp,
-		t_pipex_data *pipex_data)
+int	exec_builtin(char ***envp, t_pipex_data *pipex_data, int cmd_i)
 {
-	if (is_specified_builtin_cmd(cmd, "/bin/echo"))
-		return (execve_echo(cmd_with_parameter, pipex_data));
-	else if (is_specified_builtin_cmd(cmd, "/usr/bin/cd"))
-		return (execve_cd(cmd_with_parameter, envp));
-	else if (is_specified_builtin_cmd(cmd, "/bin/pwd"))
-		return (execve_pwd(*envp, pipex_data));
-	else if (is_specified_builtin_cmd(cmd, "export"))
-		return (execve_export(cmd_with_parameter, envp));
-	else if (is_specified_builtin_cmd(cmd, "unset"))
-		return (execve_unset(envp));
-	else if (is_specified_builtin_cmd(cmd, "/usr/bin/env"))
-		return (execve_env(*envp, pipex_data));
-	else if (is_specified_builtin_cmd(cmd, "exit"))
-		return (execve_exit());
-	else
-		return (false);
+	int		ret;
+	char	**cmd;
+
+	ret = false;
+	cmd = check_malloc \
+	(ft_split(pipex_data->cmd_absolute_path_with_parameter[cmd_i], ' '));
+	if (is_specified_builtin_cmd(pipex_data->cmd_absolute_path[cmd_i], "/bin/echo"))
+		ret = exec_echo(cmd, pipex_data);
+	else if (is_specified_builtin_cmd(pipex_data->cmd_absolute_path[cmd_i], "/usr/bin/cd"))
+		ret = exec_cd(cmd, envp);
+	else if (is_specified_builtin_cmd(pipex_data->cmd_absolute_path[cmd_i], "/bin/pwd"))
+		ret = exec_pwd(*envp, pipex_data);
+	else if (is_specified_builtin_cmd(pipex_data->cmd_absolute_path[cmd_i], "export"))
+		ret = exec_export(cmd, envp);
+	else if (is_specified_builtin_cmd(pipex_data->cmd_absolute_path[cmd_i], "unset"))
+		ret = exec_unset(envp);
+	else if (is_specified_builtin_cmd(pipex_data->cmd_absolute_path[cmd_i], "/usr/bin/env"))
+		ret = exec_env(*envp, pipex_data);
+	else if (is_specified_builtin_cmd(pipex_data->cmd_absolute_path[cmd_i], "exit"))
+		ret = exec_exit();
+	all_free_tab(cmd);
+	if(ret == false)
+		return -1;
+	return true;
 }

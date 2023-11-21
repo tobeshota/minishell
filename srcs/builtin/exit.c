@@ -6,13 +6,13 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/20 12:59:36 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/21 12:10:08 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "buildin.h"
+#include "builtin.h"
 
-int	execve_exit(void)
+int	exec_exit(void)
 {
 	return (true);
 }
