@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/22 15:17:25 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/22 15:19:52 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	exec_cd(char **cmd, char ***envp)
 	int		env_i;
 	char	*path;
 	char	**pwd;
+	char	**path_ptr;
 
 	env_i = 0;
 	while (envp[0][env_i] && ft_strncmp(envp[0][env_i], "PWD=", ft_strlen("PWD=")))
@@ -55,16 +56,15 @@ int	exec_cd(char **cmd, char ***envp)
 	else
 		path = ft_strdup(cmd[1]);
 	pwd = ft_split(envp[0][env_i], ':');
-	path_ptr = ft_split(path, ':');
-	// envp[0][env_i] = get_pwd_for_relative_path(&pwd, get_down_count_from_pwd(path));
-	convert_relative_path_to_absolute_path(&path_ptr, 0, *envp);
+
+	envp[0][env_i] = get_pwd_for_relative_path(&pwd, get_down_count_from_pwd(path));
 
 	all_free_tab(pwd);
 	// free(path);
 
-char **path_ptr;
-path_ptr = ft_split(path, ':');
-convert_relative_path_to_absolute_path(&path_ptr, 0, *envp);
+// char **path_ptr;
+// path_ptr = ft_split(path, ':');
+// convert_relative_path_to_absolute_path(&path_ptr, 0, *envp);
 	return (true);
 	// char	**pwd;
 	// char	*path;
