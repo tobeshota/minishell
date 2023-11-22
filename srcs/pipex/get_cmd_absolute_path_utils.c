@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/20 12:01:26 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/22 15:10:00 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static void	delete_relative_path(char ***cmd_absolute_path, int cmd_i)
 	free(tmp);
 }
 
-static bool	convert_relative_path_to_absolute_path(char ***cmd_absolute_path,
+bool	convert_relative_path_to_absolute_path(char ***path,
 		int cmd_i, char **envp)
 {
 	char	*tmp;
@@ -77,15 +77,20 @@ static bool	convert_relative_path_to_absolute_path(char ***cmd_absolute_path,
 
 	if (get_pwd(&pwd, envp) == false)
 		return (false);
-	pwd_for_relative_path = get_pwd_for_relative_path(&pwd,
-			get_down_count_from_pwd(cmd_absolute_path[0][cmd_i]));
-	delete_relative_path(cmd_absolute_path, cmd_i);
-	tmp = cmd_absolute_path[0][cmd_i];
-	cmd_absolute_path[0][cmd_i] = check_malloc(ft_strjoin(pwd_for_relative_path,
-				cmd_absolute_path[0][cmd_i]));
+	pwd_for_relative_path = get_pwd_for_relative_path(&pwd, get_down_count_from_pwd(path[0][cmd_i]));
+	delete_relative_path(path, cmd_i);
+
+	// pathの文頭に/を追加する
+	tmp = path[0][cmd_i];
+	path[0][cmd_i] = check_malloc(ft_strjoin("/", path[0][cmd_i]));
 	free(tmp);
+
+	tmp = path[0][cmd_i];
+	path[0][cmd_i] = check_malloc(ft_strjoin(pwd_for_relative_path, path[0][cmd_i]));
+	free(tmp);
+
 	all_free_tab(pwd);
-	free(pwd_for_relative_path);
+	// free(pwd_for_relative_path);
 	return (true);
 }
 
@@ -98,12 +103,7 @@ bool	add_absolute_path_to_cmd_name(char ***cmd_absolute_path,
 	while (cmd_absolute_path[0][++cmd_i])
 	{
 		if (is_cmd_relative_path(cmd_absolute_path, cmd_i))
-		{
-			if (convert_relative_path_to_absolute_path(cmd_absolute_path, cmd_i,
-					envp) == false)
-				return (false);
 			continue ;
-		}
 		if (is_cmd_alreadly_absollute_path(cmd_absolute_path, cmd_i))
 			continue ;
 		if (add_absolute_from_env_path(cmd_absolute_path, env_path,

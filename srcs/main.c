@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 12:34:25 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/21 12:34:46 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/22 14:18:17 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,12 @@ int	minishell(int argc, char **argv, char **envp)
 		// 【入力例】ls -l,|,wc -l
 		// 【入力例】cat infile,>,outfile
 		argv = ft_split(line, ',');
-		free(line);
 		if (ft_strlen(line))
 			add_history(line);
 		put_arg_for_debug(argv);
 		pipex(argc, argv, &envp);
 		all_free_tab(argv);
+		free(line);
 		line = readline(MINISHELL_PROMPT);
 	}
 	ft_printf(EXIT_MSG);

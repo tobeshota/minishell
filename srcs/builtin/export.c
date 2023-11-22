@@ -6,13 +6,13 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/21 12:09:57 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/22 11:40:52 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
-int	exec_export(char **cmd_with_parameter, char ***envp)
+int	exec_export(char **cmd, char ***envp)
 {
 	return (true);
 }

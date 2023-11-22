@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/21 12:05:25 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/22 14:29:56 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,9 @@ bool	check_wait(int ret);
 bool	check_unlink(int ret);
 bool	is_path_found(char *path);
 int		get_cmd_count(char **argv);
+int		get_pipe_count(char **argv);
+int		get_builtin_cmd_count(t_pipex_data *pipex_data);
+bool	convert_relative_path_to_absolute_path(char ***cmd_absolute_path, int cmd_i, char **envp);
 bool	is_cmd(char **argv, int arg_i);
 bool	is_limitter(char **argv, int arg_i);
 bool	is_fd_default(int fd, int default_fd);

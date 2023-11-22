@@ -40,7 +40,7 @@ int	exec_builtin(char ***envp, t_pipex_data *pipex_data, int cmd_i)
 	if (is_specified_builtin_cmd(pipex_data->cmd_absolute_path[cmd_i], "/bin/echo"))
 		ret = exec_echo(cmd, pipex_data);
 	else if (is_specified_builtin_cmd(pipex_data->cmd_absolute_path[cmd_i], "/usr/bin/cd"))
-		ret = exec_cd(cmd, envp);
+		ret = exec_cd(cmd, envp) && exec_pwd(*envp, pipex_data);
 	else if (is_specified_builtin_cmd(pipex_data->cmd_absolute_path[cmd_i], "/bin/pwd"))
 		ret = exec_pwd(*envp, pipex_data);
 	else if (is_specified_builtin_cmd(pipex_data->cmd_absolute_path[cmd_i], "export"))
