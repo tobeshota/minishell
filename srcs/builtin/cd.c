@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/23 17:26:50 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/23 18:03:13 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,10 @@ int	exec_cd(char **cmd, char ***envp)
 		return (false);
 
 	if (get_path_from_cmd_arg(&path, cmd, envp) == false)
-		return (false);
+		return (free(path), false);
 
 	if (!ft_strncmp(path, ".", ft_strlen(path)))
-		return true;
+		return (free(path), true);
 
 	if (is_path_alreadly_absollute_path(path))
 	{
@@ -82,6 +82,8 @@ int	exec_cd(char **cmd, char ***envp)
 	}
 	else
 	{
+		if(is_file_exist(path) == false)
+			return put_error("-bash: cd: "), put_error(path), put_error(": No such file or directory\n"), free(path), true;
 		// pathの".."や"../"の数を数える！
 		down_count_from_cwd = get_down_count_from_cwd(path);
 		// pathの".."や"../"の数だけenvp[0][env_i]を下げる！
@@ -96,7 +98,6 @@ int	exec_cd(char **cmd, char ***envp)
 		if(!ft_strncmp(envp[0][env_i], "PWD=", ft_strlen(envp[0][env_i])))
 			ft_strlcpy(envp[0][env_i], "PWD=/", ft_strlen("PWD=/")+1);
 	}
-	free(path);
 	ft_printf("envp[0][env_i] >>> %s\n", envp[0][env_i]);
-	return (true);
+	return (free(path), true);
 }
