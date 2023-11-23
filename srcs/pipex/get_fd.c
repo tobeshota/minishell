@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 01:22:30 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/23 17:50:54 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/23 23:36:40 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,30 @@ static bool is_command_parameters_included_characters_other_than_dots_and_slashe
 	return false;
 }
 
+// ディレクトリでないことも確認する必要あり
 static bool	is_parameter_file(char *cmd_parameter)
 {
-	return (cmd_parameter[0] != '\0' && cmd_parameter[0] != '-' && is_file_exist(cmd_parameter) && is_command_parameters_included_characters_other_than_dots_and_slashes(cmd_parameter));
+	int fd_for_checking_non_directory;
+	struct stat st;
+
+	fd_for_checking_non_directory = open_file(cmd_parameter, INFILE);
+	if (fd_for_checking_non_directory == -1)
+		return false;
+	else if (check_close(close(fd_for_checking_non_directory)) == false)
+		return false;
+	else if (stat(cmd_parameter, &st) < 0)
+		return perror("failt to stat"), false;
+	else if (S_ISDIR(st.st_mode))
+		return false;
+	else if (cmd_parameter[0] == '-')
+		return false;
+	else if (is_file_exist(cmd_parameter) == false)
+		return false;
+	else if (is_command_parameters_included_characters_other_than_dots_and_slashes(cmd_parameter) == false)
+		return false;
+	return true;
+
+	// return (cmd_parameter[0] != '\0' && cmd_parameter[0] != '-' && cmd_parameter[0] != '/' && is_file_exist(cmd_parameter) && is_command_parameters_included_characters_other_than_dots_and_slashes(cmd_parameter));
 }
 
 int	get_cmd_arg_fd(t_pipex_data *pipex_data, int cmd_i)

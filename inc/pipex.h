@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/23 15:55:40 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/23 23:29:36 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "define.h"
 # include "libft.h"
 # include <sys/types.h>
+#include <sys/stat.h>
 
 # define HERE_DOC_FILE_PATH "/tmp/here_doc"
 # define INFILE 0
@@ -62,7 +63,8 @@ int		get_down_count_from_cwd(char *relative_path);
 int		get_cmd_arg_fd(t_pipex_data *pipex_data, int cmd_i);
 void	get_cmd_parameter(char **argv, char ***cmd_absolute_path,
 		char ***cmd_parameter);
-char	*down_path(char *path, int down_count_from_cwd);
+char	*down_cwd(char *path, int down_count_from_cwd);
+char	*down_passed_path(char *passed_path, int down_count_from_cwd);
 bool	get_pipe(t_pipex_data *pipex_data, int cmd_i);
 bool	proc_here_doc(char *limitter, t_pipex_data *pipex_data);
 bool	is_cmd_relative_path(char ***cmd_absolute_path, int cmd_i);

@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/23 17:29:38 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/23 23:47:38 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,26 +60,42 @@ int	get_down_count_from_cwd(char *relative_path)
 }
 
 // 引数として渡ってくる**pwd_path: "/Users/tobeshota/workspace/42/minishell/"
-char	*down_path(char *path, int down_count_from_cwd)
+char	*down_cwd(char *cwd, int down_count_from_cwd)
 {
-	int		delete_len;
+	int		delete_len_for_cwd;
 
 	while(down_count_from_cwd)
 	{
-		if (!ft_strncmp(path, "PWD=/", ft_strlen(path)))
+		if (!ft_strncmp(cwd, "PWD=/", ft_strlen(cwd)))
 			break;
-		if (!ft_strncmp(path, "..", ft_strlen("..")))
-		{
-			ft_strlcpy(path, "", 1);
-		}
 		else
 		{
-			delete_len = ft_strlen(path) - ft_strlen(ft_strrchr(path, '/'));
-			ft_strlcpy(path, path, delete_len+1);
+			delete_len_for_cwd = ft_strlen(cwd) - ft_strlen(ft_strrchr(cwd, '/'));
+			ft_strlcpy(cwd, cwd, delete_len_for_cwd+1);
 		}
 		down_count_from_cwd--;
 	}
-	return path;
+	return cwd;
+}
+
+char	*down_passed_path(char *passed_path, int down_count_from_cwd)
+{
+	int	delete_len_for_passed_path_ptr;
+
+	while(down_count_from_cwd)
+	{
+		if (!ft_strncmp(passed_path, "..", ft_strlen(passed_path)))
+		{
+			ft_strlcpy(passed_path, "", 1);
+		}
+		else
+		{
+			delete_len_for_passed_path_ptr = ft_strlen(passed_path) - ft_strlen(ft_strchr(passed_path, '/'));
+			ft_strlcpy(passed_path, passed_path + delete_len_for_passed_path_ptr + 1, ft_strlen(passed_path));
+		}
+		down_count_from_cwd--;
+	}
+	return passed_path;
 }
 
 bool	get_pipe(t_pipex_data *pipex_data, int cmd_i)

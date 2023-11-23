@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/23 15:53:47 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/23 22:51:34 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	delete_relative_path(char ***cmd_absolute_path, int cmd_i)
 
 // 	if (get_pwd(&pwd, envp) == false)
 // 		return (false);
-// 	pwd_for_relative_path = down_path(pwd, get_down_count_from_cwd(path[0][cmd_i]));
+// 	pwd_for_relative_path = down_cwd(pwd, get_down_count_from_cwd(path[0][cmd_i]));
 // 	delete_relative_path(path, cmd_i);
 
 // 	if(ft_strlen(path[0][cmd_i]))
