@@ -6,12 +6,14 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/22 14:29:56 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/23 15:55:40 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
+
+#include <stdio.h>
 
 # include "builtin.h"
 # include "define.h"
@@ -54,12 +56,13 @@ bool	get_cmd_absolute_path(char **argv, char **envp,
 bool	add_absolute_path_to_cmd_name(char ***cmd_absolute_path,
 			char **env_path, char **envp);
 bool	get_env_path(char ***env_path, char **envp);
+void	delete_relative_path(char ***cmd_absolute_path, int cmd_i);
 bool	get_pwd(char ***pwd_path, char **envp);
-int		get_down_count_from_pwd(char *relative_path);
+int		get_down_count_from_cwd(char *relative_path);
 int		get_cmd_arg_fd(t_pipex_data *pipex_data, int cmd_i);
 void	get_cmd_parameter(char **argv, char ***cmd_absolute_path,
 		char ***cmd_parameter);
-char	*get_pwd_for_relative_path(char ***pwd_path, int down_count_from_pwd);
+char	*down_path(char *path, int down_count_from_cwd);
 bool	get_pipe(t_pipex_data *pipex_data, int cmd_i);
 bool	proc_here_doc(char *limitter, t_pipex_data *pipex_data);
 bool	is_cmd_relative_path(char ***cmd_absolute_path, int cmd_i);

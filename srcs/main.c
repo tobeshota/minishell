@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 12:34:25 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/22 14:18:17 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/23 16:31:30 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	pipex_debug(int argc, char **argv, char **envp)
 	i = 0;
 	argv = (char **)malloc(INT_MAX);
 	//
-	argv[i++] = ft_strdup("pwd");
+	argv[i++] = ft_strdup("cd ..");
 	//
 	argv[i] = NULL;
 	pipex(argc, argv, &envp);
@@ -44,20 +44,21 @@ int	minishell(int argc, char **argv, char **envp)
 {
 	char	*line;
 
-	line = readline(MINISHELL_PROMPT);
-	while (line)
+	while (true)
 	{
+		line = readline(MINISHELL_PROMPT);
+		if (!line)
+			break ;
 		// 本来はft_splitでなくlexerとparser．いまは区切り文字','で分割している
 		// 【入力例】ls -l,|,wc -l
 		// 【入力例】cat infile,>,outfile
 		argv = ft_split(line, ',');
-		if (ft_strlen(line))
+		if (*line)
 			add_history(line);
 		put_arg_for_debug(argv);
 		pipex(argc, argv, &envp);
 		all_free_tab(argv);
 		free(line);
-		line = readline(MINISHELL_PROMPT);
 	}
 	ft_printf(EXIT_MSG);
 	return (0);

@@ -20,11 +20,15 @@ static bool	is_specified_builtin_cmd(char *cmd, char *builtin_cmd)
 
 bool	is_cmd_builtin(char *cmd)
 {
-	return (is_specified_builtin_cmd(cmd, "/bin/echo")
+	return (is_specified_builtin_cmd(cmd, "echo")
+		|| is_specified_builtin_cmd(cmd, "/bin/echo")
+		|| is_specified_builtin_cmd(cmd, "cd")
 		|| is_specified_builtin_cmd(cmd, "/usr/bin/cd")
+		|| is_specified_builtin_cmd(cmd, "pwd")
 		|| is_specified_builtin_cmd(cmd, "/bin/pwd")
 		|| is_specified_builtin_cmd(cmd, "export")
 		|| is_specified_builtin_cmd(cmd, "unset")
+		|| is_specified_builtin_cmd(cmd, "env")
 		|| is_specified_builtin_cmd(cmd, "/usr/bin/env")
 		|| is_specified_builtin_cmd(cmd, "exit"));
 }
@@ -40,7 +44,7 @@ int	exec_builtin(char ***envp, t_pipex_data *pipex_data, int cmd_i)
 	if (is_specified_builtin_cmd(pipex_data->cmd_absolute_path[cmd_i], "/bin/echo"))
 		ret = exec_echo(cmd, pipex_data);
 	else if (is_specified_builtin_cmd(pipex_data->cmd_absolute_path[cmd_i], "/usr/bin/cd"))
-		ret = exec_cd(cmd, envp) && exec_pwd(*envp, pipex_data);
+		ret = exec_cd(cmd, envp);
 	else if (is_specified_builtin_cmd(pipex_data->cmd_absolute_path[cmd_i], "/bin/pwd"))
 		ret = exec_pwd(*envp, pipex_data);
 	else if (is_specified_builtin_cmd(pipex_data->cmd_absolute_path[cmd_i], "export"))

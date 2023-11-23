@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/22 15:19:52 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/23 16:34:25 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,59 +27,65 @@ static bool	change_pwd(char *new_pwd, char ***envp)
 	return (true);
 }
 
-static char *get_home(char ***envp)
+static int get_home(char **path_ptr, char **envp)
 {
 	int env_i;
 
 	env_i = 0;
-	while (envp[0][env_i] && ft_strncmp(envp[0][env_i], "HOME=", ft_strlen("HOME=")))
+	while (envp[env_i] && ft_strncmp(envp[env_i], "HOME=", ft_strlen("HOME=")))
 		env_i++;
-	if (is_path_found(envp[0][env_i]) == false)
+	if (is_path_found(envp[env_i]) == false)
 		return (false);
-	return envp[0][env_i] + ft_strlen("HOME=");
+	*path_ptr = check_malloc(ft_strdup(envp[env_i] + ft_strlen("HOME=")));
+	return true;
+}
+
+static bool	is_path_alreadly_absollute_path(char *path)
+{
+	return (path[0] == '/' && ft_strchr(&path[1], '/'));
+}
+
+static bool get_path_from_cmd_arg(char	**path_ptr, char **cmd, char ***envp)
+{
+	if (cmd[1] == NULL)
+		return get_home(path_ptr, *envp);
+	else
+		*path_ptr = check_malloc(ft_strdup(cmd[1]));
+	return (true);
 }
 
 int	exec_cd(char **cmd, char ***envp)
 {
 	int		env_i;
+	int		down_count_from_cwd;
 	char	*path;
-	char	**pwd;
-	char	**path_ptr;
 
 	env_i = 0;
 	while (envp[0][env_i] && ft_strncmp(envp[0][env_i], "PWD=", ft_strlen("PWD=")))
 		env_i++;
 	if (is_path_found(envp[0][env_i]) == false)
 		return (false);
-	if(cmd[1] == NULL)
-		path = ft_strdup(get_home(envp));
+
+	if (get_path_from_cmd_arg(&path, cmd, envp) == false)
+		return (false);
+
+	if (is_path_alreadly_absollute_path(path))
+	{
+		envp[0][env_i] = ft_strjoin("PWD=", path);
+	}
 	else
-		path = ft_strdup(cmd[1]);
-	pwd = ft_split(envp[0][env_i], ':');
+	{
+		// pathの".."や"../"の数を数える！
+		down_count_from_cwd = get_down_count_from_cwd(path);
+		// pathの".."や"../"の数だけenvp[0][env_i]を下げる！
+		envp[0][env_i] = down_path(envp[0][env_i], down_count_from_cwd);
+		// pathの".."や"../"を消す！
+		path = down_path(path, down_count_from_cwd);
+		// envp[0][env_i]にpathを連結する！
+		envp[0][env_i] = ft_strjoin(envp[0][env_i], path);
+	}
+	free(path);
 
-	envp[0][env_i] = get_pwd_for_relative_path(&pwd, get_down_count_from_pwd(path));
-
-	all_free_tab(pwd);
-	// free(path);
-
-// char **path_ptr;
-// path_ptr = ft_split(path, ':');
-// convert_relative_path_to_absolute_path(&path_ptr, 0, *envp);
+ft_printf("envp[0][env_i] >>> %s\n", envp[0][env_i]);
 	return (true);
-	// char	**pwd;
-	// char	*path;
-	// char	*new_pwd;
-
-	// if (get_pwd(&pwd, *envp) == false)
-	// 	return (all_free_tab(pwd), false);
-
-	// // get_cmd_parameter(cmd, &cmd, &path);
-	// path = ft_strdup(cmd[1]);
-	// new_pwd = get_pwd_for_relative_path(&pwd, get_down_count_from_pwd(path));
-	// // pwdをpwd_for_relative_pathに変える
-	// if (change_pwd(new_pwd, envp) == false)
-	// 	return (all_free_tab(pwd), false);
-	// all_free_tab(pwd);
-	// free(path);
-	// return (true);
 }

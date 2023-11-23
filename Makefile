@@ -6,7 +6,7 @@
 #    By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/26 19:52:48 by toshota           #+#    #+#              #
-#    Updated: 2023/11/21 22:42:46 by toshota          ###   ########.fr        #
+#    Updated: 2023/11/23 12:52:30 by toshota          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ CC				=	cc -g
 RM				=	rm -rf
 LIBFT_DIR		=   libft/
 LIBS			=	libft/libft.a
-INCS			=	-I inc/ -I libft/inc/
+INCS			=	-I inc/ -I libft/inc/ -I$(shell brew --prefix readline)/include
 SRCS_DIR		=	srcs/
 OBJS_DIR		=	objs/
 
@@ -34,7 +34,7 @@ all:		$(NAME)
 
 $(NAME):	$(OBJS) Makefile
 	@ make bonus -C $(LIBFT_DIR)
-	@ $(CC) $(CFLAGS) -lreadline $(LIBS) $(INCS) $(OBJS) -o $@
+	@ $(CC) $(CFLAGS) -lreadline -L$(shell brew --prefix readline)/lib $(LIBS) $(INCS) $(OBJS) -o $@
 	@ echo "compile to create an executable file: ./$@"
 
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c

@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/22 15:10:00 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/23 15:53:47 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,45 +54,44 @@ static bool	add_absolute_from_env_path(char ***cmd_absolute_path,
 	return (free(cmd), true);
 }
 
-static void	delete_relative_path(char ***cmd_absolute_path, int cmd_i)
+void	delete_relative_path(char ***cmd_absolute_path, int cmd_i)
 {
 	char	*tmp;
 
 	tmp = cmd_absolute_path[0][cmd_i];
-	cmd_absolute_path[0][cmd_i] = \
-	check_malloc(ft_strtrim(cmd_absolute_path[0][cmd_i], "../"));
+	cmd_absolute_path[0][cmd_i] = check_malloc(ft_strtrim(cmd_absolute_path[0][cmd_i], "../"));
 	free(tmp);
 	tmp = cmd_absolute_path[0][cmd_i];
-	cmd_absolute_path[0][cmd_i] = \
-	check_malloc(ft_strtrim(cmd_absolute_path[0][cmd_i], "./"));
+	cmd_absolute_path[0][cmd_i] = check_malloc(ft_strtrim(cmd_absolute_path[0][cmd_i], "./"));
 	free(tmp);
 }
 
-bool	convert_relative_path_to_absolute_path(char ***path,
-		int cmd_i, char **envp)
-{
-	char	*tmp;
-	char	**pwd;
-	char	*pwd_for_relative_path;
+// bool	convert_relative_path_to_absolute_path(char ***path,
+// 		int cmd_i, char **envp)
+// {
+// 	char	*tmp;
+// 	char	**pwd;
+// 	char	*pwd_for_relative_path;
 
-	if (get_pwd(&pwd, envp) == false)
-		return (false);
-	pwd_for_relative_path = get_pwd_for_relative_path(&pwd, get_down_count_from_pwd(path[0][cmd_i]));
-	delete_relative_path(path, cmd_i);
+// 	if (get_pwd(&pwd, envp) == false)
+// 		return (false);
+// 	pwd_for_relative_path = down_path(pwd, get_down_count_from_cwd(path[0][cmd_i]));
+// 	delete_relative_path(path, cmd_i);
 
-	// pathの文頭に/を追加する
-	tmp = path[0][cmd_i];
-	path[0][cmd_i] = check_malloc(ft_strjoin("/", path[0][cmd_i]));
-	free(tmp);
+// 	if(ft_strlen(path[0][cmd_i]))
+// 	{
+// 		tmp = path[0][cmd_i];
+// 		path[0][cmd_i] = check_malloc(ft_strjoin("/", path[0][cmd_i]));
+// 		free(tmp);
+// 	}
+// 	tmp = path[0][cmd_i];
+// 	path[0][cmd_i] = check_malloc(ft_strjoin(pwd_for_relative_path, path[0][cmd_i]));
+// 	free(tmp);
 
-	tmp = path[0][cmd_i];
-	path[0][cmd_i] = check_malloc(ft_strjoin(pwd_for_relative_path, path[0][cmd_i]));
-	free(tmp);
-
-	all_free_tab(pwd);
-	// free(pwd_for_relative_path);
-	return (true);
-}
+// 	all_free_tab(pwd);
+// 	// free(pwd_for_relative_path);
+// 	return (true);
+// }
 
 bool	add_absolute_path_to_cmd_name(char ***cmd_absolute_path,
 		char **env_path, char **envp)

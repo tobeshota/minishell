@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/21 22:53:47 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/23 15:25:18 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,13 @@ static bool	set_input_fd(t_pipex_data *pipex_data, int cmd_i, char **argv)
 			return (false);
 		return (close_pipe(pipex_data->pipe_fd[cmd_i - 1]));
 	}
-	else
+	else if (!is_fd_default(pipex_data->infile_fd, STDIN_FILENO))
 	{
 		if (check_dup(dup2(pipex_data->infile_fd, STDIN_FILENO)) == false)
 			return (false);
 		return (check_close(close(pipex_data->infile_fd)));
 	}
+	return (true);
 }
 
 static bool	set_output_fd(t_pipex_data *pipex_data, int cmd_i, char **argv)
