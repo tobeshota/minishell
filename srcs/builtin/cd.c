@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/23 18:03:13 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/23 18:09:19 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int get_home(char **path_ptr, char **envp)
 
 static bool	is_path_alreadly_absollute_path(char *path)
 {
-	return (path[0] == '/' && ft_strchr(&path[1], '/'));
+	return (path[0] == '/' && (path[1] == '\0' || ft_strchr(&path[1], '/')));
 }
 
 static bool get_path_from_cmd_arg(char	**path_ptr, char **cmd, char ***envp)
@@ -82,7 +82,7 @@ int	exec_cd(char **cmd, char ***envp)
 	}
 	else
 	{
-		if(is_file_exist(path) == false)
+		if (is_file_exist(path) == false)
 			return put_error("-bash: cd: "), put_error(path), put_error(": No such file or directory\n"), free(path), true;
 		// pathの".."や"../"の数を数える！
 		down_count_from_cwd = get_down_count_from_cwd(path);
