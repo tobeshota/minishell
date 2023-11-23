@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/23 16:44:13 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/23 17:20:23 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,11 @@ int	exec_cd(char **cmd, char ***envp)
 	if (get_path_from_cmd_arg(&path, cmd, envp) == false)
 		return (false);
 
+	if (!ft_strncmp(path, ".", ft_strlen(path)))
+		return true;
+
 	if (is_path_alreadly_absollute_path(path))
 	{
-		// envp[0][env_i] = ft_strjoin("PWD=", path);
 		tmp = path;
 		path = ft_strjoin("PWD=", path);
 		free(tmp);
@@ -93,7 +95,6 @@ int	exec_cd(char **cmd, char ***envp)
 		ft_strlcpy(envp[0][env_i], path, ft_strlen(path)+1);
 	}
 	free(path);
-
-ft_printf("envp[0][env_i] >>> %s\n", envp[0][env_i]);
+	ft_printf("envp[0][env_i] >>> %s\n", envp[0][env_i]);
 	return (true);
 }

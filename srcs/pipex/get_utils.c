@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/23 16:11:39 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/23 17:09:33 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,18 +59,11 @@ int	get_down_count_from_cwd(char *relative_path)
 	return (down_count_from_pwd);
 }
 
-static int is_eos_c(char *str, char c)
-{
-	return str[ft_strlen(str)-1] == c;
-}
-
 // 引数として渡ってくる**pwd_path: "/Users/tobeshota/workspace/42/minishell/"
 char	*down_path(char *path, int down_count_from_cwd)
 {
 	int		delete_len;
 
-	// if(is_eos_c(path, '/'))
-	// 	down_count_from_cwd++;
 	while(down_count_from_cwd)
 	{
 		if (!ft_strncmp(path, "..", ft_strlen("..")))

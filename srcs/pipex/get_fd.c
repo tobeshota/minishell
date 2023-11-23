@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 01:22:30 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/20 11:08:49 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/23 17:15:32 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,12 @@ bool	get_outfile_fd(t_pipex_data *pipex_data, int cmd_i, char **argv)
 	return (true);
 }
 
-static bool	is_parameter_arg(char *cmd_parameter)
+// 引数がファイルかどうかの判定をうまくやる必要がある！
+// ..でないこと
+// .でないこと
+static bool	is_parameter_file(char *cmd_parameter)
 {
-	return (cmd_parameter[0] != '\0' && cmd_parameter[0] != '-'
-		&& is_file_exist(cmd_parameter));
+	return (cmd_parameter[0] != '\0' && cmd_parameter[0] != '-' && is_file_exist(cmd_parameter) && ft_strncmp(cmd_parameter, "..", ft_strlen(cmd_parameter)) && ft_strncmp(cmd_parameter, ".", ft_strlen(cmd_parameter)));
 }
 
 int	get_cmd_arg_fd(t_pipex_data *pipex_data, int cmd_i)
@@ -84,7 +86,7 @@ int	get_cmd_arg_fd(t_pipex_data *pipex_data, int cmd_i)
 	strlen_until_c \
 	(pipex_data->cmd_absolute_path_with_parameter[cmd_i], ' ') + 1, \
 	ft_strlen(pipex_data->cmd_absolute_path_with_parameter[cmd_i])));
-	if (is_parameter_arg(cmd_parameter) == true)
+	if (is_parameter_file(cmd_parameter) == true)
 		cmd_arg_fd = open_file(cmd_parameter, INFILE);
 	else
 		cmd_arg_fd = NOT_SPECIFIED;

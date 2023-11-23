@@ -39,8 +39,7 @@ int	exec_builtin(char ***envp, t_pipex_data *pipex_data, int cmd_i)
 	char	**cmd;
 
 	ret = false;
-	cmd = check_malloc \
-	(ft_split(pipex_data->cmd_absolute_path_with_parameter[cmd_i], ' '));
+	cmd = check_malloc(ft_split(pipex_data->cmd_absolute_path_with_parameter[cmd_i], ' '));
 	if (is_specified_builtin_cmd(pipex_data->cmd_absolute_path[cmd_i], "/bin/echo"))
 		ret = exec_echo(cmd, pipex_data);
 	else if (is_specified_builtin_cmd(pipex_data->cmd_absolute_path[cmd_i], "/usr/bin/cd"))

@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/23 15:25:18 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/23 17:08:17 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,11 @@
 
 static bool	set_input_fd(t_pipex_data *pipex_data, int cmd_i, char **argv)
 {
-	if (get_infile_fd(pipex_data, cmd_i, argv) == false
-		|| check_open(get_cmd_arg_fd(pipex_data, cmd_i)) == false)
+	if (get_infile_fd(pipex_data, cmd_i, argv) == false || check_open(get_cmd_arg_fd(pipex_data, cmd_i)) == false)
 		return (false);
 	if (get_cmd_arg_fd(pipex_data, cmd_i) != NOT_SPECIFIED)
 	{
-		if (check_dup(dup2(get_cmd_arg_fd(pipex_data, cmd_i),
-					STDIN_FILENO)) == false)
+		if (check_dup(dup2(get_cmd_arg_fd(pipex_data, cmd_i), STDIN_FILENO)) == false)
 			return (false);
 		return (check_close(close(get_cmd_arg_fd(pipex_data, cmd_i))));
 	}
@@ -61,7 +59,7 @@ static bool	set_output_fd(t_pipex_data *pipex_data, int cmd_i, char **argv)
 	return (true);
 }
 
-static bool	exec_child(char ***envp, t_pipex_data *pipex_data, int cmd_i,
+static bool	exec(char ***envp, t_pipex_data *pipex_data, int cmd_i,
 		char **argv)
 {
 	char	**cmd;
@@ -103,14 +101,14 @@ bool	do_pipe(char ***envp, t_pipex_data *pipex_data, char **argv)
 			return (false);
 		if (is_cmd_builtin(pipex_data->cmd_absolute_path[cmd_i]))
 		{
-			if (exec_child(envp, pipex_data, cmd_i, argv) == false)
+			if (exec(envp, pipex_data, cmd_i, argv) == false)
 				return (false);
 		}
 		else
 		{
 			if (get_child(&child_pid) == false)
 				return (false);
-			if (child_pid == 0 && exec_child(envp, pipex_data, cmd_i, argv) == false)
+			if (child_pid == 0 && exec(envp, pipex_data, cmd_i, argv) == false)
 				return (false);
 		}
 		if (cmd_i > 0 && close_pipe(pipex_data->pipe_fd[cmd_i - 1]) == false)
