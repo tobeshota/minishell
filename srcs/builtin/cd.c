@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/23 16:34:25 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/23 16:44:13 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	exec_cd(char **cmd, char ***envp)
 	int		env_i;
 	int		down_count_from_cwd;
 	char	*path;
+	char	*tmp;
 
 	env_i = 0;
 	while (envp[0][env_i] && ft_strncmp(envp[0][env_i], "PWD=", ft_strlen("PWD=")))
@@ -71,7 +72,11 @@ int	exec_cd(char **cmd, char ***envp)
 
 	if (is_path_alreadly_absollute_path(path))
 	{
-		envp[0][env_i] = ft_strjoin("PWD=", path);
+		// envp[0][env_i] = ft_strjoin("PWD=", path);
+		tmp = path;
+		path = ft_strjoin("PWD=", path);
+		free(tmp);
+		ft_strlcpy(envp[0][env_i], path, ft_strlen(path)+1);
 	}
 	else
 	{
@@ -82,7 +87,10 @@ int	exec_cd(char **cmd, char ***envp)
 		// pathの".."や"../"を消す！
 		path = down_path(path, down_count_from_cwd);
 		// envp[0][env_i]にpathを連結する！
-		envp[0][env_i] = ft_strjoin(envp[0][env_i], path);
+		tmp = path;
+		path = ft_strjoin(envp[0][env_i], path);
+		free(tmp);
+		ft_strlcpy(envp[0][env_i], path, ft_strlen(path)+1);
 	}
 	free(path);
 
