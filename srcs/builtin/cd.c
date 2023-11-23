@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/24 00:12:49 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/24 00:14:20 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,7 @@ bool	change_current_directory(char ***envp, int env_i, char *path)
 	{
 		// カレントディレクトリとlsが対応しないため↓の is_file_exist(path) の結果が適切に出ない問題をどうにかする！
 		// if (is_file_exist(path) == false)
-		// 	return (put_error("-bash: cd: "), put_error(path),
-					put_error(": No such file or directory\n"), free(path),
-					true);
+		// 	return (put_error("-bash: cd: "), put_error(path), put_error(": No such file or directory\n"), free(path), true);
 		down_count_from_cwd = get_down_count_from_cwd(path);
 		envp[0][env_i] = down_cwd(envp[0][env_i], down_count_from_cwd);
 		path = down_passed_path(path, down_count_from_cwd);
