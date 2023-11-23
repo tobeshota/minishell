@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/23 17:20:23 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/23 17:26:50 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ int	exec_cd(char **cmd, char ***envp)
 		path = ft_strjoin(envp[0][env_i], path);
 		free(tmp);
 		ft_strlcpy(envp[0][env_i], path, ft_strlen(path)+1);
+		if(!ft_strncmp(envp[0][env_i], "PWD=", ft_strlen(envp[0][env_i])))
+			ft_strlcpy(envp[0][env_i], "PWD=/", ft_strlen("PWD=/")+1);
 	}
 	free(path);
 	ft_printf("envp[0][env_i] >>> %s\n", envp[0][env_i]);

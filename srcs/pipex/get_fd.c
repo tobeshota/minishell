@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 01:22:30 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/23 17:15:32 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/23 17:50:54 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,23 @@ bool	get_outfile_fd(t_pipex_data *pipex_data, int cmd_i, char **argv)
 	return (true);
 }
 
-// 引数がファイルかどうかの判定をうまくやる必要がある！
-// ..でないこと
-// .でないこと
+static bool is_command_parameters_included_characters_other_than_dots_and_slashes(char *cmd_parameter)
+{
+	int i;
+
+	i = 0;
+	while(cmd_parameter[i])
+	{
+		if(cmd_parameter[i] != '.' && cmd_parameter[i] != '/')
+			return true;
+		i++;
+	}
+	return false;
+}
+
 static bool	is_parameter_file(char *cmd_parameter)
 {
-	return (cmd_parameter[0] != '\0' && cmd_parameter[0] != '-' && is_file_exist(cmd_parameter) && ft_strncmp(cmd_parameter, "..", ft_strlen(cmd_parameter)) && ft_strncmp(cmd_parameter, ".", ft_strlen(cmd_parameter)));
+	return (cmd_parameter[0] != '\0' && cmd_parameter[0] != '-' && is_file_exist(cmd_parameter) && is_command_parameters_included_characters_other_than_dots_and_slashes(cmd_parameter));
 }
 
 int	get_cmd_arg_fd(t_pipex_data *pipex_data, int cmd_i)

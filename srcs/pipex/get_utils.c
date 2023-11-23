@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/23 17:09:33 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/23 17:29:38 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ char	*down_path(char *path, int down_count_from_cwd)
 
 	while(down_count_from_cwd)
 	{
+		if (!ft_strncmp(path, "PWD=/", ft_strlen(path)))
+			break;
 		if (!ft_strncmp(path, "..", ft_strlen("..")))
 		{
 			ft_strlcpy(path, "", 1);
