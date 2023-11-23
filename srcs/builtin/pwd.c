@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/22 17:28:36 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/23 19:08:46 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	exec_pwd(char **envp, t_pipex_data *pipex_data)
 
 	if (get_pwd(&pwd, envp) == false)
 		return (false);
-	ft_printf("【PWD】");
 	write(pipex_data->outfile_fd, pwd[0], ft_strlen(pwd[0]) - 1);
 	ft_putchar_fd('\n', pipex_data->outfile_fd);
 	all_free_tab(pwd);
