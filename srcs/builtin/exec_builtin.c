@@ -43,7 +43,7 @@ int	exec_builtin(char ***envp, t_pipex_data *pipex_data, int cmd_i)
 	else if (is_match(target, "/usr/bin/cd") || is_match(target, "cd"))
 		ret = exec_cd(cmd, envp);
 	else if (is_match(target, "/bin/pwd") || is_match(target, "pwd"))
-		ret = exec_pwd(*envp, pipex_data);
+		ret = exec_pwd(pipex_data);
 	else if (is_match(target, "export"))
 		ret = exec_export(cmd, envp);
 	else if (is_match(target, "unset"))
