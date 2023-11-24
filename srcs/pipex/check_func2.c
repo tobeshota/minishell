@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 10:03:29 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/23 21:57:22 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/24 16:12:48 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,16 @@ bool	check_unlink(int ret)
 	if (ret == -1)
 	{
 		put_error("failed to unlink\n");
+		return (false);
+	}
+	return (true);
+}
+
+bool	check_getenv(char *ptr)
+{
+	if (ptr == NULL)
+	{
+		put_error("failed to getenv\n");
 		return (false);
 	}
 	return (true);

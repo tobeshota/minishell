@@ -6,20 +6,19 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/24 12:44:22 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/24 16:12:30 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
-#include <stdio.h>
-
 # include "builtin.h"
 # include "define.h"
 # include "libft.h"
+# include <stdio.h>
+# include <sys/stat.h>
 # include <sys/types.h>
-#include <sys/stat.h>
 
 # define HERE_DOC_FILE_PATH "/tmp/here_doc"
 # define INFILE 0
@@ -36,6 +35,7 @@ void	put_error(char *err_msg);
 char	*ft_strrnchr(const char *s, int c, int n);
 size_t	strlen_until_c(char *str, char c);
 void	*check_malloc(void *ptr);
+bool	check_getenv(char *ptr);
 bool	check_open(int ret);
 bool	check_close(int ret);
 bool	check_pipe(int ret);
@@ -48,20 +48,22 @@ bool	is_path_found(char *path);
 int		get_cmd_count(char **argv);
 int		get_pipe_count(char **argv);
 int		get_builtin_cmd_count(t_pipex_data *pipex_data);
-bool	convert_relative_path_to_absolute_path(char ***cmd_absolute_path, int cmd_i, char **envp);
+bool	convert_relative_path_to_absolute_path(char ***cmd_absolute_path,
+			int cmd_i, char **envp);
 bool	is_cmd(char **argv, int arg_i);
 bool	is_limitter(char **argv, int arg_i);
 bool	is_fd_default(int fd, int default_fd);
 bool	get_cmd_absolute_path(char **argv, char **envp,
 			t_pipex_data *pipex_data);
 bool	add_absolute_path_to_cmd_name(char ***cmd_absolute_path,
-			char **env_path, char **envp);
+									char **env_path,
+									char **envp);
 bool	get_env_path(char ***env_path, char **envp);
 void	delete_relative_path(char ***cmd_absolute_path, int cmd_i);
 bool	get_pwd(char ***pwd_path, char **envp);
 int		get_cmd_arg_fd(t_pipex_data *pipex_data, int cmd_i);
 void	get_cmd_parameter(char **argv, char ***cmd_absolute_path,
-		char ***cmd_parameter);
+			char ***cmd_parameter);
 bool	get_pipe(t_pipex_data *pipex_data, int cmd_i);
 bool	proc_here_doc(char *limitter, t_pipex_data *pipex_data);
 bool	is_cmd_relative_path(char ***cmd_absolute_path, int cmd_i);
@@ -96,4 +98,8 @@ bool	is_specified_pipe_pipe(char *str);
 bool	is_specified_ampersant(char *str);
 bool	is_specified_apersant_ampersant(char *str);
 
+// set_fd
+bool	set_input_fd(t_pipex_data *pipex_data, int cmd_i, char **argv);
+bool	set_output_fd(t_pipex_data *pipex_data, int cmd_i, char **argv);
+bool	reset_fd(t_pipex_data *pipex_data);
 #endif
