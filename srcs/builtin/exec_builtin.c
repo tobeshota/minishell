@@ -51,6 +51,6 @@ int	exec_builtin(char ***envp, t_pipex_data *pipex_data, int cmd_i)
 	else if (is_match(target, "/usr/bin/env") || is_match(target, "env"))
 		ret = exec_env(*envp, pipex_data);
 	else if (is_match(target, "exit"))
-		ret = exec_exit();
+		ret = exec_exit(pipex_data);
 	return (all_free_tab(cmd), ret);
 }
