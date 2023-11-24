@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/24 11:01:38 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/24 11:10:16 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	exec_echo(char **cmd, t_pipex_data *pipex_data)
 {
 	int	cmd_i;
 
-	if (is_match(cmd[1], "-n") == true)
+	if (cmd[1] && is_match(cmd[1], "-n") == true)
 	{
 		cmd_i = 2;
 		while (cmd[cmd_i])
