@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 16:15:47 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/22 11:59:31 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/24 10:50:03 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int		exec_env(char **envp, t_pipex_data *pipex_data);
 int		exec_exit(void);
 
 // exec_builtin.c
+bool	is_match(char *cmd, char *builtin_cmd);
 bool	is_cmd_builtin(char *cmd);
 int		exec_builtin(char ***envp, t_pipex_data *pipex_data, int cmd_i);
 
