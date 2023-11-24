@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/23 23:29:36 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/24 12:44:22 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,9 @@ bool	add_absolute_path_to_cmd_name(char ***cmd_absolute_path,
 bool	get_env_path(char ***env_path, char **envp);
 void	delete_relative_path(char ***cmd_absolute_path, int cmd_i);
 bool	get_pwd(char ***pwd_path, char **envp);
-int		get_down_count_from_cwd(char *relative_path);
 int		get_cmd_arg_fd(t_pipex_data *pipex_data, int cmd_i);
 void	get_cmd_parameter(char **argv, char ***cmd_absolute_path,
 		char ***cmd_parameter);
-char	*down_cwd(char *path, int down_count_from_cwd);
-char	*down_passed_path(char *passed_path, int down_count_from_cwd);
 bool	get_pipe(t_pipex_data *pipex_data, int cmd_i);
 bool	proc_here_doc(char *limitter, t_pipex_data *pipex_data);
 bool	is_cmd_relative_path(char ***cmd_absolute_path, int cmd_i);
