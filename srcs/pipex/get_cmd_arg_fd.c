@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 21:49:47 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/25 21:54:46 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/25 22:40:18 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,16 @@ static bool	is_parameter_file(char *cmd_parameter)
 	return (true);
 }
 
-int	get_cmd_arg_fd(t_pipex_data *pipex_data, int cmd_i)
+int	get_cmd_arg_fd(t_pipex *pipex, int cmd_i)
 {
 	int		cmd_arg_fd;
 	char	*cmd_parameter;
 
 	cmd_parameter = check_malloc \
-	(ft_substr(pipex_data->cmd_absolute_path_with_parameter[cmd_i], \
+	(ft_substr(pipex->cmd_absolute_path_with_parameter[cmd_i], \
 	strlen_until_c \
-	(pipex_data->cmd_absolute_path_with_parameter[cmd_i], ' ') + 1, \
-	ft_strlen(pipex_data->cmd_absolute_path_with_parameter[cmd_i])));
+	(pipex->cmd_absolute_path_with_parameter[cmd_i], ' ') + 1, \
+	ft_strlen(pipex->cmd_absolute_path_with_parameter[cmd_i])));
 	if (is_parameter_file(cmd_parameter) == true)
 		cmd_arg_fd = open_file(cmd_parameter, INFILE);
 	else

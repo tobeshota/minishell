@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 13:12:10 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/25 10:28:32 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/25 22:40:18 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,14 @@ typedef struct s_parser
 	t_parser				*prev;
 }							t_parser;
 
-typedef struct s_pipex_data
+typedef struct s_pipex
 {
 	int						infile_fd;
 	int						outfile_fd;
 	char					**cmd_absolute_path;
 	char					**cmd_absolute_path_with_parameter;
 	int						**pipe_fd;
-}							t_pipex_data;
+}							t_pipex;
 
 typedef struct s_env
 {

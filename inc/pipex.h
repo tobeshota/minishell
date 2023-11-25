@@ -6,16 +6,16 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/25 22:22:19 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/25 22:48:23 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
-# include "builtin.h"
-# include "define.h"
 # include "libft.h"
+# include "define.h"
+# include "builtin.h"
 # include <stdio.h>
 # include <sys/stat.h>
 # include <sys/types.h>
@@ -45,23 +45,23 @@ bool	check_unlink(int ret);
 bool	is_path_found(char *path);
 int		get_cmd_count(char **argv);
 int		get_pipe_count(char **argv);
-int		get_builtin_cmd_count(t_pipex_data *pipex_data);
+int		get_builtin_cmd_count(t_pipex *pipex);
 bool	is_cmd(char **argv, int arg_i);
 bool	is_limitter(char **argv, int arg_i);
 bool	is_fd_default(int fd, int default_fd);
-bool	get_cmd_absolute_path(char **argv, t_pipex_data *pipex_data);
+bool	get_cmd_absolute_path(char **argv, t_pipex *pipex);
 bool	add_absolute_path_to_cmd_name(char ***cmd_absolute_path);
-int		get_cmd_arg_fd(t_pipex_data *pipex_data, int cmd_i);
+int		get_cmd_arg_fd(t_pipex *pipex, int cmd_i);
 void	get_cmd_parameter(char **argv, char ***cmd_absolute_path,
 			char ***cmd_parameter);
-bool	proc_here_doc(char *limitter, t_pipex_data *pipex_data);
+bool	proc_here_doc(char *limitter, t_pipex *pipex);
 bool	is_cmd_relative_path(char ***cmd_absolute_path, int cmd_i);
 bool	is_cmd_alreadly_absollute_path(char ***cmd_absolute_path, int cmd_i);
 bool	wait_children(int cmd_i);
 int		pipex(char **argv, t_env **env);
-bool	get_pipex_data(char **argv, t_pipex_data *pipex_data);
-bool	do_pipe(char **argv, t_env **env, t_pipex_data *pipex_data);
-bool	end_pipex(t_pipex_data *pipex_data);
+bool	get_pipex(char **argv, t_pipex *pipex);
+bool	do_pipex(char **argv, t_env **env, t_pipex *pipex);
+bool	end_pipex(t_pipex *pipex);
 
 // is_specified_file
 bool	is_specified_infile(char *str);
@@ -70,8 +70,8 @@ bool	is_specified_outfile_overwriting(char *str);
 bool	is_specified_outfile_apend(char *str);
 bool	is_specified_operators(char *str);
 
-bool	get_infile_fd(t_pipex_data *pipex_data, int cmd_i, char **argv);
-bool	get_outfile_fd(t_pipex_data *pipex_data, int cmd_i, char **argv);
+bool	get_infile_fd(t_pipex *pipex, int cmd_i, char **argv);
+bool	get_outfile_fd(t_pipex *pipex, int cmd_i, char **argv);
 
 // is_file_ok
 bool	is_file_exist(char *file);
@@ -87,9 +87,9 @@ bool	is_specified_ampersant(char *str);
 bool	is_specified_apersant_ampersant(char *str);
 
 // set_fd
-bool	set_input_fd(t_pipex_data *pipex_data, int cmd_i, char **argv);
-bool	set_output_fd(t_pipex_data *pipex_data, int cmd_i, char **argv);
-bool	reset_fd(t_pipex_data *pipex_data);
+bool	set_input_fd(t_pipex *pipex, int cmd_i, char **argv);
+bool	set_output_fd(t_pipex *pipex, int cmd_i, char **argv);
+bool	reset_fd(t_pipex *pipex);
 
 // array_node
 t_env	*array_to_node(char **envp);

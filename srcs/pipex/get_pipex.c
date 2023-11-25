@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_pipex_data.c                                   :+:      :+:    :+:   */
+/*   get_pipex.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,16 +12,16 @@
 
 #include "pipex.h"
 
-int	get_builtin_cmd_count(t_pipex_data *pipex_data)
+int	get_builtin_cmd_count(t_pipex *pipex)
 {
 	int	cmd_i;
 	int	builtin_cmd_count;
 
 	cmd_i = 0;
 	builtin_cmd_count = 0;
-	while (pipex_data->cmd_absolute_path[cmd_i])
+	while (pipex->cmd_absolute_path[cmd_i])
 	{
-		if (is_cmd_builtin(pipex_data->cmd_absolute_path[cmd_i]))
+		if (is_cmd_builtin(pipex->cmd_absolute_path[cmd_i]))
 			builtin_cmd_count++;
 		cmd_i++;
 	}
@@ -44,39 +44,39 @@ int	get_pipe_count(char **argv)
 	return (pipe_count);
 }
 
-static void	malloc_multiple_pipe(char **argv, t_pipex_data *pipex_data)
+static void	malloc_multiple_pipe(char **argv, t_pipex *pipex)
 {
 	int	i;
 	int	pipe_count;
 
 	i = 0;
 	pipe_count = get_pipe_count(argv);
-	pipex_data->pipe_fd = (int **)check_malloc(malloc(sizeof(int *)
+	pipex->pipe_fd = (int **)check_malloc(malloc(sizeof(int *)
 				* pipe_count));
 	while (i < pipe_count)
 	{
-		pipex_data->pipe_fd[i] = (int *)check_malloc(malloc(sizeof(int) * 2));
+		pipex->pipe_fd[i] = (int *)check_malloc(malloc(sizeof(int) * 2));
 		i++;
 	}
-	pipex_data->pipe_fd[i] = NULL;
+	pipex->pipe_fd[i] = NULL;
 }
 
-static void	init_pipex_data(t_pipex_data *pipex_data)
+static void	init_pipex(t_pipex *pipex)
 {
-	ft_bzero(pipex_data, sizeof(t_pipex_data));
-	pipex_data->infile_fd = STDIN_FILENO;
-	pipex_data->outfile_fd = STDOUT_FILENO;
+	ft_bzero(pipex, sizeof(t_pipex));
+	pipex->infile_fd = STDIN_FILENO;
+	pipex->outfile_fd = STDOUT_FILENO;
 }
 
-bool	get_pipex_data(char **argv, t_pipex_data *pipex_data)
+bool	get_pipex(char **argv, t_pipex *pipex)
 {
-	init_pipex_data(pipex_data);
-	if (get_infile_fd(pipex_data, 0, argv) == false)
+	init_pipex(pipex);
+	if (get_infile_fd(pipex, 0, argv) == false)
 		return (false);
-	if (get_outfile_fd(pipex_data, 0, argv) == false)
+	if (get_outfile_fd(pipex, 0, argv) == false)
 		return (false);
-	if (get_cmd_absolute_path(argv, pipex_data) == false)
+	if (get_cmd_absolute_path(argv, pipex) == false)
 		return (false);
-	malloc_multiple_pipe(argv, pipex_data);
+	malloc_multiple_pipe(argv, pipex);
 	return (true);
 }

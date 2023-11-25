@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/25 09:58:05 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/25 22:40:18 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ static unsigned char	get_exit_return_value(char *cmd_arg)
 }
 
 // https://itpfdoc.hitachi.co.jp/manuals/3020/30203S3530/JPAS0289.HTM
-int	exec_exit(char **cmd, t_pipex_data *pipex_data)
+int	exec_exit(char **cmd, t_pipex *pipex)
 {
-	ft_putstr_fd(EXIT_MSG, pipex_data->outfile_fd);
+	ft_putstr_fd(EXIT_MSG, pipex->outfile_fd);
 	if (cmd[1])
 	{
 		if (get_cmd_argc(cmd) > 2)

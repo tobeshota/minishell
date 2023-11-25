@@ -6,13 +6,13 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/24 11:10:16 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/25 22:40:18 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
-int	exec_echo(char **cmd, t_pipex_data *pipex_data)
+int	exec_echo(char **cmd, t_pipex *pipex)
 {
 	int	cmd_i;
 
@@ -21,9 +21,9 @@ int	exec_echo(char **cmd, t_pipex_data *pipex_data)
 		cmd_i = 2;
 		while (cmd[cmd_i])
 		{
-			ft_putstr_fd(cmd[cmd_i], pipex_data->outfile_fd);
+			ft_putstr_fd(cmd[cmd_i], pipex->outfile_fd);
 			if (cmd[++cmd_i])
-				ft_putchar_fd(' ', pipex_data->outfile_fd);
+				ft_putchar_fd(' ', pipex->outfile_fd);
 		}
 	}
 	else
@@ -31,11 +31,11 @@ int	exec_echo(char **cmd, t_pipex_data *pipex_data)
 		cmd_i = 1;
 		while (cmd[cmd_i])
 		{
-			ft_putstr_fd(cmd[cmd_i], pipex_data->outfile_fd);
+			ft_putstr_fd(cmd[cmd_i], pipex->outfile_fd);
 			if (cmd[++cmd_i])
-				ft_putchar_fd(' ', pipex_data->outfile_fd);
+				ft_putchar_fd(' ', pipex->outfile_fd);
 		}
-		ft_putchar_fd('\n', pipex_data->outfile_fd);
+		ft_putchar_fd('\n', pipex->outfile_fd);
 	}
 	return (true);
 }

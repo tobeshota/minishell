@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:32:48 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/25 22:30:36 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/25 22:44:18 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@
 */
 int	pipex(char **argv, t_env **env)
 {
-	t_pipex_data	pipex_data;
+	t_pipex	pipex;
 
-	if (get_pipex_data(argv, &pipex_data) == false)
-		return (end_pipex(&pipex_data), false);
-	if (do_pipe(argv, env, &pipex_data) == false)
-		return (end_pipex(&pipex_data), false);
-	return (end_pipex(&pipex_data));
+	if (get_pipex(argv, &pipex) == false)
+		return (end_pipex(&pipex), false);
+	if (do_pipex(argv, env, &pipex) == false)
+		return (end_pipex(&pipex), false);
+	return (end_pipex(&pipex));
 }
 
 // > outfile ls | echo Hello
