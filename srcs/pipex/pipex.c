@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:32:48 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/25 22:06:55 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/25 22:30:36 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@
 /*
 
 ■終了ステータス
-【1】異常終了
+【false】異常終了
 ・存在しない入力ファイルを渡された
 ・open()，close()，read()，fork()，dup()，execve()，unlink()，wait()に失敗した
-【0】正常終了
+【true】正常終了
 
 */
 int	pipex(char **argv, t_env **env)
@@ -33,9 +33,7 @@ int	pipex(char **argv, t_env **env)
 		return (end_pipex(&pipex_data), false);
 	if (do_pipe(argv, env, &pipex_data) == false)
 		return (end_pipex(&pipex_data), false);
-	if (end_pipex(&pipex_data) == false)
-		return (false);
-	return (true);
+	return (end_pipex(&pipex_data));
 }
 
 // > outfile ls | echo Hello
