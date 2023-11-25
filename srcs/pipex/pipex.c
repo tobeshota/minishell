@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:32:48 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/25 21:41:54 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/25 22:06:55 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@
 【0】正常終了
 
 */
-int	pipex(char **argv, t_env **env_node)
+int	pipex(char **argv, t_env **env)
 {
 	t_pipex_data	pipex_data;
 
 	if (get_pipex_data(argv, &pipex_data) == false)
 		return (end_pipex(&pipex_data), false);
-	if (do_pipe(argv, env_node, &pipex_data) == false)
+	if (do_pipe(argv, env, &pipex_data) == false)
 		return (end_pipex(&pipex_data), false);
 	if (end_pipex(&pipex_data) == false)
 		return (false);

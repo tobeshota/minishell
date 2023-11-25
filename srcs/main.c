@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 12:34:25 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/25 21:40:50 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/25 22:06:55 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	put_arg_for_debug(char **argv)
 int	minishell(char **argv, char **envp)
 {
 	char	*line;
-	t_env	*env_node;
+	t_env	*env;
 
 	while (true)
 	{
@@ -42,12 +42,12 @@ int	minishell(char **argv, char **envp)
 		if (*line)
 			add_history(line);
 		put_arg_for_debug(argv);
-		env_node = array_to_node(envp);
-		pipex(argv, &env_node);
+		env = array_to_node(envp);
+		pipex(argv, &env);
 		all_free_tab(argv);
-		node_to_array(env_node, &envp);
+		node_to_array(env, &envp);
 		free(line);
-		ft_nodeclear(&env_node);
+		ft_nodeclear(&env);
 	}
 	ft_printf(EXIT_MSG);
 	return (0);

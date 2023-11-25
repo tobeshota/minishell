@@ -6,13 +6,13 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/25 21:06:11 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/25 22:06:55 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
-int	exec_export(char **cmd, t_env **env_node)
+int	exec_export(char **cmd, t_env **env)
 {
 	return (true);
 }

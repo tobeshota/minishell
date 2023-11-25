@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/25 21:40:37 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/25 22:06:55 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ bool	get_pipe(t_pipex_data *pipex_data, int cmd_i);
 bool	proc_here_doc(char *limitter, t_pipex_data *pipex_data);
 bool	is_cmd_relative_path(char ***cmd_absolute_path, int cmd_i);
 bool	is_cmd_alreadly_absollute_path(char ***cmd_absolute_path, int cmd_i);
-bool	do_pipe(char **argv, t_env **env_node, t_pipex_data *pipex_data);
+bool	do_pipe(char **argv, t_env **env, t_pipex_data *pipex_data);
 bool	wait_children(int cmd_i);
-int		pipex(char **argv, t_env **env_node);
+int		pipex(char **argv, t_env **env);
 bool	get_pipex_data(char **argv, t_pipex_data *pipex_data);
 bool	end_pipex(t_pipex_data *pipex_data);
 
@@ -97,7 +97,7 @@ bool	reset_fd(t_pipex_data *pipex_data);
 
 // array_node
 t_env	*array_to_node(char **envp);
-void	node_to_array(t_env *env_node, char ***envp);
+void	node_to_array(t_env *env, char ***envp);
 
 // node
 t_env	*ft_nodenew(char *content);

@@ -6,13 +6,13 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/25 22:03:22 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/25 22:06:55 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static bool	exec(char **argv, t_env **env_node, t_pipex_data *pipex_data,
+static bool	exec(char **argv, t_env **env, t_pipex_data *pipex_data,
 		int cmd_i)
 {
 	char		**cmd;
@@ -24,7 +24,7 @@ static bool	exec(char **argv, t_env **env_node, t_pipex_data *pipex_data,
 		return (false);
 	if (is_cmd_builtin(pipex_data->cmd_absolute_path[cmd_i]))
 	{
-		if (check_exec(exec_builtin(env_node, pipex_data, cmd_i)) == false)
+		if (check_exec(exec_builtin(env, pipex_data, cmd_i)) == false)
 			return (false);
 		return (reset_fd(pipex_data));
 	}

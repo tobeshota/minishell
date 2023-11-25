@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 15:36:11 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/25 21:43:37 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/25 22:06:55 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,16 @@ t_env	*array_to_node(char **envp)
 	return (node);
 }
 
-void	node_to_array(t_env *env_node, char ***envp)
+void	node_to_array(t_env *env, char ***envp)
 {
 	int	env_i;
 
 	env_i = 0;
-	while (envp[0][env_i] && env_node && env_node->next)
+	while (envp[0][env_i] && env && env->next)
 	{
 		ft_strlcpy \
-		(envp[0][env_i], env_node->content, ft_strlen(env_node->content) + 1);
-		ft_nodenext(&env_node);
+		(envp[0][env_i], env->content, ft_strlen(env->content) + 1);
+		ft_nodenext(&env);
 		env_i++;
 	}
 }

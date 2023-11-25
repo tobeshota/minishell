@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/25 21:28:43 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/25 22:06:55 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,25 +40,25 @@ static bool	get_path_from_cd(char **path_ptr, char **cmd)
 	return (true);
 }
 
-static bool	update_envp(t_env **env_node, char *varname, char *new_data)
+static bool	update_envp(t_env **env, char *varname, char *new_data)
 {
 	char	*tmp;
 
-	if (env_node == NULL)
+	if (env == NULL)
 		return (false);
-	while (*env_node && \
-	ft_strncmp((*env_node)->content, varname, ft_strlen(varname)))
-		ft_nodenext(env_node);
-	if (is_path_found((*env_node)->content) == false)
-		return (ft_nodefirst(env_node), false);
+	while (*env && \
+	ft_strncmp((*env)->content, varname, ft_strlen(varname)))
+		ft_nodenext(env);
+	if (is_path_found((*env)->content) == false)
+		return (ft_nodefirst(env), false);
 	new_data = check_malloc(ft_strjoin(varname, new_data));
-	tmp = (*env_node)->content;
-	(*env_node)->content = check_malloc(ft_strdup(new_data));
-	ft_nodefirst(env_node);
+	tmp = (*env)->content;
+	(*env)->content = check_malloc(ft_strdup(new_data));
+	ft_nodefirst(env);
 	return (free(tmp), free(new_data), true);
 }
 
-int	exec_cd(char **cmd, t_env **env_node)
+int	exec_cd(char **cmd, t_env **env)
 {
 	char	*path_from_cd;
 	char	cwd[PATH_MAX];
@@ -79,5 +79,5 @@ int	exec_cd(char **cmd, t_env **env_node)
 	free(path_from_cd);
 	if (getcwd(cwd, PATH_MAX) == NULL)
 		return (false);
-	return (update_envp(env_node, "PWD=", cwd));
+	return (update_envp(env, "PWD=", cwd));
 }
