@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/25 09:25:24 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/25 09:58:05 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,14 @@ static int	get_cmd_argc(char **cmd)
 	return (cmd_argc);
 }
 
+static bool	is_sign(int c)
+{
+	return (c == '+' || c == '-');
+}
+
 static bool	is_cmd_arg_num(char *cmd_arg)
 {
-	if (*cmd_arg && *cmd_arg == '-')
+	if (is_sign(*cmd_arg) && *(cmd_arg + 1))
 		cmd_arg++;
 	while (*cmd_arg && ft_strchr("0123456789", *cmd_arg))
 		cmd_arg++;
