@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 12:34:25 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/24 15:20:33 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/25 14:52:44 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,22 @@ int	pipex_debug(int argc, char **argv, char **envp)
 	argv[i++] = ft_strdup("cd ..");
 	//
 	argv[i] = NULL;
-	pipex(argc, argv, &envp);
+	pipex(argv, &envp);
 	all_free_tab(argv);
 	return (0);
 }
 
-int	minishell(int argc, char **argv, char **envp)
+int	minishell(char **argv, char **envp)
 {
 	char	*line;
+	t_env	*env_node;
 
 	while (true)
 	{
 		line = readline(MINISHELL_PROMPT);
 		if (!line)
 			break ;
+		env_node = array_to_node(envp);
 		// 本来はft_splitでなくlexerとparser．いまは区切り文字','で分割している
 		// 【入力例】ls -l,|,wc -l
 		// 【入力例】cat infile,>,outfile
@@ -56,9 +58,11 @@ int	minishell(int argc, char **argv, char **envp)
 		if (*line)
 			add_history(line);
 		put_arg_for_debug(argv);
-		pipex(argc, argv, &envp);
+		pipex(argv, &envp);
 		all_free_tab(argv);
+		// envp = node_to_array(env_node);
 		free(line);
+		ft_nodeclear(&env_node);
 	}
 	ft_printf(EXIT_MSG);
 	return (0);
@@ -66,7 +70,8 @@ int	minishell(int argc, char **argv, char **envp)
 
 int	main(int argc, char **argv, char **envp)
 {
-	minishell(argc, argv, envp);
+	if (argc == 1 || argc != 1)
+		minishell(argv, envp);
 	// pipex_debug(argc, argv, envp);
 }
 

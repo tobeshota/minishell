@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/24 16:12:30 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/25 14:50:02 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ int		get_cmd_count(char **argv);
 int		get_pipe_count(char **argv);
 int		get_builtin_cmd_count(t_pipex_data *pipex_data);
 bool	convert_relative_path_to_absolute_path(char ***cmd_absolute_path,
-			int cmd_i, char **envp);
+											int cmd_i,
+											char **envp);
 bool	is_cmd(char **argv, int arg_i);
 bool	is_limitter(char **argv, int arg_i);
 bool	is_fd_default(int fd, int default_fd);
@@ -70,10 +71,9 @@ bool	is_cmd_relative_path(char ***cmd_absolute_path, int cmd_i);
 bool	is_cmd_alreadly_absollute_path(char ***cmd_absolute_path, int cmd_i);
 bool	do_pipe(char ***envp, t_pipex_data *pipex_data, char **argv);
 bool	wait_children(int cmd_i);
-int		pipex(int argc, char **argv, char ***envp);
-bool	get_pipex_data(int argc, char **argv, char **envp,
-			t_pipex_data *pipex_data);
-bool	end_pipex(t_pipex_data *pipex_data);
+int		pipex(char **argv, char ***envp);
+bool	get_pipex_data(char **argv, char **envp, t_pipex_data *pipex_data);
+bool	end_pipex(t_pipex_data *pipex_data, char ***envp);
 
 // is_specified_file
 bool	is_specified_infile(char *str);
@@ -102,4 +102,17 @@ bool	is_specified_apersant_ampersant(char *str);
 bool	set_input_fd(t_pipex_data *pipex_data, int cmd_i, char **argv);
 bool	set_output_fd(t_pipex_data *pipex_data, int cmd_i, char **argv);
 bool	reset_fd(t_pipex_data *pipex_data);
+
+// array_node
+t_env	*array_to_node(char **envp);
+char	***node_to_array(t_env *env_node);
+
+// node
+t_env	*ft_nodenew(char *content);
+t_env	*ft_nodelast(t_env *node);
+void	ft_nodeadd_back(t_env **node, t_env *new);
+void	ft_nodedelone(t_env **node);
+void	ft_nodeclear(t_env **node);
+void	ft_nodefirst(t_env **node);
+
 #endif

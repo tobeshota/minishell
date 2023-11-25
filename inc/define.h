@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 13:12:10 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/24 15:20:44 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/25 10:28:32 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 typedef enum e_file_type	t_file_type;
 typedef struct s_file		t_file;
 typedef struct s_parser		t_parser;
+typedef struct s_env		t_env;
 
 typedef enum e_file_type
 {
@@ -50,6 +51,13 @@ typedef struct s_pipex_data
 	char					**cmd_absolute_path_with_parameter;
 	int						**pipe_fd;
 }							t_pipex_data;
+
+typedef struct s_env
+{
+	char					*content;
+	t_env					*next;
+	t_env					*prev;
+}							t_env;
 
 // color
 # define BLACK "\x1b[30m"
