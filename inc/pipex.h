@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/25 14:50:02 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/25 15:02:58 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ bool	reset_fd(t_pipex_data *pipex_data);
 
 // array_node
 t_env	*array_to_node(char **envp);
-char	***node_to_array(t_env *env_node);
+void	node_to_array(t_env *env_node, char ***envp);
 
 // node
 t_env	*ft_nodenew(char *content);
@@ -114,5 +114,6 @@ void	ft_nodeadd_back(t_env **node, t_env *new);
 void	ft_nodedelone(t_env **node);
 void	ft_nodeclear(t_env **node);
 void	ft_nodefirst(t_env **node);
+void	ft_nodenext(t_env **node);
 
 #endif
