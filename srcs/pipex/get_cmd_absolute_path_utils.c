@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/23 22:51:34 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/25 19:26:50 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,20 @@ static bool	is_cmd_exist(char *env_path, char *cmd)
 	return (true);
 }
 
-static bool	add_absolute_from_env_path(char ***cmd_absolute_path,
-		char **env_path, int cmd_i)
+static bool	add_absolute_from_env_path(char ***cmd_absolute_path, int cmd_i)
 {
-	int		env_i;
+	char	**path;
 	char	*tmp;
-	char	*cmd;
+	int		i;
 
-	cmd = check_malloc(ft_strdup(cmd_absolute_path[0][cmd_i]));
-	env_i = 0;
-	while (env_path[env_i])
+	if (check_getenv(getenv("PATH")) == false)
+		return (false);
+	path = check_malloc(ft_split(getenv("PATH"), ':'));
+	add_slash_eos(&path);
+	i = 0;
+	while (path[i])
 	{
-		tmp = check_malloc(ft_strjoin(env_path[env_i],
-					cmd_absolute_path[0][cmd_i]));
+		tmp = check_malloc(ft_strjoin(path[i], cmd_absolute_path[0][cmd_i]));
 		if (is_file_exectable(tmp) == true)
 		{
 			free(cmd_absolute_path[0][cmd_i]);
@@ -47,11 +48,11 @@ static bool	add_absolute_from_env_path(char ***cmd_absolute_path,
 			break ;
 		}
 		free(tmp);
-		env_i++;
+		i++;
 	}
-	if (is_cmd_exist(env_path[env_i], cmd) == false)
-		return (free(cmd), false);
-	return (free(cmd), true);
+	if (is_cmd_exist(path[i], cmd_absolute_path[0][cmd_i]) == false)
+		return (all_free_tab(path), false);
+	return (all_free_tab(path), true);
 }
 
 void	delete_relative_path(char ***cmd_absolute_path, int cmd_i)
@@ -66,35 +67,7 @@ void	delete_relative_path(char ***cmd_absolute_path, int cmd_i)
 	free(tmp);
 }
 
-// bool	convert_relative_path_to_absolute_path(char ***path,
-// 		int cmd_i, char **envp)
-// {
-// 	char	*tmp;
-// 	char	**pwd;
-// 	char	*pwd_for_relative_path;
-
-// 	if (get_pwd(&pwd, envp) == false)
-// 		return (false);
-// 	pwd_for_relative_path = down_cwd(pwd, get_down_count_from_cwd(path[0][cmd_i]));
-// 	delete_relative_path(path, cmd_i);
-
-// 	if(ft_strlen(path[0][cmd_i]))
-// 	{
-// 		tmp = path[0][cmd_i];
-// 		path[0][cmd_i] = check_malloc(ft_strjoin("/", path[0][cmd_i]));
-// 		free(tmp);
-// 	}
-// 	tmp = path[0][cmd_i];
-// 	path[0][cmd_i] = check_malloc(ft_strjoin(pwd_for_relative_path, path[0][cmd_i]));
-// 	free(tmp);
-
-// 	all_free_tab(pwd);
-// 	// free(pwd_for_relative_path);
-// 	return (true);
-// }
-
-bool	add_absolute_path_to_cmd_name(char ***cmd_absolute_path,
-		char **env_path, char **envp)
+bool	add_absolute_path_to_cmd_name(char ***cmd_absolute_path)
 {
 	int	cmd_i;
 
@@ -105,8 +78,7 @@ bool	add_absolute_path_to_cmd_name(char ***cmd_absolute_path,
 			continue ;
 		if (is_cmd_alreadly_absollute_path(cmd_absolute_path, cmd_i))
 			continue ;
-		if (add_absolute_from_env_path(cmd_absolute_path, env_path,
-				cmd_i) == false)
+		if (add_absolute_from_env_path(cmd_absolute_path, cmd_i) == false)
 			return (false);
 	}
 	return (true);

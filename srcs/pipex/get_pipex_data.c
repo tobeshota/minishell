@@ -6,28 +6,11 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 01:18:05 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/25 13:51:03 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/25 19:29:51 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-// static bool	malloc_multiple_pipe_beta(int argc, char **argv,
-// 		t_pipex_data *pipex_data)
-// {
-// 	int	i;
-
-// 	i = argc - argc;
-// 	pipex_data->pipe_fd = (int **)check_malloc(malloc(sizeof(int *)
-// 				* (get_cmd_count(argv) + 1)));
-// 	while (i < get_cmd_count(argv))
-// 	{
-// 		pipex_data->pipe_fd[i] = (int *)check_malloc(malloc(sizeof(int) * 2));
-// 		i++;
-// 	}
-// 	pipex_data->pipe_fd[i] = NULL;
-// 	return (true);
-// }
 
 int get_builtin_cmd_count(t_pipex_data *pipex_data)
 {
@@ -85,14 +68,14 @@ static void	init_pipex_data(t_pipex_data *pipex_data)
 	pipex_data->outfile_fd = STDOUT_FILENO;
 }
 
-bool	get_pipex_data(char **argv, char **envp, t_pipex_data *pipex_data)
+bool	get_pipex_data(char **argv, t_pipex_data *pipex_data)
 {
 	init_pipex_data(pipex_data);
 	if (get_infile_fd(pipex_data, 0, argv) == false)
 		return (false);
 	if (get_outfile_fd(pipex_data, 0, argv) == false)
 		return (false);
-	if (get_cmd_absolute_path(argv, envp, pipex_data) == false)
+	if (get_cmd_absolute_path(argv, pipex_data) == false)
 		return (false);
 	malloc_multiple_pipe(argv, pipex_data);
 	return (true);

@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/20 15:04:48 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/25 19:28:31 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,21 +76,15 @@ static void	get_cmd_absolute_path_with_parameter(char **argv,
 	pipex_data->cmd_absolute_path_with_parameter[cmd_i] = NULL;
 }
 
-bool	get_cmd_absolute_path(char **argv, char **envp,
-		t_pipex_data *pipex_data)
+bool	get_cmd_absolute_path(char **argv, t_pipex_data *pipex_data)
 {
-	char	**env_path;
 	char	**cmd_parameter;
 
-	if (get_env_path(&env_path, envp) == false)
-		return (all_free_tab(env_path), false);
 	get_cmd_name_from_arg(argv, &pipex_data->cmd_absolute_path);
 	get_cmd_parameter(argv, &pipex_data->cmd_absolute_path, &cmd_parameter);
-	if (add_absolute_path_to_cmd_name(&pipex_data->cmd_absolute_path, env_path,
-			envp) == false)
-		return (all_free_tab(env_path), all_free_tab(cmd_parameter), false);
+	if (add_absolute_path_to_cmd_name(&pipex_data->cmd_absolute_path) == false)
+		return (all_free_tab(cmd_parameter), false);
 	get_cmd_absolute_path_with_parameter(argv, &cmd_parameter, pipex_data);
-	all_free_tab(env_path);
 	all_free_tab(cmd_parameter);
 	return (true);
 }

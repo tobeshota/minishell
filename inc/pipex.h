@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/25 17:01:20 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/25 19:29:44 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,20 +48,13 @@ bool	is_path_found(char *path);
 int		get_cmd_count(char **argv);
 int		get_pipe_count(char **argv);
 int		get_builtin_cmd_count(t_pipex_data *pipex_data);
-bool	convert_relative_path_to_absolute_path(char ***cmd_absolute_path,
-											int cmd_i,
-											char **envp);
 bool	is_cmd(char **argv, int arg_i);
 bool	is_limitter(char **argv, int arg_i);
 bool	is_fd_default(int fd, int default_fd);
-bool	get_cmd_absolute_path(char **argv, char **envp,
-			t_pipex_data *pipex_data);
-bool	add_absolute_path_to_cmd_name(char ***cmd_absolute_path,
-									char **env_path,
-									char **envp);
+bool	get_cmd_absolute_path(char **argv, t_pipex_data *pipex_data);
+bool	add_absolute_path_to_cmd_name(char ***cmd_absolute_path);
 bool	get_env_path(char ***env_path, char **envp);
 void	delete_relative_path(char ***cmd_absolute_path, int cmd_i);
-bool	get_pwd(char ***pwd_path, char **envp);
 int		get_cmd_arg_fd(t_pipex_data *pipex_data, int cmd_i);
 void	get_cmd_parameter(char **argv, char ***cmd_absolute_path,
 			char ***cmd_parameter);
@@ -72,7 +65,7 @@ bool	is_cmd_alreadly_absollute_path(char ***cmd_absolute_path, int cmd_i);
 bool	do_pipe(char ***envp, t_pipex_data *pipex_data, char **argv);
 bool	wait_children(int cmd_i);
 int		pipex(char **argv, char ***envp, t_env **env_node);
-bool	get_pipex_data(char **argv, char **envp, t_pipex_data *pipex_data);
+bool	get_pipex_data(char **argv, t_pipex_data *pipex_data);
 bool	end_pipex(t_pipex_data *pipex_data);
 
 // is_specified_file
