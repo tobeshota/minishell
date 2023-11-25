@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/25 21:02:20 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/25 21:28:43 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ static bool	update_envp(t_env **env_node, char *varname, char *new_data)
 
 	if (env_node == NULL)
 		return (false);
-	while (*env_node && ft_strncmp((*env_node)->content, varname,
-			ft_strlen(varname)))
+	while (*env_node && \
+	ft_strncmp((*env_node)->content, varname, ft_strlen(varname)))
 		ft_nodenext(env_node);
 	if (is_path_found((*env_node)->content) == false)
-		return (false);
+		return (ft_nodefirst(env_node), false);
 	new_data = check_malloc(ft_strjoin(varname, new_data));
 	tmp = (*env_node)->content;
 	(*env_node)->content = check_malloc(ft_strdup(new_data));

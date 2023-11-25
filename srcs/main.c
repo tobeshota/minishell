@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 12:34:25 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/25 20:59:42 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/25 21:40:50 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	minishell(char **argv, char **envp)
 			add_history(line);
 		put_arg_for_debug(argv);
 		env_node = array_to_node(envp);
-		pipex(argv, &envp, &env_node);
+		pipex(argv, &env_node);
 		all_free_tab(argv);
 		node_to_array(env_node, &envp);
 		free(line);

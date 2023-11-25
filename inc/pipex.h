@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/25 19:53:34 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/25 21:40:37 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ bool	get_pipe(t_pipex_data *pipex_data, int cmd_i);
 bool	proc_here_doc(char *limitter, t_pipex_data *pipex_data);
 bool	is_cmd_relative_path(char ***cmd_absolute_path, int cmd_i);
 bool	is_cmd_alreadly_absollute_path(char ***cmd_absolute_path, int cmd_i);
-bool	do_pipe(char **argv, char ***envp, t_env **env_node, t_pipex_data *pipex_data);
+bool	do_pipe(char **argv, t_env **env_node, t_pipex_data *pipex_data);
 bool	wait_children(int cmd_i);
-int		pipex(char **argv, char ***envp, t_env **env_node);
+int		pipex(char **argv, t_env **env_node);
 bool	get_pipex_data(char **argv, t_pipex_data *pipex_data);
 bool	end_pipex(t_pipex_data *pipex_data);
 
@@ -107,5 +107,6 @@ void	ft_nodedelone(t_env **node);
 void	ft_nodeclear(t_env **node);
 void	ft_nodefirst(t_env **node);
 void	ft_nodenext(t_env **node);
+void	ft_nodeprev(t_env **node);
 
 #endif

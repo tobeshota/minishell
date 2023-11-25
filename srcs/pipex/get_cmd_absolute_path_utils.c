@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/25 19:26:50 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/25 21:42:41 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,12 @@ void	delete_relative_path(char ***cmd_absolute_path, int cmd_i)
 	char	*tmp;
 
 	tmp = cmd_absolute_path[0][cmd_i];
-	cmd_absolute_path[0][cmd_i] = check_malloc(ft_strtrim(cmd_absolute_path[0][cmd_i], "../"));
+	cmd_absolute_path[0][cmd_i] = \
+	check_malloc(ft_strtrim(cmd_absolute_path[0][cmd_i], "../"));
 	free(tmp);
 	tmp = cmd_absolute_path[0][cmd_i];
-	cmd_absolute_path[0][cmd_i] = check_malloc(ft_strtrim(cmd_absolute_path[0][cmd_i], "./"));
+	cmd_absolute_path[0][cmd_i] = \
+	check_malloc(ft_strtrim(cmd_absolute_path[0][cmd_i], "./"));
 	free(tmp);
 }
 

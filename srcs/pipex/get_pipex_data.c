@@ -6,13 +6,13 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 01:18:05 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/25 19:29:51 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/25 21:43:07 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int get_builtin_cmd_count(t_pipex_data *pipex_data)
+int	get_builtin_cmd_count(t_pipex_data *pipex_data)
 {
 	int	cmd_i;
 	int	builtin_cmd_count;
