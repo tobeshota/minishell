@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/25 15:02:58 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/25 17:01:20 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ bool	is_cmd_relative_path(char ***cmd_absolute_path, int cmd_i);
 bool	is_cmd_alreadly_absollute_path(char ***cmd_absolute_path, int cmd_i);
 bool	do_pipe(char ***envp, t_pipex_data *pipex_data, char **argv);
 bool	wait_children(int cmd_i);
-int		pipex(char **argv, char ***envp);
+int		pipex(char **argv, char ***envp, t_env **env_node);
 bool	get_pipex_data(char **argv, char **envp, t_pipex_data *pipex_data);
-bool	end_pipex(t_pipex_data *pipex_data, char ***envp);
+bool	end_pipex(t_pipex_data *pipex_data);
 
 // is_specified_file
 bool	is_specified_infile(char *str);

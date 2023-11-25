@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 12:34:25 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/25 15:01:30 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/25 17:00:41 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,6 @@ static void	put_arg_for_debug(char **argv)
 		ft_printf("\"%s\"\t", argv[i]);
 	if (argv[0] != NULL)
 		ft_printf("\n");
-}
-
-int	pipex_debug(int argc, char **argv, char **envp)
-{
-	int	i;
-
-	i = 0;
-	argv = (char **)malloc(INT_MAX);
-	//
-	argv[i++] = ft_strdup("cd ..");
-	//
-	argv[i] = NULL;
-	pipex(argv, &envp);
-	all_free_tab(argv);
-	return (0);
 }
 
 int	minishell(char **argv, char **envp)
@@ -58,7 +43,7 @@ int	minishell(char **argv, char **envp)
 		if (*line)
 			add_history(line);
 		put_arg_for_debug(argv);
-		pipex(argv, &envp);
+		pipex(argv, &envp, &env_node);
 		all_free_tab(argv);
 		node_to_array(env_node, &envp);
 		free(line);
@@ -72,7 +57,6 @@ int	main(int argc, char **argv, char **envp)
 {
 	if (argc == 1 || argc != 1)
 		minishell(argv, envp);
-	// pipex_debug(argc, argv, envp);
 }
 
 __attribute__((destructor)) static void destructor()
