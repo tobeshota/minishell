@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 12:34:25 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/25 17:00:41 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/25 19:33:08 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int	minishell(char **argv, char **envp)
 		line = readline(MINISHELL_PROMPT);
 		if (!line)
 			break ;
-		env_node = array_to_node(envp);
 		// 本来はft_splitでなくlexerとparser．いまは区切り文字','で分割している
 		// 【入力例】ls -l,|,wc -l
 		// 【入力例】cat infile,>,outfile
@@ -43,6 +42,7 @@ int	minishell(char **argv, char **envp)
 		if (*line)
 			add_history(line);
 		put_arg_for_debug(argv);
+		env_node = array_to_node(envp);
 		pipex(argv, &envp, &env_node);
 		all_free_tab(argv);
 		node_to_array(env_node, &envp);
