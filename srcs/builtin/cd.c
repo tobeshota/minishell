@@ -6,13 +6,13 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/24 20:02:18 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/25 21:02:20 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
-static bool	get_path_from_cd(char **path_ptr, char **cmd, char ***envp)
+static bool	get_path_from_cd(char **path_ptr, char **cmd)
 {
 	char	*tmp;
 
@@ -40,28 +40,30 @@ static bool	get_path_from_cd(char **path_ptr, char **cmd, char ***envp)
 	return (true);
 }
 
-static bool	update_envp(char ***envp, char *varname, char *new_data)
+static bool	update_envp(t_env **env_node, char *varname, char *new_data)
 {
-	int		env_i;
 	char	*tmp;
 
-	env_i = 0;
-	while (ft_strncmp(envp[0][env_i], varname, ft_strlen(varname)))
-		env_i++;
-	if (is_path_found(envp[0][env_i]) == false)
+	if (env_node == NULL)
 		return (false);
-	new_data = ft_strjoin(varname, new_data);
-	ft_strlcpy(envp[0][env_i], new_data, ft_strlen(new_data) + 1);
-	free(new_data);
-	return (true);
+	while (*env_node && ft_strncmp((*env_node)->content, varname,
+			ft_strlen(varname)))
+		ft_nodenext(env_node);
+	if (is_path_found((*env_node)->content) == false)
+		return (false);
+	new_data = check_malloc(ft_strjoin(varname, new_data));
+	tmp = (*env_node)->content;
+	(*env_node)->content = check_malloc(ft_strdup(new_data));
+	ft_nodefirst(env_node);
+	return (free(tmp), free(new_data), true);
 }
 
-int	exec_cd(char **cmd, char ***envp)
+int	exec_cd(char **cmd, t_env **env_node)
 {
 	char	*path_from_cd;
 	char	cwd[PATH_MAX];
 
-	if (get_path_from_cd(&path_from_cd, cmd, envp) == false)
+	if (get_path_from_cd(&path_from_cd, cmd) == false)
 		return (free(path_from_cd), false);
 	if (is_match(path_from_cd, ".") || is_match(path_from_cd, "./"))
 		return (free(path_from_cd), true);
@@ -77,5 +79,5 @@ int	exec_cd(char **cmd, char ***envp)
 	free(path_from_cd);
 	if (getcwd(cwd, PATH_MAX) == NULL)
 		return (false);
-	return (update_envp(envp, "PWD=", cwd));
+	return (update_envp(env_node, "PWD=", cwd));
 }

@@ -6,16 +6,16 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/24 13:29:05 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/25 20:39:30 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static bool	exec(char ***envp, t_pipex_data *pipex_data, int cmd_i,
-		char **argv)
+static bool	exec(char ***envp, t_pipex_data *pipex_data, int cmd_i, char **argv, t_env **env_node)
 {
-	char	**cmd;
+	char		**cmd;
+	extern char	**environ;
 
 	if (set_input_fd(pipex_data, cmd_i, argv) == false)
 		return (false);
@@ -23,7 +23,8 @@ static bool	exec(char ***envp, t_pipex_data *pipex_data, int cmd_i,
 		return (false);
 	if (is_cmd_builtin(pipex_data->cmd_absolute_path[cmd_i]))
 	{
-		if (check_exec(exec_builtin(envp, pipex_data, cmd_i)) == false)
+		// envpでの実行でなくenv_nodeでの実行にする！
+		if (check_exec(exec_builtin(envp, pipex_data, cmd_i, env_node)) == false)
 			return false;
 		return reset_fd(pipex_data);
 	}
@@ -31,7 +32,7 @@ static bool	exec(char ***envp, t_pipex_data *pipex_data, int cmd_i,
 	{
 		cmd = check_malloc \
 		(ft_split(pipex_data->cmd_absolute_path_with_parameter[cmd_i], ' '));
-		return (check_exec(execve(pipex_data->cmd_absolute_path[cmd_i], cmd, *envp)));
+		return (check_exec(execve(pipex_data->cmd_absolute_path[cmd_i], cmd, environ)));
 	}
 }
 
@@ -44,7 +45,7 @@ static bool	get_child(pid_t *child_pid)
 }
 
 // builitin_cmdの場合，子プロセスでは実行しない．
-bool	do_pipe(char ***envp, t_pipex_data *pipex_data, char **argv)
+bool	do_pipe(char **argv, char ***envp, t_env **env_node, t_pipex_data *pipex_data)
 {
 	int		cmd_i;
 	pid_t	child_pid;
@@ -56,14 +57,14 @@ bool	do_pipe(char ***envp, t_pipex_data *pipex_data, char **argv)
 			return (false);
 		if (is_cmd_builtin(pipex_data->cmd_absolute_path[cmd_i]))
 		{
-			if (exec(envp, pipex_data, cmd_i, argv) == false)
+			if (exec(envp, pipex_data, cmd_i, argv, env_node) == false)
 				return (false);
 		}
 		else
 		{
 			if (get_child(&child_pid) == false)
 				return (false);
-			if (child_pid == 0 && exec(envp, pipex_data, cmd_i, argv) == false)
+			if (child_pid == 0 && exec(envp, pipex_data, cmd_i, argv, env_node) == false)
 				return (false);
 		}
 		if (cmd_i > 0 && close_pipe(pipex_data->pipe_fd[cmd_i - 1]) == false)

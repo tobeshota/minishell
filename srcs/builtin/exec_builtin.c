@@ -28,7 +28,7 @@ bool	is_cmd_builtin(char *cmd)
 		|| is_match(cmd, "exit"));
 }
 
-int	exec_builtin(char ***envp, t_pipex_data *pipex_data, int cmd_i)
+int	exec_builtin(char ***envp, t_pipex_data *pipex_data, int cmd_i, t_env **env_node)
 {
 	int		ret;
 	char	**cmd;
@@ -41,7 +41,7 @@ int	exec_builtin(char ***envp, t_pipex_data *pipex_data, int cmd_i)
 	if (is_match(target, "/bin/echo") || is_match(target, "echo"))
 		ret = exec_echo(cmd, pipex_data);
 	else if (is_match(target, "/usr/bin/cd") || is_match(target, "cd"))
-		ret = exec_cd(cmd, envp);
+		ret = exec_cd(cmd, env_node);
 	else if (is_match(target, "/bin/pwd") || is_match(target, "pwd"))
 		ret = exec_pwd(pipex_data);
 	else if (is_match(target, "export"))
