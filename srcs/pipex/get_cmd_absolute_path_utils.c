@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/25 21:42:41 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/25 22:18:27 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,21 @@ static bool	is_cmd_exist(char *env_path, char *cmd)
 		return (false);
 	}
 	return (true);
+}
+
+static void	add_slash_eos(char ***path)
+{
+	char	*tmp;
+	int		i;
+
+	i = 0;
+	while (path[0][i])
+	{
+		tmp = path[0][i];
+		path[0][i] = check_malloc(ft_strjoin(path[0][i], "/"));
+		free(tmp);
+		i++;
+	}
 }
 
 static bool	add_absolute_from_env_path(char ***cmd_absolute_path, int cmd_i)
@@ -53,20 +68,6 @@ static bool	add_absolute_from_env_path(char ***cmd_absolute_path, int cmd_i)
 	if (is_cmd_exist(path[i], cmd_absolute_path[0][cmd_i]) == false)
 		return (all_free_tab(path), false);
 	return (all_free_tab(path), true);
-}
-
-void	delete_relative_path(char ***cmd_absolute_path, int cmd_i)
-{
-	char	*tmp;
-
-	tmp = cmd_absolute_path[0][cmd_i];
-	cmd_absolute_path[0][cmd_i] = \
-	check_malloc(ft_strtrim(cmd_absolute_path[0][cmd_i], "../"));
-	free(tmp);
-	tmp = cmd_absolute_path[0][cmd_i];
-	cmd_absolute_path[0][cmd_i] = \
-	check_malloc(ft_strtrim(cmd_absolute_path[0][cmd_i], "./"));
-	free(tmp);
 }
 
 bool	add_absolute_path_to_cmd_name(char ***cmd_absolute_path)

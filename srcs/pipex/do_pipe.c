@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/25 22:06:55 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/25 22:12:37 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,11 @@ static bool	exec(char **argv, t_env **env, t_pipex_data *pipex_data,
 		return (check_exec(execve(pipex_data->cmd_absolute_path[cmd_i], cmd,
 					environ)));
 	}
+}
+
+static bool	get_pipe(t_pipex_data *pipex_data, int cmd_i)
+{
+	return (check_pipe(pipe(pipex_data->pipe_fd[cmd_i])));
 }
 
 static bool	get_child(pid_t *child_pid)

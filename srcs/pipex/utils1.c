@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/18 21:39:01 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/25 22:16:07 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,29 +30,6 @@ void	all_free_tab(char **ptr)
 void	put_error(char *err_msg)
 {
 	write(STDERR_FILENO, err_msg, ft_strlen(err_msg));
-}
-
-char	*ft_strrnchr(const char *s, int c, int n)
-{
-	char	ch;
-	size_t	i;
-	int		count;
-
-	ch = (char)c;
-	i = ft_strlen(s);
-	count = 0;
-	while (i >= 0 && i > ft_strlen(s) - n)
-	{
-		if (s[i] == ch)
-		{
-			if (count == n)
-				return ((char *)&s[i]);
-			else
-				count++;
-		}
-		i--;
-	}
-	return (0);
 }
 
 size_t	strlen_until_c(char *str, char c)

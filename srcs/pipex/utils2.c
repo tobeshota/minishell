@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/25 17:35:53 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/25 22:10:34 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,6 @@ bool	close_pipe(int *pipe_fd)
 	if (check_close(close(pipe_fd[1])) == false)
 		return (false);
 	return (true);
-}
-
-void	add_slash_eos(char ***path)
-{
-	char	*tmp;
-	int		i;
-
-	i = 0;
-	while (path[0][i])
-	{
-		tmp = path[0][i];
-		path[0][i] = check_malloc(ft_strjoin(path[0][i], "/"));
-		free(tmp);
-		i++;
-	}
 }
 
 bool	is_path_found(char *path)
