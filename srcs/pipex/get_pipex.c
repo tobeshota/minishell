@@ -51,6 +51,8 @@ static void	malloc_multiple_pipe(char **argv, t_pipex *pipex)
 
 	i = 0;
 	pipe_count = get_pipe_count(argv);
+	if (pipe_count == 0)
+		return ;
 	pipex->pipe_fd = (int **)check_malloc(malloc(sizeof(int *)
 				* pipe_count));
 	while (i < pipe_count)

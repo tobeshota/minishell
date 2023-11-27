@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tobeshota <tobeshota@student.42.fr>        +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/27 11:36:19 by tobeshota        ###   ########.fr       */
+/*   Updated: 2023/11/27 16:48:50 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
-static void	get_order(t_env *node)
+void	get_order(t_env *node)
 {
 	t_env	*test;
 
@@ -61,6 +61,7 @@ static char *get_envp_content_for_export(t_env *env)
 {
 	char *env_content;
 
+	ft_printf("%5d\t", env->order);
 	env_content = check_malloc(ft_strjoin("declare -x ", env->content));
 	enclose_env_content_in_double_quotes(&env_content);
 	return env_content;
@@ -81,26 +82,30 @@ int	exec_export(char **cmd, t_env **env, t_pipex *pipex)
 	int max_order;
 	char *envp_enclosed_in_double_quotes;
 
+	max_order = ft_nodesize(*env);
 	if(cmd[1])
 	{
-		return true;
+		// 新たに環境変数を追加するときに，最後の位置にある環境変数nodeのorderが消えていないか？
+		*env = ft_nodelast(*env);
+		ft_nodeadd_back(env, check_malloc(ft_nodenew(cmd[1])));
+		ft_nodenext(env);
+		(*env)->order = max_order + 1;
+		max_order++;
 	}
 	else
 	{
 		/* 引数が指定されていない場合，環境変数を一覧表示する */
-		// 環境変数の昇順序を取得する（追加された環境変数は常に最後尾につける．それゆえ，get_order();はminishell起動時に呼び出すべきでは？）
-		get_order(*env);
-		max_order = ft_nodesize(*env);
 		// 昇順に出力する
 		order = 0;
 		while (++order <= max_order)
 		{
 			while ((*env)->next && (*env)->order != order)
 				ft_nodenext(env);
+			if ((*env)->next == NULL)	//	aが来たら止まってしまう．
+				break;
 			put_envp_content_for_export(*env, pipex);
 			ft_nodefirst(env);
 		}
-		ft_nodeclear(env);
 	}
-	return (true);
+	return (ft_nodefirst(env), true);
 }

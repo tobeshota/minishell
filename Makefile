@@ -6,13 +6,13 @@
 #    By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/26 19:52:48 by toshota           #+#    #+#              #
-#    Updated: 2023/11/25 22:44:18 by toshota          ###   ########.fr        #
+#    Updated: 2023/11/27 14:08:19 by toshota          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			=	minishell
 CC				=	cc -g
-#  -fsanitize=address
+# -fsanitize=address
 # CFLAGS			=	-Wall -Wextra -Werror
 RM				=	rm -rf
 LIBFT_DIR		=   libft/
