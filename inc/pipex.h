@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: tobeshota <tobeshota@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/25 22:48:23 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/26 21:05:09 by tobeshota        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,6 @@ void	ft_nodenext(t_env **node);
 void	ft_nodeprev(t_env **node);
 void	ft_nodefirst(t_env **node);
 t_env	*ft_nodelast(t_env *node);
+int		ft_nodesize(t_env *node);
 
 #endif

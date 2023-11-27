@@ -45,7 +45,7 @@ int	exec_builtin(t_env **env, t_pipex *pipex, int cmd_i)
 	else if (is_match(target, "/bin/pwd") || is_match(target, "pwd"))
 		ret = exec_pwd(pipex);
 	else if (is_match(target, "export"))
-		ret = exec_export(cmd, env);
+		ret = exec_export(cmd, env, pipex);
 	else if (is_match(target, "unset"))
 		ret = exec_unset(cmd, env);
 	else if (is_match(target, "/usr/bin/env") || is_match(target, "env"))

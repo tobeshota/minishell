@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: tobeshota <tobeshota@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 16:15:47 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/25 22:40:18 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/27 11:36:10 by tobeshota        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 int		exec_echo(char **cmd, t_pipex *pipex);
 int		exec_cd(char **cmd, t_env **env);
 int		exec_pwd(t_pipex *pipex);
-int		exec_export(char **cmd, t_env **env);
+int		exec_export(char **cmd, t_env **env, t_pipex *pipex);
 int		exec_unset(char **cmd, t_env **env);
 int		exec_env(t_env **env, t_pipex *pipex);
 int		exec_exit(char **cmd, t_pipex *pipex);

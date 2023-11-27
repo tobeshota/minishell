@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   node_utils1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: tobeshota <tobeshota@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 10:50:31 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/25 15:37:25 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/26 21:05:11 by tobeshota        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,19 @@ void	ft_nodeclear(t_env **node)
 		ft_nodedelone(node);
 		*node = tmp;
 	}
+}
+
+int	ft_nodesize(t_env *node)
+{
+	int		count;
+	t_env	*ptr;
+
+	count = 0;
+	ptr = node;
+	while (ptr != NULL)
+	{
+		ptr = ptr->next;
+		count++;
+	}
+	return (count);
 }

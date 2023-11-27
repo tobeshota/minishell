@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: tobeshota <tobeshota@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 12:34:25 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/25 22:06:55 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/27 11:36:01 by tobeshota        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	put_arg_for_debug(char **argv)
 
 	i = -1;
 	if (argv[0] != NULL)
-		ft_printf("%ssplitted:%s ", BOLD, DEFAULT);
+		ft_printf("splitted: ");
 	while (argv[++i])
 		ft_printf("\"%s\"\t", argv[i]);
 	if (argv[0] != NULL)
