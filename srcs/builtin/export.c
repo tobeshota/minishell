@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/27 16:48:50 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/27 17:52:12 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,21 +57,20 @@ static void enclose_env_content_in_double_quotes(char **env_content)
 	free(varname_definition);
 }
 
-static char *get_envp_content_for_export(t_env *env)
+static char *get_envp_content_for_export(char *content)
 {
 	char *env_content;
 
-	ft_printf("%5d\t", env->order);
-	env_content = check_malloc(ft_strjoin("declare -x ", env->content));
+	env_content = check_malloc(ft_strjoin("declare -x ", content));
 	enclose_env_content_in_double_quotes(&env_content);
 	return env_content;
 }
 
-static void put_envp_content_for_export(t_env *env, t_pipex *pipex)
+static void put_envp_content_for_export(char *content, t_pipex *pipex)
 {
 	char *env_content;
 
-	env_content = get_envp_content_for_export(env);
+	env_content = get_envp_content_for_export(content);
 	ft_putendl_fd(env_content, pipex->outfile_fd);
 	free(env_content);
 }
@@ -80,30 +79,34 @@ int	exec_export(char **cmd, t_env **env, t_pipex *pipex)
 {
 	int order;
 	int max_order;
-	char *envp_enclosed_in_double_quotes;
 
 	max_order = ft_nodesize(*env);
+	ft_printf("━━━▶︎max_order:\t%d\n", max_order);
 	if(cmd[1])
 	{
 		// 新たに環境変数を追加するときに，最後の位置にある環境変数nodeのorderが消えていないか？
 		*env = ft_nodelast(*env);
 		ft_nodeadd_back(env, check_malloc(ft_nodenew(cmd[1])));
 		ft_nodenext(env);
-		(*env)->order = max_order + 1;
-		max_order++;
+		(*env)->order = max_order;
 	}
 	else
 	{
 		/* 引数が指定されていない場合，環境変数を一覧表示する */
 		// 昇順に出力する
 		order = 0;
+		// ソートした順に出力する
 		while (++order <= max_order)
 		{
 			while ((*env)->next && (*env)->order != order)
 				ft_nodenext(env);
-			if ((*env)->next == NULL)	//	aが来たら止まってしまう．
+			if ((*env)->next == NULL)	//	最後が表示されないのをどうにかする！
+			{
+				ft_putstr_fd((*env)->content, pipex->outfile_fd);
 				break;
-			put_envp_content_for_export(*env, pipex);
+			}
+			ft_printf("%d\t", order);
+			put_envp_content_for_export((*env)->content, pipex);
 			ft_nodefirst(env);
 		}
 	}

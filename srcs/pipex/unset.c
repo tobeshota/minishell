@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/27 17:36:07 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/27 17:36:32 by toshota          ###   ########.fr       */
+/*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
+/*   Updated: 2023/11/25 22:06:55 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
-int		exec_unset(char **cmd, t_env **env)
+int	exec_unset(char **cmd, t_env **env)
 {
-	return true;
+	return (true);
 }
