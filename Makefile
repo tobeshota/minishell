@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: toshota <toshota@student.42.fr>            +#+  +:+       +#+         #
+#    By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/26 19:52:48 by toshota           #+#    #+#              #
-#    Updated: 2023/11/28 13:24:25 by toshota          ###   ########.fr        #
+#    Updated: 2023/11/28 23:33:06 by toshota          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ OBJS_DIR		=	objs/
 # echo srcs/**/*.c
 # echo srcs/pipex/*.c
 # echo srcs/builtin/*.c
-SRCS		=	srcs/main.c srcs/pipex/array_node.c srcs/pipex/check_func1.c srcs/pipex/check_func2.c srcs/pipex/do_pipex.c srcs/pipex/end_pipex.c srcs/pipex/get_cmd_absolute_path.c srcs/pipex/get_cmd_absolute_path_utils.c srcs/pipex/get_cmd_arg_fd.c srcs/pipex/get_fd.c srcs/pipex/get_pipex.c srcs/pipex/here_doc.c srcs/pipex/is_file_ok.c srcs/pipex/is_specified_control_operators.c srcs/pipex/is_specified_file.c srcs/pipex/is_utils.c  srcs/pipex/node_utils1.c srcs/pipex/node_utils2.c srcs/pipex/pipex.c srcs/pipex/set_fd.c srcs/pipex/utils1.c srcs/pipex/utils2.c srcs/builtin/cd.c srcs/builtin/echo.c srcs/builtin/env.c srcs/builtin/exec_builtin.c srcs/builtin/exit.c srcs/builtin/export.c srcs/builtin/pwd.c srcs/builtin/unset.c
+SRCS		=	srcs/main.c srcs/pipex/array_node.c srcs/pipex/check_func1.c srcs/pipex/check_func2.c srcs/pipex/do_pipex.c srcs/pipex/end_pipex.c srcs/pipex/get_cmd_absolute_path.c srcs/pipex/get_cmd_absolute_path_utils.c srcs/pipex/get_cmd_arg_fd.c srcs/pipex/get_fd.c srcs/pipex/get_pipex.c srcs/pipex/here_doc.c srcs/pipex/is_file_ok.c srcs/pipex/is_specified_control_operators.c srcs/pipex/is_specified_file.c srcs/pipex/is_utils.c  srcs/pipex/node_utils1.c srcs/pipex/node_utils2.c srcs/pipex/pipex.c srcs/pipex/set_fd.c srcs/pipex/utils1.c srcs/pipex/utils2.c srcs/builtin/cd.c srcs/builtin/echo.c srcs/builtin/env.c srcs/builtin/exec_builtin.c srcs/builtin/exit.c srcs/builtin/exec_export/add_new_value.c srcs/builtin/exec_export/export.c srcs/builtin/exec_export/get_old_env_to_be_updated.c srcs/builtin/exec_export/show_env.c srcs/builtin/exec_export/update_value.c srcs/builtin/pwd.c srcs/builtin/unset.c
 
 OBJS		=	$(patsubst $(SRCS_DIR)%.c, $(OBJS_DIR)%.o, $(SRCS))
 
