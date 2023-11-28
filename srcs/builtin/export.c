@@ -3,35 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/27 17:52:12 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/28 13:10:30 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
-
-void	get_order(t_env *node)
-{
-	t_env	*test;
-
-	test = node;
-	while (node->next)
-	{
-		node->order = 1;
-		while (test->next)
-		{
-			if (ft_strncmp(node->content, test->content, ft_strlen(test->content)) > 0)
-				node->order++;
-			ft_nodenext(&test);
-		}
-		if (ft_strncmp(node->content, test->content, ft_strlen(test->content)) > 0)
-			node->order++;
-		ft_nodenext(&node);
-		ft_nodefirst(&test);
-	}
-}
 
 static void enclose_env_content_in_double_quotes(char **env_content)
 {
@@ -75,10 +54,76 @@ static void put_envp_content_for_export(char *content, t_pipex *pipex)
 	free(env_content);
 }
 
+void	get_order(t_env *node)
+{
+	t_env	*test;
+
+	test = node;
+	while (node->next)
+	{
+		node->order = 1;
+		while (test->next)
+		{
+			if (ft_strncmp(node->content, test->content, ft_strlen(test->content)) > 0)
+				node->order++;
+			ft_nodenext(&test);
+		}
+		if (ft_strncmp(node->content, test->content, ft_strlen(test->content)) > 0)
+			node->order++;
+		ft_nodenext(&node);
+		ft_nodefirst(&test);
+	}
+}
+
+void	ft_sort_int_tab(int *tab, int size)
+{
+	int	tmp;
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < size)
+	{
+		j = i + 1;
+		while (j < size)
+		{
+			if (tab[i] > tab[j])
+			{
+				tmp = tab[i];
+				tab[i] = tab[j];
+				tab[j] = tmp;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+int *get_env_order(t_env *node)
+{
+	int i;
+	int *env_order;
+
+	i = 0;
+	env_order = (int *)check_malloc(malloc(sizeof(int) * ft_nodesize(node)));
+	while (node->next)
+	{
+		env_order[i++] = node->order;
+		ft_nodenext(&node);
+	}
+	env_order[i] = node->order;
+	ft_nodefirst(&node);
+	// for(int i = 0; env_order[i]; i++)
+	// 	ft_printf(">>> %d\n", env_order[i]);
+	return env_order;
+}
+
 int	exec_export(char **cmd, t_env **env, t_pipex *pipex)
 {
 	int order;
 	int max_order;
+	int *env_order;
+	int i;
 
 	max_order = ft_nodesize(*env);
 	ft_printf("━━━▶︎max_order:\t%d\n", max_order);
@@ -93,22 +138,40 @@ int	exec_export(char **cmd, t_env **env, t_pipex *pipex)
 	else
 	{
 		/* 引数が指定されていない場合，環境変数を一覧表示する */
-		// 昇順に出力する
-		order = 0;
-		// ソートした順に出力する
-		while (++order <= max_order)
+		env_order = get_env_order(*env);
+		ft_sort_int_tab(env_order, ft_nodesize(*env));
+// for(int i = 0; i < ft_nodesize(*env); i++)
+// 	ft_printf(">>>>> %d\n", env_order[i]);
+		i = 1;
+		while(i < ft_nodesize(*env))
 		{
-			while ((*env)->next && (*env)->order != order)
+			while(env_order[i] != (*env)->order)
 				ft_nodenext(env);
-			if ((*env)->next == NULL)	//	最後が表示されないのをどうにかする！
-			{
-				ft_putstr_fd((*env)->content, pipex->outfile_fd);
-				break;
-			}
-			ft_printf("%d\t", order);
 			put_envp_content_for_export((*env)->content, pipex);
 			ft_nodefirst(env);
+			i++;
 		}
+		free(env_order);
+
+
+
+		// // 昇順に出力する
+		// order = 0;
+		// // ソートした順に出力する
+		// while (++order <= max_order)
+		// {
+		// 	ft_nodefirst(env);
+		// 	while ((*env)->next && (*env)->order != order)
+		// 		ft_nodenext(env);
+		// 	if ((*env)->next == NULL)	//	最後が表示されないのをどうにかする！
+		// 	{
+		// 		ft_printf("%d\t", (*env)->order);
+		// 		ft_putstr_fd((*env)->content, pipex->outfile_fd);
+		// 		break;
+		// 	}
+		// 	ft_printf("%d\t", (*env)->order);
+		// 	put_envp_content_for_export((*env)->content, pipex);
+		// }
 	}
 	return (ft_nodefirst(env), true);
 }

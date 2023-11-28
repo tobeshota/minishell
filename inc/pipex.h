@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/27 15:36:11 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/27 23:17:29 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 int		open_file(char *file, int file_type);
 bool	close_pipe(int *pipe_fd);
 void	all_free_tab(char **ptr);
+void	all_free_int(int **ptr);
 void	put_error(char *err_msg);
 size_t	strlen_until_c(char *str, char c);
 void	*check_malloc(void *ptr);

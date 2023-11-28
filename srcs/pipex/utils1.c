@@ -6,26 +6,11 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/25 22:16:07 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/27 23:17:39 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-void	all_free_tab(char **ptr)
-{
-	int	i;
-
-	i = 0;
-	while (ptr && ptr[i])
-	{
-		free(ptr[i]);
-		ptr[i] = NULL;
-		i++;
-	}
-	free(ptr);
-	ptr = NULL;
-}
 
 void	put_error(char *err_msg)
 {
