@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/28 20:36:50 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/28 21:13:05 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,20 +157,59 @@ static bool check_identifier(char *identifier)
 	return true;
 }
 
+size_t strlen_without_c(char *str, char c)
+{
+	int i;
+	int len_without_c;
+
+	i = 0;
+	len_without_c = 0;
+	while(str[i])
+	{
+		if(str[i] != c)
+			len_without_c++;
+		i++;
+	}
+	return len_without_c;
+}
+
+// abcde, c
+char *omit_c(char *str, char c)
+{
+	char *str_without_c;
+	int i;
+
+	str_without_c = (char *)check_malloc(malloc(sizeof(char) * (strlen_without_c(str, c) + 1)));
+	i = 0;
+	while(str[i])
+	{
+		if (str[i] != c)
+		{
+			str_without_c[i] = str[i];
+			i++;
+		}
+		else
+			str++;
+	}
+	return str_without_c;
+}
+
 static void add_new_value(char *added_value, t_env **env)
 {
 	int max_order;
+	char *added_value_without_plus;
 
 	if (check_identifier(added_value) == false)
 		return;
+	added_value_without_plus = omit_c(added_value, '+');
 	max_order = ft_nodesize(*env);
 	*env = ft_nodelast(*env);
-	ft_nodeadd_back(env, check_malloc(ft_nodenew(added_value)));
+	ft_nodeadd_back(env, check_malloc(ft_nodenew(added_value_without_plus)));
 	ft_nodenext(env);
 	(*env)->order = max_order + 1;
+	free(added_value_without_plus);
 }
 
-// 追記を対応する！
 static t_env *get_old_env_to_be_updated(char *added_value, t_env *env)
 {
 	char *added_identifier;
