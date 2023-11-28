@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/28 13:10:30 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/28 13:49:55 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
+// 文字列にイコールがない場合セグフォするのを防ぐ！
 static void enclose_env_content_in_double_quotes(char **env_content)
 {
 	char *varname_with_equal;
@@ -41,7 +42,8 @@ static char *get_envp_content_for_export(char *content)
 	char *env_content;
 
 	env_content = check_malloc(ft_strjoin("declare -x ", content));
-	enclose_env_content_in_double_quotes(&env_content);
+	if (ft_strchr(env_content, '='))
+		enclose_env_content_in_double_quotes(&env_content);
 	return env_content;
 }
 
@@ -129,19 +131,16 @@ int	exec_export(char **cmd, t_env **env, t_pipex *pipex)
 	ft_printf("━━━▶︎max_order:\t%d\n", max_order);
 	if(cmd[1])
 	{
-		// 新たに環境変数を追加するときに，最後の位置にある環境変数nodeのorderが消えていないか？
 		*env = ft_nodelast(*env);
 		ft_nodeadd_back(env, check_malloc(ft_nodenew(cmd[1])));
 		ft_nodenext(env);
-		(*env)->order = max_order;
+		(*env)->order = max_order + 1;
 	}
-	else
+	else /* 追加していないときの挙動はbashと一致している！ */
 	{
 		/* 引数が指定されていない場合，環境変数を一覧表示する */
 		env_order = get_env_order(*env);
 		ft_sort_int_tab(env_order, ft_nodesize(*env));
-// for(int i = 0; i < ft_nodesize(*env); i++)
-// 	ft_printf(">>>>> %d\n", env_order[i]);
 		i = 1;
 		while(i < ft_nodesize(*env))
 		{
@@ -152,26 +151,6 @@ int	exec_export(char **cmd, t_env **env, t_pipex *pipex)
 			i++;
 		}
 		free(env_order);
-
-
-
-		// // 昇順に出力する
-		// order = 0;
-		// // ソートした順に出力する
-		// while (++order <= max_order)
-		// {
-		// 	ft_nodefirst(env);
-		// 	while ((*env)->next && (*env)->order != order)
-		// 		ft_nodenext(env);
-		// 	if ((*env)->next == NULL)	//	最後が表示されないのをどうにかする！
-		// 	{
-		// 		ft_printf("%d\t", (*env)->order);
-		// 		ft_putstr_fd((*env)->content, pipex->outfile_fd);
-		// 		break;
-		// 	}
-		// 	ft_printf("%d\t", (*env)->order);
-		// 	put_envp_content_for_export((*env)->content, pipex);
-		// }
 	}
 	return (ft_nodefirst(env), true);
 }
