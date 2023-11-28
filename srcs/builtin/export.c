@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/28 17:07:55 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/28 17:45:32 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,18 @@ int *get_env_order(t_env *node)
 	return env_order;
 }
 
+static bool is_append_properly_written(char current_c, char next_c)
+{
+	if (current_c == '+')
+	{
+		if (next_c == '=')
+			return true;
+		return false;
+	}
+	return true;
+}
+
+// プラス記号は次にイコールがある時のみ容認する
 static bool check_identifier(char *identifier)
 {
 	int i;
@@ -133,7 +145,7 @@ static bool check_identifier(char *identifier)
 	}
 	while (identifier[i])
 	{
-		if (ft_isalnum(identifier[i]) == false && identifier[i] != '_')
+		if (ft_isalnum(identifier[i]) == false && identifier[i] != '_' && is_append_properly_written(identifier[i], identifier[i+1]) == false)
 		{
 			ft_putstr_fd("bash: export: '", STDERR_FILENO);
 			ft_putstr_fd(identifier, STDERR_FILENO);
@@ -158,13 +170,17 @@ static void add_new_value(char *added_value, t_env **env)
 	(*env)->order = max_order + 1;
 }
 
+// 追記を対応する！
 static t_env *get_old_env_to_be_updated(char *added_value, t_env *env)
 {
 	char *added_identifier;
 	char *env_identifier;
 	t_env *old_env_to_be_updated;
 
-	added_identifier = check_malloc(ft_substr(added_value, 0, ft_strchr(added_value, '=') - added_value));
+	if (ft_strnstr(added_value, "+=", ft_strlen(added_value)))
+		added_identifier = check_malloc(ft_substr(added_value, 0, ft_strchr(added_value, '+') - added_value));
+	else
+		added_identifier = check_malloc(ft_substr(added_value, 0, ft_strchr(added_value, '=') - added_value));
 	while(true)
 	{
 		env_identifier = (char *)check_malloc(malloc(sizeof(char) * (strlen_until_c(env->content, '=') + 1)));
@@ -185,11 +201,22 @@ static t_env *get_old_env_to_be_updated(char *added_value, t_env *env)
 static void update_value(char *added_value, t_env **env)
 {
 	t_env *old_env_to_be_updated;
+	char *added_identifier;
 	char *tmp;
 
 	old_env_to_be_updated = get_old_env_to_be_updated(added_value, *env);
-	tmp = old_env_to_be_updated->content;
-	old_env_to_be_updated->content = check_malloc(ft_strdup(added_value));
+	if (ft_strnstr(added_value, "+=", ft_strlen(added_value)))
+	{
+		added_identifier = check_malloc(ft_substr(added_value, 0, ft_strchr(added_value, '+') - added_value));
+		tmp = old_env_to_be_updated->content;
+		old_env_to_be_updated->content = check_malloc(ft_strjoin(old_env_to_be_updated->content, added_value + (ft_strlen(added_identifier) + ft_strlen("+="))));
+		free(added_identifier);
+	}
+	else
+	{
+		tmp = old_env_to_be_updated->content;
+		old_env_to_be_updated->content = check_malloc(ft_strdup(added_value));
+	}
 	free(tmp);
 }
 
