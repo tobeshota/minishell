@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/28 13:49:55 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/28 15:26:07 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,41 @@ int *get_env_order(t_env *node)
 	return env_order;
 }
 
+static void add_new_value(char **cmd, t_env **env)
+{
+	int max_order;
+
+	max_order = ft_nodesize(*env);
+	*env = ft_nodelast(*env);
+	ft_nodeadd_back(env, check_malloc(ft_nodenew(cmd[1])));
+	ft_nodenext(env);
+	(*env)->order = max_order + 1;
+}
+
+static bool is_additional_value_new(char *added_value, t_env *env)
+{
+	char *added_varname;
+	char *env_varname;
+
+	added_varname = check_malloc(ft_substr(added_value, 0, ft_strchr(added_value, '=') - added_value));
+	while(env->next)
+	{
+		env_varname = (char *)check_malloc(malloc(sizeof(char) * (strlen_until_c(env->content, '=') + 1)));
+		ft_strlcpy(env_varname, env->content, strlen_until_c(env->content, '=') + 1);
+		ft_printf("[%s]\t[%s]\n", added_varname, env_varname);
+		if(is_match(added_value, env_varname))
+			return free(added_varname), free(env_varname), ft_nodefirst(&env), false;
+		ft_nodenext(&env);
+		free(env_varname);
+	}
+	env_varname = (char *)check_malloc(malloc(sizeof(char) * (strlen_until_c(env->content, '=') + 1)));
+	ft_strlcpy(env_varname, env->content, strlen_until_c(env->content, '=') + 1);
+	ft_printf("[%s]\t[%s]\n", added_varname, env_varname);
+	if(is_match(added_value, env_varname))
+		return free(added_varname), free(env_varname), ft_nodefirst(&env), false;
+	return free(added_varname), free(env_varname), ft_nodefirst(&env), true;
+}
+
 int	exec_export(char **cmd, t_env **env, t_pipex *pipex)
 {
 	int order;
@@ -129,14 +164,23 @@ int	exec_export(char **cmd, t_env **env, t_pipex *pipex)
 
 	max_order = ft_nodesize(*env);
 	ft_printf("━━━▶︎max_order:\t%d\n", max_order);
-	if(cmd[1])
+	if(cmd[1])	/* いまから追加しようとしている環境変数の名前varnameが既存のものと同じ場合，その定義を更新する！ */
 	{
-		*env = ft_nodelast(*env);
-		ft_nodeadd_back(env, check_malloc(ft_nodenew(cmd[1])));
-		ft_nodenext(env);
-		(*env)->order = max_order + 1;
+		// 追加変数は新規か
+		if (is_additional_value_new(cmd[1], *env) == true)
+		{
+			add_new_value(cmd, env);
+		}
+		// else
+		// {
+
+		// }
+
+
+
+
 	}
-	else /* 追加していないときの挙動はbashと一致している！ */
+	else
 	{
 		/* 引数が指定されていない場合，環境変数を一覧表示する */
 		env_order = get_env_order(*env);
