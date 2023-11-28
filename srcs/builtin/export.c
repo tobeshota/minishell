@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/28 17:45:32 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/28 17:49:18 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,6 +240,7 @@ static void show_env(t_env **env, t_pipex *pipex)
 	free(env_order);
 }
 
+/* ファイル分割などを行なってnorminetteに対応する！ */
 int	exec_export(char **cmd, t_env **env, t_pipex *pipex)
 {
 	int *env_order;
