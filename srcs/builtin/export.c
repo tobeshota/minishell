@@ -6,14 +6,12 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/28 21:13:05 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/28 22:55:07 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
-#define OLD_ENV_TO_BE_UPDATED_IS_NOTING NULL
 
-// 文字列にイコールがない場合セグフォするのを防ぐ！
 static void enclose_env_content_in_double_quotes(char **env_content)
 {
 	char *identifier_with_equal;
@@ -130,7 +128,6 @@ static bool is_append_properly_written(char current_c, char next_c)
 	return true;
 }
 
-// プラス記号は次にイコールがある時のみ容認する
 static bool check_identifier(char *identifier)
 {
 	int i;
@@ -173,7 +170,6 @@ size_t strlen_without_c(char *str, char c)
 	return len_without_c;
 }
 
-// abcde, c
 char *omit_c(char *str, char c)
 {
 	char *str_without_c;
@@ -234,7 +230,7 @@ static t_env *get_old_env_to_be_updated(char *added_value, t_env *env)
 		ft_nodenext(&env);
 		free(env_identifier);
 	}
-	return free(added_identifier), free(env_identifier), ft_nodefirst(&env), OLD_ENV_TO_BE_UPDATED_IS_NOTING;
+	return free(added_identifier), free(env_identifier), ft_nodefirst(&env), NULL;
 }
 
 static void update_value(char *added_value, t_env **env)
@@ -243,6 +239,8 @@ static void update_value(char *added_value, t_env **env)
 	char *added_identifier;
 	char *tmp;
 
+	if (ft_strchr(added_value, '=') == NULL)
+		return;
 	old_env_to_be_updated = get_old_env_to_be_updated(added_value, *env);
 	if (ft_strnstr(added_value, "+=", ft_strlen(added_value)))
 	{
@@ -293,7 +291,7 @@ int	exec_export(char **cmd, t_env **env, t_pipex *pipex)
 	{
 		while(cmd[i])
 		{
-			if (get_old_env_to_be_updated(cmd[i], *env) == OLD_ENV_TO_BE_UPDATED_IS_NOTING)
+			if (get_old_env_to_be_updated(cmd[i], *env) == NULL)
 				add_new_value(cmd[i], env);
 			else
 				update_value(cmd[i], env);
