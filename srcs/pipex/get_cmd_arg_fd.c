@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmd_arg_fd.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 21:49:47 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/25 22:40:18 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/28 17:01:24 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static bool	is_parameter_file(char *cmd_parameter)
 	else if (check_close(close(fd_for_checking_non_directory)) == false)
 		return (false);
 	else if (stat(cmd_parameter, &st) < 0)
-		return (perror("failt to stat"), false);
+		return (ft_putstr_fd("failt to stat", STDERR_FILENO), false);
 	else if (S_ISDIR(st.st_mode))
 		return (false);
 	else if (cmd_parameter[0] == '-')

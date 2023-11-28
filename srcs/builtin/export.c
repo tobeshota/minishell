@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/28 16:35:01 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/28 17:07:55 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,26 @@
 // 文字列にイコールがない場合セグフォするのを防ぐ！
 static void enclose_env_content_in_double_quotes(char **env_content)
 {
-	char *varname_with_equal;
-	char *varname_definition;
+	char *identifier_with_equal;
+	char *identifier_definition;
 	char *tmp;
 
-	varname_with_equal = check_malloc(ft_substr(*env_content, 0, ft_strchr(*env_content, '=') - *env_content + 1));
-	varname_definition = check_malloc(ft_strdup(ft_strchr(*env_content, '=') + 1));
+	identifier_with_equal = check_malloc(ft_substr(*env_content, 0, ft_strchr(*env_content, '=') - *env_content + 1));
+	identifier_definition = check_malloc(ft_strdup(ft_strchr(*env_content, '=') + 1));
 
-	tmp = varname_definition;
-	varname_definition = check_malloc(ft_strjoin("\"", varname_definition));
+	tmp = identifier_definition;
+	identifier_definition = check_malloc(ft_strjoin("\"", identifier_definition));
 	free(tmp);
 
-	tmp = varname_definition;
-	varname_definition = check_malloc(ft_strjoin(varname_definition, "\""));
+	tmp = identifier_definition;
+	identifier_definition = check_malloc(ft_strjoin(identifier_definition, "\""));
 	free(tmp);
 
 	tmp = *env_content;
-	*env_content = check_malloc(ft_strjoin(varname_with_equal, varname_definition));
+	*env_content = check_malloc(ft_strjoin(identifier_with_equal, identifier_definition));
 	free(tmp);
-	free(varname_with_equal);
-	free(varname_definition);
+	free(identifier_with_equal);
+	free(identifier_definition);
 }
 
 static char *get_envp_content_for_export(char *content)
@@ -119,10 +119,38 @@ int *get_env_order(t_env *node)
 	return env_order;
 }
 
+static bool check_identifier(char *identifier)
+{
+	int i;
+
+	i = 0;
+	if (ft_isalpha(identifier[i]) == false && identifier[i] != '_')
+	{
+		ft_putstr_fd("bash: export: '", STDERR_FILENO);
+		ft_putstr_fd(identifier, STDERR_FILENO);
+		ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
+		return false;
+	}
+	while (identifier[i])
+	{
+		if (ft_isalnum(identifier[i]) == false && identifier[i] != '_')
+		{
+			ft_putstr_fd("bash: export: '", STDERR_FILENO);
+			ft_putstr_fd(identifier, STDERR_FILENO);
+			ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
+			return false;
+		}
+		i++;
+	}
+	return true;
+}
+
 static void add_new_value(char *added_value, t_env **env)
 {
 	int max_order;
 
+	if (check_identifier(added_value) == false)
+		return;
 	max_order = ft_nodesize(*env);
 	*env = ft_nodelast(*env);
 	ft_nodeadd_back(env, check_malloc(ft_nodenew(added_value)));
@@ -132,26 +160,26 @@ static void add_new_value(char *added_value, t_env **env)
 
 static t_env *get_old_env_to_be_updated(char *added_value, t_env *env)
 {
-	char *added_varname;
-	char *env_varname;
+	char *added_identifier;
+	char *env_identifier;
 	t_env *old_env_to_be_updated;
 
-	added_varname = check_malloc(ft_substr(added_value, 0, ft_strchr(added_value, '=') - added_value));
+	added_identifier = check_malloc(ft_substr(added_value, 0, ft_strchr(added_value, '=') - added_value));
 	while(true)
 	{
-		env_varname = (char *)check_malloc(malloc(sizeof(char) * (strlen_until_c(env->content, '=') + 1)));
-		ft_strlcpy(env_varname, env->content, strlen_until_c(env->content, '=') + 1);
-		if(is_match(added_varname, env_varname))
+		env_identifier = (char *)check_malloc(malloc(sizeof(char) * (strlen_until_c(env->content, '=') + 1)));
+		ft_strlcpy(env_identifier, env->content, strlen_until_c(env->content, '=') + 1);
+		if(is_match(added_identifier, env_identifier))
 		{
 			old_env_to_be_updated = env;
-			return free(added_varname), free(env_varname), ft_nodefirst(&env), old_env_to_be_updated;
+			return free(added_identifier), free(env_identifier), ft_nodefirst(&env), old_env_to_be_updated;
 		}
 		if (env->next == NULL)
 			break;
 		ft_nodenext(&env);
-		free(env_varname);
+		free(env_identifier);
 	}
-	return free(added_varname), free(env_varname), ft_nodefirst(&env), OLD_ENV_TO_BE_UPDATED_IS_NOTING;
+	return free(added_identifier), free(env_identifier), ft_nodefirst(&env), OLD_ENV_TO_BE_UPDATED_IS_NOTING;
 }
 
 static void update_value(char *added_value, t_env **env)
@@ -165,37 +193,45 @@ static void update_value(char *added_value, t_env **env)
 	free(tmp);
 }
 
+/* 引数が指定されていない場合，環境変数を一覧表示する */
+static void show_env(t_env **env, t_pipex *pipex)
+{
+	int i;
+	int *env_order;
+
+	i = 1;
+	env_order = get_env_order(*env);
+	ft_sort_int_tab(env_order, ft_nodesize(*env));
+	while(i < ft_nodesize(*env))
+	{
+		while(env_order[i] != (*env)->order)
+			ft_nodenext(env);
+		put_envp_content_for_export((*env)->content, pipex);
+		ft_nodefirst(env);
+		i++;
+	}
+	free(env_order);
+}
+
 int	exec_export(char **cmd, t_env **env, t_pipex *pipex)
 {
-	int order;
-	int max_order;
 	int *env_order;
 	int i;
 
-	max_order = ft_nodesize(*env);
-	ft_printf("━━━▶︎max_order:\t%d\n", max_order);
-	if(cmd[1])
+	i = 1;
+	if(cmd[i])
 	{
-		if (get_old_env_to_be_updated(cmd[1], *env) == OLD_ENV_TO_BE_UPDATED_IS_NOTING)
-			add_new_value(cmd[1], env);
-		else
-			update_value(cmd[1], env);
-	}
-	else
-	{
-		/* 引数が指定されていない場合，環境変数を一覧表示する */
-		env_order = get_env_order(*env);
-		ft_sort_int_tab(env_order, ft_nodesize(*env));
-		i = 1;
-		while(i < ft_nodesize(*env))
+		while(cmd[i])
 		{
-			while(env_order[i] != (*env)->order)
-				ft_nodenext(env);
-			put_envp_content_for_export((*env)->content, pipex);
+			if (get_old_env_to_be_updated(cmd[i], *env) == OLD_ENV_TO_BE_UPDATED_IS_NOTING)
+				add_new_value(cmd[i], env);
+			else
+				update_value(cmd[i], env);
 			ft_nodefirst(env);
 			i++;
 		}
-		free(env_order);
 	}
+	else
+		show_env(env, pipex);
 	return (ft_nodefirst(env), true);
 }
