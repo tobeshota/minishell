@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 12:34:25 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/27 16:14:19 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/28 20:33:09 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int	minishell(char **argv, char **envp)
 	t_env	*env;
 
 	init_minishell(envp, &env);
-	put_node_for_debug(env);
 	while (true)
 	{
 		line = readline(MINISHELL_PROMPT);

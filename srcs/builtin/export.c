@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/28 17:49:18 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/28 20:36:50 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,7 +207,10 @@ static void update_value(char *added_value, t_env **env)
 	old_env_to_be_updated = get_old_env_to_be_updated(added_value, *env);
 	if (ft_strnstr(added_value, "+=", ft_strlen(added_value)))
 	{
-		added_identifier = check_malloc(ft_substr(added_value, 0, ft_strchr(added_value, '+') - added_value));
+		if (ft_strchr(old_env_to_be_updated->content, '='))
+			added_identifier = check_malloc(ft_substr(added_value, 0, ft_strchr(added_value, '+') - added_value));
+		else
+			added_identifier = check_malloc(ft_substr(added_value, 0, ft_strchr(added_value, '+') - added_value - ft_strlen("=")));
 		tmp = old_env_to_be_updated->content;
 		old_env_to_be_updated->content = check_malloc(ft_strjoin(old_env_to_be_updated->content, added_value + (ft_strlen(added_identifier) + ft_strlen("+="))));
 		free(added_identifier);
