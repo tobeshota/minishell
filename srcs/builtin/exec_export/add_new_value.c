@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_new_value.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 23:08:47 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/29 11:28:26 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/29 13:18:17 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,16 +90,13 @@ char	*omit_c(char *str, char c)
 
 void	add_new_value(char *added_value, t_env **env)
 {
-	int		max_order;
 	char	*added_value_without_plus;
 
 	if (check_identifier(added_value) == false)
 		return ;
 	added_value_without_plus = omit_c(added_value, '+');
-	max_order = ft_nodesize(*env);
 	*env = ft_nodelast(*env);
 	ft_nodeadd_back(env, check_malloc(ft_nodenew(added_value_without_plus)));
 	ft_nodenext(env);
-	(*env)->order = max_order + 1;
 	free(added_value_without_plus);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   show_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 23:03:30 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/28 23:06:24 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/29 13:16:54 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	show_env(t_env **env, t_pipex *pipex)
 	int	i;
 	int	*env_order;
 
-	i = 1;
+	i = 0;
 	env_order = get_env_order(*env);
 	ft_sort_int_tab(env_order, ft_nodesize(*env));
 	while (i < ft_nodesize(*env))
