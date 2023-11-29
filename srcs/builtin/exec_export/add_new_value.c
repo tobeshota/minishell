@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 23:08:47 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/28 23:16:16 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/29 10:54:48 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static size_t	strlen_without_c(char *str, char c)
 	return (len_without_c);
 }
 
-static char	*omit_c(char *str, char c)
+char	*omit_c(char *str, char c)
 {
 	char	*str_without_c;
 	int		i;

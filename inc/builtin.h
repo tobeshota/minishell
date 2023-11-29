@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 16:15:47 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/28 23:31:51 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/29 10:54:53 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ void	show_env(t_env **env, t_pipex *pipex);
 void	add_new_value(char *added_value, t_env **env);
 void	update_value(char *added, t_env **env);
 t_env	*get_old_env_to_be_updated(char *added, t_env *env);
+char	*omit_c(char *str, char c);
 
 #endif
