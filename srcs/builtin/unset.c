@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:36:07 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/29 11:36:05 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/29 13:24:55 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
+
+static bool is_node_last(t_env *node)
+{
+	return node->next == NULL;
+}
+
+static bool is_node_first(t_env *node)
+{
+	return node->prev == NULL;
+}
+
 
 /*
 []──[]──[]
@@ -29,7 +40,16 @@ int	exec_unset(char **cmd, t_env **env)
 		unseted_env = get_old_env_to_be_updated(cmd[i], *env);
 		if (unseted_env == false)
 			continue ;
-		unseted_env->prev->next = unseted_env->next->prev;
+		/* どこのものを消すかによってパスの繋げ方を変える */
+		// 最後の環境変数を削除する場合，削除する前のenvのnextをNULLにする
+		if (is_node_last(unseted_env) == true)
+			unseted_env->prev->next = NULL;
+		// 最初の環境変数を削除する場合，削除する次のenvのprevをNULLにする
+		if (is_node_first(unseted_env) == true)
+			unseted_env->next->prev = NULL;
+		// 途中の環境変数を削除する場合，削除する前のenvのnextを削除する次のenvのprevにする
+		else
+			unseted_env->prev->next = unseted_env->next->prev;
 		ft_nodedelone(&unseted_env);
 		ft_nodefirst(env);
 	}
