@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+         #
+#    By: toshota <toshota@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/26 19:52:48 by toshota           #+#    #+#              #
-#    Updated: 2023/11/29 14:58:28 by yoshimurahi      ###   ########.fr        #
+#    Updated: 2023/11/29 16:12:40 by toshota          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ CC				=	cc -g
 RM				=	rm -rf
 LIBFT_DIR		=   libft/
 LIBS			=	libft/libft.a
-INCS			=	-I inc/ -I libft/inc/ -I$(shell brew --prefix readline)/include
+INCS			=	-I inc/ -I libft/inc/ -I$(shell brew --prefix readline)/include -g
 SRCS_DIR		=	srcs/
 OBJS_DIR		=	objs/
 

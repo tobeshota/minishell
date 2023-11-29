@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/25 22:06:55 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/29 16:21:36 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ static bool	update_envp(t_env **env, char *varname, char *new_data)
 
 	if (env == NULL)
 		return (false);
-	while (*env && \
-	ft_strncmp((*env)->content, varname, ft_strlen(varname)))
+	while ((*env)->next && ft_strncmp((*env)->content, varname, ft_strlen(varname)))
 		ft_nodenext(env);
 	if (is_path_found((*env)->content) == false)
 		return (ft_nodefirst(env), false);
