@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 23:08:47 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/29 10:54:48 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/29 11:28:26 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static bool	is_append_properly_written(char current_c, char next_c)
 	return (true);
 }
 
-static bool	check_identifier(char *identifier)
+bool	check_identifier(char *identifier)
 {
 	int	i;
 
