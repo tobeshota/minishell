@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/25 22:18:27 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/29 14:13:08 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ bool	add_absolute_path_to_cmd_name(char ***cmd_absolute_path)
 	cmd_i = -1;
 	while (cmd_absolute_path[0][++cmd_i])
 	{
+		if (is_cmd_builtin(cmd_absolute_path[0][cmd_i]) == true)
+			continue;
 		if (is_cmd_relative_path(cmd_absolute_path, cmd_i))
 			continue ;
 		if (is_cmd_alreadly_absollute_path(cmd_absolute_path, cmd_i))
