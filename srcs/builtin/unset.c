@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:36:07 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/29 13:24:55 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/29 13:32:20 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ int	exec_unset(char **cmd, t_env **env)
 			unseted_env->next->prev = NULL;
 		// 途中の環境変数を削除する場合，削除する前のenvのnextを削除する次のenvのprevにする
 		else
-			unseted_env->prev->next = unseted_env->next->prev;
+		{
+			unseted_env->prev->next = unseted_env->next;
+			unseted_env->next->prev = unseted_env->prev;
+		}
 		ft_nodedelone(&unseted_env);
 		ft_nodefirst(env);
 	}
