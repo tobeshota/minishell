@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 12:34:25 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/28 20:33:09 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/29 14:53:54 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	minishell(char **argv, char **envp)
 {
 	char	*line;
 	t_env	*env;
+	t_tools	tools;
 
 	init_minishell(envp, &env);
 	while (true)
@@ -53,7 +54,8 @@ int	minishell(char **argv, char **envp)
 		line = readline(MINISHELL_PROMPT);
 		if (!line)
 			break ;
-		argv = ft_split(line, ',');	/* 本来はft_splitでなくlexerとparser．いまは区切り文字','で分割している */
+		// argv = ft_split(line, ',');	/* 本来はft_splitでなくlexerとparser．いまは区切り文字','で分割している */
+		
 		if (*line)
 			add_history(line);
 		put_arg_for_debug(argv);
@@ -69,6 +71,35 @@ int	minishell(char **argv, char **envp)
 	ft_printf(EXIT_MSG);
 	return (0);
 }
+
+// int	minishell(char **argv, char **envp)
+// {
+// 	char	*line;
+// 	t_env	*env;
+
+// 	init_minishell(envp, &env);
+// 	while (true)
+// 	{
+// 		line = readline(MINISHELL_PROMPT);
+// 		if (!line)
+// 			break ;
+// 		// argv = ft_split(line, ',');	/* 本来はft_splitでなくlexerとparser．いまは区切り文字','で分割している */
+		
+// 		if (*line)
+// 			add_history(line);
+// 		put_arg_for_debug(argv);
+// 		if(is_match(line, "putnode"))
+// 			put_node_for_debug(env);
+// 		else
+// 			pipex(argv, &env);
+// 		all_free_tab(argv);
+// 		node_to_array(env, &envp);
+// 		free(line);
+// 	}
+// 	ft_nodeclear(&env);
+// 	ft_printf(EXIT_MSG);
+// 	return (0);
+// }
 
 int	main(int argc, char **argv, char **envp)
 {

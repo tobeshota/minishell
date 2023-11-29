@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 12:34:46 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/23 13:54:53 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/29 15:02:00 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "libft.h"
 # include "parser.h"
 # include "pipex.h"
+# include "expander.h"
 # include <termios.h>
 # include <signal.h>
 # include <stdio.h>
