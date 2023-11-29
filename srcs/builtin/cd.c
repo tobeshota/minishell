@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/29 16:21:36 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/29 17:39:29 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,22 @@ static bool	update_envp(t_env **env, char *varname, char *new_data)
 	return (free(tmp), free(new_data), true);
 }
 
-int	exec_cd(char **cmd, t_env **env)
+static bool	update_old_pwd(t_env **env, t_pipex *pipex)
+{
+	char	**old_pwd;
+	char	cwd[PATH_MAX];
+
+	old_pwd = check_malloc(ft_split("export OLD_PWD", ' '));
+	if (exec_export(old_pwd, env, pipex) == false)
+		return (all_free_tab(old_pwd), false);
+	if (getcwd(cwd, PATH_MAX) == NULL)
+		return (all_free_tab(old_pwd), false);
+	if (update_envp(env, "OLD_PWD=", cwd) == false)
+		return (all_free_tab(old_pwd), false);
+	return (all_free_tab(old_pwd), true);
+}
+
+int	exec_cd(char **cmd, t_env **env, t_pipex *pipex)
 {
 	char	*path_from_cd;
 	char	cwd[PATH_MAX];
@@ -73,6 +88,7 @@ int	exec_cd(char **cmd, t_env **env)
 		put_error(": No such file or directory\n");
 		return (free(path_from_cd), true);
 	}
+	update_old_pwd(env, pipex);
 	if (chdir(path_from_cd) == -1)
 		return (free(path_from_cd), false);
 	free(path_from_cd);
