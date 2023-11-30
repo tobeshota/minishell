@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 12:34:25 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/30 15:26:48 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/11/30 16:33:00 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ char **change_to_array(t_tools *tools)
 		tmp = tmp->next;
 	}
 	nodefirst_ver_simple_cmds(&tmp);
-	
+
 	tmparray = check_malloc((char **)malloc(sizeof(char *) * (i + 1)));
 	i = 0;
 	tmp = tools->simple_cmds;
@@ -99,14 +99,14 @@ char **change_to_array(t_tools *tools)
 		if(tmp->str[i])
 		{
 			while(tmp->str[k])
-			{	
+			{
 				tmparray[i] = ft_strjoin(tmparray[i], tmp->str[k]);
 				if(tmp->str[k + 1])
 					tmparray[i] = ft_strjoin(tmparray[i], " ");
 				k++;
 			}
-			i++;	
-		}		
+			i++;
+		}
 		if(tmp->redirections)
 		{
 			tmparray[i] = ft_strdup(token_to_char(tmp->redirections->token));
@@ -126,7 +126,7 @@ int	implement_tools(t_tools *tools)
 	tools->simple_cmds = NULL;
 	tools->lexer_list = NULL;
 	tools->str = NULL;
-	
+
 	return (1);
 }
 
@@ -134,7 +134,9 @@ int	free_tools(t_tools *tools)
 {
 	ft_simple_cmdsclear(&tools->simple_cmds);
 	free(tools->str);
+	all_free_tab(tools->envp);
 	implement_tools(tools);
+	free(tools);
 	return (1);
 }
 
@@ -159,7 +161,10 @@ int	minishell(char **argv, char **envp, t_tools *tools)
 		line = readline(MINISHELL_PROMPT);
 		tools->str = line;
 		if (!line)
-			break ;
+		{
+			free_tools(tools);
+			break;
+		}
 		if (tools->str[0] != '\0')
 		{
 			// argv = ft_split(line, ',');	/* 本来はft_splitでなくlexerとparser．いまは区切り文字','で分割している */
@@ -176,8 +181,7 @@ int	minishell(char **argv, char **envp, t_tools *tools)
 				pipex(tmparray, &env);
 			// all_free_tab(tmparray);
 			node_to_array(env, &envp);
-			// free(line);
-			free_tools(tools);	
+			free_tools(tools);
 		}
 	}
 	ft_nodeclear(&env);
@@ -188,8 +192,10 @@ int	minishell(char **argv, char **envp, t_tools *tools)
 int	main(int argc, char **argv, char **envp)
 {
 	t_tools	tools;
-	if (argc == 1 || argc != 1)
-		minishell(argv, envp, &tools);
+
+	if (argc == 1)
+		return (minishell(argv, envp, &tools));
+	return (put_error("minishell: too many arguments"), 1);
 }
 
 //--------------cjiaの実験場------のちに消す---------------
