@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 22:46:35 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/25 22:46:37 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/30 21:13:33 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static bool	exec(char **argv, t_env **env, t_pipex *pipex,
 		return (false);
 	if (is_cmd_builtin(pipex->cmd_absolute_path[cmd_i]))
 	{
-		if (check_exec(exec_builtin(env, pipex, cmd_i)) == false)
+		if (exec_builtin(env, pipex, cmd_i) == false)
 			return (false);
 		return (reset_fd(pipex));
 	}
