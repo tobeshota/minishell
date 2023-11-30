@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 12:34:25 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/30 16:33:00 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/30 17:20:13 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,36 @@ int	free_tools(t_tools *tools)
 	return (1);
 }
 
+# define MINIPIPEX_PROMPT "\x1b[32mminipipex $ \x1b[0m\x1b[39m"
+/* lexer(); と parser(); のない minishell ． pipex のテスト用 */
+int	minishell_by_pipex_for_debug(char **argv, char **envp)
+{
+	char	*line;
+	t_env	*env;
+
+	init_minishell(envp, &env);
+	while (true)
+	{
+		line = readline(MINIPIPEX_PROMPT);
+		if (!line)
+			break ;
+		argv = ft_split(line, ',');	/* 本来はft_splitでなくlexerとparser．いまは区切り文字','で分割している */
+		if (*line)
+			add_history(line);
+		put_arg_for_debug(argv);
+		if(is_match(line, "putnode"))
+			put_node_for_debug(env);
+		else
+			pipex(argv, &env);
+		all_free_tab(argv);
+		node_to_array(env, &envp);
+		free(line);
+	}
+	ft_nodeclear(&env);
+	ft_printf(EXIT_MSG);
+	return (0);
+}
+
 int	minishell(char **argv, char **envp, t_tools *tools)
 {
 	char	*line;
@@ -193,6 +223,9 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_tools	tools;
 
+	// argv[1] = "p";
+	if (is_match(argv[1], "p"))
+		return (minishell_by_pipex_for_debug(argv, envp));
 	if (argc == 1)
 		return (minishell(argv, envp, &tools));
 	return (put_error("minishell: too many arguments"), 1);
