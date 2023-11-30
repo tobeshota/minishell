@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/30 22:31:26 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/30 22:48:55 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static bool	update_envp(t_env **env, char *varname, char *new_data)
 
 	if (env == NULL)
 		return (false);
-	while ((*env)->next && ft_strncmp((*env)->content, varname, ft_strlen(varname)))
+	while ((*env)->next && ft_strncmp((*env)->content, varname,
+			ft_strlen(varname)))
 		ft_nodenext(env);
 	if (is_path_found((*env)->content) == false)
 		return (ft_nodefirst(env), false);
@@ -44,47 +45,46 @@ static bool	update_oldpwd(t_env **env, t_pipex *pipex)
 	return (all_free_tab(oldpwd), true);
 }
 
-static bool change_oldpwd(char **path_ptr, t_env **env, t_pipex *pipex)
+static bool	change_oldpwd(char **path_ptr, t_env **env, t_pipex *pipex)
 {
-	while ((*env)->next && ft_strncmp((*env)->content, "OLDPWD=", ft_strlen("OLDPWD=")))
+	while ((*env)->next && ft_strncmp((*env)->content, "OLDPWD=",
+			ft_strlen("OLDPWD=")))
 		ft_nodenext(env);
 	if (ft_strncmp((*env)->content, "OLDPWD=", ft_strlen("OLDPWD=")))
-		return (put_error("-bash: cd: OLDPWD not set\n"), ft_nodefirst(env), false);
+		return (put_error("-bash: cd: OLDPWD not set\n"), ft_nodefirst(env),
+			false);
 	*path_ptr = check_malloc(ft_strdup((*env)->content + ft_strlen("OLDPWD=")));
 	ft_putendl_fd(*path_ptr, pipex->outfile_fd);
 	ft_nodefirst(env);
 	if (update_oldpwd(env, pipex) == false)
 		return (free(*path_ptr), false);
-	return true;
+	return (true);
 }
 
-static bool	get_path_from_cd(char **path_ptr, char **cmd, t_env **env, t_pipex *pipex)
+static bool	get_path_from_cd(char **path_ptr, char **cmd, t_env **env,
+		t_pipex *pipex)
 {
 	char	*tmp;
 
-	if (cmd[1] == NULL || is_match(cmd[1], "~") || is_match(cmd[1], "~/"))
+	if (cmd[1] == NULL || cmd[1][0] == '~')
 	{
 		*path_ptr = getenv("HOME");
 		if (check_getenv(*path_ptr) == false)
 			return (free(*path_ptr), false);
 		*path_ptr = check_malloc(ft_strdup(*path_ptr));
-		return (true);
+		if (cmd[1] && is_match(cmd[1], "~") == false && is_match(cmd[1],
+				"~/") == false)
+		{
+			tmp = *path_ptr;
+			*path_ptr = \
+				check_malloc(ft_strjoin(*path_ptr, cmd[1] + ft_strlen("~")));
+			free(tmp);
+		}
 	}
-	else if (cmd[1][0] == '~')
-	{
-		*path_ptr = getenv("HOME");
-		if (check_getenv(*path_ptr) == false)
-			return (free(*path_ptr), false);
-		*path_ptr = check_malloc(ft_strdup(*path_ptr));
-		tmp = *path_ptr;
-		*path_ptr = \
-			check_malloc(ft_strjoin(*path_ptr, cmd[1] + ft_strlen("~")));
-		free(tmp);
-	}
-	else if (is_match(cmd[1], "-"))
+	else if (cmd[1] && is_match(cmd[1], "-"))
 	{
 		if (change_oldpwd(path_ptr, env, pipex) == false)
-			return false;
+			return (false);
 	}
 	else
 		*path_ptr = check_malloc(ft_strdup(cmd[1]));
