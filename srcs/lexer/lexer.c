@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 12:11:42 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/11/29 12:40:20 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/11/30 12:28:53 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,17 @@ static int skip(char *str, int i)
 }
 
 
-static int process_str(int index, t_tools *lexer_tools) 
+static int process_str(int index, t_tools *tools) 
 {
     int i = index;
     int j = 0;
 
+    i = i + skip(tools->str, i);
 
-    i = i + skip(lexer_tools->str, i);
-
-    if (check_token(lexer_tools->str, i, &lexer_tools->lexer_list))
-        j = handle_token(lexer_tools->str, i, &lexer_tools->lexer_list);
+    if (check_token(tools->str, i, &tools->lexer_list))
+        j = handle_token(tools->str, i, &tools->lexer_list);
     else
-        j = word_in_node(lexer_tools->str, i, &lexer_tools->lexer_list);
+        j = word_in_node(tools->str, i, &tools->lexer_list);
 
     if (j < 0)
         return 0;
@@ -43,15 +42,15 @@ static int process_str(int index, t_tools *lexer_tools)
     return i;
 }
 
-void lexer(t_tools *lexer_tools) 
+void lexer(t_tools *tools) 
 {
     int i;
     
     i = 0;
 
-    while (lexer_tools->str[i]) 
+    while (tools->str[i]) 
     {
-        i = process_str(i, lexer_tools);
+        i = process_str(i, tools);
         if (i == 0)
             return;  // エラーが発生した場合、または処理が終了した場合にループを抜ける
     }
@@ -59,19 +58,19 @@ void lexer(t_tools *lexer_tools)
 
 
 // int main() {
-//     t_tools lexer_tools;  // lexer 用のデータ構造を作成
+//     t_tools tools;  // lexer 用のデータ構造を作成
 
-//     // lexer_tools 構造体を初期化または必要に応じて設定
-//     lexer_tools.lexer_list = NULL;
+//     // tools 構造体を初期化または必要に応じて設定
+//     tools.lexer_list = NULL;
     
 
 //     // 入力文字列を設定
-//     lexer_tools.str = "echo 'Hello, World!' > output.txt";
+//     tools.str = "echo 'Hello, World!' > output.txt";
 
 //     // lexer プログラムを呼び出す
-//     lexer(&lexer_tools);
+//     lexer(&tools);
     
-//     // t_lexer *tmp = lexer_tools.lexer_list;
+//     // t_lexer *tmp = tools.lexer_list;
 //     // while(tmp)
 //     // {
 //     //     if(tmp->str)
@@ -81,23 +80,23 @@ void lexer(t_tools *lexer_tools)
 //     //     tmp = tmp->next;
 //     // }
 
-//     lexer_tools.simple_cmds = NULL;
-//     parser(&lexer_tools);
+//     tools.simple_cmds = NULL;
+//     parser(&tools);
 
-//     printf("parser_list = %s\n", lexer_tools.simple_cmds->str[0]);
+//     printf("parser_list = %s\n", tools.simple_cmds->str[0]);
 
-//     while(lexer_tools.simple_cmds)
+//     while(tools.simple_cmds)
 //     {
-//        if(lexer_tools.simple_cmds->str)
-//             printf("simple_cmds->str = %s\n", lexer_tools.simple_cmds->str[0]);
-//         else if(lexer_tools.simple_cmds->file_name)
-//             printf("simple_cmds->file_name = %s\n", lexer_tools.simple_cmds->file_name);
+//        if(tools.simple_cmds->str)
+//             printf("simple_cmds->str = %s\n", tools.simple_cmds->str[0]);
+//         else if(tools.simple_cmds->file_name)
+//             printf("simple_cmds->file_name = %s\n", tools.simple_cmds->file_name);
 //         else
-//             printf("simple_cmds->num_redirections = %d\n", lexer_tools.simple_cmds->num_redirections);
-//         lexer_tools.simple_cmds = lexer_tools.simple_cmds->next;
+//             printf("simple_cmds->num_redirections = %d\n", tools.simple_cmds->num_redirections);
+//         tools.simple_cmds = tools.simple_cmds->next;
 //     }
 
-//     // printf("lexer_list = %p\n", lexer_tools.lexer_list);
+//     // printf("lexer_list = %p\n", tools.lexer_list);
 //     return 0;
 // }
 
@@ -105,7 +104,12 @@ void lexer(t_tools *lexer_tools)
 
 
 
-// static int process_str(char *str, int index, t_lexer *lexer_list, t_tools *lexer_tools) 
+
+
+
+
+
+// static int process_str(char *str, int index, t_lexer *lexer_list, t_tools *tools) 
 // {
 //     int i = index;
 //     int j = 0;
@@ -122,21 +126,21 @@ void lexer(t_tools *lexer_tools)
 //         return 0;
 //     i += j;
 //     printf("lexer_list->str1 = %s\n", lexer_list->str);
-//     printf("lexer_list->str2 = %s\n", lexer_tools->lexer_list->str);
+//     printf("lexer_list->str2 = %s\n", tools->lexer_list->str);
 //     return i;
 // }
 
-// void lexer(t_tools *lexer_tools) 
+// void lexer(t_tools *tools) 
 // {
 //     int i;
     
 //     i = 0;
 
-//     while (lexer_tools->str[i]) 
+//     while (tools->str[i]) 
 //     {
-//         i = process_str(lexer_tools->str, i, lexer_tools->lexer_list, lexer_tools);
+//         i = process_str(tools->str, i, tools->lexer_list, tools);
 //         if (i == 0)
 //             return;  // エラーが発生した場合、または処理が終了した場合にループを抜ける
-//         // printf("lexer_list = %s\n", lexer_tools->lexer_list->str);
+//         // printf("lexer_list = %s\n", tools->lexer_list->str);
 //     }
 // }

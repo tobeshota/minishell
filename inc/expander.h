@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/11/29 15:00:39 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/11/30 10:31:04 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,9 @@ char	**	ft_arrdup(char **arr);
 void	free_arr(char **split_arr);
 void	ft_simple_cmdsclear(t_simple_cmds **lst);
 void	ft_lexerclear(t_lexer **lst);
+
+
+//グローバル変数
+extern int	g_status;
 
 #endif

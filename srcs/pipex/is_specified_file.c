@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_specified_file.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 17:31:16 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/20 10:58:07 by toshota          ###   ########.fr       */
+/*   Updated: 2023/11/30 15:41:12 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

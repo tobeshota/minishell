@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:09:42 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/11/29 13:24:50 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/11/30 15:08:32 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	add_list(t_simple_cmds **list, t_simple_cmds *new)
 static t_simple_cmds	*creat_ast(t_parser_tools *parser_tools)
 {
     char	**str;
-	int		i;
+	int		i = 0;
 	int		arg_size;
 	t_lexer	*tmp;
     
@@ -82,7 +82,7 @@ int		parser(t_tools *tools)
             erase_token(&tools->lexer_list, tools->lexer_list->i);
         if(handle_operator_error(tools, tools->lexer_list->token))
             return (EXIT_FAILURE);
-        parser_tools = init_parser_tools(tools);
+        // parser_tools = init_parser_tools(tools);
         node = creat_ast(&parser_tools);
         if (!node)
 			parser_error(0, tools, parser_tools.lexer_list);
