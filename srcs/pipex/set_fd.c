@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_fd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 13:19:51 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/25 22:40:18 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/01 16:48:19 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	set_input_fd(t_pipex *pipex, int cmd_i, char **argv)
 {
-	if (get_infile_fd(pipex, cmd_i, argv) == false
+	if (get_infile_fd(pipex, cmd_i, argv, true) == false
 		|| check_open(get_cmd_arg_fd(pipex, cmd_i)) == false)
 		return (false);
 	if (get_cmd_arg_fd(pipex, cmd_i) != NOT_SPECIFIED)

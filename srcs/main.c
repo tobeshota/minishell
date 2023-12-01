@@ -6,7 +6,11 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 12:34:25 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/01 16:42:47 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/01 16:42:47 by yoshimurahi      ###   ########
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/31 12:34:25 by toshota           #+#    #+#             */
+/*   Updated: 2023/12/01 16:52:54 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,8 +146,8 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_tools	tools;
 
-	// if (is_match(argv[1], "p"))
-	// 	return (minishell_by_pipex_for_debug(argv, envp));
+	if (is_match(argv[1], "p"))
+		return (minishell_by_pipex_for_debug(argv, envp));
 	if (argc == 1)
 		return (minishell(argv, envp, &tools));
 	return (put_error("minishell: too many arguments"), 1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_fd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 01:22:30 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/25 22:40:18 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/01 16:47:59 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	get_start_pos(int pipe_count, char **argv)
 	return (arg_i);
 }
 
-bool	get_infile_fd(t_pipex *pipex, int cmd_i, char **argv)
+bool	get_infile_fd(t_pipex *pipex, int cmd_i, char **argv, int exec_flag)
 {
 	int	arg_i;
 
@@ -40,7 +40,7 @@ bool	get_infile_fd(t_pipex *pipex, int cmd_i, char **argv)
 			if (check_open(pipex->infile_fd) == false)
 				return (false);
 		}
-		else if (is_specified_here_doc(argv[arg_i]))
+		else if (is_specified_here_doc(argv[arg_i]) && exec_flag == true)
 			if (proc_here_doc(argv[arg_i + 1], pipex) == false)
 				return (false);
 		arg_i++;
