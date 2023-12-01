@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 11:51:33 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/01 16:51:19 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/01 17:05:09 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ char	**change_to_array(t_tools *tools)
 	while (tmp)
 	{
 		k = 0;
-		if (tmp->str && tmp->str[k])
+		if (
+			tmp->str && tmp->str[k])
 		{
 			while (tmp->str[k])
 			{
