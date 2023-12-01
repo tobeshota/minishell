@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/28 23:31:42 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/01 16:48:09 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ bool	is_specified_outfile_overwriting(char *str);
 bool	is_specified_outfile_apend(char *str);
 bool	is_specified_operators(char *str);
 
-bool	get_infile_fd(t_pipex *pipex, int cmd_i, char **argv);
+bool	get_infile_fd(t_pipex *pipex, int cmd_i, char **argv, int exec_flag);
 bool	get_outfile_fd(t_pipex *pipex, int cmd_i, char **argv);
 
 // is_file_ok

@@ -72,8 +72,16 @@ static void	init_pipex(t_pipex *pipex)
 bool	get_pipex(char **argv, t_pipex *pipex)
 {
 	init_pipex(pipex);
-	if (get_infile_fd(pipex, 0, argv) == false)
-		return (false);
+	if (get_cmd_count(argv) == 0)
+	{
+		if (get_infile_fd(pipex, 0, argv, true) == false)	/* コマンドの数が0である場合はget_pipex();内のget_infile_fd();内のhere_docを実行する！ */
+			return (false);
+	}
+	else
+	{
+		if (get_infile_fd(pipex, 0, argv, false) == false)	/* コマンドの数が0である場合はget_pipex();内のget_infile_fd();内のhere_docを実行する！ */
+			return (false);
+	}
 	if (get_outfile_fd(pipex, 0, argv) == false)
 		return (false);
 	if (get_cmd_absolute_path(argv, pipex) == false)
