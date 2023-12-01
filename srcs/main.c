@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 12:34:25 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/01 13:19:29 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/01 13:53:15 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	implement_tools(t_tools *tools)
 	tools->simple_cmds = NULL;
 	tools->lexer_list = NULL;
 	tools->str = NULL;
+	signal_init();
 
 	return (1);
 }
