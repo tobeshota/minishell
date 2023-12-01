@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 12:34:25 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/01 13:53:15 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/01 14:40:12 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,9 +142,8 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_tools	tools;
 
-	// argv[1] = "p";
-	// if (is_match(argv[1], "p"))
-	// 	return (minishell_by_pipex_for_debug(argv, envp));
+	if (is_match(argv[1], "p"))
+		return (minishell_by_pipex_for_debug(argv, envp));
 	if (argc == 1)
 		return (minishell(argv, envp, &tools));
 	return (put_error("minishell: too many arguments"), 1);

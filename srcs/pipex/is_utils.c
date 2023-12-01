@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/30 15:42:52 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/01 14:44:54 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,9 @@ bool is_io_file(char **argv, int arg_i)
 
 bool	is_cmd(char **argv, int arg_i)
 {
-	return (is_file_exectable(argv[arg_i]) \
-	|| (!is_file_exist(argv[arg_i]) \
-	&& !is_specified_operators(argv[arg_i]) \
-	&& !is_io_file(argv, arg_i)));
+	if (is_specified_operators(argv[arg_i]) || is_io_file(argv, arg_i))
+		return (false);
+	return (is_file_exectable(argv[arg_i]) || !is_file_exist(argv[arg_i]));
 }
 
 bool	is_cmd_relative_path(char ***cmd_absolute_path, int cmd_i)
