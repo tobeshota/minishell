@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 12:34:25 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/01 11:52:50 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/01 12:52:03 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ int	minishell(char **argv, char **envp, t_tools *tools)
 	while (true)
 	{
 		line = readline(MINISHELL_PROMPT);
+		implement_tools(tools);
 		tools->str = line;
 		if (!line)
 		{

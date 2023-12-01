@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 11:51:33 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/01 11:56:08 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/01 13:09:17 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ char **change_to_array(t_tools *tools)
 				tmparray[i++] = ft_strdup(tmp->redirections->str);
 				tmp->redirections = tmp->redirections->next;
 			}
-			if(tmp->redirections->token == 1)
+			if(tmp->redirections && tmp->redirections->token == 1)
 			{
 				tmparray[i++] = ft_strdup(token_to_char(tmp->redirections->token));
 			}
