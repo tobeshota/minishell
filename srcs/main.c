@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 12:34:25 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/01 12:52:03 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/01 13:19:29 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ int	free_tools(t_tools *tools)
 {
 	ft_simple_cmdsclear(&tools->simple_cmds);
 	free(tools->str);
-	all_free_tab(tools->envp);
 	implement_tools(tools);
-	free(tools);
+	all_free_tab(tools->envp);
+	// free(tools);
 	return (1);
 }
 
@@ -100,17 +100,12 @@ int	minishell(char **argv, char **envp, t_tools *tools)
 	char	**tmparray;
 
 	init_minishell(envp, &env);
-
-	tools = (t_tools *)check_malloc(malloc(sizeof(t_tools)));
-	tools->envp = ft_arrdup(envp);
-
-	if(implement_tools(tools) == 0)
-	{
-		ft_putendl_fd("malloc error", STDERR_FILENO);
-		exit(EXIT_FAILURE);
-	}
 	while (true)
 	{
+		tools = (t_tools *)check_malloc(malloc(sizeof(t_tools)));
+		if(implement_tools(tools) == 0)
+			exit(EXIT_FAILURE);
+		tools->envp = ft_arrdup(envp);
 		line = readline(MINISHELL_PROMPT);
 		implement_tools(tools);
 		tools->str = line;
