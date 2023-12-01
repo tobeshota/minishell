@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   change_to_array.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
+/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 11:51:33 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/01 15:41:33 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/01 17:05:09 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,18 +63,21 @@ char	**change_to_array(t_tools *tools)
 	while (tmp)
 	{
 		k = 0;
-		if (tmp->str && tmp->str[k])
+		if (
+			tmp->str && tmp->str[k])
 		{
 			while (tmp->str[k])
 			{
 				tmparray[i] = ft_strjoin(tmpstr, tmp->str[k]);
 				if (tmp->str[k + 1])
 					tmparray[i] = ft_strjoin(tmparray[i], " ");
-				free(tmpstr);
-				tmpstr = ft_strdup(tmp->str[k]);
+				if(tmpstr)
+					free(tmpstr);
+				tmpstr = ft_strdup(tmparray[i]);
 				k++;
 			}
-			free(tmpstr);
+			if (tmpstr)
+				free(tmpstr);
 			i++;
 		}
 		if (tmp->redirections)
@@ -90,9 +93,17 @@ char	**change_to_array(t_tools *tools)
 				tmparray[i++] = ft_strdup(token_to_char(tmp->redirections->token));
 			}
 		}
+		while(tmparray[i])
+		{
+			printf("tmparray[%d] = %s\n", i, tmparray[i]);
+			i++;
+		}
 		tmp = tmp->next;
 	}
 	tmparray[i] = NULL;
+	// printf("tmparray[0] = %s\n", tmparray[0]);
+	// printf("tmparray[1] = %s\n", tmparray[1]);
+	// printf("tmparray[2] = %s\n", tmparray[2]);
 	nodefirst_ver_simple_cmds(&tmp);
 	return (tmparray);
 }
