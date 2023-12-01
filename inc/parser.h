@@ -53,8 +53,6 @@ typedef struct s_simple_cmds
 	struct s_simple_cmds	*next;
 	struct s_simple_cmds	*prev;
 }	t_simple_cmds;
-//pipexでは、argvだけ必要としていて、渡す順番は関係ないけど、リダイレクト＋ファイルといったように、塊で渡す。
-//今の状態では、塊で渡してなくて、それがどんな情報かを知らせているだけ。これからやるのは、parserで塊
 
 
 //about lexer
@@ -79,6 +77,7 @@ void	parser_error(int error, t_tools *tools, t_lexer *lexer_list);
 int	parser_double_token_error(t_tools *tools, t_lexer *lexer_list,
 	t_tokens token);
 int	handle_operator_error(t_tools *tools, t_tokens token);
+char **change_to_array(t_tools *tools);
 
 
 

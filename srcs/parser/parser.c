@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:09:42 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/11/30 15:08:32 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/01 11:36:52 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,28 @@ int		parser(t_tools *tools)
     while (tools->lexer_list)
 	{
         if (tools->lexer_list && tools->lexer_list->token == PIPE)
+		{
+			node = (t_simple_cmds *)malloc(sizeof(t_simple_cmds));
+			node->redirections =(t_lexer *)malloc(sizeof(t_lexer));
+			if (!node || !node->redirections)
+				return (0);
+			node->redirections->str = NULL;
+			node->redirections->token = 1;
+			node->redirections->next = NULL;
+			node->redirections->prev = NULL;	
+			node->redirections->token = 1;
+			node->file_name = NULL;
+			node->str = NULL;
+			node->num_redirections = 0;
+			node->next = NULL;
+			node->prev = NULL;
+			add_list(&tools->simple_cmds, node);
+			node = NULL;
             erase_token(&tools->lexer_list, tools->lexer_list->i);
+		}
         if(handle_operator_error(tools, tools->lexer_list->token))
             return (EXIT_FAILURE);
-        // parser_tools = init_parser_tools(tools);
+        parser_tools = init_parser_tools(tools);
         node = creat_ast(&parser_tools);
         if (!node)
 			parser_error(0, tools, parser_tools.lexer_list);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 12:34:25 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/30 17:20:13 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/01 11:52:50 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,83 +43,6 @@ void init_minishell(char **envp, t_env	**env)
 }
 
 //--------------cjiaの実験場------のちに消す---------------
-
-char	*token_to_char(t_tokens token)
-{
-	if (token == PIPE)
-		return ("|");
-	else if (token == GREAT)
-		return (">");
-	else if (token == GREAT_GREAT)
-		return (">>");
-	else if (token == LESS)
-		return ("<");
-	else if (token == LESS_LESS)
-		return ("<<");
-	else
-		return ("");
-}
-
-void	nodefirst_ver_simple_cmds(t_simple_cmds **node)
-{
-	if (node == NULL || *node == NULL)
-		return ;
-	while ((*node)->prev != NULL)
-		*node = (*node)->prev;
-}
-
-char **change_to_array(t_tools *tools)
-{
-	char **tmparray;
-	char *tmp2 = NULL;
-	int i;
-	int j;
-	int k;
-	t_simple_cmds *tmp;
-
-	i = 0;
-	j = 0;
-	k = 0;
-	tmp = tools->simple_cmds;
-	while (tmp)
-	{
-		if(tmp->str)
-			i++;
-		if(tmp->redirections)
-			i++;
-		tmp = tmp->next;
-	}
-	nodefirst_ver_simple_cmds(&tmp);
-
-	tmparray = check_malloc((char **)malloc(sizeof(char *) * (i + 1)));
-	i = 0;
-	tmp = tools->simple_cmds;
-	while (tmp)
-	{
-		if(tmp->str[i])
-		{
-			while(tmp->str[k])
-			{
-				tmparray[i] = ft_strjoin(tmparray[i], tmp->str[k]);
-				if(tmp->str[k + 1])
-					tmparray[i] = ft_strjoin(tmparray[i], " ");
-				k++;
-			}
-			i++;
-		}
-		if(tmp->redirections)
-		{
-			tmparray[i] = ft_strdup(token_to_char(tmp->redirections->token));
-			i++;
-			tmparray[i] = ft_strdup(tmp->redirections->str);
-			i++;
-		}
-		tmp = tmp->next;
-	}
-	tmparray[i] = NULL;
-	nodefirst_ver_simple_cmds(&tmp);
-	return (tmparray);
-}
 
 int	implement_tools(t_tools *tools)
 {
@@ -197,7 +120,6 @@ int	minishell(char **argv, char **envp, t_tools *tools)
 		}
 		if (tools->str[0] != '\0')
 		{
-			// argv = ft_split(line, ',');	/* 本来はft_splitでなくlexerとparser．いまは区切り文字','で分割している */
 			lexer(tools);
 			parser(tools);
 			tmparray = change_to_array(tools);
@@ -224,8 +146,8 @@ int	main(int argc, char **argv, char **envp)
 	t_tools	tools;
 
 	// argv[1] = "p";
-	if (is_match(argv[1], "p"))
-		return (minishell_by_pipex_for_debug(argv, envp));
+	// if (is_match(argv[1], "p"))
+	// 	return (minishell_by_pipex_for_debug(argv, envp));
 	if (argc == 1)
 		return (minishell(argv, envp, &tools));
 	return (put_error("minishell: too many arguments"), 1);
