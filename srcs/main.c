@@ -1,19 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/31 12:34:25 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/01 16:42:47 by yoshimurahi      ###   ########
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/31 12:34:25 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/01 16:52:54 by toshota          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 static void	put_arg_for_debug(char **argv)
@@ -132,7 +116,6 @@ int	minishell(char **argv, char **envp, t_tools *tools)
 				put_node_for_debug(env);
 			else
 				pipex(tmparray, &env);
-			// all_free_tab(tmparray);
 			node_to_array(env, &envp);
 			free_tools(tools);
 		}
@@ -146,7 +129,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_tools	tools;
 
-	if (is_match(argv[1], "p"))
+	if (argc == 2 && is_match(argv[1], "p"))
 		return (minishell_by_pipex_for_debug(argv, envp));
 	if (argc == 1)
 		return (minishell(argv, envp, &tools));
@@ -192,7 +175,7 @@ int	main(int argc, char **argv, char **envp)
 // 		minishell(argv, envp);
 // }
 
-// __attribute__((destructor)) static void destructor()
-// {
-// 	system("leaks -q minishell");
-// }
+__attribute__((destructor)) static void destructor()
+{
+	system("leaks -q minishell");
+}

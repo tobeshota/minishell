@@ -6,18 +6,33 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 22:46:35 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/30 21:13:33 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/01 21:22:12 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static bool	exec(char **argv, t_env **env, t_pipex *pipex,
-		int cmd_i)
+static bool	dup_std_fileno(int *default_stdin_fileno,
+		int *default_stdout_fileno)
+{
+	*default_stdin_fileno = dup(STDIN_FILENO);
+	if (check_dup(*default_stdin_fileno) == false)
+		return (false);
+	*default_stdout_fileno = dup(STDOUT_FILENO);
+	if (check_dup(*default_stdout_fileno) == false)
+		return (false);
+	return (true);
+}
+
+/* STDIN_FILENO,STDOUT＿FILENOそれぞれをdup();で複製しておき，reset_fd();でdup2();にてもとに戻す！ */
+static bool	exec(char **argv, t_env **env, t_pipex *pipex, int cmd_i)
 {
 	char		**cmd;
 	extern char	**environ;
+	int			default_stdin_fileno;
+	int			default_stdout_fileno;
 
+	dup_std_fileno(&default_stdin_fileno, &default_stdout_fileno);
 	if (set_input_fd(pipex, cmd_i, argv) == false)
 		return (false);
 	if (set_output_fd(pipex, cmd_i, argv) == false)
@@ -26,7 +41,7 @@ static bool	exec(char **argv, t_env **env, t_pipex *pipex,
 	{
 		if (exec_builtin(env, pipex, cmd_i) == false)
 			return (false);
-		return (reset_fd(pipex));
+		return (reset_fd(pipex, &default_stdin_fileno, &default_stdout_fileno));
 	}
 	else
 	{
@@ -59,7 +74,7 @@ bool	do_pipex(char **argv, t_env **env, t_pipex *pipex)
 	while (pipex->cmd_absolute_path[++cmd_i])
 	{
 		if (cmd_i < get_pipe_count(argv) && \
-		get_pipe(pipex, cmd_i) == false)
+			get_pipe(pipex, cmd_i) == false)
 			return (false);
 		if (is_cmd_builtin(pipex->cmd_absolute_path[cmd_i]))
 		{

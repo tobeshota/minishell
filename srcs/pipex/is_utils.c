@@ -6,33 +6,22 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/01 14:44:54 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/01 21:23:30 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-bool	is_fd_default(int fd, int default_fd)
-{
-	return (fd == default_fd);
-}
-
-bool	is_limitter(char **argv, int arg_i)
-{
-	return (arg_i > 0 && is_specified_here_doc(argv[arg_i - 1]));
-}
-
 bool	is_specified_redirect(char *str)
 {
-	return is_specified_infile(str) \
-	|| is_specified_here_doc(str) \
-	|| is_specified_outfile_overwriting(str) \
-	|| is_specified_outfile_apend(str);
+	return (is_specified_infile(str) || is_specified_here_doc(str)
+		|| is_specified_outfile_overwriting(str)
+		|| is_specified_outfile_apend(str));
 }
 
-bool is_io_file(char **argv, int arg_i)
+bool	is_io_file(char **argv, int arg_i)
 {
-	return arg_i > 0 && is_specified_redirect(argv[arg_i - 1]) && argv[arg_i];
+	return (arg_i > 0 && is_specified_redirect(argv[arg_i - 1]) && argv[arg_i]);
 }
 
 bool	is_cmd(char **argv, int arg_i)

@@ -53,7 +53,8 @@ static void	malloc_multiple_pipe(char **argv, t_pipex *pipex)
 	pipe_count = get_pipe_count(argv);
 	if (pipe_count == 0)
 		return ;
-	pipex->pipe_fd = (int **)check_malloc(malloc(sizeof(int *) * (pipe_count + 1)));
+	pipex->pipe_fd = \
+	(int **)check_malloc(malloc(sizeof(int *) * (pipe_count + 1)));
 	while (i < pipe_count)
 	{
 		pipex->pipe_fd[i] = (int *)check_malloc(malloc(sizeof(int) * 2));
@@ -74,12 +75,12 @@ bool	get_pipex(char **argv, t_pipex *pipex)
 	init_pipex(pipex);
 	if (get_cmd_count(argv) == 0)
 	{
-		if (get_infile_fd(pipex, 0, argv, true) == false)	/* コマンドの数が0である場合はget_pipex();内のget_infile_fd();内のhere_docを実行する！ */
+		if (get_infile_fd(pipex, 0, argv, true) == false)
 			return (false);
 	}
 	else
 	{
-		if (get_infile_fd(pipex, 0, argv, false) == false)	/* コマンドの数が0である場合はget_pipex();内のget_infile_fd();内のhere_docを実行する！ */
+		if (get_infile_fd(pipex, 0, argv, false) == false)
 			return (false);
 	}
 	if (get_outfile_fd(pipex, 0, argv) == false)

@@ -3,14 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   set_fd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 13:19:51 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/01 16:48:19 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/01 21:23:38 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+static bool	is_fd_default(int fd, int default_fd)
+{
+	return (fd == default_fd);
+}
 
 bool	set_input_fd(t_pipex *pipex, int cmd_i, char **argv)
 {
@@ -35,7 +40,6 @@ bool	set_input_fd(t_pipex *pipex, int cmd_i, char **argv)
 	{
 		if (check_dup(dup2(pipex->infile_fd, STDIN_FILENO)) == false)
 			return (false);
-		return (check_close(close(pipex->infile_fd)));
 	}
 	return (true);
 }
@@ -47,8 +51,7 @@ bool	set_output_fd(t_pipex *pipex, int cmd_i, char **argv)
 	if (is_fd_default(pipex->outfile_fd, STDOUT_FILENO)
 		&& pipex->cmd_absolute_path[cmd_i + 1] != NULL)
 	{
-		if (check_dup \
-		(dup2(pipex->pipe_fd[cmd_i][1], STDOUT_FILENO)) == false)
+		if (check_dup(dup2(pipex->pipe_fd[cmd_i][1], STDOUT_FILENO)) == false)
 			return (false);
 		return (close_pipe(pipex->pipe_fd[cmd_i]));
 	}
@@ -56,28 +59,16 @@ bool	set_output_fd(t_pipex *pipex, int cmd_i, char **argv)
 	{
 		if (check_dup(dup2(pipex->outfile_fd, STDOUT_FILENO)) == false)
 			return (false);
-		return (check_close(close(pipex->outfile_fd)));
 	}
 	return (true);
 }
 
-bool	reset_fd(t_pipex *pipex)
+bool	reset_fd(t_pipex *pipex, int *default_stdin_fileno,
+		int *default_stdout_fileno)
 {
-	if (is_fd_default(pipex->infile_fd, STDIN_FILENO) == false)
-	{
-		puts("infile!\n");
-		pipex->infile_fd = STDIN_FILENO;
-		if (check_dup(dup2(pipex->infile_fd, STDIN_FILENO)) == false)
-			return (false);
-		check_close(close(pipex->infile_fd));
-	}
-	if (is_fd_default(pipex->outfile_fd, STDOUT_FILENO) == false)
-	{
-		puts("outfile!\n");
-		pipex->outfile_fd = STDOUT_FILENO;
-		if (check_dup(dup2(pipex->outfile_fd, STDOUT_FILENO)) == false)
-			return (false);
-		check_close(close(pipex->outfile_fd));
-	}
+	if (check_dup(dup2(*default_stdin_fileno, STDIN_FILENO)) == false)
+		return (false);
+	if (check_dup(dup2(*default_stdout_fileno, STDOUT_FILENO)) == false)
+		return (false);
 	return (true);
 }

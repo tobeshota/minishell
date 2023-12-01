@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/01 16:48:09 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/01 21:23:40 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ int		get_pipe_count(char **argv);
 int		get_builtin_cmd_count(t_pipex *pipex);
 void	get_order(t_env *node);
 bool	is_cmd(char **argv, int arg_i);
-bool	is_limitter(char **argv, int arg_i);
-bool	is_fd_default(int fd, int default_fd);
 bool	get_cmd_absolute_path(char **argv, t_pipex *pipex);
 bool	add_absolute_path_to_cmd_name(char ***cmd_absolute_path);
 int		get_cmd_arg_fd(t_pipex *pipex, int cmd_i);
@@ -91,7 +89,7 @@ bool	is_specified_apersant_ampersant(char *str);
 // set_fd
 bool	set_input_fd(t_pipex *pipex, int cmd_i, char **argv);
 bool	set_output_fd(t_pipex *pipex, int cmd_i, char **argv);
-bool	reset_fd(t_pipex *pipex);
+bool	reset_fd(t_pipex *pipex, int *default_stdin_fileno, int *default_stdout_fileno);
 
 // array_node
 t_env	*array_to_node(char **envp);
