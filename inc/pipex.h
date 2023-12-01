@@ -6,16 +6,16 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/01 21:23:40 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/02 00:20:32 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
-# include "libft.h"
-# include "define.h"
 # include "builtin.h"
+# include "define.h"
+# include "libft.h"
 # include <stdio.h>
 # include <sys/stat.h>
 # include <sys/types.h>
@@ -89,7 +89,7 @@ bool	is_specified_apersant_ampersant(char *str);
 // set_fd
 bool	set_input_fd(t_pipex *pipex, int cmd_i, char **argv);
 bool	set_output_fd(t_pipex *pipex, int cmd_i, char **argv);
-bool	reset_fd(t_pipex *pipex, int *default_stdin_fileno, int *default_stdout_fileno);
+bool	reset_fd(t_pipex *pipex, int *stdin_fileno, int *stdout_fileno);
 
 // array_node
 t_env	*array_to_node(char **envp);
@@ -106,6 +106,6 @@ void	ft_nodefirst(t_env **node);
 t_env	*ft_nodelast(t_env *node);
 int		ft_nodesize(t_env *node);
 
-void put_node_for_debug(t_env *node);
+void	put_node_for_debug(t_env *node);
 
 #endif

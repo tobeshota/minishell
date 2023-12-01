@@ -6,20 +6,20 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 22:46:35 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/01 21:22:12 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/02 00:19:57 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static bool	dup_std_fileno(int *default_stdin_fileno,
-		int *default_stdout_fileno)
+static bool	dup_std_fileno(int *stdin_fileno,
+		int *stdout_fileno)
 {
-	*default_stdin_fileno = dup(STDIN_FILENO);
-	if (check_dup(*default_stdin_fileno) == false)
+	*stdin_fileno = dup(STDIN_FILENO);
+	if (check_dup(*stdin_fileno) == false)
 		return (false);
-	*default_stdout_fileno = dup(STDOUT_FILENO);
-	if (check_dup(*default_stdout_fileno) == false)
+	*stdout_fileno = dup(STDOUT_FILENO);
+	if (check_dup(*stdout_fileno) == false)
 		return (false);
 	return (true);
 }
@@ -29,26 +29,26 @@ static bool	exec(char **argv, t_env **env, t_pipex *pipex, int cmd_i)
 {
 	char		**cmd;
 	extern char	**environ;
-	int			default_stdin_fileno;
-	int			default_stdout_fileno;
+	int			stdin_fileno;
+	int			stdout_fileno;
 
-	dup_std_fileno(&default_stdin_fileno, &default_stdout_fileno);
+	dup_std_fileno(&stdin_fileno, &stdout_fileno);
 	if (set_input_fd(pipex, cmd_i, argv) == false)
-		return (false);
+		return (reset_fd(pipex, &stdin_fileno, &stdout_fileno), false);
 	if (set_output_fd(pipex, cmd_i, argv) == false)
-		return (false);
+		return (reset_fd(pipex, &stdin_fileno, &stdout_fileno), false);
 	if (is_cmd_builtin(pipex->cmd_absolute_path[cmd_i]))
 	{
 		if (exec_builtin(env, pipex, cmd_i) == false)
-			return (false);
-		return (reset_fd(pipex, &default_stdin_fileno, &default_stdout_fileno));
+			return (reset_fd(pipex, &stdin_fileno, &stdout_fileno), false);
+		return (reset_fd(pipex, &stdin_fileno, &stdout_fileno));
 	}
 	else
 	{
 		cmd = check_malloc \
 		(ft_split(pipex->cmd_absolute_path_with_parameter[cmd_i], ' '));
-		return (check_exec(execve(pipex->cmd_absolute_path[cmd_i], cmd,
-					environ)));
+		return (check_exec \
+		(execve(pipex->cmd_absolute_path[cmd_i], cmd, environ)));
 	}
 }
 
@@ -65,6 +65,7 @@ static bool	get_child(pid_t *child_pid)
 	return (true);
 }
 
+/* builtinコマンドをパイプと組み合わせて使用できるようにする！ */
 bool	do_pipex(char **argv, t_env **env, t_pipex *pipex)
 {
 	int		cmd_i;
@@ -73,8 +74,7 @@ bool	do_pipex(char **argv, t_env **env, t_pipex *pipex)
 	cmd_i = -1;
 	while (pipex->cmd_absolute_path[++cmd_i])
 	{
-		if (cmd_i < get_pipe_count(argv) && \
-			get_pipe(pipex, cmd_i) == false)
+		if (cmd_i < get_pipe_count(argv) && get_pipe(pipex, cmd_i) == false)
 			return (false);
 		if (is_cmd_builtin(pipex->cmd_absolute_path[cmd_i]))
 		{
