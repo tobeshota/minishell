@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/01 21:25:03 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/03 00:24:58 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,28 @@ size_t	strlen_until_c(char *str, char c)
 
 int	get_cmd_count(char **argv)
 {
-	int	cmd_count;
-	int	arg_i;
+	int		cmd_count;
+	int		arg_i;
+	int		ret;
+	char	*argv_wo_param;
 
 	cmd_count = 0;
 	arg_i = 0;
 	while (argv[arg_i])
 	{
-		if (is_cmd(argv, arg_i))
+		argv_wo_param = check_malloc \
+		(ft_substr(argv[arg_i], 0, strlen_until_c(argv[arg_i], ' ')));
+		ret = is_cmd(argv, arg_i);
+		if (ret == true)
 			cmd_count++;
+		else if (ret == NOT_FOUND)
+		{
+			put_error("-minishell: ");
+			put_error(argv_wo_param);
+			put_error(": command not found\n");
+		}
 		arg_i++;
+		free(argv_wo_param);
 	}
 	return (cmd_count);
 }

@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/02 23:17:30 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/03 00:36:51 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,33 +22,22 @@ int	get_cmd_absolute_path_count(t_pipex *pipex)
 	return (count);
 }
 
-static bool	is_cmd_exist(char *env_path, char *cmd)
-{
-	if (is_cmd_builtin(cmd))
-		return (true);
-	if (env_path == NULL)
-	{
-		put_error("-bash: ");
-		put_error(cmd);
-		put_error(": command not found\n");
-		return (false);
-	}
-	return (true);
-}
-
-static void	add_slash_eos(char ***path)
+char	**add_slash_eos(char **path)
 {
 	char	*tmp;
 	int		i;
 
+	if (path == NULL)
+		return (NULL);
 	i = 0;
-	while (path[0][i])
+	while (path[i])
 	{
-		tmp = path[0][i];
-		path[0][i] = check_malloc(ft_strjoin(path[0][i], "/"));
+		tmp = path[i];
+		path[i] = check_malloc(ft_strjoin(path[i], "/"));
 		free(tmp);
 		i++;
 	}
+	return (path);
 }
 
 static bool	add_absolute_from_env_path(char ***cmd_absolute_path, int cmd_i)
@@ -59,8 +48,7 @@ static bool	add_absolute_from_env_path(char ***cmd_absolute_path, int cmd_i)
 
 	if (check_getenv(getenv("PATH")) == false)
 		return (false);
-	path = check_malloc(ft_split(getenv("PATH"), ':'));
-	add_slash_eos(&path);
+	path = check_malloc(add_slash_eos(ft_split(getenv("PATH"), ':')));
 	i = 0;
 	while (path[i])
 	{
@@ -75,7 +63,7 @@ static bool	add_absolute_from_env_path(char ***cmd_absolute_path, int cmd_i)
 		free(tmp);
 		i++;
 	}
-	if (is_cmd_exist(path[i], cmd_absolute_path[0][cmd_i]) == false)
+	if (path[i] == NULL)
 		return (all_free_tab(path), false);
 	return (all_free_tab(path), true);
 }

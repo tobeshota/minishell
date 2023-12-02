@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/02 23:28:47 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/03 00:39:33 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void	get_cmd_parameter(char **argv, char ***cmd_absolute_path,
 
 	arg_i = 0;
 	cmd_i = 0;
-	*cmd_parameter = (char **)check_malloc(malloc(sizeof(char *) * (get_cmd_absolute_path_count(pipex) + 1)));
+	*cmd_parameter = (char **)check_malloc \
+	(malloc(sizeof(char *) * (get_cmd_absolute_path_count(pipex) + 1)));
 	while (argv[arg_i])
 	{
 		if (is_cmd(argv, arg_i))
@@ -64,7 +65,8 @@ static void	get_cmd_absolute_path_with_parameter(char **argv,
 
 	cmd_i = 0;
 	pipex->cmd_absolute_path_with_parameter = \
-	(char **)check_malloc(malloc(sizeof(char *) * (get_cmd_absolute_path_count(pipex) + 1)));
+	(char **)check_malloc(malloc(sizeof(char *) * \
+	(get_cmd_absolute_path_count(pipex) + 1)));
 	while (pipex->cmd_absolute_path[cmd_i])
 	{
 		pipex->cmd_absolute_path_with_parameter[cmd_i] = \

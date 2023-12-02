@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/25 22:40:18 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/03 00:06:11 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	check_is_limitter_specified(char *limitter)
 {
 	if (limitter == NULL)
 	{
-		put_error("-bash: syntax error near unexpected token `newline'\n");
+		put_error("-minishell: syntax error near unexpected token `newline'\n");
 		return (false);
 	}
 	return (true);

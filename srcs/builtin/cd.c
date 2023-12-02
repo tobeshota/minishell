@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/02 20:06:46 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/03 00:41:14 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ static bool	change_oldpwd(char **path_ptr, t_env **env, t_pipex *pipex)
 			ft_strlen("OLDPWD=")))
 		ft_nodenext(env);
 	if (ft_strncmp((*env)->content, "OLDPWD=", ft_strlen("OLDPWD=")))
-		return (put_error("-bash: cd: OLDPWD not set\n"), ft_nodefirst(env),
-			false);
+		return (put_error("-minishell: cd: OLDPWD not set\n"), \
+		ft_nodefirst(env), false);
 	*path_ptr = check_malloc(ft_strdup((*env)->content + ft_strlen("OLDPWD=")));
 	ft_putendl_fd(*path_ptr, pipex->outfile_fd);
 	ft_nodefirst(env);
@@ -102,7 +102,7 @@ int	exec_cd(char **cmd, t_env **env, t_pipex *pipex)
 		return (free(path_from_cd), true);
 	if (is_file_exist(path_from_cd) == false)
 	{
-		put_error("-bash: cd: ");
+		put_error("-minishell: cd: ");
 		put_error(path_from_cd);
 		put_error(": No such file or directory\n");
 		return (free(path_from_cd), true);
