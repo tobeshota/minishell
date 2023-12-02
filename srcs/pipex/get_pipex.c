@@ -73,7 +73,9 @@ static void	init_pipex(t_pipex *pipex)
 bool	get_pipex(char **argv, t_pipex *pipex)
 {
 	init_pipex(pipex);
-	if (get_cmd_count(argv) == 0)
+	if (get_cmd_absolute_path(argv, pipex) == false)
+		return (false);
+	if (get_cmd_absolute_path_count(pipex) == 0)
 	{
 		if (get_infile_fd(pipex, 0, argv, true) == false)
 			return (false);
@@ -84,8 +86,6 @@ bool	get_pipex(char **argv, t_pipex *pipex)
 			return (false);
 	}
 	if (get_outfile_fd(pipex, 0, argv) == false)
-		return (false);
-	if (get_cmd_absolute_path(argv, pipex) == false)
 		return (false);
 	malloc_multiple_pipe(argv, pipex);
 	return (true);

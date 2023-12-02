@@ -6,11 +6,21 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/01 21:19:42 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/02 23:17:30 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+int	get_cmd_absolute_path_count(t_pipex *pipex)
+{
+	int	count;
+
+	count = 0;
+	while (pipex->cmd_absolute_path[count])
+		count++;
+	return (count);
+}
 
 static bool	is_cmd_exist(char *env_path, char *cmd)
 {

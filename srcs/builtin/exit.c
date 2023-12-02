@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/02 15:13:40 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/02 23:17:27 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,6 @@ static bool	is_cmd_arg_num(char *cmd_arg)
 	while (*cmd_arg && ft_strchr("0123456789", *cmd_arg))
 		cmd_arg++;
 	return (*cmd_arg == '\0');
-}
-
-static int	get_cmd_absolute_path_count(t_pipex *pipex)
-{
-	int	count;
-
-	count = 0;
-	while (pipex->cmd_absolute_path[count])
-		count++;
-	return (count);
 }
 
 // https://itpfdoc.hitachi.co.jp/manuals/3020/30203S3530/JPAS0289.HTM
