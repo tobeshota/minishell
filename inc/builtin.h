@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 16:15:47 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/29 16:56:49 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/02 20:06:44 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int		exec_export(char **cmd, t_env **env, t_pipex *pipex);
 void	show_env(t_env **env, t_pipex *pipex);
 void	add_new_value(char *added_value, t_env **env);
 void	update_value(char *added, t_env **env);
+bool	update_envp(t_env **env, char *varname, char *new_data);
 t_env	*get_old_env_to_be_updated(char *added, t_env *env);
 char	*omit_c(char *str, char c);
 bool	check_identifier(char *identifier);

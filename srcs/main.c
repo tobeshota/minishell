@@ -24,9 +24,23 @@ void put_node_for_debug(t_env *node)
 	ft_nodefirst(&node);
 }
 
-void init_minishell(char **envp, t_env	**env)
+void	add_shlvl(t_env **env)
+{
+	int		shlvl_nb;
+	char	*shlvl_str;
+
+	if (getenv("SHLVL") == NULL)
+		return ;
+	shlvl_nb = ft_atoi(getenv("SHLVL"));
+	shlvl_str = check_malloc(ft_itoa(shlvl_nb + 1));
+	update_envp(env, "SHLVL=", shlvl_str);
+	free(shlvl_str);
+}
+
+void	init_minishell(char **envp, t_env **env)
 {
 	*env = array_to_node(envp);
+	add_shlvl(env);
 	get_order(*env);
 }
 
@@ -115,8 +129,8 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_tools	tools;
 
-	// if (argc == 2 && is_match(argv[1], "p"))
-	// 	return (minishell_by_pipex_for_debug(argv, envp));
+	if (argc == 2 && is_match(argv[1], "p"))
+		return (minishell_by_pipex_for_debug(argv, envp));
 	if (argc == 1)
 		return (minishell(argv, envp, &tools));
 	return (put_error("minishell: too many arguments"), 1);
@@ -161,7 +175,7 @@ int	main(int argc, char **argv, char **envp)
 // 		minishell(argv, envp);
 // }
 
-// __attribute__((destructor)) static void destructor()
-// {
-// 	system("leaks -q minishell");
-// }
+__attribute__((destructor)) static void destructor()
+{
+	system("leaks -q minishell");
+}

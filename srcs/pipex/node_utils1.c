@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   node_utils1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tobeshota <tobeshota@student.42.fr>        +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 10:50:31 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/26 21:05:11 by tobeshota        ###   ########.fr       */
+/*   Updated: 2023/12/02 20:23:57 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ t_env	*ft_nodenew(char *content)
 
 	newnode = (t_env *)check_malloc(malloc(sizeof(t_env)));
 	newnode->content = check_malloc(ft_strdup(content));
+	newnode->order = 0;
 	newnode->next = NULL;
 	newnode->prev = NULL;
 	return (newnode);

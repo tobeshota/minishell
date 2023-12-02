@@ -6,13 +6,13 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/30 22:48:55 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/02 20:06:46 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
-static bool	update_envp(t_env **env, char *varname, char *new_data)
+bool	update_envp(t_env **env, char *varname, char *new_data)
 {
 	char	*tmp;
 
@@ -70,7 +70,7 @@ static bool	get_path_from_cd(char **path_ptr, char **cmd, t_env **env,
 	{
 		*path_ptr = getenv("HOME");
 		if (check_getenv(*path_ptr) == false)
-			return (free(*path_ptr), false);
+			return (false);
 		*path_ptr = check_malloc(ft_strdup(*path_ptr));
 		if (cmd[1] && is_match(cmd[1], "~") == false && is_match(cmd[1],
 				"~/") == false)
