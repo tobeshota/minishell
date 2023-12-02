@@ -6,13 +6,13 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/25 22:40:18 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/02 15:13:40 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
-static int	get_cmd_argc(char **cmd)
+static int	get_exit_argc(char **cmd)
 {
 	int	cmd_argc;
 
@@ -36,18 +36,25 @@ static bool	is_cmd_arg_num(char *cmd_arg)
 	return (*cmd_arg == '\0');
 }
 
-static unsigned char	get_exit_return_value(char *cmd_arg)
+static int	get_cmd_absolute_path_count(t_pipex *pipex)
 {
-	return ((unsigned char)ft_atoi(cmd_arg));
+	int	count;
+
+	count = 0;
+	while (pipex->cmd_absolute_path[count])
+		count++;
+	return (count);
 }
 
 // https://itpfdoc.hitachi.co.jp/manuals/3020/30203S3530/JPAS0289.HTM
 int	exec_exit(char **cmd, t_pipex *pipex)
 {
+	if (get_cmd_absolute_path_count(pipex) != 1)
+		return (true);
 	ft_putstr_fd(EXIT_MSG, pipex->outfile_fd);
 	if (cmd[1])
 	{
-		if (get_cmd_argc(cmd) > 2)
+		if (get_exit_argc(cmd) > 2)
 			return (put_error("bash: exit: too many arguments\n"), false);
 		if (is_cmd_arg_num(cmd[1]) == false)
 		{
@@ -56,7 +63,7 @@ int	exec_exit(char **cmd, t_pipex *pipex)
 			put_error(": numeric argument required\n");
 			exit(1);
 		}
-		exit(get_exit_return_value(cmd[1]));
+		exit((unsigned char)ft_atoi(cmd[1]));
 	}
 	else
 	{
