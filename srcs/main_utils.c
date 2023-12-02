@@ -6,12 +6,33 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:36:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/11/29 15:00:23 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/02 13:53:41 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 #include "../inc/expander.h"
+
+int	implement_tools(t_tools *tools)
+{
+	tools->simple_cmds = NULL;
+	tools->lexer_list = NULL;
+	tools->str = NULL;
+	signal_init();
+
+	return (1);
+}
+
+
+int	free_tools(t_tools *tools)
+{
+	ft_simple_cmdsclear(&tools->simple_cmds);
+	free(tools->str);
+	implement_tools(tools);
+	all_free_tab(tools->envp);
+	// free(tools);
+	return (1);
+}
 
 void	free_arr(char **split_arr)
 {

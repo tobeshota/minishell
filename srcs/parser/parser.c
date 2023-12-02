@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:09:42 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/01 11:36:52 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/02 13:41:43 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,6 @@ int		parser(t_tools *tools)
     t_parser_tools	parser_tools;
     
     parser_tools = init_parser_tools(tools);
-	//何も入れなかった場合の対処がまだ。これより前の段階で入れるべき。
-    if (parser_tools.lexer_list->token == PIPE)
-		return (parser_double_token_error(tools, tools->lexer_list,
-				tools->lexer_list->token));
     while (tools->lexer_list)
 	{
         if (tools->lexer_list && tools->lexer_list->token == PIPE)

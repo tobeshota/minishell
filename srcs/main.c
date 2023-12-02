@@ -32,26 +32,6 @@ void init_minishell(char **envp, t_env	**env)
 
 //--------------cjiaの実験場------のちに消す---------------
 
-int	implement_tools(t_tools *tools)
-{
-	tools->simple_cmds = NULL;
-	tools->lexer_list = NULL;
-	tools->str = NULL;
-	signal_init();
-
-	return (1);
-}
-
-int	free_tools(t_tools *tools)
-{
-	ft_simple_cmdsclear(&tools->simple_cmds);
-	free(tools->str);
-	implement_tools(tools);
-	all_free_tab(tools->envp);
-	// free(tools);
-	return (1);
-}
-
 # define MINIPIPEX_PROMPT "\x1b[32mminipipex $ \x1b[0m\x1b[39m"
 /* lexer(); と parser(); のない minishell ． pipex のテスト用 */
 int	minishell_by_pipex_for_debug(char **argv, char **envp)
@@ -106,16 +86,22 @@ int	minishell(char **argv, char **envp, t_tools *tools)
 		if (tools->str[0] != '\0')
 		{
 			lexer(tools);
+			if (tools->lexer_list->token == PIPE)
+			{
+				if(parser_double_token_error(tools, tools->lexer_list,
+						tools->lexer_list->token) == EXIT_FAILURE)
+					continue ;
+			}
 			parser(tools);
 			tmparray = change_to_array(tools);
-			tools->simple_cmds->str = expander(tools, tmparray);
+			tools->simple_cmds->str = expander(tools, tmparray);//修正点：ここで”echo $?”が"0"のみになった
 			if (*tools->str)
 				add_history(tools->str);
 			put_arg_for_debug(tmparray);
 			if(is_match(tools->str, "putnode"))
 				put_node_for_debug(env);
 			else
-				pipex(tmparray, &env);
+				g_global.error_num = pipex(tmparray, &env);
 			node_to_array(env, &envp);
 			free_tools(tools);
 		}
@@ -129,8 +115,8 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_tools	tools;
 
-	if (argc == 2 && is_match(argv[1], "p"))
-		return (minishell_by_pipex_for_debug(argv, envp));
+	// if (argc == 2 && is_match(argv[1], "p"))
+	// 	return (minishell_by_pipex_for_debug(argv, envp));
 	if (argc == 1)
 		return (minishell(argv, envp, &tools));
 	return (put_error("minishell: too many arguments"), 1);

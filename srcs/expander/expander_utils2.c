@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 09:35:08 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/11/30 10:58:20 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/02 14:19:56 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ int	loop_if_dollar_sign(t_tools *tools, char *str, char **tmp, int j)//環境変
 int	question_mark(char **tmp)
 {
 	free(*tmp);
-	// *tmp = ft_itoa(error_num(g_status));
-	*tmp = ft_itoa(1);//仮ね！
+	*tmp = ft_itoa(g_global.error_num);
 	return (ft_strlen(*tmp) + 1);
 }
