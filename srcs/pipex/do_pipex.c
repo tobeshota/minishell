@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 22:46:35 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/02 00:19:57 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/02 00:26:50 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static bool	dup_std_fileno(int *stdin_fileno,
 	return (true);
 }
 
-/* STDIN_FILENO,STDOUT＿FILENOそれぞれをdup();で複製しておき，reset_fd();でdup2();にてもとに戻す！ */
 static bool	exec(char **argv, t_env **env, t_pipex *pipex, int cmd_i)
 {
 	char		**cmd;
@@ -65,7 +64,8 @@ static bool	get_child(pid_t *child_pid)
 	return (true);
 }
 
-/* builtinコマンドをパイプと組み合わせて使用できるようにする！ */
+/* builtinコマンドがパイプの入力を受け付けられるようにする！（出力の受け付けはおそらくOK！） */
+/* 例：`cat infile | pwd` */
 bool	do_pipex(char **argv, t_env **env, t_pipex *pipex)
 {
 	int		cmd_i;
