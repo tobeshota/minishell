@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:09:42 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/02 13:41:43 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/02 21:56:40 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,47 +66,64 @@ static t_parser_tools init_parser_tools(t_tools *tools)
 	return (parser_tools);
 }
 
-int		parser(t_tools *tools)
+
+static t_simple_cmds *create_pipe_node(t_tools *tools) 
 {
-    t_simple_cmds	*node = NULL;
-    t_parser_tools	parser_tools;
-    
-    parser_tools = init_parser_tools(tools);
-    while (tools->lexer_list)
+    t_simple_cmds *node = (t_simple_cmds *)malloc(sizeof(t_simple_cmds));
+    if (!node)
+        return NULL;
+    node->redirections = (t_lexer *)malloc(sizeof(t_lexer));
+    if (!node->redirections) 
 	{
-        if (tools->lexer_list && tools->lexer_list->token == PIPE)
-		{
-			node = (t_simple_cmds *)malloc(sizeof(t_simple_cmds));
-			node->redirections =(t_lexer *)malloc(sizeof(t_lexer));
-			if (!node || !node->redirections)
-				return (0);
-			node->redirections->str = NULL;
-			node->redirections->token = 1;
-			node->redirections->next = NULL;
-			node->redirections->prev = NULL;	
-			node->redirections->token = 1;
-			node->file_name = NULL;
-			node->str = NULL;
-			node->num_redirections = 0;
-			node->next = NULL;
-			node->prev = NULL;
-			add_list(&tools->simple_cmds, node);
-			node = NULL;
-            erase_token(&tools->lexer_list, tools->lexer_list->i);
-		}
-        if(handle_operator_error(tools, tools->lexer_list->token))
-            return (EXIT_FAILURE);
-        parser_tools = init_parser_tools(tools);
-        node = creat_ast(&parser_tools);
-        if (!node)
-			parser_error(0, tools, parser_tools.lexer_list);
-        add_list(&tools->simple_cmds, node);
-        tools->lexer_list = parser_tools.lexer_list;
+        free(node);
+        return NULL;
     }
-    return (EXIT_SUCCESS);
-   
-    return (0);
+    node->redirections->str = NULL;
+    node->redirections->token = 1;
+    node->redirections->next = NULL;
+    node->redirections->prev = NULL;
+    node->file_name = NULL;
+    node->str = NULL;
+    node->num_redirections = 0;
+    node->next = NULL;
+    node->prev = NULL;
+
+    erase_token(&tools->lexer_list, tools->lexer_list->i);
+    return node;
 }
 
 
-//parserはグループ化において、;, |, >, >>, <, <<があった場合に、それらを処理する。それまでは、lexerで作られたトークンリストをそのまま渡す。
+
+// parser 関数内の一部を新しい関数に移動
+int parser(t_tools *tools) {
+    t_simple_cmds *node = NULL;
+    t_parser_tools parser_tools;
+
+    parser_tools = init_parser_tools(tools);
+    
+    while (tools->lexer_list) {
+        if (tools->lexer_list && tools->lexer_list->token == PIPE) {
+            node = create_pipe_node(tools);
+            if (!node) {
+                parser_error(0, tools, parser_tools.lexer_list);
+            }
+            add_list(&tools->simple_cmds, node);
+            tools->lexer_list = parser_tools.lexer_list;
+            continue; // Move to the next iteration
+        }
+
+        if (handle_operator_error(tools, tools->lexer_list->token)) {
+            return EXIT_FAILURE;
+        }
+
+        parser_tools = init_parser_tools(tools);
+        node = creat_ast(&parser_tools);
+        if (!node) {
+            parser_error(0, tools, parser_tools.lexer_list);
+        }
+        add_list(&tools->simple_cmds, node);
+        tools->lexer_list = parser_tools.lexer_list;
+    }
+
+    return EXIT_SUCCESS;
+}
