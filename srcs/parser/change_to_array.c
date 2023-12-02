@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 11:51:33 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/01 17:05:09 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/02 13:28:48 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ char	**change_to_array(t_tools *tools)
 	i = 0;
 	k = 0;
 	tmp = tools->simple_cmds;
-	tmpstr = ft_strdup("");
 	while (tmp)
 	{
 		if (tmp->str)
@@ -63,16 +62,17 @@ char	**change_to_array(t_tools *tools)
 	while (tmp)
 	{
 		k = 0;
-		if (
-			tmp->str && tmp->str[k])
+		tmpstr = ft_strdup("");
+		if (tmp->str && tmp->str[k])
 		{
 			while (tmp->str[k])
 			{
-				tmparray[i] = ft_strjoin(tmpstr, tmp->str[k]);
+				// if(tmpstr && tmp->redirections->token != 1)
+					tmparray[i] = ft_strjoin(tmpstr, tmp->str[k]);
 				if (tmp->str[k + 1])
 					tmparray[i] = ft_strjoin(tmparray[i], " ");
-				if(tmpstr)
-					free(tmpstr);
+				// if(tmpstr)
+				// 	free(tmpstr);//これがないと、パイプが現れない問題
 				tmpstr = ft_strdup(tmparray[i]);
 				k++;
 			}
@@ -93,17 +93,15 @@ char	**change_to_array(t_tools *tools)
 				tmparray[i++] = ft_strdup(token_to_char(tmp->redirections->token));
 			}
 		}
-		while(tmparray[i])
-		{
-			printf("tmparray[%d] = %s\n", i, tmparray[i]);
-			i++;
-		}
+		// int j = 0;
+		// while(tmparray[j])
+		// {
+		// 	printf("tmparray[%d] = %s\n", j, tmparray[j]);
+		// 	j++;
+		// }
 		tmp = tmp->next;
 	}
 	tmparray[i] = NULL;
-	// printf("tmparray[0] = %s\n", tmparray[0]);
-	// printf("tmparray[1] = %s\n", tmparray[1]);
-	// printf("tmparray[2] = %s\n", tmparray[2]);
 	nodefirst_ver_simple_cmds(&tmp);
 	return (tmparray);
 }
