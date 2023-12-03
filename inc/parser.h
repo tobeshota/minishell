@@ -56,7 +56,7 @@ typedef struct s_simple_cmds
 
 
 //about lexer
-void lexer(t_tools *lexer_tools);
+int lexer(t_tools *lexer_tools);
 int handle_token(char *str, int i, t_lexer **lexer_list);
 int word_in_node(char *str, int i, t_lexer **lexer_list);
 int get_token_type(char *str, int i);
@@ -65,6 +65,7 @@ void print_lexer(t_lexer *lexer_list);
 void	add_back_node(t_lexer **lexer_list, t_lexer *node);
 t_lexer	*make_node(char *str, int token);
 int check_token(char *str, int i, t_lexer **lexer_list);
+void free_lexer(t_lexer *lexer);
 
 
 //about parser
@@ -78,6 +79,7 @@ int	parser_double_token_error(t_tools *tools, t_lexer *lexer_list,
 	t_tokens token);
 int	handle_operator_error(t_tools *tools, t_tokens token);
 char **change_to_array(t_tools *tools);
+int	ft_error(int error, t_tools *tools);
 
 
 

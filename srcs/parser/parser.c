@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:09:42 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/02 21:56:40 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/03 10:33:02 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,28 +93,27 @@ static t_simple_cmds *create_pipe_node(t_tools *tools)
 }
 
 
-
-// parser 関数内の一部を新しい関数に移動
 int parser(t_tools *tools) {
     t_simple_cmds *node = NULL;
     t_parser_tools parser_tools;
 
     parser_tools = init_parser_tools(tools);
     
-    while (tools->lexer_list) {
-        if (tools->lexer_list && tools->lexer_list->token == PIPE) {
+    while (tools->lexer_list)
+    {
+        if (tools->lexer_list && tools->lexer_list->token == PIPE)
+        {
             node = create_pipe_node(tools);
             if (!node) {
                 parser_error(0, tools, parser_tools.lexer_list);
             }
             add_list(&tools->simple_cmds, node);
             tools->lexer_list = parser_tools.lexer_list;
-            continue; // Move to the next iteration
+            continue;
         }
 
-        if (handle_operator_error(tools, tools->lexer_list->token)) {
+        if (handle_operator_error(tools, tools->lexer_list->token)) 
             return EXIT_FAILURE;
-        }
 
         parser_tools = init_parser_tools(tools);
         node = creat_ast(&parser_tools);
