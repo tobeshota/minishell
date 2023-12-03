@@ -66,7 +66,7 @@ int	minishell_by_pipex_for_debug(char **argv, char **envp)
 		if(is_match(line, "putnode"))
 			put_node_for_debug(env);
 		else
-			pipex(argv, &env);
+			loop_pipex(argv, &env);
 		all_free_tab(argv);
 		node_to_array(env, &envp);
 		free(line);
@@ -115,7 +115,7 @@ int	minishell(char **argv, char **envp, t_tools *tools)
 			if(is_match(tools->str, "putnode"))
 				put_node_for_debug(env);
 			else
-				g_global.error_num = pipex(tmparray, &env);
+				g_global.error_num = loop_pipex(tmparray, &env);
 			node_to_array(env, &envp);
 			free_tools(tools);
 		}
