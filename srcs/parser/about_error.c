@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 13:17:23 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/02 13:37:47 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/03 10:35:26 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,6 @@ int	ft_error(int error, t_tools *tools)
 			STDERR_FILENO);
 	else if (error == 3)
 		ft_putstr_fd("Parser problem\n", STDERR_FILENO);
-	else if (error == 4)
-		ft_putstr_fd("Failed to create pipe\n", STDERR_FILENO);
-	else if (error == 5)
-		ft_putstr_fd("Failed to fork\n", STDERR_FILENO);
-	else if (error == 6)
-		ft_putstr_fd("outfile: Error\n", STDERR_FILENO);
-	else if (error == 7)
-		ft_putstr_fd("infile: No such file or directory\n", STDERR_FILENO);
-	else if (error == 8)
-		ft_putendl_fd("Path does not exist", STDERR_FILENO);
-	// reset_tools(tools);
 	return (EXIT_FAILURE);
 }
 

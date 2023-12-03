@@ -99,14 +99,16 @@ int	minishell(char **argv, char **envp, t_tools *tools)
 		}
 		if (tools->str[0] != '\0')
 		{
-			lexer(tools);
+			if(lexer(tools) == EXIT_FAILURE)
+				return (ft_error(1, tools));
 			if (tools->lexer_list->token == PIPE)
 			{
 				if(parser_double_token_error(tools, tools->lexer_list,
 						tools->lexer_list->token) == EXIT_FAILURE)
 					continue ;
 			}
-			parser(tools);
+			if(parser(tools) == EXIT_FAILURE)
+				return (ft_error(3, tools));
 			tmparray = change_to_array(tools);
 			tools->simple_cmds->str = expander(tools, tmparray);//修正点：ここで”echo $?”が"0"のみになった
 			if (*tools->str)
@@ -136,7 +138,7 @@ int	main(int argc, char **argv, char **envp)
 	return (put_error("minishell: too many arguments"), 1);
 }
 
-//--------------cjiaの実験場------のちに消す---------------
+// --------------cjiaの実験場------のちに消す---------------
 
 
 // int	minishell(char **argv, char **envp)
