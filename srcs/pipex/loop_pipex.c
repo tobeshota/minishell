@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop_pipex.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 09:23:37 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/04 10:13:46 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/04 11:04:17 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,13 +134,8 @@ char ***get_splitted_argv(char **argv)
 	{
 		element_i = 0;
 		while(*argv && is_specified_splitter(*argv) == false)
-		{
-			splitted_argv[sparg_i][element_i] = check_malloc(ft_strdup(*argv));
-			argv++;
-			element_i++;
-		}
-		splitted_argv[sparg_i][element_i] = NULL;
-		sparg_i++;
+			splitted_argv[sparg_i][element_i++] = check_malloc(ft_strdup(*argv++));
+		splitted_argv[sparg_i++][element_i] = NULL;
 		if (*argv == NULL)
 			break;
 		argv++;
@@ -201,7 +196,8 @@ int	loop_pipex(char **argv, t_env **env)
 {
 	char ***splitted_argv;
 	char **splitter;
-	// int arg_i;
+	int sparg_i;
+	int spl_i;
 	int ret;
 
 	// そもそも区切り文字がargvにない場合はそのままpipexを実行する！
@@ -217,7 +213,17 @@ int	loop_pipex(char **argv, t_env **env)
 	splitter = get_splitter(argv);
 // ft_printf("splitter:\t");
 // put_double_tab_for_debug(splitter);
+
 	// whileループで回していく
+	sparg_i = -1;
+	spl_i = 0;
+	while(splitted_argv[++sparg_i])
+	{
+		ret = pipex(splitted_argv[sparg_i], env);
+		if(is_match(splitter[spl_i], ";"))
+			continue;
+	}
+
 
 all_free_triple_tab(splitted_argv);
 all_free_tab(splitter);
