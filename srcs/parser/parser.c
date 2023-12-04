@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:09:42 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/04 22:37:49 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/04 22:56:06 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ static t_simple_cmds	*creat_ast(t_parser_tools *parser_tools)
 	int		arg_size;
 	t_lexer	*tmp;
     
-    if(grouping_redirections(parser_tools) == EXIT_FAILURE)
-        return NULL;
+    grouping_redirections(parser_tools);
     arg_size = count_args(parser_tools->lexer_list);
     str = ft_calloc(arg_size + 1, sizeof(char *));
     if (!str)
