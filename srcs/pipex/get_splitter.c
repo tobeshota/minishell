@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   loop_pipex.c                                       :+:      :+:    :+:   */
+/*   get_splitter.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/03 09:23:37 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/04 12:51:11 by toshota          ###   ########.fr       */
+/*   Created: 2023/12/04 12:45:31 by toshota           #+#    #+#             */
+/*   Updated: 2023/12/04 12:45:40 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-// cat infile,|,cat,|,cat,|,cat,|,cat,;,echo -n wow,;,pwd
-// pwd,&&,b.out,||,echo wow
-int	loop_pipex(char **argv, t_env **env)
+char	**get_splitter(char **argv)
 {
-	char	***splitted_argv;
 	char	**splitter;
-	int		ret;
+	int		sp_i;
 
-	if (is_splitter_exist(argv) == false)
-		return (pipex(argv, env));
-	get_loop_pipex(argv, &splitted_argv, &splitter);
-	ret = do_loop_pipex(splitted_argv, splitter, env);
-	return (end_loop_pipex(splitted_argv, splitter), ret);
+	splitter = (char **)check_malloc(malloc(sizeof(char *)
+				* (get_splitter_count(argv) + 1)));
+	sp_i = 0;
+	while (*argv)
+	{
+		if (is_specified_splitter(*argv))
+			splitter[sp_i++] = check_malloc(ft_strdup(*argv));
+		argv++;
+	}
+	splitter[sp_i] = NULL;
+	return (splitter);
 }

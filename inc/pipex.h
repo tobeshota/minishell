@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/04 12:35:53 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/04 12:53:28 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,12 @@ void	put_node_for_debug(t_env *node);
 // loop_pipex
 int		loop_pipex(char **argv, t_env **env);
 void	get_loop_pipex(char **argv, char ****splitted_argv, char ***splitter);
+int		do_loop_pipex(char ***splitted_argv, char **splitter, t_env **env);
 void	end_loop_pipex(char ***splitted_argv, char **splitter);
+char	***get_splitted_argv(char **argv);
+char	**get_splitter(char **argv);
+int		get_splitter_count(char **argv);
+int		is_specified_splitter(char *str);
+bool	is_splitter_exist(char **argv);
 
 #endif
