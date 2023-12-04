@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 13:12:10 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/02 20:17:15 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/04 13:28:34 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,17 @@ typedef struct s_env
 	t_env					*next;
 	t_env					*prev;
 }							t_env;
+
+//signal
+typedef struct s_global
+{
+	int						error_num;
+	int						stop_heredoc;
+	int						in_cmd;
+	int						in_heredoc;
+}							t_global;
+
+t_global					g_global;
 
 // color
 # define BLACK "\x1b[30m"

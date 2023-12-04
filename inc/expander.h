@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/02 14:00:53 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/04 13:30:12 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "lexer.h"
 # include "parser.h"
+# include "define.h"
 # include "minishell.h"
 
 char	**expander(t_tools *tools, char **str);
@@ -39,21 +40,8 @@ int	free_tools(t_tools *tools);
 int	implement_tools(t_tools *tools);
 
 
-
 //グローバル変数(終了ステータス)
 extern int	g_status;
 void	signal_init(void);
-
-
-//signal
-typedef struct s_global
-{
-	int	error_num;
-	int	stop_heredoc;
-	int	in_cmd;
-	int	in_heredoc;
-}	t_global;
-
-t_global	g_global;
 
 #endif
