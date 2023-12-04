@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop_pipex.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tobeshota <tobeshota@student.42.fr>        +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 09:23:37 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/04 09:02:52 by tobeshota        ###   ########.fr       */
+/*   Updated: 2023/12/04 10:13:46 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ static void malloc_splitted_argv_double_ptr(char ***splitted_argv, char **argv)
 		arg_i = 0;
 		while (argv[arg_i] && is_specified_splitter(argv[arg_i]) == false)
 			arg_i++;
+		if (argv[arg_i] == NULL && is_specified_splitter(argv[arg_i-1]) == true)
+			break;
 		splitted_argv[sparg_i++] = (char **)check_malloc(malloc((sizeof(char *) * (arg_i + 1))));
 		if (argv[arg_i] == NULL)
 			break;
@@ -116,7 +118,6 @@ char **get_splitter(char **argv)
 	return splitter;
 }
 
-/* `ls ;`のときにリークが発生しないようにする！ */
 char ***get_splitted_argv(char **argv)
 {
 	char ***splitted_argv;
@@ -160,7 +161,7 @@ void put_triple_tab_for_debug(char ***tab)
 		j = 0;
 		while(tab && tab[i][j])
 		{
-			ft_printf("\"%s(%p)\"\t", tab[i][j], tab[i][j]);
+			ft_printf("\"%s\"\t", tab[i][j]);
 			j++;
 		}
 		ft_printf("\n");
@@ -181,30 +182,48 @@ void put_double_tab_for_debug(char **tab)
 	ft_printf("\n");
 }
 
+bool is_splitter_exist(char **argv)
+{
+	int arg_i;
+
+	arg_i = 0;
+	while(argv[arg_i])
+	{
+		if (is_specified_splitter(argv[arg_i]) == true)
+			return true;
+		arg_i++;
+	}
+	return false;
+}
+
 // cat infile,|,cat,|,cat,|,cat,|,cat,;,echo -n wow,;,pwd
 int	loop_pipex(char **argv, t_env **env)
 {
-	// char ***splitted_argv;
-	// char **splitter;
+	char ***splitted_argv;
+	char **splitter;
 	// int arg_i;
-	// int ret;
+	int ret;
 
-	//	argvを && || ; によって分割する(`ls,;`でメモリリークが発生するのを対処する！)
-	// splitted_argv = get_splitted_argv(argv);
+	// そもそも区切り文字がargvにない場合はそのままpipexを実行する！
+	if (is_splitter_exist(argv) == false)
+		return pipex(argv, env);
+
+	//	argvを && || ; によって分割する
+	splitted_argv = get_splitted_argv(argv);
 // ft_printf("\n\nsplitted_argv:\t");
 // put_triple_tab_for_debug(splitted_argv);
 
 	// argvを分割する && || ; を取得する
-// 	splitter = get_splitter(argv);
+	splitter = get_splitter(argv);
 // ft_printf("splitter:\t");
 // put_double_tab_for_debug(splitter);
 	// whileループで回していく
 
-// all_free_triple_tab(splitted_argv);
-// all_free_tab(splitter);
-// return true;
+all_free_triple_tab(splitted_argv);
+all_free_tab(splitter);
+return true;
 
 	// ret = pipex(argv, env);
 	// return all_free_triple_tab(splitted_argv), all_free_tab(splitter), ret;
-return pipex(argv, env);
+// return pipex(argv, env);
 }
