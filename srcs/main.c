@@ -101,14 +101,18 @@ int	minishell(char **argv, char **envp, t_tools *tools)
 		{
 			if(lexer(tools) == EXIT_FAILURE)
 				return (ft_error(1, tools));
-			if (tools->lexer_list->token == PIPE)
+			if (tools->lexer_list->token == PIPE || tools->lexer_list->token == SEMICOLON || tools->lexer_list->token == AND_AND || tools->lexer_list->token == OR_OR)
 			{
-				if(parser_double_token_error(tools, tools->lexer_list,
+				if(parser_token_error(tools, tools->lexer_list,
 						tools->lexer_list->token) == EXIT_FAILURE)
 					continue ;
 			}
 			if(parser(tools) == EXIT_FAILURE)
-				return (ft_error(3, tools));
+			{
+				ft_error(3, tools);
+				free_tools(tools);
+				continue ;
+			}
 			tmparray = change_to_array(tools);
 			tools->simple_cmds->str = expander(tools, tmparray);//修正点：ここで”echo $?”が"0"のみになった
 			if (*tools->str)

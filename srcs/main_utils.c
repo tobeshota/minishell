@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:36:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/03 09:50:18 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/04 22:23:17 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ void	ft_lexerclear(t_lexer **lst)
 		tmp = (*lst)->next;
 		if ((*lst)->str)
 			free((*lst)->str);
-		free(*lst);
+		if(*lst)
+			free(*lst);
 		*lst = tmp;
 	}
 	*lst = NULL;

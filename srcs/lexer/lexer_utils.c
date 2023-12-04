@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 13:10:27 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/11/30 15:22:51 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/04 20:16:15 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 int     get_token_type(char *str, int i) {
     int token_type = NONE;
 
-    if (str[i] == '|') 
-        token_type = PIPE;
-    else if (str[i] == '>') 
+    if (str[i] == '>') 
     {
         if (str[i + 1] == '>')
             token_type = GREAT_GREAT;
@@ -31,6 +29,14 @@ int     get_token_type(char *str, int i) {
         else
             token_type = LESS;
     }
+	else if (str[i] == ';')
+		token_type = SEMICOLON;
+	else if (str[i] == '&' && str[i + 1] == '&')
+		token_type = AND_AND;
+	else if (str[i] == '|' && str[i + 1] == '|')
+		token_type = OR_OR;
+	else if (str[i] == '|') 
+        token_type = PIPE;
     return token_type;
 }
 
@@ -73,9 +79,6 @@ int	add_node(char *word, t_tokens token, t_lexer **lexer_list)
 	node = make_node(word, token);
 	if (!node)
 		return (0);
-    // printf("node = %p\n", node);
-    // printf("node->str = %s\n", node->str);
 	add_back_node(lexer_list, node);
-    // printf("lexer_list = %s\n", node->str);
 	return (1);
 }

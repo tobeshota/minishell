@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:09:42 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/03 10:33:02 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/04 22:37:49 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ static t_simple_cmds	*creat_ast(t_parser_tools *parser_tools)
 	int		arg_size;
 	t_lexer	*tmp;
     
-    grouping_redirections(parser_tools);
+    if(grouping_redirections(parser_tools) == EXIT_FAILURE)
+        return NULL;
     arg_size = count_args(parser_tools->lexer_list);
     str = ft_calloc(arg_size + 1, sizeof(char *));
     if (!str)
@@ -114,11 +115,11 @@ int parser(t_tools *tools) {
 
         if (handle_operator_error(tools, tools->lexer_list->token)) 
             return EXIT_FAILURE;
-
         parser_tools = init_parser_tools(tools);
         node = creat_ast(&parser_tools);
         if (!node) {
-            parser_error(0, tools, parser_tools.lexer_list);
+            // parser_error(0, tools, parser_tools.lexer_list);
+            return EXIT_FAILURE;
         }
         add_list(&tools->simple_cmds, node);
         tools->lexer_list = parser_tools.lexer_list;

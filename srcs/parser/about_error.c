@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 13:17:23 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/03 10:35:26 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/04 22:43:03 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ int	ft_error(int error, t_tools *tools)
 			STDERR_FILENO);
 	else if (error == 3)
 		ft_putstr_fd("Parser problem\n", STDERR_FILENO);
+	else if (error == 4)
+		ft_putstr_fd("syntax error: unexpected end of file\n",
+			STDERR_FILENO);
 	return (EXIT_FAILURE);
 }
 
@@ -34,7 +37,7 @@ void	parser_error(int error, t_tools *tools, t_lexer *lexer_list)
 	ft_error(error, tools);
 }
 
-int	parser_double_token_error(t_tools *tools, t_lexer *lexer_list,
+int	parser_token_error(t_tools *tools, t_lexer *lexer_list,
 	t_tokens token)
 {
 	ft_putstr_fd("minishell: syntax error near unexpected token ",
@@ -49,6 +52,12 @@ int	parser_double_token_error(t_tools *tools, t_lexer *lexer_list,
 		ft_putstr_fd("'<<'\n", STDERR_FILENO);
 	else if (token == PIPE)
 		ft_putstr_fd("'|'\n", STDERR_FILENO);
+	else if (token == SEMICOLON)
+		ft_putstr_fd("';'\n", STDERR_FILENO);
+	else if (token == AND_AND)
+		ft_putstr_fd("'&&'\n", STDERR_FILENO);
+	else if (token == OR_OR)
+		ft_putstr_fd("'||'\n", STDERR_FILENO);
 	else
 		ft_putstr_fd("\n", STDERR_FILENO);
 	ft_lexerclear(&lexer_list);
@@ -60,7 +69,7 @@ int	handle_operator_error(t_tools *tools, t_tokens token)
 {
 	if (token == PIPE)
 	{
-		parser_double_token_error(tools, tools->lexer_list,
+		parser_token_error(tools, tools->lexer_list,
 			tools->lexer_list->token);
 		return (EXIT_FAILURE);
 	}

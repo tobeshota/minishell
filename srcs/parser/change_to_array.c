@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 11:51:33 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/02 13:28:48 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/04 22:02:21 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@ char	*token_to_char(t_tokens token)
 		return ("<");
 	else if (token == LESS_LESS)
 		return ("<<");
+	else if (token == SEMICOLON)
+		return (";");
+	else if (token == AND_AND)
+		return ("&&");
+	else if (token == OR_OR)
+		return ("||");
 	else
 		return ("");
 }

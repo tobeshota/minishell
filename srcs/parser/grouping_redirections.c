@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:09:54 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/11/22 14:11:51 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/04 22:52:28 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,16 @@ void	grouping_redirections(t_parser_tools *parser_tools)
 		return ;
 	//パイプまでリダイレクトがなかったら終了
 	if (!tmp->next)
+	{
 		parser_error(0, parser_tools->tools, parser_tools->lexer_list);
+		return ;	
+	}
 	if (tmp->next->token)
-		parser_double_token_error(parser_tools->tools,
+		parser_token_error(parser_tools->tools,
 			parser_tools->lexer_list, tmp->next->token);
 	if ((tmp->token >= GREAT
-			&& tmp->token <= LESS_LESS))
+			&& tmp->token <= OR_OR))
 		add_new_redirection(tmp, parser_tools);//トークンがリダイレクト演算子である場合、新しいリダイレクション情報が parser_tools 構造体内の redirections リストに追加。
 	grouping_redirections(parser_tools);//トークンリスト内のすべてのリダイレクト演算子が処理されるまで続く再帰関数
+	// return EXIT_SUCCESS;
 }

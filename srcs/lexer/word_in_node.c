@@ -6,13 +6,13 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 13:33:42 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/11/16 10:33:56 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/04 20:14:11 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/lexer.h"
 
-static int handle_quotes(int i, char *str, char c) 
+static int  handle_quotes(int i, char *str, char c) 
 {
     int j;
     
@@ -42,6 +42,10 @@ int word_in_node(char *str, int i, t_lexer **lexer_list)
         } 
         else if (str[i + j] == ' ' || (str[i + j] >= 9 && str[i + j] <= 13)) 
             break;
+        // else if(str[i + j + 1] == '|' && str[i + j + 2] == '|')
+        //     break;
+        // else if(str[i + j + 1] == '&' && str[i + j + 2] == '&')
+        //     break;
         else
             j++;
     }
