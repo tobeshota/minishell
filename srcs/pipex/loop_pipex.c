@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 09:23:37 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/04 11:04:17 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/04 12:06:47 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,7 @@ bool is_splitter_exist(char **argv)
 }
 
 // cat infile,|,cat,|,cat,|,cat,|,cat,;,echo -n wow,;,pwd
+// pwd,&&,b.out,||,echo wow
 int	loop_pipex(char **argv, t_env **env)
 {
 	char ***splitted_argv;
@@ -206,30 +207,39 @@ int	loop_pipex(char **argv, t_env **env)
 
 	//	argvを && || ; によって分割する
 	splitted_argv = get_splitted_argv(argv);
-// ft_printf("\n\nsplitted_argv:\t");
+// ft_printf("splitted_argv:\n");
 // put_triple_tab_for_debug(splitted_argv);
 
 	// argvを分割する && || ; を取得する
 	splitter = get_splitter(argv);
-// ft_printf("splitter:\t");
+// ft_printf("splitter:\n");
 // put_double_tab_for_debug(splitter);
+// ft_printf("━━━━━━━━━━\n");
 
 	// whileループで回していく
 	sparg_i = -1;
 	spl_i = 0;
-	while(splitted_argv[++sparg_i])
+	while (splitted_argv[++sparg_i])
 	{
 		ret = pipex(splitted_argv[sparg_i], env);
-		if(is_match(splitter[spl_i], ";"))
-			continue;
+		if (splitter[spl_i] == NULL)
+			break;
+		if (is_match(splitter[spl_i], ";") && ++spl_i)
+			continue ;
+		else if (is_match(splitter[spl_i], "&&"))
+		{
+			if (ret == true && ++spl_i)
+				continue ;
+			while (is_match(splitter[spl_i], ";") == false && is_match(splitter[spl_i], "||") == false && ++sparg_i)
+				spl_i++;
+		}
+		else if (is_match(splitter[spl_i], "||"))
+		{
+			if (ret != true && ++spl_i)
+				continue ;
+			while (is_match(splitter[spl_i], ";") == false && is_match(splitter[spl_i], "&&") == false && ++sparg_i)
+				spl_i++;
+		}
 	}
-
-
-all_free_triple_tab(splitted_argv);
-all_free_tab(splitter);
-return true;
-
-	// ret = pipex(argv, env);
-	// return all_free_triple_tab(splitted_argv), all_free_tab(splitter), ret;
-// return pipex(argv, env);
+	return all_free_triple_tab(splitted_argv), all_free_tab(splitter), ret;
 }

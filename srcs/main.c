@@ -62,7 +62,7 @@ int	minishell_by_pipex_for_debug(char **argv, char **envp)
 		argv = ft_split(line, ',');	/* 本来はft_splitでなくlexerとparser．いまは区切り文字','で分割している */
 		if (*line)
 			add_history(line);
-		put_arg_for_debug(argv);
+		// put_arg_for_debug(argv);
 		if(is_match(line, "putnode"))
 			put_node_for_debug(env);
 		else
