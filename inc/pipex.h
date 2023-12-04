@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/03 09:28:19 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/04 12:35:53 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ bool	proc_here_doc(char *limitter, t_pipex *pipex);
 bool	is_cmd_relative_path(char ***cmd_absolute_path, int cmd_i);
 bool	is_cmd_alreadly_absollute_path(char ***cmd_absolute_path, int cmd_i);
 bool	wait_children(int cmd_i);
-int		loop_pipex(char **argv, t_env **env);
 int		pipex(char **argv, t_env **env);
 bool	get_pipex(char **argv, t_pipex *pipex);
 bool	do_pipex(char **argv, t_env **env, t_pipex *pipex);
@@ -111,5 +110,10 @@ t_env	*ft_nodelast(t_env *node);
 int		ft_nodesize(t_env *node);
 
 void	put_node_for_debug(t_env *node);
+
+// loop_pipex
+int		loop_pipex(char **argv, t_env **env);
+void	get_loop_pipex(char **argv, char ****splitted_argv, char ***splitter);
+void	end_loop_pipex(char ***splitted_argv, char **splitter);
 
 #endif

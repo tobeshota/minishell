@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 09:23:37 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/04 12:06:47 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/04 12:36:01 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,135 +26,133 @@ void	all_free_triple_tab(char ***ptr)
 	ptr = NULL;
 }
 
-int is_specified_splitter(char *str)
+int	is_specified_splitter(char *str)
 {
 	return (is_match(str, ";") || is_match(str, "&&") || is_match(str, "||"));
 }
 
-int get_splitter_count(char **argv)
+int	get_splitter_count(char **argv)
 {
-	int splitter_count;
-	int arg_i;
+	int	splitter_count;
+	int	arg_i;
 
 	splitter_count = 0;
 	arg_i = 0;
-	while(argv[arg_i])
+	while (argv[arg_i])
 	{
 		if (is_specified_splitter(argv[arg_i]))
 			splitter_count++;
 		arg_i++;
 	}
-// ft_printf("splitter_count:\t%d\n", splitter_count);
-	return splitter_count;
+	return (splitter_count);
 }
 
-int get_splitted_argc(char **argv)
+int	get_splitted_argc(char **argv)
 {
-	int arg_i;
+	int	arg_i;
 
 	arg_i = 0;
-	while(argv[arg_i])
+	while (argv[arg_i])
 		arg_i++;
-	if (is_specified_splitter(argv[arg_i-1]))
-		return get_splitter_count(argv);
+	if (is_specified_splitter(argv[arg_i - 1]))
+		return (get_splitter_count(argv));
 	else
-		return get_splitter_count(argv) + 1;
+		return (get_splitter_count(argv) + 1);
 }
 
-// ls -a ; ps
-int get_argc(char **argv, int splitted_i)
+int	get_argc(char **argv, int splitted_i)
 {
-	int argc;
-	int splitter_count;
+	int	argc;
+	int	splitter_count;
 
 	argc = 0;
 	splitter_count = 0;
-	// splitted_iの数だけsplitterを見送る
-	while(true)
+	while (true)
 	{
 		if (is_specified_splitter(argv[argc]))
 			splitter_count++;
 		if (splitter_count >= splitted_i)
-			break;
+			break ;
 		argc++;
 	}
-	return argc;
+	return (argc);
 }
 
-static void malloc_splitted_argv_double_ptr(char ***splitted_argv, char **argv)
+static void	malloc_splitted_argv_double_ptr(char ***splitted_argv, char **argv)
 {
-	int sparg_i;
-	int arg_i;
+	int	sparg_i;
+	int	arg_i;
 
 	sparg_i = 0;
-	while(true)
+	while (true)
 	{
 		arg_i = 0;
 		while (argv[arg_i] && is_specified_splitter(argv[arg_i]) == false)
 			arg_i++;
-		if (argv[arg_i] == NULL && is_specified_splitter(argv[arg_i-1]) == true)
-			break;
-		splitted_argv[sparg_i++] = (char **)check_malloc(malloc((sizeof(char *) * (arg_i + 1))));
+		if (argv[arg_i] == NULL && \
+		is_specified_splitter(argv[arg_i - 1]) == true)
+			break ;
+		splitted_argv[sparg_i++] = (char **)check_malloc \
+		(malloc((sizeof(char *) * (arg_i + 1))));
 		if (argv[arg_i] == NULL)
-			break;
+			break ;
 		argv += arg_i + 1;
 	}
 }
 
-char **get_splitter(char **argv)
+char	**get_splitter(char **argv)
 {
-	char **splitter;
-	int sp_i;
+	char	**splitter;
+	int		sp_i;
 
-	splitter = (char **)check_malloc(malloc(sizeof(char *) * (get_splitter_count(argv) + 1)));
+	splitter = (char **)check_malloc(malloc(sizeof(char *)
+				* (get_splitter_count(argv) + 1)));
 	sp_i = 0;
-	while(*argv)
+	while (*argv)
 	{
-		if(is_specified_splitter(*argv))
+		if (is_specified_splitter(*argv))
 			splitter[sp_i++] = check_malloc(ft_strdup(*argv));
 		argv++;
 	}
 	splitter[sp_i] = NULL;
-	return splitter;
+	return (splitter);
 }
 
-char ***get_splitted_argv(char **argv)
+char	***get_splitted_argv(char **argv)
 {
-	char ***splitted_argv;
-	int sparg_i;
-	int element_i;
+	char	***splitted_argv;
+	int		sparg_i;
+	int		element_i;
 
-	// splited_argの数ぶんmallocする
-	splitted_argv = (char ***)check_malloc(malloc(sizeof(char **) * (get_splitted_argc(argv) + 1)));
-	// それぞれのsplited_argvに入るargvの数ぶんmallocする
+	splitted_argv = (char ***)check_malloc(malloc(sizeof(char **)
+				* (get_splitted_argc(argv) + 1)));
 	malloc_splitted_argv_double_ptr(splitted_argv, argv);
-	// 各要素をft_strdup();で格納する
 	sparg_i = 0;
-	while(*argv)
+	while (*argv)
 	{
 		element_i = 0;
-		while(*argv && is_specified_splitter(*argv) == false)
-			splitted_argv[sparg_i][element_i++] = check_malloc(ft_strdup(*argv++));
+		while (*argv && is_specified_splitter(*argv) == false)
+			splitted_argv[sparg_i][element_i++] = \
+			check_malloc(ft_strdup(*argv++));
 		splitted_argv[sparg_i++][element_i] = NULL;
 		if (*argv == NULL)
-			break;
+			break ;
 		argv++;
 	}
 	splitted_argv[sparg_i] = NULL;
-	return splitted_argv;
+	return (splitted_argv);
 }
 
-
-void put_triple_tab_for_debug(char ***tab)
+void	put_triple_tab_for_debug(char ***tab)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
-	while(tab && tab[i])
+	while (tab && tab[i])
 	{
 		j = 0;
-		while(tab && tab[i][j])
+		while (tab && tab[i][j])
 		{
 			ft_printf("\"%s\"\t", tab[i][j]);
 			j++;
@@ -164,12 +162,12 @@ void put_triple_tab_for_debug(char ***tab)
 	}
 }
 
-void put_double_tab_for_debug(char **tab)
+void	put_double_tab_for_debug(char **tab)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(tab[i])
+	while (tab[i])
 	{
 		ft_printf("\"%s\"\t", tab[i]);
 		i++;
@@ -177,69 +175,60 @@ void put_double_tab_for_debug(char **tab)
 	ft_printf("\n");
 }
 
-bool is_splitter_exist(char **argv)
+bool	is_splitter_exist(char **argv)
 {
-	int arg_i;
+	int	arg_i;
 
 	arg_i = 0;
-	while(argv[arg_i])
+	while (argv[arg_i])
 	{
 		if (is_specified_splitter(argv[arg_i]) == true)
-			return true;
+			return (true);
 		arg_i++;
 	}
-	return false;
+	return (false);
 }
 
-// cat infile,|,cat,|,cat,|,cat,|,cat,;,echo -n wow,;,pwd
-// pwd,&&,b.out,||,echo wow
-int	loop_pipex(char **argv, t_env **env)
+int	do_loop_pipex(char ***splitted_argv, char **splitter, t_env **env)
 {
-	char ***splitted_argv;
-	char **splitter;
-	int sparg_i;
-	int spl_i;
-	int ret;
+	int	sparg_i;
+	int	spl_i;
+	int	ret;
 
-	// そもそも区切り文字がargvにない場合はそのままpipexを実行する！
-	if (is_splitter_exist(argv) == false)
-		return pipex(argv, env);
-
-	//	argvを && || ; によって分割する
-	splitted_argv = get_splitted_argv(argv);
-// ft_printf("splitted_argv:\n");
-// put_triple_tab_for_debug(splitted_argv);
-
-	// argvを分割する && || ; を取得する
-	splitter = get_splitter(argv);
-// ft_printf("splitter:\n");
-// put_double_tab_for_debug(splitter);
-// ft_printf("━━━━━━━━━━\n");
-
-	// whileループで回していく
 	sparg_i = -1;
 	spl_i = 0;
 	while (splitted_argv[++sparg_i])
 	{
 		ret = pipex(splitted_argv[sparg_i], env);
 		if (splitter[spl_i] == NULL)
-			break;
-		if (is_match(splitter[spl_i], ";") && ++spl_i)
+			break ;
+		if ((is_match(splitter[spl_i], ";") || (is_match(splitter[spl_i], "&&")
+					&& ret == true) || (is_match(splitter[spl_i], "||")
+					&& ret != true)) && ++spl_i)
 			continue ;
 		else if (is_match(splitter[spl_i], "&&"))
-		{
-			if (ret == true && ++spl_i)
-				continue ;
-			while (is_match(splitter[spl_i], ";") == false && is_match(splitter[spl_i], "||") == false && ++sparg_i)
+			while (is_match(splitter[spl_i], ";") == false
+				&& is_match(splitter[spl_i], "||") == false && ++sparg_i)
 				spl_i++;
-		}
 		else if (is_match(splitter[spl_i], "||"))
-		{
-			if (ret != true && ++spl_i)
-				continue ;
-			while (is_match(splitter[spl_i], ";") == false && is_match(splitter[spl_i], "&&") == false && ++sparg_i)
+			while (is_match(splitter[spl_i], ";") == false
+				&& is_match(splitter[spl_i], "&&") == false && ++sparg_i)
 				spl_i++;
-		}
 	}
-	return all_free_triple_tab(splitted_argv), all_free_tab(splitter), ret;
+	return (ret);
+}
+
+// cat infile,|,cat,|,cat,|,cat,|,cat,;,echo -n wow,;,pwd
+// pwd,&&,b.out,||,echo wow
+int	loop_pipex(char **argv, t_env **env)
+{
+	char	***splitted_argv;
+	char	**splitter;
+	int		ret;
+
+	if (is_splitter_exist(argv) == false)
+		return (pipex(argv, env));
+	get_loop_pipex(argv, &splitted_argv, &splitter);
+	ret = do_loop_pipex(splitted_argv, splitter, env);
+	return (end_loop_pipex(splitted_argv, splitter), ret);
 }
