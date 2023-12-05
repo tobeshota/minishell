@@ -76,60 +76,72 @@ int	minishell_by_pipex_for_debug(char **argv, char **envp)
 	return (0);
 }
 
-int	minishell(char **argv, char **envp, t_tools *tools)
-{
-	char	*line;
-	t_env	*env;
-	char	**tmparray;
+int process_input(t_tools *tools, t_env **env) {
+    if (lexer(tools) == EXIT_FAILURE)
+        return ft_error(1, tools);
+    
+    if (tools->lexer_list->token == PIPE || tools->lexer_list->token == SEMICOLON || tools->lexer_list->token == AND_AND || tools->lexer_list->token == OR_OR) {
+        if (parser_token_error(tools, tools->lexer_list, tools->lexer_list->token) == EXIT_FAILURE)
+            return 0;
+    }
 
-	init_minishell(envp, &env);
-	while (true)
-	{
-		tools = (t_tools *)check_malloc(malloc(sizeof(t_tools)));
-		if(implement_tools(tools) == 0)
-			exit(EXIT_FAILURE);
-		tools->envp = ft_arrdup(envp);
-		line = readline(MINISHELL_PROMPT);
-		implement_tools(tools);
-		tools->str = line;
-		if (!line)
-		{
-			free_tools(tools);
-			break;
-		}
-		if (tools->str[0] != '\0')
-		{
-			if(lexer(tools) == EXIT_FAILURE)
-				return (ft_error(1, tools));
-			if (tools->lexer_list->token == PIPE || tools->lexer_list->token == SEMICOLON || tools->lexer_list->token == AND_AND || tools->lexer_list->token == OR_OR)
-			{
-				if(parser_token_error(tools, tools->lexer_list,
-						tools->lexer_list->token) == EXIT_FAILURE)
-					continue ;
-			}
-			if(parser(tools) == EXIT_FAILURE)
-			{
-				ft_error(3, tools);
-				free_tools(tools);
-				continue ;
-			}
-			tmparray = change_to_array(tools);
-			tools->simple_cmds->str = expander(tools, tmparray);//修正点：ここで”echo $?”が"0"のみになった
-			if (*tools->str)
-				add_history(tools->str);
-			put_arg_for_debug(tmparray);
-			if(is_match(tools->str, "putnode"))
-				put_node_for_debug(env);
-			else
-				g_global.error_num = loop_pipex(tmparray, &env);
-			node_to_array(env, &envp);
-			free_tools(tools);
-		}
-	}
-	ft_nodeclear(&env);
-	ft_printf(EXIT_MSG);
-	return (0);
+    if (parser(
+		tools) == EXIT_FAILURE) {
+        ft_error(3, tools);
+        free_tools(tools);
+        return 0;
+    }
+
+    return 1;
 }
+
+int handle_input(t_tools *tools, t_env **env) {
+    char *line;
+    char **tmparray;
+
+    line = readline(MINISHELL_PROMPT);
+    implement_tools(tools);
+    tools->str = line;
+    if (!line) {
+        free_tools(tools);
+        return 0;
+    }
+    if (tools->str[0] != '\0') {
+        if (!process_input(tools, env))
+            return 0;
+        tmparray = change_to_array(tools);
+        tools->simple_cmds->str = expander(tools, tmparray);
+        if (*tools->str)
+            add_history(tools->str);
+        put_arg_for_debug(tmparray);
+        if (is_match(tools->str, "putnode"))
+            put_node_for_debug(*env);
+        else
+            g_global.error_num = loop_pipex(tmparray, env);
+        node_to_array(*env, &tools->envp);
+        free_tools(tools);
+    }
+    return 1;
+}
+
+
+int minishell(char **argv, char **envp, t_tools *tools) {
+    t_env *env;
+
+    init_minishell(envp, &env);
+    while (true) {
+        tools = (t_tools *)check_malloc(malloc(sizeof(t_tools)));
+        if (implement_tools(tools) == 0)
+            exit(EXIT_FAILURE);
+        tools->envp = ft_arrdup(envp);
+        if (!handle_input(tools, &env))
+            break;
+    }
+    ft_nodeclear(&env);
+    ft_printf(EXIT_MSG);
+    return (0);
+}
+
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -143,43 +155,6 @@ int	main(int argc, char **argv, char **envp)
 }
 
 // --------------cjiaの実験場------のちに消す---------------
-
-
-// int	minishell(char **argv, char **envp)
-// {
-// 	char	*line;
-// 	t_env	*env;
-
-// 	init_minishell(envp, &env);
-// 	while (true)
-// 	{
-// 		line = readline(MINISHELL_PROMPT);
-// 		if (!line)
-// 			break ;
-// 		argv = ft_split(line, ',');	/* 本来はft_splitでなくlexerとparser．いまは区切り文字','で分割している */
-
-// 		if (*line)
-// 			add_history(line);
-// 		put_arg_for_debug(argv);
-// 		if(is_match(line, "putnode"))
-// 			put_node_for_debug(env);
-// 		else
-// 			pipex(argv, &env);
-// 		all_free_tab(argv);
-// 		node_to_array(env, &envp);
-// 		free(line);
-// 	}
-// 	ft_nodeclear(&env);
-// 	ft_printf(EXIT_MSG);
-// 	return (0);
-// }
-
-// int	main(int argc, char **argv, char **envp)
-// {
-// 	t_tools	tools;
-// 	if (argc == 1 || argc != 1)
-// 		minishell(argv, envp);
-// }
 
 __attribute__((destructor)) static void destructor()
 {

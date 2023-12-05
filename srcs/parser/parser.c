@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:09:42 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/04 22:56:06 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/05 10:48:03 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ static t_simple_cmds	*creat_ast(t_parser_tools *parser_tools)
 		}
 		arg_size--;
 	}
+    if(str[0] == NULL && parser_tools->num_redirections == 0)
+        return (NULL);
     return (recreated_node(str,
 			parser_tools->num_redirections, parser_tools->redirections));
 }
@@ -93,35 +95,45 @@ static t_simple_cmds *create_pipe_node(t_tools *tools)
 }
 
 
+int handle_pipe_case(t_tools *tools, t_simple_cmds **node, t_parser_tools *parser_tools) {
+    *node = create_pipe_node(tools);
+    if (!*node) {
+        parser_error(0, tools, parser_tools->lexer_list);
+        return 0;
+    }
+    add_list(&tools->simple_cmds, *node);
+    parser_tools->lexer_list = tools->lexer_list;
+    return 1;
+}
+
+int handle_non_pipe_case(t_tools *tools, t_simple_cmds **node, t_parser_tools *parser_tools) {
+    if (handle_operator_error(tools, tools->lexer_list->token))
+        return 0;
+    
+    *node = creat_ast(parser_tools);
+    if (!*node) {
+        // parser_error(0, tools, parser_tools->lexer_list);
+        return 0;
+    }
+    add_list(&tools->simple_cmds, *node);
+    tools->lexer_list = parser_tools->lexer_list;
+    return 1;
+}
+
 int parser(t_tools *tools) {
     t_simple_cmds *node = NULL;
     t_parser_tools parser_tools;
 
     parser_tools = init_parser_tools(tools);
-    
-    while (tools->lexer_list)
-    {
-        if (tools->lexer_list && tools->lexer_list->token == PIPE)
-        {
-            node = create_pipe_node(tools);
-            if (!node) {
-                parser_error(0, tools, parser_tools.lexer_list);
-            }
-            add_list(&tools->simple_cmds, node);
-            tools->lexer_list = parser_tools.lexer_list;
-            continue;
-        }
 
-        if (handle_operator_error(tools, tools->lexer_list->token)) 
-            return EXIT_FAILURE;
-        parser_tools = init_parser_tools(tools);
-        node = creat_ast(&parser_tools);
-        if (!node) {
-            // parser_error(0, tools, parser_tools.lexer_list);
-            return EXIT_FAILURE;
+    while (tools->lexer_list) {
+        if (tools->lexer_list && tools->lexer_list->token == PIPE) {
+            if (!handle_pipe_case(tools, &node, &parser_tools))
+                return EXIT_FAILURE;
+        } else {
+            if (!handle_non_pipe_case(tools, &node, &parser_tools))
+                return EXIT_FAILURE;
         }
-        add_list(&tools->simple_cmds, node);
-        tools->lexer_list = parser_tools.lexer_list;
     }
 
     return EXIT_SUCCESS;
