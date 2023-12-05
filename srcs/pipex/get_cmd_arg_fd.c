@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 21:49:47 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/28 17:01:24 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/05 16:54:39 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,22 @@ static bool	is_cmd_param_included_except_dot_slash(char *cmd_parameter)
 	return (false);
 }
 
-static bool	is_parameter_file(char *cmd_parameter)
+bool	is_parameter_dir(char *cmd_parameter)
+{
+	int			fd;
+	struct stat	st;
+
+	fd = open_file(cmd_parameter, INFILE);
+	if (fd == -1)
+		return (false);
+	else if (check_close(close(fd)) == false)
+		return (false);
+	else if (stat(cmd_parameter, &st) < 0)
+		return (ft_putstr_fd("failt to stat", STDERR_FILENO), false);
+	return (S_ISDIR(st.st_mode));
+}
+
+bool	is_parameter_file(char *cmd_parameter)
 {
 	int			fd_for_checking_non_directory;
 	struct stat	st;

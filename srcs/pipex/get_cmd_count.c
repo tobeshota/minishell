@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 09:00:12 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/05 12:02:06 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/05 16:43:51 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	get_cmd_count(char **argv)
 			cmd_count++;
 		else if (ret == NOT_FOUND)
 		{
-			put_error_with_filename(argv_wo_param, "command not found");
+			put_error_w_cmd(argv_wo_param, "command not found");
 			g_global.error_num = 127;
 		}
 		arg_i++;

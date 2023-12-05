@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/05 16:20:07 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/05 17:51:48 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,29 @@ static bool	get_path_from_cd(char **path_ptr, char **cmd, t_env **env,
 	return (true);
 }
 
+int put_file_error(char *cmd, char *file)
+{
+	put_error(strerror(errno));
+
+	if (errno == ENOENT)
+		put_error_w_cmd_filename(cmd, file, "No such file or directory");
+	else if (errno == EACCES)
+		put_error_w_cmd_filename(cmd, file, "Permission denied");
+	else if (errno == ENOTDIR)
+		put_error_w_cmd_filename(cmd, file, "Not a directory");
+	else if (errno == EISDIR)
+		put_error_w_cmd_filename(cmd, file, "Is a directory");
+	else if (errno == EFBIG)
+		put_error_w_cmd_filename(cmd, file, "File too large");
+	else if (errno == ENOSPC)
+		put_error_w_cmd_filename(cmd, file, "No space left on device");
+	else if (errno == EROFS)
+		put_error_w_cmd_filename(cmd, file, "Read-only file system");
+	else if (errno == ENAMETOOLONG)
+		put_error_w_cmd_filename(cmd, file, "File name too long");
+	return (errno == 0);
+}
+
 /* 開く権利のないディレクトリが開かれたときにpermission deniedと出す！ */
 /* `unset PATH`後にcdするとセグフォするのを防ぐ！ */
 int	exec_cd(char **cmd, t_env **env, t_pipex *pipex)
@@ -102,13 +125,14 @@ int	exec_cd(char **cmd, t_env **env, t_pipex *pipex)
 		return (false);
 	if (is_match(path_from_cd, ".") || is_match(path_from_cd, "./"))
 		return (free(path_from_cd), true);
+// if (is_parameter_dir(path_from_cd) == false)
+// 	return put_file_error("cd", path_from_cd), free(path_from_cd), true;
 	if (is_file_exist(path_from_cd) == false)
-	{
-		put_error("-minishell: cd: ");
-		put_error(path_from_cd);
-		put_error(": No such file or directory\n");
-		return (free(path_from_cd), true);
-	}
+		return (put_error_w_cmd_filename("cd", path_from_cd,
+			"No such file or directory"), free(path_from_cd), true);
+	if (is_parameter_dir(path_from_cd) == false)
+		return (put_error_w_cmd_filename("cd", path_from_cd,
+			"Not a directory"), free(path_from_cd), true);
 	update_oldpwd(env, pipex);
 	if (chdir(path_from_cd) == -1)
 		return (free(path_from_cd), false);

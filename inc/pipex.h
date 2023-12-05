@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/05 12:18:42 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/05 16:54:38 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@ bool	close_pipe(int *pipe_fd);
 void	all_free_tab(char **ptr);
 void	all_free_int(int **ptr);
 void	put_error(char *err_msg);
-void	put_error_with_filename(char *filename, char *error_msg);
+void	put_error_w_cmd(char *filename, char *error_msg);
+void	put_error_w_cmd_filename(char *cmdname, char *filename,
+		char *error_msg);
 size_t	strlen_until_c(char *str, char c);
 void	*check_malloc(void *ptr);
 bool	check_getenv(char *ptr);
@@ -47,6 +49,8 @@ bool	check_exec_builtin(int ret);
 bool	check_wait(int ret);
 bool	check_unlink(int ret);
 bool	is_path_found(char *path);
+bool	is_parameter_file(char *cmd_parameter);
+bool	is_parameter_dir(char *cmd_parameter);
 int		get_cmd_count(char **argv);
 int		get_cmd_absolute_path_count(t_pipex *pipex);
 int		get_pipe_count(char **argv);

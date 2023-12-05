@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/05 09:52:33 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/05 17:34:30 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,31 @@ void	put_error(char *err_msg)
 	write(STDERR_FILENO, err_msg, ft_strlen(err_msg));
 }
 
-void	put_error_with_filename(char *filename, char *error_msg)
+void	put_error_w_cmd(char *cmd, char *error_msg)
 {
 	put_error("-minishell: ");
-	put_error(filename);
+	put_error(cmd);
 	put_error(": ");
 	put_error(error_msg);
 	put_error("\n");
 }
 
-size_t	strlen_until_c(char *str, char c)
+void	put_error_w_cmd_filename(char *cmd, char *file,
+		char *error_msg)
 {
-	size_t	len;
-
-	len = 0;
-	while (str[len] != '\0' && str[len] != c)
-		len++;
-	return (len);
+	g_global.error_num = 1;
+	if (file == NULL)
+		return put_error_w_cmd(cmd, error_msg);
+	else
+	{
+		put_error("-minishell: ");
+		put_error(cmd);
+		put_error(": ");
+		put_error(file);
+		put_error(": ");
+		put_error(error_msg);
+		put_error("\n");
+	}
 }
 
 size_t	get_larger(size_t n1, size_t n2)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   define.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 13:12:10 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/04 13:28:34 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/05 17:29:39 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define DEFINE_H
 
 # include <stdbool.h>
+# include <dirent.h>
+# include <errno.h>
 
 typedef enum e_file_type	t_file_type;
 typedef struct s_file		t_file;
