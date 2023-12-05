@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/03 00:41:14 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/05 16:20:07 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ static bool	get_path_from_cd(char **path_ptr, char **cmd, t_env **env,
 	return (true);
 }
 
+/* 開く権利のないディレクトリが開かれたときにpermission deniedと出す！ */
+/* `unset PATH`後にcdするとセグフォするのを防ぐ！ */
 int	exec_cd(char **cmd, t_env **env, t_pipex *pipex)
 {
 	char	*path_from_cd;
