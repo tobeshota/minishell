@@ -62,13 +62,11 @@ int	minishell_by_pipex_for_debug(char **argv, char **envp)
 		argv = ft_split(line, ',');	/* 本来はft_splitでなくlexerとparser．いまは区切り文字','で分割している */
 		if (*line)
 			add_history(line);
-		// put_arg_for_debug(argv);
 		if(is_match(line, "putnode"))
 			put_node_for_debug(env);
 		else
-			loop_pipex(argv, &env);
+			loop_pipex(argv, envp, &env);
 		all_free_tab(argv);
-		node_to_array(env, &envp);
 		free(line);
 	}
 	ft_nodeclear(&env);
@@ -121,8 +119,7 @@ int	minishell(char **argv, char **envp, t_tools *tools)
 			if(is_match(tools->str, "putnode"))
 				put_node_for_debug(env);
 			else
-				g_global.error_num = loop_pipex(tmparray, &env);
-			node_to_array(env, &envp);
+				g_global.error_num = loop_pipex(tmparray, envp, &env);
 			free_tools(tools);
 		}
 	}

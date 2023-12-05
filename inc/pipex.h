@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/05 09:05:09 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/05 09:53:01 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,9 +113,10 @@ int		ft_nodesize(t_env *node);
 void	put_node_for_debug(t_env *node);
 
 // loop_pipex
-int		loop_pipex(char **argv, t_env **env);
+int		loop_pipex(char **argv, char **envp, t_env **env);
 void	get_loop_pipex(char **argv, char ****splitted_argv, char ***splitter);
-int		do_loop_pipex(char ***splitted_argv, char **splitter, t_env **env);
+int		do_loop_pipex(char ***splitted_argv, char **splitter, char **envp,
+			t_env **env);
 void	end_loop_pipex(char ***splitted_argv, char **splitter);
 char	***get_splitted_argv(char **argv);
 char	**get_splitter(char **argv);

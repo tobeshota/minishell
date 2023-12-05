@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/05 09:05:19 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/05 09:52:33 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	put_error(char *err_msg)
 	write(STDERR_FILENO, err_msg, ft_strlen(err_msg));
 }
 
-void put_error_with_filename(char *filename, char *error_msg)
+void	put_error_with_filename(char *filename, char *error_msg)
 {
 	put_error("-minishell: ");
 	put_error(filename);
