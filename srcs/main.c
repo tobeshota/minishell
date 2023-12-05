@@ -44,7 +44,6 @@ void	init_minishell(char **envp, t_env **env)
 	get_order(*env);
 }
 
-//--------------cjiaの実験場------のちに消す---------------
 
 # define MINIPIPEX_PROMPT "\x1b[32mminipipex $ \x1b[0m\x1b[39m"
 /* lexer(); と parser(); のない minishell ． pipex のテスト用 */
@@ -62,7 +61,6 @@ int	minishell_by_pipex_for_debug(char **argv, char **envp)
 		argv = ft_split(line, ',');	/* 本来はft_splitでなくlexerとparser．いまは区切り文字','で分割している */
 		if (*line)
 			add_history(line);
-		// put_arg_for_debug(argv);
 		if(is_match(line, "putnode"))
 			put_node_for_debug(env);
 		else
@@ -154,7 +152,6 @@ int	main(int argc, char **argv, char **envp)
 	return (put_error("minishell: too many arguments"), 1);
 }
 
-// --------------cjiaの実験場------のちに消す---------------
 
 __attribute__((destructor)) static void destructor()
 {
