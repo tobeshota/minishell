@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/04 13:30:12 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/05 13:13:42 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,7 @@ int	implement_tools(t_tools *tools);
 //グローバル変数(終了ステータス)
 extern int	g_status;
 void	signal_init(void);
+void	sigquit_handler(int sig);
+void	sigint_handler(int sig);
 
 #endif

@@ -83,9 +83,7 @@ int process_input(t_tools *tools, t_env **env) {
             return 0;
     }
 
-    if (parser(
-		tools) == EXIT_FAILURE) {
-        ft_error(3, tools);
+    if (parser(tools) == EXIT_FAILURE) {
         free_tools(tools);
         return 0;
     }
@@ -107,6 +105,7 @@ int handle_input(t_tools *tools, t_env **env) {
     if (tools->str[0] != '\0') {
         if (!process_input(tools, env))
             return 0;
+		signal(SIGQUIT, sigquit_handler);
         tmparray = change_to_array(tools);
         tools->simple_cmds->str = expander(tools, tmparray);
         if (*tools->str)
@@ -132,8 +131,7 @@ int minishell(char **argv, char **envp, t_tools *tools) {
         if (implement_tools(tools) == 0)
             exit(EXIT_FAILURE);
         tools->envp = ft_arrdup(envp);
-        if (!handle_input(tools, &env))
-            break;
+		handle_input(tools, &env);
     }
     ft_nodeclear(&env);
     ft_printf(EXIT_MSG);

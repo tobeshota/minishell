@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 09:57:45 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/02 14:04:44 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/05 13:13:00 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,16 +73,16 @@ void	ft_simple_cmdsclear(t_simple_cmds **lst)
 
 void	sigint_handler(int sig)
 {
-	if (1)
+	if (!g_global.in_heredoc)
 		ft_putstr_fd("\n", STDERR_FILENO);
-	// if (1)
-	// {
-	// 	g_status = 1;
-	// 	rl_replace_line("", 0);
-	// 	rl_redisplay();
-	// 	// rl_done = 1;
-	// 	return ;
-	// }
+	if (g_global.in_cmd)
+	{
+		g_global.stop_heredoc = 1;
+		rl_replace_line("", 0);
+		rl_redisplay();
+		// rl_done = 1;
+		return ;
+	}
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
@@ -101,39 +101,3 @@ void	signal_init(void)
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
 }
-
-
-
-
-
-
-// void	sigint_handler(int sig)
-// {
-// 	if (!g_global.in_heredoc)
-// 		ft_putstr_fd("\n", STDERR_FILENO);
-// 	if (g_global.in_cmd)
-// 	{
-// 		g_global.stop_heredoc = 1;
-// 		rl_replace_line("", 0);
-// 		rl_redisplay();
-// 		rl_done = 1;
-// 		return ;
-// 	}
-// 	rl_on_new_line();
-// 	rl_replace_line("", 0);
-// 	rl_redisplay();
-// 	(void) sig;
-// }
-
-// void	sigquit_handler(int sig)
-// {
-// 	ft_putstr_fd("Quit: ", STDERR_FILENO);
-// 	ft_putnbr_fd(sig, STDERR_FILENO);
-// 	ft_putchar_fd('\n', STDERR_FILENO);
-// }
-
-// void	signal_init(void)
-// {
-// 	signal(SIGINT, sigint_handler);
-// 	signal(SIGQUIT, SIG_IGN);
-// }

@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:09:42 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/05 10:48:03 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/05 17:21:09 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,11 @@ static t_simple_cmds *create_pipe_node(t_tools *tools)
 
 
 int handle_pipe_case(t_tools *tools, t_simple_cmds **node, t_parser_tools *parser_tools) {
+	if(parser_tools->lexer_list->next == NULL)
+	{
+		parser_error(0, tools, parser_tools->lexer_list);
+		return 0;
+	}
     *node = create_pipe_node(tools);
     if (!*node) {
         parser_error(0, tools, parser_tools->lexer_list);
