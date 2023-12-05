@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/03 00:24:58 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/05 09:05:19 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,15 @@ void	put_error(char *err_msg)
 	write(STDERR_FILENO, err_msg, ft_strlen(err_msg));
 }
 
+void put_error_with_filename(char *filename, char *error_msg)
+{
+	put_error("-minishell: ");
+	put_error(filename);
+	put_error(": ");
+	put_error(error_msg);
+	put_error("\n");
+}
+
 size_t	strlen_until_c(char *str, char c)
 {
 	size_t	len;
@@ -25,34 +34,6 @@ size_t	strlen_until_c(char *str, char c)
 	while (str[len] != '\0' && str[len] != c)
 		len++;
 	return (len);
-}
-
-int	get_cmd_count(char **argv)
-{
-	int		cmd_count;
-	int		arg_i;
-	int		ret;
-	char	*argv_wo_param;
-
-	cmd_count = 0;
-	arg_i = 0;
-	while (argv[arg_i])
-	{
-		argv_wo_param = check_malloc \
-		(ft_substr(argv[arg_i], 0, strlen_until_c(argv[arg_i], ' ')));
-		ret = is_cmd(argv, arg_i);
-		if (ret == true)
-			cmd_count++;
-		else if (ret == NOT_FOUND)
-		{
-			put_error("-minishell: ");
-			put_error(argv_wo_param);
-			put_error(": command not found\n");
-		}
-		arg_i++;
-		free(argv_wo_param);
-	}
-	return (cmd_count);
 }
 
 size_t	get_larger(size_t n1, size_t n2)

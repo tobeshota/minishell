@@ -75,7 +75,7 @@ int	minishell_by_pipex_for_debug(char **argv, char **envp)
 	ft_printf(EXIT_MSG);
 	return (0);
 }
-
+/**/
 int	minishell(char **argv, char **envp, t_tools *tools)
 {
 	char	*line;
@@ -130,7 +130,7 @@ int	minishell(char **argv, char **envp, t_tools *tools)
 	ft_printf(EXIT_MSG);
 	return (0);
 }
-
+/**/
 int	main(int argc, char **argv, char **envp)
 {
 	t_tools	tools;
