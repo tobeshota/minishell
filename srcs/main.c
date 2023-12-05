@@ -73,7 +73,7 @@ int	minishell_by_pipex_for_debug(char **argv, char **envp)
 	ft_printf(EXIT_MSG);
 	return (0);
 }
-/**/
+/*
 int	minishell(char **argv, char **envp, t_tools *tools)
 {
 	char	*line;
@@ -127,16 +127,16 @@ int	minishell(char **argv, char **envp, t_tools *tools)
 	ft_printf(EXIT_MSG);
 	return (0);
 }
-/**/
+*/
 int	main(int argc, char **argv, char **envp)
 {
 	t_tools	tools;
 
-	if (argc == 2 && is_match(argv[1], "p"))
+	// if (argc == 2 && is_match(argv[1], "p"))
 		return (minishell_by_pipex_for_debug(argv, envp));
-	if (argc == 1)
-		return (minishell(argv, envp, &tools));
-	return (put_error("minishell: too many arguments"), 1);
+	// if (argc == 1)
+	// 	return (minishell(argv, envp, &tools));
+	// return (put_error("minishell: too many arguments"), 1);
 }
 
 // --------------cjiaの実験場------のちに消す---------------
@@ -178,7 +178,7 @@ int	main(int argc, char **argv, char **envp)
 // 		minishell(argv, envp);
 // }
 
-__attribute__((destructor)) static void destructor()
-{
-	system("leaks -q minishell");
-}
+// __attribute__((destructor)) static void destructor()
+// {
+// 	system("leaks -q minishell");
+// }

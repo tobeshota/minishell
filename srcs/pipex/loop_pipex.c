@@ -6,13 +6,14 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 09:23:37 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/05 09:50:17 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/05 11:45:39 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
 // cat infile,|,cat,|,cat,|,cat,|,cat,;,echo -n wow,;,pwd
+// b.outがcommand not foundとであるが，pipex();の返り値はtrueとなってしまっているため,echo wowが実行されない．終了ステータスを直す！
 // pwd,&&,b.out,||,echo wow
 int	loop_pipex(char **argv, char **envp, t_env **env)
 {

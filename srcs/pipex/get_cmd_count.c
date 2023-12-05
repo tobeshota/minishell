@@ -6,12 +6,13 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 09:00:12 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/05 09:07:26 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/05 10:59:43 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
+/* "."や".."や"../"が指定されたときの対応をする！ */
 int	get_cmd_count(char **argv)
 {
 	int		cmd_count;
