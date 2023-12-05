@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmd_count.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 09:00:12 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/05 10:59:43 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/05 12:02:06 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ int	get_cmd_count(char **argv)
 		if (ret == true)
 			cmd_count++;
 		else if (ret == NOT_FOUND)
+		{
 			put_error_with_filename(argv_wo_param, "command not found");
+			g_global.error_num = 127;
+		}
 		arg_i++;
 		free(argv_wo_param);
 	}
