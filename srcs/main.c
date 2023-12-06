@@ -47,7 +47,7 @@ void	init_minishell(char **envp, t_env **env)
 
 # define MINIPIPEX_PROMPT "\x1b[32mminipipex $ \x1b[0m\x1b[39m"
 /* lexer(); と parser(); のない minishell ． pipex のテスト用 */
-int	minishell_by_pipex_for_debug(char **argv, char **envp)
+int	minipipex(char **argv, char **envp)
 {
 	char	*line;
 	t_env	*env;
@@ -142,7 +142,7 @@ int	main(int argc, char **argv, char **envp)
 	t_tools	tools;
 
 	if (argc == 2 && is_match(argv[1], "p"))
-		return (minishell_by_pipex_for_debug(argv, envp));
+		return (minipipex(argv, envp));
 	if (argc == 1)
 		return (minishell(argv, envp, &tools));
 	return (put_error("minishell: too many arguments"), 1);
