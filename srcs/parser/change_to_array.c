@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 11:51:33 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/06 11:07:29 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/06 12:40:05 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,10 +156,11 @@ int		process_redirections(char **tmparray, t_simple_cmds *tmp, int i)
 	while (tmp->redirections && tmp->redirections->token != 1)
 	{
 		tmparray[i++] = ft_strdup(token_to_char(tmp->redirections->token));
-		tmparray[i++] = ft_strdup(tmp->redirections->str);
+		if (tmp->redirections->str)
+			tmparray[i++] = ft_strdup(tmp->redirections->str);
 		tmp->redirections = tmp->redirections->next;
 	}
-	if (tmp->redirections && tmp->redirections->token == 1)
+	if (tmp->redirections && (tmp->redirections->token == PIPE || tmp->redirections->token == AND_AND || tmp->redirections->token == OR_OR))
 	{
 		tmparray[i++] = ft_strdup(token_to_char(tmp->redirections->token));
 	}

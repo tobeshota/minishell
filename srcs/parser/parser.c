@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:09:42 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/06 10:37:41 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/06 12:16:34 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static t_parser_tools init_parser_tools(t_tools *tools)
 }
 
 
-static t_simple_cmds *create_pipe_node(t_tools *tools) 
+static t_simple_cmds *create_A_node(t_tools *tools) 
 {
     t_simple_cmds *node = (t_simple_cmds *)malloc(sizeof(t_simple_cmds));
     if (!node)
@@ -81,7 +81,7 @@ static t_simple_cmds *create_pipe_node(t_tools *tools)
         return NULL;
     }
     node->redirections->str = NULL;
-    node->redirections->token = 1;
+    node->redirections->token = tools->lexer_list->token;
     node->redirections->next = NULL;
     node->redirections->prev = NULL;
     node->file_name = NULL;
@@ -95,13 +95,13 @@ static t_simple_cmds *create_pipe_node(t_tools *tools)
 }
 
 
-int handle_pipe_case(t_tools *tools, t_simple_cmds **node, t_parser_tools *parser_tools) {
+int handle_A_case(t_tools *tools, t_simple_cmds **node, t_parser_tools *parser_tools) {
 	if(parser_tools->lexer_list->next == NULL)
 	{
 		parser_error(0, tools, parser_tools->lexer_list);
 		return 0;
 	}
-    *node = create_pipe_node(tools);
+    *node = create_A_node(tools);
     if (!*node) {
         parser_error(0, tools, parser_tools->lexer_list);
         return 0;
@@ -111,7 +111,7 @@ int handle_pipe_case(t_tools *tools, t_simple_cmds **node, t_parser_tools *parse
     return 1;
 }
 
-int handle_non_pipe_case(t_tools *tools, t_simple_cmds **node, t_parser_tools *parser_tools) {
+int handle_B_case(t_tools *tools, t_simple_cmds **node, t_parser_tools *parser_tools) {
     if (handle_operator_error(tools, tools->lexer_list->token))
         return 0;
     
@@ -131,11 +131,11 @@ int parser(t_tools *tools) {
     parser_tools = init_parser_tools(tools);
 
     while (tools->lexer_list) {
-        if (tools->lexer_list && tools->lexer_list->token == PIPE) {
-            if (!handle_pipe_case(tools, &node, &parser_tools))
+        if (tools->lexer_list && tools->lexer_list->token == PIPE || tools->lexer_list->token == AND_AND || tools->lexer_list->token == OR_OR) {
+            if (!handle_A_case(tools, &node, &parser_tools))
                 return EXIT_FAILURE;
         } else {
-            if (!handle_non_pipe_case(tools, &node, &parser_tools))
+            if (!handle_B_case(tools, &node, &parser_tools))
                 return EXIT_FAILURE;
         }
     }
