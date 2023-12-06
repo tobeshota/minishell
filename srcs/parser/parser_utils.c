@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:09:49 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/06 12:35:45 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/06 13:01:58 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	count_args(t_lexer *lexer_list)
 	if(!lexer_list)
 		return (0);
 	tmp = lexer_list;
-	while (tmp && tmp->token != PIPE && tmp->token != AND_AND && tmp->token != OR_OR)
+	while (tmp && tmp->token != PIPE && tmp->token != AND_AND && tmp->token != OR_OR && tmp->token != SEMICOLON)
 	{
 		if (tmp->i >= 0)
 			i++;
