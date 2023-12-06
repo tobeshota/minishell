@@ -76,7 +76,7 @@ int	minishell_by_pipex_for_debug(char **argv, char **envp)
 int process_input(t_tools *tools, t_env **env) {
     if (lexer(tools) == EXIT_FAILURE)
         return ft_error(1, tools);
-    
+
     if (tools->lexer_list->token == PIPE || tools->lexer_list->token == AND_AND || tools->lexer_list->token == OR_OR) {// || tools->lexer_list->token == SEMICOLON
         if (parser_token_error(tools, tools->lexer_list, tools->lexer_list->token) == EXIT_FAILURE)
             return 0;
@@ -90,7 +90,7 @@ int process_input(t_tools *tools, t_env **env) {
     return 1;
 }
 
-int handle_input(t_tools *tools, t_env **env) {
+int handle_input(t_tools *tools, char **envp, t_env **env) {
     char *line;
     char **tmparray;
 
@@ -113,7 +113,7 @@ int handle_input(t_tools *tools, t_env **env) {
         if (is_match(tools->str, "putnode"))
             put_node_for_debug(*env);
         else
-            g_global.error_num = loop_pipex(tmparray, env);
+            g_global.error_num = loop_pipex(tmparray, envp, env);
         node_to_array(*env, &tools->envp);
         free_tools(tools);
     }
@@ -130,7 +130,7 @@ int minishell(char **argv, char **envp, t_tools *tools) {
         if (implement_tools(tools) == 0)
             exit(EXIT_FAILURE);
         tools->envp = ft_arrdup(envp);
-		handle_input(tools, &env);
+		handle_input(tools, envp, &env);
     }
     ft_nodeclear(&env);
     ft_printf(EXIT_MSG);
@@ -141,11 +141,11 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_tools	tools;
 
-	// if (argc == 2 && is_match(argv[1], "p"))
+	if (argc == 2 && is_match(argv[1], "p"))
 		return (minishell_by_pipex_for_debug(argv, envp));
-	// if (argc == 1)
-	// 	return (minishell(argv, envp, &tools));
-	// return (put_error("minishell: too many arguments"), 1);
+	if (argc == 1)
+		return (minishell(argv, envp, &tools));
+	return (put_error("minishell: too many arguments"), 1);
 }
 
 
