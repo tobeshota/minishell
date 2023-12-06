@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/04 12:53:28 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/05 20:48:25 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@ bool	close_pipe(int *pipe_fd);
 void	all_free_tab(char **ptr);
 void	all_free_int(int **ptr);
 void	put_error(char *err_msg);
+void	put_error_w_cmd(char *filename, char *error_msg);
+void	put_error_w_cmd_filename(char *cmdname, char *filename,
+		char *error_msg);
+int		put_file_error(char *cmd, char *file);
 size_t	strlen_until_c(char *str, char c);
 void	*check_malloc(void *ptr);
 bool	check_getenv(char *ptr);
@@ -41,10 +45,13 @@ bool	check_close(int ret);
 bool	check_pipe(int ret);
 bool	check_fork(pid_t child_pid);
 bool	check_dup(int ret);
-bool	check_exec(int ret);
+bool	check_execve(int ret);
+bool	check_exec_builtin(int ret);
 bool	check_wait(int ret);
 bool	check_unlink(int ret);
 bool	is_path_found(char *path);
+bool	is_parameter_file(char *cmd_parameter);
+bool	is_parameter_dir(char *cmd_parameter);
 int		get_cmd_count(char **argv);
 int		get_cmd_absolute_path_count(t_pipex *pipex);
 int		get_pipe_count(char **argv);
@@ -112,9 +119,10 @@ int		ft_nodesize(t_env *node);
 void	put_node_for_debug(t_env *node);
 
 // loop_pipex
-int		loop_pipex(char **argv, t_env **env);
+int		loop_pipex(char **argv, char **envp, t_env **env);
 void	get_loop_pipex(char **argv, char ****splitted_argv, char ***splitter);
-int		do_loop_pipex(char ***splitted_argv, char **splitter, t_env **env);
+int		do_loop_pipex(char ***splitted_argv, char **splitter, char **envp,
+			t_env **env);
 void	end_loop_pipex(char ***splitted_argv, char **splitter);
 char	***get_splitted_argv(char **argv);
 char	**get_splitter(char **argv);

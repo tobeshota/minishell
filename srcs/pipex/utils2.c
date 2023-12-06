@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/01 21:25:00 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/05 16:36:19 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,14 @@ bool	wait_children(int cmd_i)
 		i++;
 	}
 	return (true);
+}
+
+size_t	strlen_until_c(char *str, char c)
+{
+	size_t	len;
+
+	len = 0;
+	while (str[len] != '\0' && str[len] != c)
+		len++;
+	return (len);
 }

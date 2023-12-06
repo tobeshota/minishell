@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_pipex.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 22:46:35 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/02 00:26:50 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/05 12:21:18 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static bool	exec(char **argv, t_env **env, t_pipex *pipex, int cmd_i)
 		return (reset_fd(pipex, &stdin_fileno, &stdout_fileno), false);
 	if (is_cmd_builtin(pipex->cmd_absolute_path[cmd_i]))
 	{
-		if (exec_builtin(env, pipex, cmd_i) == false)
+		if (check_exec_builtin(exec_builtin(env, pipex, cmd_i)) == false)
 			return (reset_fd(pipex, &stdin_fileno, &stdout_fileno), false);
 		return (reset_fd(pipex, &stdin_fileno, &stdout_fileno));
 	}
@@ -46,7 +46,7 @@ static bool	exec(char **argv, t_env **env, t_pipex *pipex, int cmd_i)
 	{
 		cmd = check_malloc \
 		(ft_split(pipex->cmd_absolute_path_with_parameter[cmd_i], ' '));
-		return (check_exec \
+		return (check_execve \
 		(execve(pipex->cmd_absolute_path[cmd_i], cmd, environ)));
 	}
 }

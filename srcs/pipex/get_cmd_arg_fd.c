@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmd_arg_fd.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 21:49:47 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/28 17:01:24 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/05 20:45:39 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,17 @@ static bool	is_cmd_param_included_except_dot_slash(char *cmd_parameter)
 	return (false);
 }
 
-static bool	is_parameter_file(char *cmd_parameter)
+bool	is_parameter_dir(char *cmd_parameter)
+{
+	DIR *dir;
+
+	dir = opendir(cmd_parameter);
+	if (dir == NULL)
+		return false;
+	return closedir(dir), true;
+}
+
+bool	is_parameter_file(char *cmd_parameter)
 {
 	int			fd_for_checking_non_directory;
 	struct stat	st;

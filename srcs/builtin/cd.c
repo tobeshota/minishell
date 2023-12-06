@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/03 00:41:14 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/05 20:59:39 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,18 @@ static bool	update_oldpwd(t_env **env, t_pipex *pipex)
 	return (all_free_tab(oldpwd), true);
 }
 
-static bool	change_oldpwd(char **path_ptr, t_env **env, t_pipex *pipex)
+static int change_oldpwd(char **path_ptr, t_env **env, t_pipex *pipex)
 {
 	while ((*env)->next && ft_strncmp((*env)->content, "OLDPWD=",
 			ft_strlen("OLDPWD=")))
 		ft_nodenext(env);
 	if (ft_strncmp((*env)->content, "OLDPWD=", ft_strlen("OLDPWD=")))
-		return (put_error("-minishell: cd: OLDPWD not set\n"), \
-		ft_nodefirst(env), false);
+	{
+		g_global.error_num = 1;
+		put_error("-minishell: cd: OLDPWD not set\n");
+		ft_nodefirst(env);
+		return false;
+	}
 	*path_ptr = check_malloc(ft_strdup((*env)->content + ft_strlen("OLDPWD=")));
 	ft_putendl_fd(*path_ptr, pipex->outfile_fd);
 	ft_nodefirst(env);
@@ -91,6 +95,7 @@ static bool	get_path_from_cd(char **path_ptr, char **cmd, t_env **env,
 	return (true);
 }
 
+/* `unset PATH`後にcdするとセグフォするのを防ぐ！ */
 int	exec_cd(char **cmd, t_env **env, t_pipex *pipex)
 {
 	char	*path_from_cd;
@@ -100,13 +105,8 @@ int	exec_cd(char **cmd, t_env **env, t_pipex *pipex)
 		return (false);
 	if (is_match(path_from_cd, ".") || is_match(path_from_cd, "./"))
 		return (free(path_from_cd), true);
-	if (is_file_exist(path_from_cd) == false)
-	{
-		put_error("-minishell: cd: ");
-		put_error(path_from_cd);
-		put_error(": No such file or directory\n");
-		return (free(path_from_cd), true);
-	}
+	if (is_parameter_dir(path_from_cd) == false)
+		return put_file_error("cd", path_from_cd), free(path_from_cd), true;
 	update_oldpwd(env, pipex);
 	if (chdir(path_from_cd) == -1)
 		return (free(path_from_cd), false);

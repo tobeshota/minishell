@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/03 00:39:33 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/05 10:57:12 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	get_cmd_name_from_arg(char **argv, char ***cmd_absolute_path)
 	cmd_i = 0;
 	while (argv[arg_i])
 	{
-		if (is_cmd(argv, arg_i))
+		if (is_cmd(argv, arg_i) == true)
 		{
 			cmd_absolute_path[0][cmd_i] = check_malloc \
 			(ft_substr(argv[arg_i], 0, strlen_until_c(argv[arg_i], ' ')));
@@ -46,7 +46,7 @@ void	get_cmd_parameter(char **argv, char ***cmd_absolute_path,
 	(malloc(sizeof(char *) * (get_cmd_absolute_path_count(pipex) + 1)));
 	while (argv[arg_i])
 	{
-		if (is_cmd(argv, arg_i))
+		if (is_cmd(argv, arg_i) == true)
 		{
 			cmd_parameter[0][cmd_i] = check_malloc(ft_substr(argv[arg_i],
 						ft_strlen(cmd_absolute_path[0][cmd_i]),

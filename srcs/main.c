@@ -64,9 +64,8 @@ int	minishell_by_pipex_for_debug(char **argv, char **envp)
 		if(is_match(line, "putnode"))
 			put_node_for_debug(env);
 		else
-			loop_pipex(argv, &env);
+			loop_pipex(argv, envp, &env);
 		all_free_tab(argv);
-		node_to_array(env, &envp);
 		free(line);
 	}
 	ft_nodeclear(&env);
@@ -138,16 +137,15 @@ int minishell(char **argv, char **envp, t_tools *tools) {
     return (0);
 }
 
-
 int	main(int argc, char **argv, char **envp)
 {
 	t_tools	tools;
 
-	if (argc == 2 && is_match(argv[1], "p"))
+	// if (argc == 2 && is_match(argv[1], "p"))
 		return (minishell_by_pipex_for_debug(argv, envp));
-	if (argc == 1)
-		return (minishell(argv, envp, &tools));
-	return (put_error("minishell: too many arguments"), 1);
+	// if (argc == 1)
+	// 	return (minishell(argv, envp, &tools));
+	// return (put_error("minishell: too many arguments"), 1);
 }
 
 

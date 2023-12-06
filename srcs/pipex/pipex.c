@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:32:48 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/25 22:44:18 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/05 15:27:22 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,29 @@
 【true】正常終了
 
 */
+
+static int	is_true(int ret)
+{
+	if (ret == false)
+	{
+		if (g_global.error_num == 0)
+			g_global.error_num = 1;
+		return (false);
+	}
+	return (true);
+}
+
 int	pipex(char **argv, t_env **env)
 {
 	t_pipex	pipex;
 
-	if (get_pipex(argv, &pipex) == false)
+	if (is_true(get_pipex(argv, &pipex)) == false)
 		return (end_pipex(&pipex), false);
-	if (do_pipex(argv, env, &pipex) == false)
+	if (is_true(do_pipex(argv, env, &pipex)) == false)
 		return (end_pipex(&pipex), false);
-	return (end_pipex(&pipex));
+	if (is_true(end_pipex(&pipex)) == false)
+		return (end_pipex(&pipex), false);
+	return (true);
 }
 
 // > outfile ls | echo Hello

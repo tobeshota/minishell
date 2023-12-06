@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 09:23:37 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/04 12:51:11 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/05 15:27:44 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,17 @@
 
 // cat infile,|,cat,|,cat,|,cat,|,cat,;,echo -n wow,;,pwd
 // pwd,&&,b.out,||,echo wow
-int	loop_pipex(char **argv, t_env **env)
+int	loop_pipex(char **argv, char **envp, t_env **env)
 {
 	char	***splitted_argv;
 	char	**splitter;
-	int		ret;
 
 	if (is_splitter_exist(argv) == false)
-		return (pipex(argv, env));
+	{
+		pipex(argv, env);
+		return (node_to_array(*env, &envp), g_global.error_num);
+	}
 	get_loop_pipex(argv, &splitted_argv, &splitter);
-	ret = do_loop_pipex(splitted_argv, splitter, env);
-	return (end_loop_pipex(splitted_argv, splitter), ret);
+	do_loop_pipex(splitted_argv, splitter, envp, env);
+	return (end_loop_pipex(splitted_argv, splitter), g_global.error_num);
 }

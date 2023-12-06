@@ -1,52 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_func2.c                                      :+:      :+:    :+:   */
+/*   check_func3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/26 10:03:29 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/05 12:05:52 by toshota          ###   ########.fr       */
+/*   Created: 2023/12/05 12:04:48 by toshota           #+#    #+#             */
+/*   Updated: 2023/12/05 12:20:51 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-bool	check_dup(int ret)
+bool	check_execve(int ret)
 {
-	if (ret == -1)
+	if (ret == -1 || ret == false)
 	{
-		put_error("failed to dup\n");
-		return (false);
+		put_error("failed to execve\n");
+		g_global.error_num = 126;
+		exit(126);
 	}
 	return (true);
 }
 
-bool	check_wait(int ret)
+bool	check_exec_builtin(int ret)
 {
-	if (ret == -1)
+	if (ret == -1 || ret == false)
 	{
-		put_error("failed to wait\n");
-		return (false);
-	}
-	return (true);
-}
-
-bool	check_unlink(int ret)
-{
-	if (ret == -1)
-	{
-		put_error("failed to unlink\n");
-		return (false);
-	}
-	return (true);
-}
-
-bool	check_getenv(char *ptr)
-{
-	if (ptr == NULL)
-	{
-		put_error("failed to getenv\n");
+		put_error("failed to exec_builtin\n");
+		g_global.error_num = 126;
 		return (false);
 	}
 	return (true);
