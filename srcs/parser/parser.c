@@ -5,12 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/08 13:09:42 by yoshimurahi       #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/12/06 12:46:01 by toshota          ###   ########.fr       */
-=======
-/*   Updated: 2023/12/06 13:11:31 by yoshimurahi      ###   ########.fr       */
->>>>>>> refs/remotes/origin/main
+/*   Created: 2023/12/06 13:27:33 by toshota           #+#    #+#             */
+/*   Updated: 2023/12/06 13:27:34 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,11 +131,7 @@ int parser(t_tools *tools) {
     parser_tools = init_parser_tools(tools);
 
     while (tools->lexer_list) {
-<<<<<<< HEAD
         if ((tools->lexer_list && tools->lexer_list->token == PIPE) || tools->lexer_list->token == AND_AND || tools->lexer_list->token == OR_OR) {
-=======
-        if (tools->lexer_list && tools->lexer_list->token == PIPE || tools->lexer_list->token == AND_AND || tools->lexer_list->token == OR_OR || tools->lexer_list->token == SEMICOLON) {
->>>>>>> refs/remotes/origin/main
             if (!handle_A_case(tools, &node, &parser_tools))
                 return EXIT_FAILURE;
         } else {
