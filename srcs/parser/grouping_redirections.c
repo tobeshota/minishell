@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:09:54 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/06 15:12:23 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/06 16:39:01 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ static int	add_new_redirection(t_lexer *tmp, t_parser_tools *parser_tools)
 
 	if (!tmp->next->str)
 	{
-		parser_error(4, parser_tools->tools, parser_tools->lexer_list);
+		parser_error(4, parser_tools->lexer_list);
 		return (1);
 	}
 	node = make_node(ft_strdup(tmp->next->str), tmp->token);
 		//tmpはリダイレクト演算子確定後のノードを指しているので、tmp->next->strはファイル名を指している。
 	if (!node)
 	{
-		parser_error(1, parser_tools->tools, parser_tools->lexer_list);
+		parser_error(1, parser_tools->lexer_list);
 		return (1);
 	}
 	add_back_node(&parser_tools->redirections, node);
@@ -53,7 +53,7 @@ int	grouping_redirections(t_parser_tools *parser_tools)
 	//パイプまでリダイレクトがなかったら終了
 	if (!tmp->next)
 	{
-		parser_error(0, parser_tools->tools, parser_tools->lexer_list);
+		parser_error(0, parser_tools->lexer_list);
 		return (1);
 	}
 	if (tmp->next->token)

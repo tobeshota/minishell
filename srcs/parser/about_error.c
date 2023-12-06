@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   about_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 13:17:23 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/06 12:50:21 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/06 16:38:26 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../inc/minishell.h"
 
-int	ft_error(int error, t_tools *tools)
+int	ft_error(int error)
 {
 	g_global.error_num = 1;
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
@@ -32,10 +32,10 @@ int	ft_error(int error, t_tools *tools)
 	return (EXIT_FAILURE);
 }
 
-void	parser_error(int error, t_tools *tools, t_lexer *lexer_list)
+void	parser_error(int error, t_lexer *lexer_list)
 {
 	ft_lexerclear(&lexer_list);
-	ft_error(error, tools);
+	ft_error(error);
 }
 
 int	parser_token_error(t_tools *tools, t_lexer *lexer_list,
@@ -76,7 +76,7 @@ int	handle_operator_error(t_tools *tools, t_tokens token)
 	}
 	if (!tools->lexer_list)
 	{
-		parser_error(0, tools, tools->lexer_list);
+		parser_error(0, tools->lexer_list);
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);

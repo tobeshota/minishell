@@ -73,9 +73,9 @@ int	minipipex(char **argv, char **envp)
 	return (0);
 }
 
-int process_input(t_tools *tools, t_env **env) {
+int process_input(t_tools *tools) {
     if (lexer(tools) == EXIT_FAILURE)
-        return ft_error(1, tools);
+        return ft_error(1);
 
     if (tools->lexer_list->token == PIPE || tools->lexer_list->token == SEMICOLON || tools->lexer_list->token == AND_AND || tools->lexer_list->token == OR_OR ) {
         if (parser_token_error(tools, tools->lexer_list, tools->lexer_list->token) == EXIT_FAILURE)
@@ -102,7 +102,7 @@ int handle_input(t_tools *tools, char **envp, t_env **env) {
         return 0;
     }
     if (tools->str[0] != '\0') {
-        if (!process_input(tools, env))
+        if (!process_input(tools))
             return 0;
 		signal(SIGQUIT, sigquit_handler);
 		if (*tools->str)
@@ -123,7 +123,7 @@ int handle_input(t_tools *tools, char **envp, t_env **env) {
 }
 
 
-int minishell(char **argv, char **envp, t_tools *tools) {
+int minishell(char **envp, t_tools *tools) {
     t_env *env;
 
     init_minishell(envp, &env);
@@ -146,7 +146,7 @@ int	main(int argc, char **argv, char **envp)
 	if (argc == 2 && is_match(argv[1], "p"))
 		return (minipipex(argv, envp));
 	if (argc == 1)
-		return (minishell(argv, envp, &tools));
+		return (minishell(envp, &tools));
 	return (put_error("minishell: too many arguments"), 1);
 }
 

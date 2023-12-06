@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 13:27:33 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/06 15:30:04 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/06 16:39:18 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static t_simple_cmds	*creat_ast(t_parser_tools *parser_tools)
     arg_size = count_args(parser_tools->lexer_list);
     str = ft_calloc(arg_size + 1, sizeof(char *));
     if (!str)
-		parser_error(1, parser_tools->tools, parser_tools->lexer_list);
+		parser_error(1, parser_tools->lexer_list);
 	tmp = parser_tools->lexer_list;
     while (arg_size > 0)
 	{
@@ -98,12 +98,12 @@ static t_simple_cmds *create_A_node(t_tools *tools)
 int handle_A_case(t_tools *tools, t_simple_cmds **node, t_parser_tools *parser_tools) {
 	if(parser_tools->lexer_list->next == NULL && parser_tools->lexer_list->token != SEMICOLON)
 	{
-		parser_error(0, tools, parser_tools->lexer_list);
+		parser_error(0, parser_tools->lexer_list);
 		return 0;
 	}
     *node = create_A_node(tools);
     if (!*node) {
-        parser_error(0, tools, parser_tools->lexer_list);
+        parser_error(0, parser_tools->lexer_list);
         return 0;
     }
     add_list(&tools->simple_cmds, *node);

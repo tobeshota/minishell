@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/06 14:26:05 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/06 16:31:17 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,10 @@ bool	is_specified_apersant_ampersant(char *str);
 // set_fd
 bool	set_input_fd(t_pipex *pipex, int cmd_i, char **argv);
 bool	set_output_fd(t_pipex *pipex, int cmd_i, char **argv);
-bool	reset_fd(t_pipex *pipex, int *stdin_fileno, int *stdout_fileno);
+bool	reset_fd(int *stdin_fileno, int *stdout_fileno);
 
 // array_node
-t_env	*array_to_node(char **envp);
+t_env *array_to_node(char **envp);
 void	node_to_array(t_env *env, char ***envp);
 
 // node

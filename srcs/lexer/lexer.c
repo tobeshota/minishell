@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 12:11:42 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/03 10:36:20 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/06 16:34:33 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int process_str(int index, t_tools *tools)
 
     i = i + skip(tools->str, i);
 
-    if (check_token(tools->str, i, &tools->lexer_list))
+    if (check_token(tools->str, i))
         j = handle_token(tools->str, i, &tools->lexer_list);
     else
         j = word_in_node(tools->str, i, &tools->lexer_list);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 12:12:33 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/05 12:08:30 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/06 16:34:37 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int handle_token(char *str, int i, t_lexer **lexer_list) {
     }
 }
 
-int check_token(char *str, int i, t_lexer **lexer_list) {
+int check_token(char *str, int i) {
     int token_type = get_token_type(str, i);
     
     if (token_type == NONE) 
