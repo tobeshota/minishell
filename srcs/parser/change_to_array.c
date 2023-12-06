@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   change_to_array.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 11:51:33 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/06 12:54:29 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/06 14:22:40 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ int		process_str(char **tmparray, t_simple_cmds *tmp, int i)
 
 int		process_redirections(char **tmparray, t_simple_cmds *tmp, int i)
 {
-	while (tmp->redirections && tmp->redirections->token != PIPE && tmp->redirections->token != AND_AND && tmp->redirections->token != OR_OR)
+	while (tmp->redirections && tmp->redirections->token != PIPE && tmp->redirections->token != AND_AND && tmp->redirections->token != OR_OR && tmp->redirections->token != SEMICOLON)
 	{
 		tmparray[i++] = ft_strdup(token_to_char(tmp->redirections->token));
 		if (tmp->redirections->str)
