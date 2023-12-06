@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 13:10:27 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/06 10:19:44 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/06 12:50:17 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int     get_token_type(char *str, int i) {
         else
             token_type = LESS;
     }
-	// else if (str[i] == ';')
-	// 	token_type = SEMICOLON;
+	else if (str[i] == ';')
+		token_type = SEMICOLON;
 	else if (str[i] == '&' && str[i + 1] == '&')
 		token_type = AND_AND;
 	else if (str[i] == '|' && str[i + 1] == '|')

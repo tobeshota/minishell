@@ -77,7 +77,7 @@ int process_input(t_tools *tools, t_env **env) {
     if (lexer(tools) == EXIT_FAILURE)
         return ft_error(1, tools);
 
-    if (tools->lexer_list->token == PIPE || tools->lexer_list->token == AND_AND || tools->lexer_list->token == OR_OR) {// || tools->lexer_list->token == SEMICOLON
+    if (tools->lexer_list->token == PIPE || tools->lexer_list->token == SEMICOLON || tools->lexer_list->token == AND_AND || tools->lexer_list->token == OR_OR ) {
         if (parser_token_error(tools, tools->lexer_list, tools->lexer_list->token) == EXIT_FAILURE)
             return 0;
     }
