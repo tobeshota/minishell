@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:09:42 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/06 12:16:34 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/06 13:11:31 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ static t_simple_cmds *create_A_node(t_tools *tools)
 
 
 int handle_A_case(t_tools *tools, t_simple_cmds **node, t_parser_tools *parser_tools) {
-	if(parser_tools->lexer_list->next == NULL)
+	if(parser_tools->lexer_list->next == NULL && parser_tools->lexer_list->token != SEMICOLON)
 	{
 		parser_error(0, tools, parser_tools->lexer_list);
 		return 0;
@@ -131,7 +131,7 @@ int parser(t_tools *tools) {
     parser_tools = init_parser_tools(tools);
 
     while (tools->lexer_list) {
-        if (tools->lexer_list && tools->lexer_list->token == PIPE || tools->lexer_list->token == AND_AND || tools->lexer_list->token == OR_OR) {
+        if (tools->lexer_list && tools->lexer_list->token == PIPE || tools->lexer_list->token == AND_AND || tools->lexer_list->token == OR_OR || tools->lexer_list->token == SEMICOLON) {
             if (!handle_A_case(tools, &node, &parser_tools))
                 return EXIT_FAILURE;
         } else {

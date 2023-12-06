@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 11:51:33 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/06 12:40:05 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/06 12:54:29 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ char	*token_to_char(t_tokens token)
 		return ("<");
 	else if (token == LESS_LESS)
 		return ("<<");
-	// else if (token == SEMICOLON)
-	// 	return (";");
+	else if (token == SEMICOLON)
+		return (";");
 	else if (token == AND_AND)
 		return ("&&");
 	else if (token == OR_OR)
@@ -153,14 +153,14 @@ int		process_str(char **tmparray, t_simple_cmds *tmp, int i)
 
 int		process_redirections(char **tmparray, t_simple_cmds *tmp, int i)
 {
-	while (tmp->redirections && tmp->redirections->token != 1)
+	while (tmp->redirections && tmp->redirections->token != PIPE && tmp->redirections->token != AND_AND && tmp->redirections->token != OR_OR)
 	{
 		tmparray[i++] = ft_strdup(token_to_char(tmp->redirections->token));
 		if (tmp->redirections->str)
 			tmparray[i++] = ft_strdup(tmp->redirections->str);
 		tmp->redirections = tmp->redirections->next;
 	}
-	if (tmp->redirections && (tmp->redirections->token == PIPE || tmp->redirections->token == AND_AND || tmp->redirections->token == OR_OR))
+	if (tmp->redirections && (tmp->redirections->token == PIPE || tmp->redirections->token == AND_AND || tmp->redirections->token == OR_OR || tmp->redirections->token == SEMICOLON))
 	{
 		tmparray[i++] = ft_strdup(token_to_char(tmp->redirections->token));
 	}

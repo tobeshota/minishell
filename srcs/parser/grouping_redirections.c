@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:09:54 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/06 12:34:41 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/06 13:00:53 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	grouping_redirections(t_parser_tools *parser_tools)
 	tmp = parser_tools->lexer_list;
 	while (tmp && tmp->token == 0)
 		tmp = tmp->next;
-	if (!tmp || tmp->token == PIPE || tmp->token == AND_AND || tmp->token == OR_OR)
+	if (!tmp || tmp->token == PIPE || tmp->token == AND_AND || tmp->token == OR_OR || tmp->token == SEMICOLON)
 		return (1);
 	//パイプまでリダイレクトがなかったら終了
 	if (!tmp->next)

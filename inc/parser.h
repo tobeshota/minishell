@@ -14,11 +14,11 @@ typedef enum s_tokens
 	GREAT_GREAT,
 	LESS,
 	LESS_LESS,
+	SEMICOLON,
 	AND_AND,
 	OR_OR,
 	NONE = 0,
 }	t_tokens;
-	// SEMICOLON,
 
 typedef struct s_lexer
 {
