@@ -30,6 +30,8 @@ $(NAME):	$(OBJS) Makefile
 	@ $(CC) $(CFLAGS) -lreadline -L$(shell brew --prefix readline)/lib $(LIBS) $(INCS) $(OBJS) -o $@
 	@ echo "compile to create an executable file: ./$@"
 
+bonus:		all
+
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
 	@ mkdir -p $(@D)
 	@ $(CC) $(CFLAGS) $(INCS) -c $< -o $@
