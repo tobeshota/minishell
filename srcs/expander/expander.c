@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:39:54 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/11/30 11:08:46 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/06 16:23:48 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,8 @@ char	**expander(t_tools *tools, char **str)
 	tmp = NULL;
 	while (str[i] != NULL)
 	{
-		if (str[i][find_dollar(str[i]) - 2] != '\'' && find_dollar(str[i]) != 0
-			&& str[i][find_dollar(str[i])] != '\0')
+		if (find_dollar(str[i]) != 0 && str[i][find_dollar(str[i]) - 2] != '\'' &&
+			str[i][find_dollar(str[i])] != '\0')
 		{//シングルクオート、空文字でないことがわかる
 			tmp = detect_dollar(tools, str[i]);
 			free(str[i]);

@@ -151,7 +151,7 @@ int	main(int argc, char **argv, char **envp)
 }
 
 
-__attribute__((destructor)) static void destructor()
-{
-	system("leaks -q minishell");
-}
+// __attribute__((destructor)) static void destructor()
+// {
+// 	system("leaks -q minishell");
+// }
