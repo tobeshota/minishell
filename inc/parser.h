@@ -66,7 +66,7 @@ int add_node(char *str,  t_tokens token, t_lexer **lexer_list);
 void print_lexer(t_lexer *lexer_list);
 void	add_back_node(t_lexer **lexer_list, t_lexer *node);
 t_lexer	*make_node(char *str, int token);
-int check_token(char *str, int i, t_lexer **lexer_list);
+int check_token(char *str, int i);
 void free_lexer(t_lexer *lexer);
 
 
@@ -76,12 +76,12 @@ void erase_token(t_lexer **lexer_list, int i);
 int	count_args(t_lexer *lexer_list);
 t_simple_cmds	*recreated_node(char **str, int num_redirections, t_lexer *redirections);
 int		grouping_redirections(t_parser_tools *parser_tools);
-void	parser_error(int error, t_tools *tools, t_lexer *lexer_list);
+void	parser_error(int error, t_lexer *lexer_list);
 int	parser_token_error(t_tools *tools, t_lexer *lexer_list,
 	t_tokens token);
 int	handle_operator_error(t_tools *tools, t_tokens token);
 char **change_to_array(t_tools *tools);
-int	ft_error(int error, t_tools *tools);
+int	ft_error(int error);
 
 
 

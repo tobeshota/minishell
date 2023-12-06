@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 11:51:33 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/06 14:22:40 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/06 16:40:44 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	nodefirst_ver_simple_cmds(t_simple_cmds **node)
 
 
 
-char	**allocate_tmparray(t_tools *tools, int size)
+char	**allocate_tmparray(int size)
 {
 	char	**tmparray;
 
@@ -201,11 +201,10 @@ int count_elements(t_tools *tools)
 char **change_to_array(t_tools *tools)
 {
     char **tmparray;
-    t_simple_cmds *tmp;
     int i;
 
     i = count_elements(tools);
-    tmparray = allocate_tmparray(tools, i);
+    tmparray = allocate_tmparray(i);
     i = fill_tmparray(tools, tmparray);
 	if(tmparray[i - 1][0] == '|')
 		return (NULL);

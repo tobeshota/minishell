@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmd_absolute_path.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/05 10:57:12 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/06 16:30:02 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,7 @@ void	get_cmd_parameter(char **argv, char ***cmd_absolute_path,
 	cmd_parameter[0][cmd_i] = NULL;
 }
 
-static void	get_cmd_absolute_path_with_parameter(char **argv,
-		char ***cmd_parameter, t_pipex *pipex)
+static void	get_cmd_absolute_path_with_parameter(char ***cmd_parameter, t_pipex *pipex)
 {
 	int	cmd_i;
 
@@ -85,6 +84,6 @@ bool	get_cmd_absolute_path(char **argv, t_pipex *pipex)
 	get_cmd_parameter(argv, &pipex->cmd_absolute_path, &cmd_parameter, pipex);
 	if (add_absolute_path_to_cmd_name(&pipex->cmd_absolute_path) == false)
 		return (all_free_tab(cmd_parameter), false);
-	get_cmd_absolute_path_with_parameter(argv, &cmd_parameter, pipex);
+	get_cmd_absolute_path_with_parameter(&cmd_parameter, pipex);
 	return (all_free_tab(cmd_parameter), true);
 }
