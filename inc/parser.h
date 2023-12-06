@@ -14,12 +14,11 @@ typedef enum s_tokens
 	GREAT_GREAT,
 	LESS,
 	LESS_LESS,
-	SEMICOLON,
 	AND_AND,
 	OR_OR,
 	NONE = 0,
 }	t_tokens;
-
+	// SEMICOLON,
 
 typedef struct s_lexer
 {
@@ -76,7 +75,7 @@ int		parser(t_tools *tools);
 void erase_token(t_lexer **lexer_list, int i);
 int	count_args(t_lexer *lexer_list);
 t_simple_cmds	*recreated_node(char **str, int num_redirections, t_lexer *redirections);
-void	grouping_redirections(t_parser_tools *parser_tools);
+int		grouping_redirections(t_parser_tools *parser_tools);
 void	parser_error(int error, t_tools *tools, t_lexer *lexer_list);
 int	parser_token_error(t_tools *tools, t_lexer *lexer_list,
 	t_tokens token);

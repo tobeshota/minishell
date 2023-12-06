@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:09:49 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/11/30 13:03:09 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/05 19:48:37 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int	count_args(t_lexer *lexer_list)
 	int		i;
 
 	i = 0;
+	if(!lexer_list)
+		return (0);
 	tmp = lexer_list;
 	while (tmp && tmp->token != PIPE)
 	{

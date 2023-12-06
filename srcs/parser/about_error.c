@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 13:17:23 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/04 22:43:03 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/06 10:19:52 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ int	parser_token_error(t_tools *tools, t_lexer *lexer_list,
 		ft_putstr_fd("'<<'\n", STDERR_FILENO);
 	else if (token == PIPE)
 		ft_putstr_fd("'|'\n", STDERR_FILENO);
-	else if (token == SEMICOLON)
-		ft_putstr_fd("';'\n", STDERR_FILENO);
+	// else if (token == SEMICOLON)
+	// 	ft_putstr_fd("';'\n", STDERR_FILENO);
 	else if (token == AND_AND)
 		ft_putstr_fd("'&&'\n", STDERR_FILENO);
 	else if (token == OR_OR)

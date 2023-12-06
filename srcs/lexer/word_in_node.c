@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 13:33:42 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/04 20:14:11 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/06 09:59:11 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,6 @@ int word_in_node(char *str, int i, t_lexer **lexer_list)
         } 
         else if (str[i + j] == ' ' || (str[i + j] >= 9 && str[i + j] <= 13)) 
             break;
-        // else if(str[i + j + 1] == '|' && str[i + j + 2] == '|')
-        //     break;
-        // else if(str[i + j + 1] == '&' && str[i + j + 2] == '&')
-        //     break;
         else
             j++;
     }

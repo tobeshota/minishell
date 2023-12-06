@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 13:10:27 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/04 20:16:15 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/06 10:19:44 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int     get_token_type(char *str, int i) {
         else
             token_type = LESS;
     }
-	else if (str[i] == ';')
-		token_type = SEMICOLON;
+	// else if (str[i] == ';')
+	// 	token_type = SEMICOLON;
 	else if (str[i] == '&' && str[i + 1] == '&')
 		token_type = AND_AND;
 	else if (str[i] == '|' && str[i + 1] == '|')
@@ -47,7 +47,7 @@ t_lexer	*make_node(char *str, int token)
 
 	new_node = (t_lexer *)malloc(sizeof(t_lexer));
 	if (!new_node)
-		return (0);
+		return NULL;
 	new_node->str = str;
 	new_node->token = token;
 	new_node->i = i++;
