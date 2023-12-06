@@ -105,6 +105,8 @@ int handle_input(t_tools *tools, char **envp, t_env **env) {
         if (!process_input(tools, env))
             return 0;
 		signal(SIGQUIT, sigquit_handler);
+		if (*tools->str)
+		add_history(tools->str);
         tmparray = change_to_array(tools);
         tools->simple_cmds->str = expander(tools, tmparray);
         if (*tools->str)

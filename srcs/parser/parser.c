@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 13:27:33 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/06 13:27:34 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/06 14:00:43 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ int parser(t_tools *tools) {
     parser_tools = init_parser_tools(tools);
 
     while (tools->lexer_list) {
-        if ((tools->lexer_list && tools->lexer_list->token == PIPE) || tools->lexer_list->token == AND_AND || tools->lexer_list->token == OR_OR) {
+        if ((tools->lexer_list && tools->lexer_list->token == PIPE) || tools->lexer_list->token == AND_AND || tools->lexer_list->token == OR_OR || tools->lexer_list->token == SEMICOLON) {
             if (!handle_A_case(tools, &node, &parser_tools))
                 return EXIT_FAILURE;
         } else {
