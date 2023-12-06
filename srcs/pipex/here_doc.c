@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/03 00:06:11 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/06 13:00:27 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ bool	proc_here_doc(char *limitter, t_pipex *pipex)
 	if (check_is_limitter_specified(limitter) == false)
 		return (false);
 	pipex->infile_fd = open_file(HERE_DOC_FILE_PATH, INFILE_HERE_DOC);
-	if (check_open(pipex->infile_fd) == false)
+	if (check_open(pipex->infile_fd, "here_doc") == false)
 		return (false);
 	ft_printf("> ");
 	line = get_next_line(STDIN_FILENO);
@@ -45,7 +45,7 @@ bool	proc_here_doc(char *limitter, t_pipex *pipex)
 	if (check_close(close(pipex->infile_fd)) == false)
 		return (free(line), free(limitter_endl), false);
 	pipex->infile_fd = open_file(HERE_DOC_FILE_PATH, INFILE_HERE_DOC);
-	if (check_open(pipex->infile_fd) == false)
+	if (check_open(pipex->infile_fd, "here_doc") == false)
 		return (free(line), free(limitter_endl), false);
 	return (free(line), free(limitter_endl), true);
 }

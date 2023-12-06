@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:09:42 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/06 12:16:34 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/06 12:46:01 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static t_simple_cmds	*creat_ast(t_parser_tools *parser_tools)
 	int		i = 0;
 	int		arg_size;
 	t_lexer	*tmp;
-    
+
     grouping_redirections(parser_tools);
     arg_size = count_args(parser_tools->lexer_list);
     str = ft_calloc(arg_size + 1, sizeof(char *));
@@ -69,13 +69,13 @@ static t_parser_tools init_parser_tools(t_tools *tools)
 }
 
 
-static t_simple_cmds *create_A_node(t_tools *tools) 
+static t_simple_cmds *create_A_node(t_tools *tools)
 {
     t_simple_cmds *node = (t_simple_cmds *)malloc(sizeof(t_simple_cmds));
     if (!node)
         return NULL;
     node->redirections = (t_lexer *)malloc(sizeof(t_lexer));
-    if (!node->redirections) 
+    if (!node->redirections)
 	{
         free(node);
         return NULL;
@@ -114,7 +114,7 @@ int handle_A_case(t_tools *tools, t_simple_cmds **node, t_parser_tools *parser_t
 int handle_B_case(t_tools *tools, t_simple_cmds **node, t_parser_tools *parser_tools) {
     if (handle_operator_error(tools, tools->lexer_list->token))
         return 0;
-    
+
     *node = creat_ast(parser_tools);
     if (!*node) {
         return 0;
@@ -131,7 +131,7 @@ int parser(t_tools *tools) {
     parser_tools = init_parser_tools(tools);
 
     while (tools->lexer_list) {
-        if (tools->lexer_list && tools->lexer_list->token == PIPE || tools->lexer_list->token == AND_AND || tools->lexer_list->token == OR_OR) {
+        if ((tools->lexer_list && tools->lexer_list->token == PIPE) || tools->lexer_list->token == AND_AND || tools->lexer_list->token == OR_OR) {
             if (!handle_A_case(tools, &node, &parser_tools))
                 return EXIT_FAILURE;
         } else {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/05 20:48:25 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/06 12:37:17 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,10 @@ int		open_file(char *file, int file_type);
 bool	close_pipe(int *pipe_fd);
 void	all_free_tab(char **ptr);
 void	all_free_int(int **ptr);
-void	put_error(char *err_msg);
-void	put_error_w_cmd(char *filename, char *error_msg);
-void	put_error_w_cmd_filename(char *cmdname, char *filename,
-		char *error_msg);
-int		put_file_error(char *cmd, char *file);
 size_t	strlen_until_c(char *str, char c);
 void	*check_malloc(void *ptr);
 bool	check_getenv(char *ptr);
-bool	check_open(int ret);
+bool	check_open(int fd, char *file);
 bool	check_close(int ret);
 bool	check_pipe(int ret);
 bool	check_fork(pid_t child_pid);
@@ -129,5 +124,14 @@ char	**get_splitter(char **argv);
 int		get_splitter_count(char **argv);
 int		is_specified_splitter(char *str);
 bool	is_splitter_exist(char **argv);
+
+// put_error
+void	put_error(char *err_msg);
+void	put_error_w_cmd(char *filename, char *error_msg);
+void	put_error_w_file(char *file, char *error_msg);
+void	put_error_w_cmd_filename(char *cmdname, char *filename,
+		char *error_msg);
+int		put_file_error(char *cmd, char *file);
+
 
 #endif
