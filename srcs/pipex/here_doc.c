@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/06 13:56:39 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/06 14:24:32 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ static int	check_is_limitter_specified(char *limitter)
 	return (true);
 }
 
-#include "minishell.h"
 bool	proc_here_doc(char *limitter, t_pipex *pipex)
 {
 	char	*line;
@@ -34,7 +33,6 @@ bool	proc_here_doc(char *limitter, t_pipex *pipex)
 	if (check_open(pipex->infile_fd, "here_doc") == false)
 		return (false);
 	ft_printf("> ");
-	// line = expander(tools, check_malloc(ft_split(get_next_line(STDIN_FILENO), '\0')));
 	line = get_next_line(STDIN_FILENO);
 	limitter_endl = check_malloc(ft_strjoin(limitter, "\n"));
 	while (ft_strncmp(line, limitter_endl, ft_strlen(line)))

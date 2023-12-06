@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/06 13:56:43 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/06 14:23:14 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,14 @@ void	*check_malloc(void *ptr)
 
 bool	check_open(int fd, char *file)
 {
-	// struct stat	st;
+	struct stat	st;
 
 	if (fd == -1)
 	{
-		/* 権限がない場合ディレクトリであっても返り値がfalseとなってしまう！権限に問わずファイルとディレクトリを区別できるようにする！ */
-		if (is_parameter_dir(file) == true)
+		if (stat(file, &st) < 0)
 			return (false);
+		else if (S_ISDIR(st.st_mode))
+			return (put_error_w_file(file, "Is a directory"), false);
 		if (file)
 			put_file_error(NULL, file);
 		else

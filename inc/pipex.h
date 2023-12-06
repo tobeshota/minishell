@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/06 12:37:17 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/06 14:26:05 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,8 +130,7 @@ void	put_error(char *err_msg);
 void	put_error_w_cmd(char *filename, char *error_msg);
 void	put_error_w_file(char *file, char *error_msg);
 void	put_error_w_cmd_filename(char *cmdname, char *filename,
-		char *error_msg);
+			char *error_msg);
 int		put_file_error(char *cmd, char *file);
-
 
 #endif
