@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_cmd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 23:22:47 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/07 13:26:41 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/07 21:10:45 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,13 @@ static int	is_file_exectable_wo_additional_path(char *file)
 
 static int	is_false(char **argv, int arg_i)
 {
-	return (is_specified_operators(argv[arg_i]) || is_io_file(argv, arg_i) \
-	|| getenv("PATH") == NULL);
+	return (is_specified_operators(argv[arg_i]) || is_io_file(argv, arg_i));
+}
+
+static char	*get_argv_wo_param(char **argv, int arg_i)
+{
+	return (check_malloc \
+	(ft_substr(argv[arg_i], 0, strlen_until_c(argv[arg_i], ' '))));
 }
 
 int	is_cmd(char **argv, int arg_i)
@@ -40,24 +45,24 @@ int	is_cmd(char **argv, int arg_i)
 	int		i;
 	char	*tmp;
 
-	argv_wo_param = check_malloc \
-	(ft_substr(argv[arg_i], 0, strlen_until_c(argv[arg_i], ' ')));
+	argv_wo_param = get_argv_wo_param(argv, arg_i);
 	if (is_match(argv_wo_param, "."))
-		return (free(argv_wo_param), IS_DOT);
+		return (free_tab(argv_wo_param), IS_DOT);
 	else if (is_dir(argv_wo_param))
-		return (free(argv_wo_param), IS_A_DIRECTORY);
+		return (free_tab(argv_wo_param), IS_A_DIRECTORY);
 	else if (is_file_exectable_wo_additional_path(argv_wo_param))
-		return (free(argv_wo_param), true);
+		return (free_tab(argv_wo_param), true);
+	else if (getenv("PATH") == NULL || is_match(argv_wo_param, ".."))
+		return (free_tab(argv_wo_param), NOT_FOUND);
 	else if (is_false(argv, arg_i))
-		return (free(argv_wo_param), false);
+		return (free_tab(argv_wo_param), false);
 	path = check_malloc(add_slash_eos(ft_split(getenv("PATH"), ':')));
 	i = -1;
 	while (path[++i])
 	{
 		tmp = check_malloc(ft_strjoin(path[i], argv_wo_param));
-		if (is_file_exectable(tmp) && !is_match(argv_wo_param, ".."))
+		if (is_file_exectable(tmp) || free_tab(tmp))
 			return (all_free_tab(path), free(argv_wo_param), free(tmp), true);
-		free(tmp);
 	}
-	return (all_free_tab(path), free(argv_wo_param), NOT_FOUND);
+	return (all_free_tab(path), free_tab(argv_wo_param), NOT_FOUND);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/07 13:39:41 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/07 21:04:59 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 
 int		open_file(char *file, int file_type);
 bool	close_pipe(int *pipe_fd);
+int		free_tab(char *ptr);
 void	all_free_tab(char **ptr);
 void	all_free_int(int **ptr);
 size_t	strlen_until_c(char *str, char c);
