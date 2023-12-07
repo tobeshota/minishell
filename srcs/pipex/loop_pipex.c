@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 09:23:37 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/05 15:27:44 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/07 13:38:02 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 // cat infile,|,cat,|,cat,|,cat,|,cat,;,echo -n wow,;,pwd
 // pwd,&&,b.out,||,echo wow
+// b.out,&&,echo success,||,echo failure
 int	loop_pipex(char **argv, char **envp, t_env **env)
 {
 	char	***splitted_argv;

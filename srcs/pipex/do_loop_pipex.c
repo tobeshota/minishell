@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 12:49:44 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/06 17:04:43 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/07 13:39:15 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,16 @@ static int	is_continue(char **splitter, int spl_i, int ret)
 	return (is_match(splitter[spl_i], ";") \
 	|| (is_match(splitter[spl_i], "&&") && ret == 0) \
 	|| (is_match(splitter[spl_i], "||") && ret != 0));
+}
+
+static int	is_loop_in_and_operater(char **splitter, int spl_i)
+{
+	return (is_match(splitter[spl_i], "&&") && g_global.error_num != 0);
+}
+
+static int	is_loop_in_or_operater(char **splitter, int spl_i)
+{
+	return (is_match(splitter[spl_i], "||") && g_global.error_num == 0);
 }
 
 int	do_loop_pipex(char ***splitted_argv, char **splitter, char **envp,
@@ -35,14 +45,13 @@ int	do_loop_pipex(char ***splitted_argv, char **splitter, char **envp,
 		ret = pipex(splitted_argv[sparg_i], env);
 		if (splitter[spl_i] == NULL)
 			break ;
-		if (is_continue(splitter, spl_i, g_global.error_num) && ++spl_i && ++sparg_i)
+		if (is_continue(splitter, spl_i, g_global.error_num) && ++spl_i
+			&& ++sparg_i)
 			continue ;
-		else if (is_match(splitter[spl_i], "&&") && g_global.error_num != 0)
-			while (is_match(splitter[spl_i], "&&") && ++sparg_i)
-				spl_i++;
-		else if (is_match(splitter[spl_i], "||") && g_global.error_num == 0)
-			while (is_match(splitter[spl_i], "||") && ++sparg_i)
-				spl_i++;
+		while (is_loop_in_and_operater(splitter, spl_i) && ++sparg_i)
+			spl_i++;
+		while (is_loop_in_or_operater(splitter, spl_i) && ++sparg_i)
+			spl_i++;
 		if (splitted_argv[sparg_i] == NULL)
 			break ;
 		sparg_i++;

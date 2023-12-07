@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/07 13:18:25 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/07 13:39:41 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ bool	set_output_fd(t_pipex *pipex, int cmd_i, char **argv);
 bool	reset_fd(int *stdin_fileno, int *stdout_fileno);
 
 // array_node
-t_env *array_to_node(char **envp);
+t_env	*array_to_node(char **envp);
 void	node_to_array(t_env *env, char ***envp);
 
 // node
