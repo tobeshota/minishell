@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:09:49 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/06 17:12:43 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/07 15:27:01 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,11 @@ t_simple_cmds	*recreated_node(char **str,
 	t_simple_cmds	*new_element;
 
 	new_element = (t_simple_cmds *)malloc(sizeof(t_simple_cmds));
+	
+	printf("str = %p\n", *str);
 	if (!new_element)
 		return (0);
 	new_element->str = str;
-	new_element->file_name = NULL;
 	new_element->num_redirections = num_redirections;
 	new_element->redirections = redirections;
 	new_element->next = NULL;

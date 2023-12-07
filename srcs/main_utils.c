@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:36:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/07 12:07:04 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/07 15:26:24 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	implement_tools(t_tools *tools)
 	tools->lexer_list = NULL;
 	tools->str = NULL;
 	tools->envp = NULL;
+	tools->tmp_array = NULL;
 	signal_init();
 
 	return (1);
@@ -30,23 +31,11 @@ int	free_tools(t_tools *tools)
 {
 	ft_simple_cmdsclear(&tools->simple_cmds);
 	free(tools->str);
+	// all_free_tab(tools->tmp_array);
 	all_free_tab(tools->envp);
 	implement_tools(tools);
-	// free(tools);
+	free(tools);
 	return (1);
-}
-
-void	free_arr(char **split_arr)
-{
-	int	i;
-
-	i = 0;
-	while (split_arr[i])
-	{
-		free(split_arr[i]);
-		i++;
-	}
-	free(split_arr);
 }
 
 char	**	ft_arrdup(char **arr)
@@ -66,7 +55,7 @@ char	**	ft_arrdup(char **arr)
 		rtn[i] = ft_strdup(arr[i]);
 		if (rtn[i] == NULL)
 		{
-			free_arr(rtn);
+			all_free_tab(rtn);
 			return (rtn);
 		}
 		i++;

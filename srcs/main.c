@@ -59,7 +59,7 @@ int	minipipex(char **argv, char **envp)
 		if (!line)
 			break ;
 		argv = ft_split(line, ',');
-			/* 本来はft_splitでなくlexerとparser．いまは区切り文字','で分割している */
+		/* 本来はft_splitでなくlexerとparser．いまは区切り文字','で分割している */
 		if (*line)
 			add_history(line);
 		if (is_match(line, "putnode"))
@@ -87,6 +87,8 @@ int	process_input(t_tools *tools)
 				tools->lexer_list->token) == EXIT_FAILURE)
 			return (0);
 	}
+	if (tools->lexer_list->str[0] == '\0')
+		return (0);
 	if (parser(tools) == EXIT_FAILURE)
 	{
 		free_tools(tools);
@@ -95,15 +97,29 @@ int	process_input(t_tools *tools)
 	return (1);
 }
 
-int	handle_input(t_tools *tools, char **envp, t_env **env)
+void	check_exit(t_tools *tools, char **argv, char **envp, t_env **env)
+{
+	int	i;
+
+	i = 0;
+	while (tools->simple_cmds)
+	{
+		if (is_match(tools->simple_cmds->str[0], "exit") == true)
+		{
+			free_tools(tools);
+			argv = check_malloc(ft_split("exit", ':'));
+			g_global.error_num = loop_pipex(argv, envp, env);
+		}
+		tools->simple_cmds = tools->simple_cmds->next;
+	}
+}
+
+int	handle_input(t_tools *tools, char **envp, t_env **env, char **argv)
 {
 	char	*line;
-	char	**tmparray;
 
 	line = readline(MINISHELL_PROMPT);
-	// implement_tools(tools);
 	tools->str = line;
-	add_history(tools->str);
 	if (!line)
 	{
 		free_tools(tools);
@@ -114,22 +130,20 @@ int	handle_input(t_tools *tools, char **envp, t_env **env)
 		if (!process_input(tools))
 			return (0);
 		signal(SIGQUIT, sigquit_handler);
-		tmparray = change_to_array(tools);
-		tools->simple_cmds->str = expander(tools, tmparray);
+		tools->tmp_array = change_to_array(tools);
+		tools->simple_cmds->str = expander(tools, tools->tmp_array);
 		if (*tools->str)
 			add_history(tools->str);
-		put_arg_for_debug(tmparray);
-		if (is_match(tools->str, "putnode"))
-			put_node_for_debug(*env);
-		else
-			g_global.error_num = loop_pipex(tmparray, envp, env);
+		put_arg_for_debug(tools->tmp_array);
+		check_exit(tools, argv, envp, env);
+		g_global.error_num = loop_pipex(tools->tmp_array, envp, env);
 		node_to_array(*env, &tools->envp);
 		free_tools(tools);
 	}
 	return (1);
 }
 
-int	minishell(char **envp, t_tools *tools)
+int	minishell(char **envp, t_tools *tools, char **argv)
 {
 	t_env	*env;
 
@@ -140,7 +154,7 @@ int	minishell(char **envp, t_tools *tools)
 		if (implement_tools(tools) == 0)
 			exit(EXIT_FAILURE);
 		tools->envp = ft_arrdup(envp);
-		handle_input(tools, envp, &env);
+		handle_input(tools, envp, &env, argv);
 	}
 	ft_nodeclear(&env);
 	ft_printf(EXIT_MSG);
@@ -154,7 +168,7 @@ int	main(int argc, char **argv, char **envp)
 	if (argc == 2 && is_match(argv[1], "p"))
 		return (minipipex(argv, envp));
 	if (argc == 1)
-		return (minishell(envp, &tools));
+		return (minishell(envp, &tools, argv));
 	return (put_error("minishell: too many arguments"), 1);
 }
 

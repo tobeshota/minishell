@@ -3,42 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 09:57:45 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/05 13:13:00 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/07 15:53:15 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_simple_cmdsclear(t_simple_cmds **lst)
+void	ft_simple_cmdsclear(t_simple_cmds **simple_cmds)
 {
 	t_simple_cmds	*tmp;
 	t_lexer			*redirections_tmp;
 
-	if (!*lst)
+	if (!*simple_cmds)
 		return ;
-	while (*lst)
+	while (*simple_cmds)
 	{
-		tmp = (*lst)->next;
-		redirections_tmp = (*lst)->redirections;
+		tmp = (*simple_cmds)->next;
+		redirections_tmp = (*simple_cmds)->redirections;
 		ft_lexerclear(&redirections_tmp);
-		if ((*lst)->str)
-			free_arr((*lst)->str);
-		if ((*lst)->file_name)
-			free((*lst)->file_name);
-		free(*lst);
-		*lst = tmp;
+		if ((*simple_cmds)->str)
+		all_free_tab((*simple_cmds)->str);
+		// {
+		// 	ft_printf(">>> %p\n", (*simple_cmds)->str[0]);
+		// 	free((*simple_cmds)->str[0]);
+		// 	free((*simple_cmds)->str);
+		// }
+		free(*simple_cmds);
+		*simple_cmds = tmp;
 	}
-	*lst = NULL;
+	*simple_cmds = NULL;
 }
-
 
 // void	signal_handler_sigint(int signum)
 // {
 // 	(void)signum;
-    
+
 // 	// frag = SIGINT;
 // 	ft_printf("\n");
 // 	rl_on_new_line();
@@ -86,7 +88,7 @@ void	sigint_handler(int sig)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
-	(void) sig;
+	(void)sig;
 }
 
 void	sigquit_handler(int sig)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/05 13:13:42 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/07 15:26:18 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	    question_mark(char **tmp);
 
 //main_utils
 char	**	ft_arrdup(char **arr);
-void	free_arr(char **split_arr);
 void	ft_simple_cmdsclear(t_simple_cmds **lst);
 void	ft_lexerclear(t_lexer **lst);
 

@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 11:51:33 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/06 16:40:44 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/07 14:56:47 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	nodefirst_ver_simple_cmds(t_simple_cmds **node)
 // 			{
 // 				tmparray[i++] = ft_strdup(token_to_char(tmp->redirections->token));
 // 				if(!tmp->redirections->str)
-					
+
 // 				tmparray[i++] = ft_strdup(tmp->redirections->str);
 // 				tmp->redirections = tmp->redirections->next;
 // 			}
@@ -108,41 +108,52 @@ void	nodefirst_ver_simple_cmds(t_simple_cmds **node)
 // 	return (tmparray);
 // }
 
-
-
 char	**allocate_tmparray(int size)
 {
 	char	**tmparray;
 
 	tmparray = check_malloc((char **)malloc(sizeof(char *) * (size + 1)));
+	
 	return (tmparray);
 }
 
-char	*process_str_concat(char *tmpstr, t_simple_cmds *tmp, int k)
+char	*process_str_concat(char *tmpstr, char *str)
 {
 	char	*result;
 
-	result = ft_strjoin(tmpstr, tmp->str[k]);
+	result = ft_strjoin(tmpstr, str);
 	return (result);
 }
 
-
-int		process_str(char **tmparray, t_simple_cmds *tmp, int i)
+char	*ft_malloced_strjoin(const char *s1, const char *s2, char **dest)
 {
-	int	k;
+	char	*tmp;
+
+	tmp = *dest;
+	*dest = check_malloc(ft_strjoin(s1, s2));
+	// printf("dest = %p\n", *dest);
+	free(tmp);
+	return (*dest);
+}
+
+int	process_str(char **tmparray, t_simple_cmds *tmp, int i)
+{
+	int		k;
 	char	*tmpstr;
 
 	k = 0;
-	tmpstr = ft_strdup("");
+	tmpstr = NULL;
 	if (tmp->str && tmp->str[k])
 	{
 		while (tmp->str[k])
 		{
-			tmparray[i] = process_str_concat(tmpstr, tmp, k);
+			tmparray[i] = process_str_concat(tmpstr, tmp->str[k]);
 			if (tmp->str[k + 1])
-				tmparray[i] = ft_strjoin(tmparray[i], " ");
+				tmparray[i] = ft_malloced_strjoin(tmparray[i], " ",
+						&tmparray[i]);
 			free(tmpstr);
 			tmpstr = ft_strdup(tmparray[i]);
+			free(tmparray[i]);
 			k++;
 		}
 		free(tmpstr);
@@ -151,64 +162,70 @@ int		process_str(char **tmparray, t_simple_cmds *tmp, int i)
 	return (i);
 }
 
-int		process_redirections(char **tmparray, t_simple_cmds *tmp, int i)
+int	process_redirections(char **tmparray, t_simple_cmds *tmp, int i)
 {
-	while (tmp->redirections && tmp->redirections->token != PIPE && tmp->redirections->token != AND_AND && tmp->redirections->token != OR_OR && tmp->redirections->token != SEMICOLON)
+	while (tmp->redirections && tmp->redirections->token != PIPE
+		&& tmp->redirections->token != AND_AND
+		&& tmp->redirections->token != OR_OR
+		&& tmp->redirections->token != SEMICOLON)
 	{
 		tmparray[i++] = ft_strdup(token_to_char(tmp->redirections->token));
 		if (tmp->redirections->str)
 			tmparray[i++] = ft_strdup(tmp->redirections->str);
 		tmp->redirections = tmp->redirections->next;
 	}
-	if (tmp->redirections && (tmp->redirections->token == PIPE || tmp->redirections->token == AND_AND || tmp->redirections->token == OR_OR || tmp->redirections->token == SEMICOLON))
+	if (tmp->redirections && (tmp->redirections->token == PIPE
+			|| tmp->redirections->token == AND_AND
+			|| tmp->redirections->token == OR_OR
+			|| tmp->redirections->token == SEMICOLON))
 	{
 		tmparray[i++] = ft_strdup(token_to_char(tmp->redirections->token));
 	}
 	return (i);
 }
 
-int fill_tmparray(t_tools *tools, char **tmparray)
+int	fill_tmparray(t_tools *tools, char **tmparray)
 {
-    int i = 0;
-    t_simple_cmds *tmp = tools->simple_cmds;
+	int				i;
+	t_simple_cmds	*tmp;
 
-    while (tmp)
-    {
-        i = process_str(tmparray, tmp, i);
-        i = process_redirections(tmparray, tmp, i);
-        tmp = tmp->next;
-    }
-
-    return i;
+	i = 0;
+	tmp = tools->simple_cmds;
+	while (tmp)
+	{
+		i = process_str(tmparray, tmp, i);
+		i = process_redirections(tmparray, tmp, i);
+		tmp = tmp->next;
+	}
+	return (i);
 }
 
-int count_elements(t_tools *tools)
+int	count_elements(t_tools *tools)
 {
-    int count = 0;
-    t_simple_cmds *tmp = tools->simple_cmds;
+	int				count;
+	t_simple_cmds	*tmp;
 
-    while (tmp)
-    {
-        if (tmp->str)
-            count++;
-        if (tmp->redirections)
-            count++;
-        tmp = tmp->next;
-    }
-    return count;
+	count = 0;
+	tmp = tools->simple_cmds;
+	while (tmp)
+	{
+		if (tmp->str)
+			count++;
+		if (tmp->redirections)
+			count++;
+		tmp = tmp->next;
+	}
+	return (count);
 }
 
-char **change_to_array(t_tools *tools)
+char	**change_to_array(t_tools *tools)
 {
-    char **tmparray;
-    int i;
+	char	**tmparray;
+	int		i;
 
-    i = count_elements(tools);
-    tmparray = allocate_tmparray(i);
-    i = fill_tmparray(tools, tmparray);
-	if(tmparray[i - 1][0] == '|')
-		return (NULL);
-    tmparray[i] = NULL;
-
-    return tmparray;
+	i = count_elements(tools);
+	tmparray = allocate_tmparray(i);
+	i = fill_tmparray(tools, tmparray);
+	tmparray[i] = NULL;
+	return (tmparray);
 }

@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 13:10:27 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/06 14:54:05 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/07 15:28:39 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_lexer	*make_node(char *str, int token)
 	new_node->token = token;
 	new_node->i = i++;
 	new_node->next = NULL;
-	new_node->prev = NULL;		
+	new_node->prev = NULL;	
 	return (new_node);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   word_in_node.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 13:33:42 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/06 09:59:11 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/07 13:28:30 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,10 @@ int word_in_node(char *str, int i, t_lexer **lexer_list)
             j++;
     }
     word = ft_substr(str, i, j);
-    // printf("word = %s\n", word);
     if (!word || !add_node(word, 0, lexer_list))
+    {
+        free(word);
         return -1;
+    }
     return j;
 }

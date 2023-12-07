@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 13:27:33 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/07 12:16:30 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/07 14:56:33 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,11 @@ static t_parser_tools init_parser_tools(t_tools *tools)
 static t_simple_cmds *create_A_node(t_tools *tools)
 {
     t_simple_cmds *node = (t_simple_cmds *)malloc(sizeof(t_simple_cmds));
+    // printf("node = %p\n", node);
     if (!node)
         return NULL;
     node->redirections = (t_lexer *)malloc(sizeof(t_lexer));
+    // printf("node->redirections = %p\n", node->redirections);
     if (!node->redirections)
 	{
         free(node);
@@ -85,7 +87,6 @@ static t_simple_cmds *create_A_node(t_tools *tools)
     node->redirections->token = tools->lexer_list->token;
     node->redirections->next = NULL;
     node->redirections->prev = NULL;
-    node->file_name = NULL;
     node->str = NULL;
     node->num_redirections = 0;
     node->next = NULL;

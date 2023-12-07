@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   array_node.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 15:36:11 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/27 13:28:01 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/07 14:56:56 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ t_env	*array_to_node(char **envp)
 	while (envp[env_i])
 	{
 		new = check_malloc(ft_nodenew(envp[env_i]));
+		// printf("new->content = %p\n", new->content);
+		// printf("new = %p\n", new);
 		if (env_i == 0)
 			node = new;
 		else

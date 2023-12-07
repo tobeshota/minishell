@@ -35,6 +35,7 @@ typedef struct s_tools
 	struct s_simple_cmds	*simple_cmds;
     t_lexer					*lexer_list;
 	char 					**envp;
+	char 					**tmp_array;
 }   t_tools;
 
 
@@ -50,7 +51,6 @@ typedef struct s_simple_cmds
 {
 	char					**str;
 	int						num_redirections;
-	char					*file_name;
 	t_lexer					*redirections;
 	struct s_simple_cmds	*next;
 	struct s_simple_cmds	*prev;
