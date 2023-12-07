@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   grouping_redirections.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:09:54 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/07 09:41:56 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/07 12:16:20 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	grouping_redirections(t_parser_tools *parser_tools)
 		tmp = tmp->next;
 	if (!tmp || tmp->token == PIPE || tmp->token == AND_AND
 		|| tmp->token == OR_OR || tmp->token == SEMICOLON)
-		return (1);
+		return (EXIT_SUCCESS);
 	//パイプまでリダイレクトがなかったら終了
 	if (!tmp->next)
 	{
@@ -59,9 +59,9 @@ int	grouping_redirections(t_parser_tools *parser_tools)
 		return (1);
 	}
 	if (tmp->next->token)
-		parser_token_error(parser_tools->tools,
+		return parser_token_error(parser_tools->tools,
 							parser_tools->lexer_list,
-							tmp->next->token);
+							tmp->next->token), EXIT_FAILURE;
 	if ((tmp->token >= GREAT && tmp->token <= OR_OR))
 	{
 		if (add_new_redirection(tmp, parser_tools) == 1)

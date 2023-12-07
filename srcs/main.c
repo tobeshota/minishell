@@ -101,7 +101,7 @@ int	handle_input(t_tools *tools, char **envp, t_env **env)
 	char	**tmparray;
 
 	line = readline(MINISHELL_PROMPT);
-	implement_tools(tools);
+	// implement_tools(tools);
 	tools->str = line;
 	add_history(tools->str);
 	if (!line)

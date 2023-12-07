@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:36:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/06 17:48:04 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/07 12:07:04 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 
 int	implement_tools(t_tools *tools)
 {
+	// ft_bzero(tools, sizeof(t_tools));
 	tools->simple_cmds = NULL;
 	tools->lexer_list = NULL;
 	tools->str = NULL;
+	tools->envp = NULL;
 	signal_init();
 
 	return (1);
@@ -28,8 +30,8 @@ int	free_tools(t_tools *tools)
 {
 	ft_simple_cmdsclear(&tools->simple_cmds);
 	free(tools->str);
-	implement_tools(tools);
 	all_free_tab(tools->envp);
+	implement_tools(tools);
 	// free(tools);
 	return (1);
 }

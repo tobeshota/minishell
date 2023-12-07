@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 13:27:33 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/07 09:39:48 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/07 12:16:30 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ static t_simple_cmds	*creat_ast(t_parser_tools *parser_tools)
 	int		arg_size;
 	t_lexer	*tmp;
 
-    grouping_redirections(parser_tools);
+    if (grouping_redirections(parser_tools) == EXIT_FAILURE)
+        return NULL;
     arg_size = count_args(parser_tools->lexer_list);
     str = ft_calloc(arg_size + 1, sizeof(char *));
     if (!str)
@@ -129,7 +130,7 @@ int parser(t_tools *tools) {
     t_parser_tools parser_tools;
 
 
-    while (tools->lexer_list) 
+    while (tools->lexer_list)
     {
         parser_tools = init_parser_tools(tools);
         if ((tools->lexer_list && tools->lexer_list->token == PIPE) || tools->lexer_list->token == AND_AND || tools->lexer_list->token == OR_OR || tools->lexer_list->token == SEMICOLON) {
