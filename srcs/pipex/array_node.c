@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   array_node.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 15:36:11 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/27 13:28:01 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/07 15:41:42 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_env	*array_to_node(char **envp)
 	int		env_i;
 
 	env_i = 0;
-	if (envp == NULL)
+	if (envp == NULL || envp[0] == NULL)
 		return (NULL);
 	while (envp[env_i])
 	{
