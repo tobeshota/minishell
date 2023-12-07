@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:09:49 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/06 13:01:58 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/06 17:12:43 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int	count_args(t_lexer *lexer_list)
 	{
 		if (tmp->i >= 0)
 			i++;
+		if (tmp->next == NULL)
+			break;
 		tmp = tmp->next;
 	}
 	return (i);
