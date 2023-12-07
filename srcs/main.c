@@ -37,8 +37,24 @@ void	add_shlvl(t_env **env)
 	free(shlvl_str);
 }
 
+void	add_basic_shell_variables(char **envp)
+{
+	char	cwd[PATH_MAX];
+	char	*cwd_w_varname;
+
+	if (getcwd(cwd, PATH_MAX) == NULL)
+		return ;
+	cwd_w_varname = check_malloc(ft_strjoin("PWD=", cwd));
+	envp[0] = check_malloc(ft_strdup(cwd_w_varname));
+	envp[1] = check_malloc(ft_strdup("SHLVL=0"));
+	envp[2] = NULL;
+	free(cwd_w_varname);
+}
+
 void	init_minishell(char **envp, t_env **env)
 {
+	if (envp[0] == NULL)
+		add_basic_shell_variables(envp);
 	*env = array_to_node(envp);
 	add_shlvl(env);
 	get_order(*env);
