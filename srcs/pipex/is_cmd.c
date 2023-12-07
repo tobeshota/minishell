@@ -3,30 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   is_cmd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 23:22:47 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/05 09:12:38 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/07 13:26:41 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static bool	is_specified_redirect(char *str)
+static bool	is_dir(char *file)
 {
-	return (is_specified_infile(str) || is_specified_here_doc(str)
-		|| is_specified_outfile_overwriting(str)
-		|| is_specified_outfile_apend(str));
+	struct stat	st;
+
+	if (stat(file, &st) < 0 || is_match(file, ".."))
+		return (false);
+	return (S_ISDIR(st.st_mode));
 }
 
-static bool	is_io_file(char **argv, int arg_i)
+static int	is_file_exectable_wo_additional_path(char *file)
 {
-	return (arg_i > 0 && is_specified_redirect(argv[arg_i - 1]) && argv[arg_i]);
+	return (is_cmd_builtin(file) \
+	|| (is_file_exectable(file) && ft_strchr(file, '/')));
 }
 
-static bool	is_file_with_path(char *str)
+static int	is_false(char **argv, int arg_i)
 {
-	return (ft_strchr(str, '/'));
+	return (is_specified_operators(argv[arg_i]) || is_io_file(argv, arg_i) \
+	|| getenv("PATH") == NULL);
 }
 
 int	is_cmd(char **argv, int arg_i)
@@ -36,24 +40,24 @@ int	is_cmd(char **argv, int arg_i)
 	int		i;
 	char	*tmp;
 
-	argv_wo_param = check_malloc(ft_substr(argv[arg_i], 0,
-				strlen_until_c(argv[arg_i], ' ')));
-	if (is_cmd_builtin(argv_wo_param) \
-	|| (is_file_exectable(argv_wo_param) && is_file_with_path(argv_wo_param)))
+	argv_wo_param = check_malloc \
+	(ft_substr(argv[arg_i], 0, strlen_until_c(argv[arg_i], ' ')));
+	if (is_match(argv_wo_param, "."))
+		return (free(argv_wo_param), IS_DOT);
+	else if (is_dir(argv_wo_param))
+		return (free(argv_wo_param), IS_A_DIRECTORY);
+	else if (is_file_exectable_wo_additional_path(argv_wo_param))
 		return (free(argv_wo_param), true);
-	else if (is_specified_operators(argv[arg_i]) || is_io_file(argv, arg_i) \
-	|| getenv("PATH") == NULL)
+	else if (is_false(argv, arg_i))
 		return (free(argv_wo_param), false);
 	path = check_malloc(add_slash_eos(ft_split(getenv("PATH"), ':')));
 	i = -1;
 	while (path[++i])
 	{
 		tmp = check_malloc(ft_strjoin(path[i], argv_wo_param));
-		if (is_file_exectable(tmp) == true)
-			break ;
+		if (is_file_exectable(tmp) && !is_match(argv_wo_param, ".."))
+			return (all_free_tab(path), free(argv_wo_param), free(tmp), true);
 		free(tmp);
 	}
-	if (path[i] == NULL)
-		return (all_free_tab(path), free(argv_wo_param), NOT_FOUND);
-	return (all_free_tab(path), free(tmp), free(argv_wo_param), true);
+	return (all_free_tab(path), free(argv_wo_param), NOT_FOUND);
 }

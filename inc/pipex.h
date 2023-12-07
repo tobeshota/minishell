@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/06 16:31:17 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/07 13:18:25 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # define OUTFILE_APEND 3
 # define NOT_SPECIFIED 0
 # define NOT_FOUND -1
+# define IS_A_DIRECTORY -2
+# define IS_DOT -3
 
 int		open_file(char *file, int file_type);
 bool	close_pipe(int *pipe_fd);
@@ -53,6 +55,8 @@ int		get_pipe_count(char **argv);
 int		get_builtin_cmd_count(t_pipex *pipex);
 void	get_order(t_env *node);
 int		is_cmd(char **argv, int arg_i);
+bool	is_specified_redirect(char *str);
+bool	is_io_file(char **argv, int arg_i);
 bool	get_cmd_absolute_path(char **argv, t_pipex *pipex);
 bool	add_absolute_path_to_cmd_name(char ***cmd_absolute_path);
 char	**add_slash_eos(char **path);

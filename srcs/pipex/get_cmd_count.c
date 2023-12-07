@@ -6,13 +6,40 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 09:00:12 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/05 16:43:51 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/07 13:26:53 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-/* "."や".."や"../"が指定されたときの対応をする！ */
+static void	check_is_dir(char *filename, int ret)
+{
+	if (ret == IS_A_DIRECTORY)
+	{
+		put_error_w_cmd(filename, "is a directory");
+		g_global.error_num = 126;
+	}
+}
+
+static void	check_cmd_exist(char *filename, int ret)
+{
+	if (ret == NOT_FOUND)
+	{
+		put_error_w_cmd(filename, "command not found");
+		g_global.error_num = 127;
+	}
+}
+
+static void	check_is_dot(int ret)
+{
+	if (ret == IS_DOT)
+	{
+		put_error("minishell: .: filename argument required\n.\
+		: usage: . filename [arguments]\n");
+		g_global.error_num = 2;
+	}
+}
+
 int	get_cmd_count(char **argv)
 {
 	int		cmd_count;
@@ -29,11 +56,9 @@ int	get_cmd_count(char **argv)
 		ret = is_cmd(argv, arg_i);
 		if (ret == true)
 			cmd_count++;
-		else if (ret == NOT_FOUND)
-		{
-			put_error_w_cmd(argv_wo_param, "command not found");
-			g_global.error_num = 127;
-		}
+		check_is_dot(ret);
+		check_is_dir(argv_wo_param, ret);
+		check_cmd_exist(argv_wo_param, ret);
 		arg_i++;
 		free(argv_wo_param);
 	}

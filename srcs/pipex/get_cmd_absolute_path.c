@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmd_absolute_path.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/06 16:30:02 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/07 13:27:33 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ void	get_cmd_parameter(char **argv, char ***cmd_absolute_path,
 	cmd_parameter[0][cmd_i] = NULL;
 }
 
-static void	get_cmd_absolute_path_with_parameter(char ***cmd_parameter, t_pipex *pipex)
+static void	get_cmd_absolute_path_with_parameter(char ***cmd_parameter,
+		t_pipex *pipex)
 {
 	int	cmd_i;
 
