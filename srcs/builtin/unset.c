@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:36:07 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/29 14:14:40 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/08 23:13:24 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	exec_unset(char **cmd, t_env **env)
 	i = 0;
 	while (cmd[++i])
 	{
-		if (check_identifier(cmd[i]) == false)
+		if (check_identifier(cmd[i]) == false || is_under_bar(cmd[i]) == true)
 			continue ;
 		unseted_env = get_old_env_to_be_updated(cmd[i], *env);
 		if (unseted_env == false)

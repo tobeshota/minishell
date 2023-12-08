@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 16:15:47 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/05 17:29:35 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/08 23:13:45 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ bool	update_envp(t_env **env, char *varname, char *new_data);
 t_env	*get_old_env_to_be_updated(char *added, t_env *env);
 char	*omit_c(char *str, char c);
 bool	check_identifier(char *identifier);
+bool	is_under_bar(char *cmd);
 
 #endif

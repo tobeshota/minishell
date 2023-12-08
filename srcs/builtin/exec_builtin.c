@@ -12,6 +12,12 @@
 
 #include "builtin.h"
 
+bool	is_under_bar(char *cmd)
+{
+	return (is_match(cmd, "_") \
+	|| (ft_strlen(cmd) >= 2 && !ft_strncmp(cmd, "_=", 2)));
+}
+
 bool	is_match(char *s1, char *s2)
 {
 	return (s1 && s2 && ft_strlen(s1) == ft_strlen(s2) \
