@@ -120,7 +120,6 @@ int	process_input(t_tools *tools)
 	}
 	if (parser(tools) == EXIT_FAILURE)
 	{
-		// free_tools(tools);
 		return (0);
 	}
 	return (1);
@@ -155,12 +154,6 @@ int	handle_input(t_tools *tools, t_env **env, char **argv)
 {
 	char **heap_envp;
 
-	tools->str = readline(MINISHELL_PROMPT);
-	if (!tools->str)
-	{
-		free_tools(tools);
-		return (false);
-	}
 	if (tools->str[0] != '\0')
 	{
 		if (!process_input(tools))
@@ -170,8 +163,6 @@ int	handle_input(t_tools *tools, t_env **env, char **argv)
 		heap_envp = node_to_array(*env);
 		tools->simple_cmds->str = expander(tools, tools->tmp_array, heap_envp);
 		all_free_tab(heap_envp);
-		if (*tools->str)
-			add_history(tools->str);
 		put_arg_for_debug(tools->tmp_array);
 		check_exit(tools, argv, env);
 		g_global.error_num = loop_pipex(tools->tmp_array, env);
@@ -189,8 +180,15 @@ int	minishell(char **envp, t_tools *tools, char **argv)
 	{
 		tools = (t_tools *)check_malloc(malloc(sizeof(t_tools)));
 		implement_tools(tools);
-		if(!handle_input(tools, &env, argv))
-			break;
+		tools->str = readline(MINISHELL_PROMPT);
+		if (*tools->str)
+			add_history(tools->str);
+		if (!tools->str)
+		{
+			free_tools(tools);
+			break ;
+		}
+		handle_input(tools, &env, argv);
 	}
 	ft_nodeclear(&env);
 	ft_printf(EXIT_MSG);
