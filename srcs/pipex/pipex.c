@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:32:48 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/05 15:27:22 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/08 14:38:59 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ static int	is_true(int ret)
 	return (true);
 }
 
-int	pipex(char **argv, t_env **env)
+int	pipex(char **argv, char **envp, t_env **env)
 {
 	t_pipex	pipex;
 
 	if (is_true(get_pipex(argv, &pipex)) == false)
 		return (end_pipex(&pipex), false);
-	if (is_true(do_pipex(argv, env, &pipex)) == false)
+	if (is_true(do_pipex(argv, envp, env, &pipex)) == false)
 		return (end_pipex(&pipex), false);
 	if (is_true(end_pipex(&pipex)) == false)
 		return (end_pipex(&pipex), false);

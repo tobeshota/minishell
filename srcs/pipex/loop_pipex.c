@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 09:23:37 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/07 13:38:02 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/08 14:35:31 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	loop_pipex(char **argv, char **envp, t_env **env)
 
 	if (is_splitter_exist(argv) == false)
 	{
-		pipex(argv, env);
+		pipex(argv, envp, env);
 		return (node_to_array(*env, &envp), g_global.error_num);
 	}
 	get_loop_pipex(argv, &splitted_argv, &splitter);

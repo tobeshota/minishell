@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/07 21:04:59 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/08 14:38:42 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ bool	proc_here_doc(char *limitter, t_pipex *pipex);
 bool	is_cmd_relative_path(char ***cmd_absolute_path, int cmd_i);
 bool	is_cmd_alreadly_absollute_path(char ***cmd_absolute_path, int cmd_i);
 bool	wait_children(int cmd_i);
-int		pipex(char **argv, t_env **env);
+int		pipex(char **argv, char **envp, t_env **env);
 bool	get_pipex(char **argv, t_pipex *pipex);
-bool	do_pipex(char **argv, t_env **env, t_pipex *pipex);
+bool	do_pipex(char **argv, char **envp, t_env **env, t_pipex *pipex);
 bool	end_pipex(t_pipex *pipex);
 
 // is_specified_file
@@ -97,8 +97,8 @@ bool	is_specified_ampersant(char *str);
 bool	is_specified_apersant_ampersant(char *str);
 
 // set_fd
-bool	set_input_fd(t_pipex *pipex, int cmd_i, char **argv);
-bool	set_output_fd(t_pipex *pipex, int cmd_i, char **argv);
+bool	set_input_fd(t_pipex *pipex, int cmd_i);
+bool	set_output_fd(t_pipex *pipex, int cmd_i);
 bool	reset_fd(int *stdin_fileno, int *stdout_fileno);
 
 // array_node

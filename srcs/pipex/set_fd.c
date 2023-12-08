@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_fd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 13:19:51 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/06 16:31:00 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/08 14:48:38 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,9 @@ static bool	is_fd_default(int fd, int default_fd)
 	return (fd == default_fd);
 }
 
-bool	set_input_fd(t_pipex *pipex, int cmd_i, char **argv)
+bool	set_input_fd(t_pipex *pipex, int cmd_i)
 {
-	if (get_infile_fd(pipex, cmd_i, argv, true) == false
-		|| check_open(get_cmd_arg_fd(pipex, cmd_i), NULL) == false)
+	if (check_open(get_cmd_arg_fd(pipex, cmd_i), NULL) == false)
 		return (false);
 	if (get_cmd_arg_fd(pipex, cmd_i) != NOT_SPECIFIED)
 	{
@@ -46,10 +45,8 @@ bool	set_input_fd(t_pipex *pipex, int cmd_i, char **argv)
 	return (true);
 }
 
-bool	set_output_fd(t_pipex *pipex, int cmd_i, char **argv)
+bool	set_output_fd(t_pipex *pipex, int cmd_i)
 {
-	if (get_outfile_fd(pipex, cmd_i, argv) == false)
-		return (false);
 	if (is_fd_default(pipex->outfile_fd, STDOUT_FILENO)
 		&& pipex->cmd_absolute_path[cmd_i + 1] != NULL)
 	{
