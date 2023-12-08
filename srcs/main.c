@@ -115,7 +115,7 @@ int	process_input(t_tools *tools)
 
 void	check_exit(t_tools *tools, char **argv, char **envp, t_env **env)
 {
-	while (tools->simple_cmds)
+	while (tools->simple_cmds && tools->simple_cmds->str)
 	{
 		if (is_match(tools->simple_cmds->str[0], "exit") == true)
 		{
@@ -129,11 +129,8 @@ void	check_exit(t_tools *tools, char **argv, char **envp, t_env **env)
 
 int	handle_input(t_tools *tools, char **envp, t_env **env, char **argv)
 {
-	char	*line;
-
-	line = readline(MINISHELL_PROMPT);
-	tools->str = line;
-	if (!line)
+	tools->str = readline(MINISHELL_PROMPT);
+	if (!tools->str)
 	{
 		free_tools(tools);
 		return (0);
@@ -185,7 +182,7 @@ int	main(int argc, char **argv, char **envp)
 	return (put_error("minishell: too many arguments"), 1);
 }
 
-__attribute__((destructor)) static void destructor()
-{
-	system("leaks -q minishell");
-}
+// __attribute__((destructor)) static void destructor()
+// {
+// 	system("leaks -q minishell");
+// }

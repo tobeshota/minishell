@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 12:34:46 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/29 15:02:00 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/08 13:06:03 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include "builtin.h"
 # include "define.h"
-# include "lexer.h"
 # include "libft.h"
 # include "parser.h"
 # include "pipex.h"

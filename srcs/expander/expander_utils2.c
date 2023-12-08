@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expander_utils2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 09:35:08 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/02 14:19:56 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/08 12:51:28 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/expander.h"
 
-size_t	find_equal(char *str)//文字列内でイコール('=')の位置を検出
+size_t	find_equal(char *str)
 {
 	size_t	i;
 
@@ -26,7 +26,7 @@ size_t	find_equal(char *str)//文字列内でイコール('=')の位置を検出
 	return (0);
 }
 
-size_t	find_dollar(char *str)//与えられた文字列の中に$があるかどうかを判定する関数。あったらその位置＋１を返す。
+size_t	find_dollar(char *str)
 {
 	size_t	i;
 
@@ -40,8 +40,8 @@ size_t	find_dollar(char *str)//与えられた文字列の中に$があるかど
 	return (0);
 }
 
-int	loop_if_dollar_sign(t_tools *tools, char *str, char **tmp, int j)//環境変数に対応する値を取得し、それを元の文字列に結合
-{//＄ ＆＆ !’　’ && $の次が"出ない時にこの関数を呼び出す
+int	loop_if_dollar_sign(t_tools *tools, char *str, char **tmp, int j)
+{
 	int		k;
 	int		ret;
 	char	*tmp2;
@@ -51,11 +51,11 @@ int	loop_if_dollar_sign(t_tools *tools, char *str, char **tmp, int j)//環境変
 	ret = 0;
 	while (tools->envp[k])
 	{
-		if (ft_strncmp(str + j + 1, tools->envp[k],
-				find_equal(tools->envp[k]) - 1) == 0
-			&& after_dol_lenght(str, j) - j == (int)find_equal(tools->envp[k]))
+		if (ft_strncmp(str + j + 1, tools->envp[k], find_equal(tools->envp[k])
+				- 1) == 0 && after_dol_lenght(str, j)
+			- j == (int)find_equal(tools->envp[k]))
 		{
-			tmp2 = ft_strdup(tools->envp[k] + find_equal(tools->envp[k]));//先頭ポインタをイコールの次に移動
+			tmp2 = ft_strdup(tools->envp[k] + find_equal(tools->envp[k]));
 			tmp3 = ft_strjoin(*tmp, tmp2);
 			free(*tmp);
 			*tmp = tmp3;

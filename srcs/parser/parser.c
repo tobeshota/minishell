@@ -6,14 +6,12 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 13:27:33 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/07 17:34:08 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/08 13:12:27 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/parser.h"
-#include "pipex.h"
+#include "minishell.h"
 
-// add_list(&tools->simple_cmds, *node);
 static void	add_list(t_simple_cmds **list, t_simple_cmds *new)
 {
 	t_simple_cmds	*tmp;
@@ -58,9 +56,8 @@ static t_simple_cmds	*creat_ast(t_parser_tools *parser_tools)
 	}
 	if (str[0] == NULL && parser_tools->num_redirections == 0)
 		return (NULL);
-	return (recreated_node(str,
-							parser_tools->num_redirections,
-							parser_tools->redirections));
+	return (recreated_node(str, parser_tools->num_redirections,
+			parser_tools->redirections));
 }
 
 static t_parser_tools	init_parser_tools(t_tools *tools)
@@ -74,16 +71,14 @@ static t_parser_tools	init_parser_tools(t_tools *tools)
 	return (parser_tools);
 }
 
-static t_simple_cmds	*create_A_node(t_tools *tools)
+static t_simple_cmds	*create_a_node(t_tools *tools)
 {
 	t_simple_cmds	*node;
 
 	node = (t_simple_cmds *)malloc(sizeof(t_simple_cmds));
-	// printf("node = %p\n", node);
 	if (!node)
 		return (NULL);
 	node->redirections = (t_lexer *)malloc(sizeof(t_lexer));
-	// printf("node->redirections = %p\n", node->redirections);
 	if (!node->redirections)
 	{
 		free(node);
@@ -101,7 +96,7 @@ static t_simple_cmds	*create_A_node(t_tools *tools)
 	return (node);
 }
 
-int	handle_A_case(t_tools *tools, t_simple_cmds **node,
+int	handle_a_case(t_tools *tools, t_simple_cmds **node,
 		t_parser_tools *parser_tools)
 {
 	if (parser_tools->lexer_list->next == NULL
@@ -110,7 +105,7 @@ int	handle_A_case(t_tools *tools, t_simple_cmds **node,
 		parser_error(0, parser_tools->lexer_list);
 		return (0);
 	}
-	*node = create_A_node(tools);
+	*node = create_a_node(tools);
 	if (!*node)
 	{
 		parser_error(0, parser_tools->lexer_list);
@@ -121,14 +116,12 @@ int	handle_A_case(t_tools *tools, t_simple_cmds **node,
 	return (1);
 }
 
-int	handle_B_case(t_tools *tools, t_simple_cmds **node,
+int	handle_b_case(t_tools *tools, t_simple_cmds **node,
 		t_parser_tools *parser_tools)
 {
 	if (handle_operator_error(tools, tools->lexer_list->token))
 		return (0);
 	*node = creat_ast(parser_tools);
-	// all_free_tab((*node)->str);
-	// exit(0);
 	if (!*node)
 	{
 		return (0);
@@ -152,13 +145,12 @@ int	parser(t_tools *tools)
 			|| tools->lexer_list->token == OR_OR
 			|| tools->lexer_list->token == SEMICOLON)
 		{
-			if (!handle_A_case(tools, &node, &parser_tools))
-				//パイプ、セミコロン、AND、ORの場合
+			if (!handle_a_case(tools, &node, &parser_tools))
 				return (EXIT_FAILURE);
 		}
 		else
 		{
-			if (!handle_B_case(tools, &node, &parser_tools))
+			if (!handle_b_case(tools, &node, &parser_tools))
 				return (EXIT_FAILURE);
 		}
 	}

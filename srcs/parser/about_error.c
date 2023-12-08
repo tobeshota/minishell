@@ -6,11 +6,11 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 13:17:23 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/06 17:48:51 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/08 12:40:54 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../inc/minishell.h"
+#include "minishell.h"
 
 int	ft_error(int error)
 {

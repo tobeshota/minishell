@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:39:54 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/08 10:22:49 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/08 12:50:28 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,24 +57,20 @@ char	*detect_dollar(t_tools *tools, char *str)
 	char	*tmp2;
 	char	*tmp3;
 
- //すでにシングルクオーとでないことがわかる
 	j = 0;
 	tmp = ft_strdup("\0");
 	while (str[j])
 	{
-		j += handle_digit_after_dollar(j, str); //良くわからない
+		j += handle_digit_after_dollar(j, str);
 		if (str[j] == '$' && str[j + 1] == '?')
 			j += question_mark(&tmp);
 		else if (str[j] == '$' && (str[j + 1] != ' ' && (str[j + 1] != '"'
 						|| str[j + 2] != '\0')) && str[j + 1] != '\0')
-						//ダブルクオート対策
-			j += loop_if_dollar_sign(tools, str, &tmp,
-					j);                                                               
-				//＄ ＆＆ !’　’ && $の次が"出ない時変数展開を行う
+			j += loop_if_dollar_sign(tools, str, &tmp, j);
 		else
 		{
 			tmp2 = char_to_str(str[j++]);
-			tmp3 = ft_strjoin(tmp, tmp2); //一文字ずつtmpに追加していく
+			tmp3 = ft_strjoin(tmp, tmp2);
 			free(tmp);
 			tmp = tmp3;
 			free(tmp2);
@@ -95,13 +91,12 @@ char	**expander(t_tools *tools, char **str)
 		if (find_dollar(str[i]) != 0 && str[i][find_dollar(str[i]) - 2] != '\''
 			&&
 			str[i][find_dollar(str[i])] != '\0')
-		{ //シングルクオート、空文字でないことがわかる
+		{
 			tmp = detect_dollar(tools, str[i]);
 			free(str[i]);
 			str[i] = tmp;
 		}
 		if (ft_strncmp(str[0], "export", ft_strlen(str[0]) - 1) != 0)
-		//exportコマンドの時はクオートを削除しない。そっちで使う。
 		{
 			str[i] = delete_quotes(str[i], '\"');
 			str[i] = delete_quotes(str[i], '\'');
@@ -112,20 +107,9 @@ char	**expander(t_tools *tools, char **str)
 	{
 		all_free_tab(tools->simple_cmds->str);
 		tools->simple_cmds->str = NULL;
-		if(tools->simple_cmds->next == NULL)
-			break;
+		if (tools->simple_cmds->next == NULL)
+			break ;
 		tools->simple_cmds = tools->simple_cmds->next;
 	}
 	return (str);
 }
-
-// int main(int argc, char **argv, char **envp)
-// {
-// 	t_tools tools;
-// 	tools.envp = ft_arrdup(envp);
-// 	char **str = (char **)malloc(sizeof(char *) * 3);
-// 	str[0] = "$HOME";
-// 	char **tmp;
-// 	tmp = expander(&tools, str);
-// 	printf("tmp[0] = %s\n", tmp[0]);
-// }
