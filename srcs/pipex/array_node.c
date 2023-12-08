@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 15:36:11 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/08 21:29:26 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/08 23:32:13 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ char	**node_to_array(t_env *env)
 				* ft_nodesize(env)));
 	while (env->next)
 	{
-		heap_envp[env_i] = check_malloc(ft_strdup(env->content));
+		heap_envp[env_i++] = check_malloc(ft_strdup(env->content));
 		ft_nodenext(&env);
-		env_i++;
 	}
+	heap_envp[env_i++] = check_malloc(ft_strdup(env->content));
 	heap_envp[env_i] = NULL;
 	ft_nodefirst(&env);
 	return (heap_envp);

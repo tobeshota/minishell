@@ -57,7 +57,8 @@ void	add_basic_shell_variables(char **envp)
 	cwd_w_varname = check_malloc(ft_strjoin("PWD=", cwd));
 	envp[0] = check_malloc(ft_strdup(cwd_w_varname));
 	envp[1] = check_malloc(ft_strdup("SHLVL=0"));
-	envp[2] = NULL;
+	envp[2] = check_malloc(ft_strdup("_=./minishell"));
+	envp[3] = NULL;
 	free(cwd_w_varname);
 }
 
@@ -99,7 +100,7 @@ int	minipipex(char **argv, char **envp)
 	ft_printf(EXIT_MSG);
 	return (0);
 }
-/**/
+// /*
 int	process_input(t_tools *tools)
 {
 	if (lexer(tools) == EXIT_FAILURE)
@@ -194,7 +195,7 @@ int	minishell(char **envp, t_tools *tools, char **argv)
 	ft_printf(EXIT_MSG);
 	return (0);
 }
-/**/
+// */
 int	main(int argc, char **argv, char **envp)
 {
 	t_tools	tools;
