@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:09:54 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/08 13:12:04 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/08 15:23:35 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int	grouping_redirections(t_parser_tools *parser_tools)
 		if (add_new_redirection(tmp, parser_tools) == 1)
 			return (EXIT_FAILURE);
 	}
+	
 	grouping_redirections(parser_tools);
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 13:27:33 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/08 13:12:27 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/08 17:38:21 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static t_simple_cmds	*creat_ast(t_parser_tools *parser_tools)
 	arg_size = count_args(parser_tools->lexer_list);
 	str = (char **)check_malloc(ft_calloc(arg_size + 1, sizeof(char *)));
 	if (!str)
-		parser_error(1, parser_tools->lexer_list);
+		parser_error(1, parser_tools->tools);
 	tmp = parser_tools->lexer_list;
 	while (arg_size > 0)
 	{
@@ -102,13 +102,13 @@ int	handle_a_case(t_tools *tools, t_simple_cmds **node,
 	if (parser_tools->lexer_list->next == NULL
 		&& parser_tools->lexer_list->token != SEMICOLON)
 	{
-		parser_error(0, parser_tools->lexer_list);
+		parser_error(0, tools);
 		return (0);
 	}
 	*node = create_a_node(tools);
 	if (!*node)
 	{
-		parser_error(0, parser_tools->lexer_list);
+		parser_error(0, tools);
 		return (0);
 	}
 	add_list(&tools->simple_cmds, *node);
