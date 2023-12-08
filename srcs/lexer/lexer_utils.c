@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 13:10:27 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/08 13:11:41 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/08 16:11:03 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ t_lexer	*make_node(char *str, int token)
 {
 	t_lexer		*new_node;
 	static int	i;
-
-	i = 0;
+	
 	new_node = (t_lexer *)malloc(sizeof(t_lexer));
 	if (!new_node)
 		return (NULL);
