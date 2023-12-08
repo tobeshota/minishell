@@ -159,7 +159,7 @@ int	handle_input(t_tools *tools, t_env **env, char **argv)
 	if (!tools->str)
 	{
 		free_tools(tools);
-		return (0);
+		return (false);
 	}
 	if (tools->str[0] != '\0')
 	{
@@ -177,7 +177,7 @@ int	handle_input(t_tools *tools, t_env **env, char **argv)
 		g_global.error_num = loop_pipex(tools->tmp_array, env);
 		free_tools(tools);
 	}
-	return (1);
+	return (true);
 }
 
 int	minishell(char **envp, t_tools *tools, char **argv)
@@ -188,9 +188,9 @@ int	minishell(char **envp, t_tools *tools, char **argv)
 	while (true)
 	{
 		tools = (t_tools *)check_malloc(malloc(sizeof(t_tools)));
-		if (implement_tools(tools) == 0)
-			exit(EXIT_FAILURE);
-		handle_input(tools, &env, argv);
+		implement_tools(tools);
+		if(!handle_input(tools, &env, argv))
+			break;
 	}
 	ft_nodeclear(&env);
 	ft_printf(EXIT_MSG);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   about_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
+/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 13:17:23 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/08 17:35:22 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/08 22:01:00 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ int	ft_error(int error)
 	return (EXIT_FAILURE);
 }
 
-void	parser_error(int error, t_lexer *lexer_list, t_tools *tools)
+void	parser_error(int error, t_tools *tools)
 {
 	free_tools(tools);
 	// (void) tools;
 	// (void) lexer_list;
-	ft_lexerclear(&lexer_list);
+	// ft_lexerclear(&lexer_list);
 	ft_error(error);    
 }
 
@@ -79,7 +79,7 @@ int	handle_operator_error(t_tools *tools, t_tokens token)
 	}
 	if (!tools->lexer_list)
 	{
-		parser_error(0, tools->lexer_list, tools);
+		parser_error(0, tools);
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
