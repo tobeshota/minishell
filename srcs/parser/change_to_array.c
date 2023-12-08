@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 11:51:33 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/07 14:56:47 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/08 10:28:25 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ char	**allocate_tmparray(int size)
 	char	**tmparray;
 
 	tmparray = check_malloc((char **)malloc(sizeof(char *) * (size + 1)));
-	
 	return (tmparray);
 }
 
@@ -121,7 +120,7 @@ char	*process_str_concat(char *tmpstr, char *str)
 {
 	char	*result;
 
-	result = ft_strjoin(tmpstr, str);
+	result = check_malloc(ft_strjoin(tmpstr, str));
 	return (result);
 }
 
@@ -132,6 +131,8 @@ char	*ft_malloced_strjoin(const char *s1, const char *s2, char **dest)
 	tmp = *dest;
 	*dest = check_malloc(ft_strjoin(s1, s2));
 	// printf("dest = %p\n", *dest);
+	// printf("s1 = %p\n", s1);
+	// printf("s2 = %p\n", s2);
 	free(tmp);
 	return (*dest);
 }
@@ -149,11 +150,9 @@ int	process_str(char **tmparray, t_simple_cmds *tmp, int i)
 		{
 			tmparray[i] = process_str_concat(tmpstr, tmp->str[k]);
 			if (tmp->str[k + 1])
-				tmparray[i] = ft_malloced_strjoin(tmparray[i], " ",
-						&tmparray[i]);
+				tmparray[i] = ft_malloced_strjoin(tmparray[i], " ", &tmparray[i]);
 			free(tmpstr);
 			tmpstr = ft_strdup(tmparray[i]);
-			free(tmparray[i]);
 			k++;
 		}
 		free(tmpstr);
@@ -162,6 +161,8 @@ int	process_str(char **tmparray, t_simple_cmds *tmp, int i)
 	return (i);
 }
 
+//t_simple_cmds	*tmp;
+//process_redirections(tmparray, tmp, i);
 int	process_redirections(char **tmparray, t_simple_cmds *tmp, int i)
 {
 	while (tmp->redirections && tmp->redirections->token != PIPE
