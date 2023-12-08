@@ -115,9 +115,6 @@ int	process_input(t_tools *tools)
 
 void	check_exit(t_tools *tools, char **argv, char **envp, t_env **env)
 {
-	int	i;
-
-	i = 0;
 	while (tools->simple_cmds)
 	{
 		if (is_match(tools->simple_cmds->str[0], "exit") == true)
