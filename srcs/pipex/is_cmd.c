@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 23:22:47 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/07 21:10:45 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/08 21:07:41 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,17 @@ static char	*get_argv_wo_param(char **argv, int arg_i)
 	(ft_substr(argv[arg_i], 0, strlen_until_c(argv[arg_i], ' '))));
 }
 
-int	is_cmd(char **argv, int arg_i)
+char *getenv_from_heap_envp(char **heap_envp, char *varname)
+{
+	int he_i;
+
+	he_i = 0;
+	while(heap_envp[he_i] && ft_strncmp(heap_envp[he_i], varname, ft_strlen(varname)))
+		he_i++;
+	return heap_envp[he_i];
+}
+
+int	is_cmd(char **argv, int arg_i, char **heap_envp)
 {
 	char	*argv_wo_param;
 	char	**path;
@@ -52,11 +62,11 @@ int	is_cmd(char **argv, int arg_i)
 		return (free_tab(argv_wo_param), IS_A_DIRECTORY);
 	else if (is_file_exectable_wo_additional_path(argv_wo_param))
 		return (free_tab(argv_wo_param), true);
-	else if (getenv("PATH") == NULL || is_match(argv_wo_param, ".."))
-		return (free_tab(argv_wo_param), NOT_FOUND);
 	else if (is_false(argv, arg_i))
 		return (free_tab(argv_wo_param), false);
-	path = check_malloc(add_slash_eos(ft_split(getenv("PATH"), ':')));
+	else if (getenv_from_heap_envp(heap_envp, "PATH") == NULL || is_match(argv_wo_param, ".."))
+		return (free_tab(argv_wo_param), NOT_FOUND);
+	path = check_malloc(add_slash_eos(ft_split(getenv_from_heap_envp(heap_envp, "PATH"), ':')));
 	i = -1;
 	while (path[++i])
 	{

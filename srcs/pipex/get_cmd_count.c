@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmd_count.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 09:00:12 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/08 17:47:55 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/08 18:01:05 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	get_cmd_count(char **argv, char **heap_envp)
 	{
 		argv_wo_param = check_malloc \
 		(ft_substr(argv[arg_i], 0, strlen_until_c(argv[arg_i], ' ')));
-		ret = is_cmd(argv, arg_i);
+		ret = is_cmd(argv, arg_i, heap_envp);
 		if (ret == true)
 			cmd_count++;
 		check_is_dot(ret);

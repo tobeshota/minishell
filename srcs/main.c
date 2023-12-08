@@ -99,7 +99,7 @@ int	minipipex(char **argv, char **envp)
 	ft_printf(EXIT_MSG);
 	return (0);
 }
-
+/**/
 int	process_input(t_tools *tools)
 {
 	if (lexer(tools) == EXIT_FAILURE)
@@ -124,14 +124,6 @@ int	process_input(t_tools *tools)
 		return (0);
 	}
 	return (1);
-}
-
-void	ft_nodefirst_cmdsver(t_simple_cmds **node)
-{
-	if (node == NULL || *node == NULL)
-		return ;
-	while ((*node)->prev != NULL)
-		*node = (*node)->prev;
 }
 
 void	ft_nodefirst_cmdsver(t_simple_cmds **node)
@@ -204,7 +196,7 @@ int	minishell(char **envp, t_tools *tools, char **argv)
 	ft_printf(EXIT_MSG);
 	return (0);
 }
-
+/**/
 int	main(int argc, char **argv, char **envp)
 {
 	t_tools	tools;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/08 17:47:50 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/08 18:20:37 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,14 @@ int		get_cmd_absolute_path_count(t_pipex *pipex);
 int		get_pipe_count(char **argv);
 int		get_builtin_cmd_count(t_pipex *pipex);
 void	get_order(t_env *node);
-int		is_cmd(char **argv, int arg_i);
+char	*getenv_from_heap_envp(char **heap_envp, char *varname);
+int		is_cmd(char **argv, int arg_i, char **heap_envp);
 bool	is_specified_redirect(char *str);
 bool	is_io_file(char **argv, int arg_i);
 bool	get_cmd_absolute_path(char **argv, char **heap_envp, t_pipex *pipex);
 bool	add_absolute_path_to_cmd_name(char **heap_envp, char ***cmd_absolute_path);
 char	**add_slash_eos(char **path);
 int		get_cmd_arg_fd(t_pipex *pipex, int cmd_i);
-void	get_cmd_parameter(char **argv, char ***cmd_absolute_path,
-			char ***cmd_parameter, t_pipex *pipex);
 bool	proc_here_doc(char *limitter, t_pipex *pipex);
 bool	is_cmd_relative_path(char ***cmd_absolute_path, int cmd_i);
 bool	is_cmd_alreadly_absollute_path(char ***cmd_absolute_path, int cmd_i);

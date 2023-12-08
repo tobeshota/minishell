@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_pipex.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 22:46:35 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/08 17:36:15 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/08 21:12:00 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static bool	exec(char **heap_envp, t_env **env, t_pipex *pipex, int cmd_i)
 	{
 		cmd = check_malloc \
 		(ft_split(pipex->cmd_absolute_path_with_parameter[cmd_i], ' '));
-		put_array_for_debug(heap_envp);
+		// put_array_for_debug(heap_envp);
 		return (check_execve \
 		(execve(pipex->cmd_absolute_path[cmd_i], cmd, heap_envp)));
 	}
