@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_loop_pipex.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 12:49:44 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/08 17:23:45 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/08 21:23:28 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 
 static int	is_continue(char **splitter, int spl_i, int ret)
 {
-	return (is_match(splitter[spl_i], ";") \
-	|| (is_match(splitter[spl_i], "&&") && ret == 0) \
-	|| (is_match(splitter[spl_i], "||") && ret != 0));
+	return (is_match(splitter[spl_i], ";") || (is_match(splitter[spl_i], "&&")
+			&& ret == 0) || (is_match(splitter[spl_i], "||") && ret != 0));
 }
 
 static int	is_loop_in_and_operater(char **splitter, int spl_i)
@@ -31,10 +30,10 @@ static int	is_loop_in_or_operater(char **splitter, int spl_i)
 
 int	do_loop_pipex(char ***splitted_argv, char **splitter, t_env **env)
 {
-	int	sparg_i;
-	int	spl_i;
-	int	ret;
-	char **heap_envp;
+	int		sparg_i;
+	int		spl_i;
+	int		ret;
+	char	**heap_envp;
 
 	sparg_i = 0;
 	spl_i = 0;

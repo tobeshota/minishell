@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   array_node.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 15:36:11 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/08 17:07:46 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/08 21:29:26 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ t_env	*array_to_node(char **envp)
 
 char	**node_to_array(t_env *env)
 {
-	int env_i;
-	char **heap_envp;
+	int		env_i;
+	char	**heap_envp;
 
 	env_i = 0;
 	heap_envp = (char **)check_malloc(malloc(sizeof(char *)

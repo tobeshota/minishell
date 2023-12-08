@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/05 20:47:53 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/08 21:25:02 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,15 @@ void	get_order(t_env *node)
 		node = node->next;
 		ft_nodefirst(&test);
 	}
+}
+
+char	*getenv_from_heap_envp(char **heap_envp, char *varname)
+{
+	int	he_i;
+
+	he_i = 0;
+	while (heap_envp[he_i] && ft_strncmp(heap_envp[he_i], varname,
+			ft_strlen(varname)))
+		he_i++;
+	return (heap_envp[he_i]);
 }
