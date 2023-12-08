@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:39:54 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/08 12:50:28 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/08 14:27:57 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	handle_digit_after_dollar(int j, char *str)
 	return (j - i);
 }
 
-char	*detect_dollar(t_tools *tools, char *str)
+char	*detect_dollar(char *str, char **envp)
 {
 	int		j;
 	char	*tmp;
@@ -66,7 +66,7 @@ char	*detect_dollar(t_tools *tools, char *str)
 			j += question_mark(&tmp);
 		else if (str[j] == '$' && (str[j + 1] != ' ' && (str[j + 1] != '"'
 						|| str[j + 2] != '\0')) && str[j + 1] != '\0')
-			j += loop_if_dollar_sign(tools, str, &tmp, j);
+			j += loop_if_dollar_sign(envp, str, &tmp, j);
 		else
 		{
 			tmp2 = char_to_str(str[j++]);
@@ -79,7 +79,7 @@ char	*detect_dollar(t_tools *tools, char *str)
 	return (tmp);
 }
 
-char	**expander(t_tools *tools, char **str)
+char	**expander(t_tools *tools, char **str, char **envp)
 {
 	int		i;
 	char	*tmp;
@@ -92,7 +92,7 @@ char	**expander(t_tools *tools, char **str)
 			&&
 			str[i][find_dollar(str[i])] != '\0')
 		{
-			tmp = detect_dollar(tools, str[i]);
+			tmp = detect_dollar(str[i], envp);
 			free(str[i]);
 			str[i] = tmp;
 		}

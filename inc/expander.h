@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/08 13:08:23 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/08 14:27:27 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@
 # include "minishell.h"
 # include "parser.h"
 
-char		**expander(t_tools *tools, char **str);
+char		**expander(t_tools *tools, char **str, char **envp);
 size_t		dollar_sign(char *str);
 char		*char_to_str(char c);
 int			after_dol_lenght(char *str, int j);
 size_t		quotes_lenght(char *str);
 size_t		find_equal(char *str);
 size_t		find_dollar(char *str);
-int			loop_if_dollar_sign(t_tools *tools, char *str, char **tmp, int j);
+int			loop_if_dollar_sign(char **envp, char *str, char **tmp, int j);
 int			question_mark(char **tmp);
 
 //main_utils

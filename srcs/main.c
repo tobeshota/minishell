@@ -103,7 +103,7 @@ int	process_input(t_tools *tools)
 				tools->lexer_list->token) == EXIT_FAILURE)
 			return (0);
 	}
-	if(tools->lexer_list->token == 0 && tools->lexer_list->str[0] == '\0')
+	if (tools->lexer_list->token == 0 && tools->lexer_list->str[0] == '\0')
 	{
 		free_tools(tools);
 		return (0);
@@ -116,7 +116,7 @@ int	process_input(t_tools *tools)
 	return (1);
 }
 
-void	check_exit(t_tools *tools, char **argv, char **envp, t_env **env)
+void	check_exit(t_tools *tools, char **argv, t_env **env, char **envp)
 {
 	while (tools->simple_cmds && tools->simple_cmds->str)
 	{
@@ -144,13 +144,13 @@ int	handle_input(t_tools *tools, char **envp, t_env **env, char **argv)
 			return (0);
 		signal(SIGQUIT, sigquit_handler);
 		tools->tmp_array = change_to_array(tools);
-		tools->simple_cmds->str = expander(tools, tools->tmp_array);
+		tools->simple_cmds->str = expander(tools, tools->tmp_array, envp);
 		if (*tools->str)
 			add_history(tools->str);
 		put_arg_for_debug(tools->tmp_array);
-		check_exit(tools, argv, envp, env);
+		check_exit(tools, argv, env, envp);
 		g_global.error_num = loop_pipex(tools->tmp_array, envp, env);
-		node_to_array(*env, &tools->envp);
+		node_to_array(*env, &envp);
 		free_tools(tools);
 	}
 	return (1);
@@ -166,7 +166,6 @@ int	minishell(char **envp, t_tools *tools, char **argv)
 		tools = (t_tools *)check_malloc(malloc(sizeof(t_tools)));
 		if (implement_tools(tools) == 0)
 			exit(EXIT_FAILURE);
-		tools->envp = ft_arrdup(envp);
 		handle_input(tools, envp, &env, argv);
 	}
 	ft_nodeclear(&env);

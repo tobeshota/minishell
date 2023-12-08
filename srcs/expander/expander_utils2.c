@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 09:35:08 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/08 12:51:28 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/08 14:23:22 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ size_t	find_dollar(char *str)
 	return (0);
 }
 
-int	loop_if_dollar_sign(t_tools *tools, char *str, char **tmp, int j)
+int	loop_if_dollar_sign(char **envp, char *str, char **tmp, int j)
 {
 	int		k;
 	int		ret;
@@ -49,18 +49,18 @@ int	loop_if_dollar_sign(t_tools *tools, char *str, char **tmp, int j)
 
 	k = 0;
 	ret = 0;
-	while (tools->envp[k])
+	while (envp[k])
 	{
-		if (ft_strncmp(str + j + 1, tools->envp[k], find_equal(tools->envp[k])
+		if (ft_strncmp(str + j + 1, envp[k], find_equal(envp[k])
 				- 1) == 0 && after_dol_lenght(str, j)
-			- j == (int)find_equal(tools->envp[k]))
+			- j == (int)find_equal(envp[k]))
 		{
-			tmp2 = ft_strdup(tools->envp[k] + find_equal(tools->envp[k]));
+			tmp2 = ft_strdup(envp[k] + find_equal(envp[k]));
 			tmp3 = ft_strjoin(*tmp, tmp2);
 			free(*tmp);
 			*tmp = tmp3;
 			free(tmp2);
-			ret = find_equal(tools->envp[k]);
+			ret = find_equal(envp[k]);
 		}
 		k++;
 	}
