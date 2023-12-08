@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 22:46:35 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/08 14:48:24 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/08 17:36:15 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static bool	dup_std_fileno(int *stdin_fileno,
 	return (true);
 }
 
-static bool	exec(char **envp, t_env **env, t_pipex *pipex, int cmd_i)
+static bool	exec(char **heap_envp, t_env **env, t_pipex *pipex, int cmd_i)
 {
 	char		**cmd;
 	int			stdin_fileno;
@@ -45,8 +45,9 @@ static bool	exec(char **envp, t_env **env, t_pipex *pipex, int cmd_i)
 	{
 		cmd = check_malloc \
 		(ft_split(pipex->cmd_absolute_path_with_parameter[cmd_i], ' '));
+		put_array_for_debug(heap_envp);
 		return (check_execve \
-		(execve(pipex->cmd_absolute_path[cmd_i], cmd, envp)));
+		(execve(pipex->cmd_absolute_path[cmd_i], cmd, heap_envp)));
 	}
 }
 
@@ -63,7 +64,7 @@ static bool	get_child(pid_t *child_pid)
 	return (true);
 }
 
-bool	do_pipex(char **argv, char **envp, t_env **env, t_pipex *pipex)
+bool	do_pipex(char **argv, char **heap_envp, t_env **env, t_pipex *pipex)
 {
 	int		cmd_i;
 	pid_t	child_pid;
@@ -77,13 +78,13 @@ bool	do_pipex(char **argv, char **envp, t_env **env, t_pipex *pipex)
 			return (false);
 		if (is_cmd_builtin(pipex->cmd_absolute_path[cmd_i]))
 		{
-			if (exec(envp, env, pipex, cmd_i) == false)
+			if (exec(heap_envp, env, pipex, cmd_i) == false)
 				return (false);
 		}
 		else
 		{
 			if (get_child(&child_pid) == false \
-			|| (child_pid == 0 && exec(envp, env, pipex, cmd_i) == false))
+			|| (child_pid == 0 && exec(heap_envp, env, pipex, cmd_i) == false))
 				return (false);
 		}
 		if (cmd_i > 0 && close_pipe(pipex->pipe_fd[cmd_i - 1]) == false)

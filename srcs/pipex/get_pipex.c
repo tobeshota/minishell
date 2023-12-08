@@ -70,10 +70,10 @@ static void	init_pipex(t_pipex *pipex)
 	pipex->outfile_fd = STDOUT_FILENO;
 }
 
-bool	get_pipex(char **argv, t_pipex *pipex)
+bool	get_pipex(char **argv, char **heap_envp, t_pipex *pipex)
 {
 	init_pipex(pipex);
-	if (get_cmd_absolute_path(argv, pipex) == false)
+	if (get_cmd_absolute_path(argv, heap_envp, pipex) == false)
 		return (false);
 	if (get_cmd_absolute_path_count(pipex) == 0)
 	{

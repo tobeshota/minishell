@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   array_node.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 15:36:11 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/07 20:58:42 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/08 17:07:46 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,21 @@ t_env	*array_to_node(char **envp)
 	return (node);
 }
 
-void	node_to_array(t_env *env, char ***envp)
+char	**node_to_array(t_env *env)
 {
-	int	env_i;
+	int env_i;
+	char **heap_envp;
 
 	env_i = 0;
-	while (envp[0][env_i] && env && env->next)
+	heap_envp = (char **)check_malloc(malloc(sizeof(char *)
+				* ft_nodesize(env)));
+	while (env->next)
 	{
-		ft_strlcpy \
-		(envp[0][env_i], env->content, ft_strlen(env->content) + 1);
+		heap_envp[env_i] = check_malloc(ft_strdup(env->content));
 		ft_nodenext(&env);
 		env_i++;
 	}
+	heap_envp[env_i] = NULL;
+	ft_nodefirst(&env);
+	return (heap_envp);
 }

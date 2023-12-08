@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/08 14:38:42 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/08 17:47:50 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ bool	check_unlink(int ret);
 bool	is_path_found(char *path);
 bool	is_parameter_file(char *cmd_parameter);
 bool	is_parameter_dir(char *cmd_parameter);
-int		get_cmd_count(char **argv);
+int		get_cmd_count(char **argv, char **heap_envp);
 int		get_cmd_absolute_path_count(t_pipex *pipex);
 int		get_pipe_count(char **argv);
 int		get_builtin_cmd_count(t_pipex *pipex);
@@ -58,8 +58,8 @@ void	get_order(t_env *node);
 int		is_cmd(char **argv, int arg_i);
 bool	is_specified_redirect(char *str);
 bool	is_io_file(char **argv, int arg_i);
-bool	get_cmd_absolute_path(char **argv, t_pipex *pipex);
-bool	add_absolute_path_to_cmd_name(char ***cmd_absolute_path);
+bool	get_cmd_absolute_path(char **argv, char **heap_envp, t_pipex *pipex);
+bool	add_absolute_path_to_cmd_name(char **heap_envp, char ***cmd_absolute_path);
 char	**add_slash_eos(char **path);
 int		get_cmd_arg_fd(t_pipex *pipex, int cmd_i);
 void	get_cmd_parameter(char **argv, char ***cmd_absolute_path,
@@ -68,9 +68,9 @@ bool	proc_here_doc(char *limitter, t_pipex *pipex);
 bool	is_cmd_relative_path(char ***cmd_absolute_path, int cmd_i);
 bool	is_cmd_alreadly_absollute_path(char ***cmd_absolute_path, int cmd_i);
 bool	wait_children(int cmd_i);
-int		pipex(char **argv, char **envp, t_env **env);
-bool	get_pipex(char **argv, t_pipex *pipex);
-bool	do_pipex(char **argv, char **envp, t_env **env, t_pipex *pipex);
+int		pipex(char **argv, char **heap_envp, t_env **env);
+bool	get_pipex(char **argv, char **heap_envp, t_pipex *pipex);
+bool	do_pipex(char **argv, char **heap_envp, t_env **env, t_pipex *pipex);
 bool	end_pipex(t_pipex *pipex);
 
 // is_specified_file
@@ -103,7 +103,7 @@ bool	reset_fd(int *stdin_fileno, int *stdout_fileno);
 
 // array_node
 t_env	*array_to_node(char **envp);
-void	node_to_array(t_env *env, char ***envp);
+char	**node_to_array(t_env *env);
 
 // node
 t_env	*ft_nodenew(char *content);
@@ -117,12 +117,12 @@ t_env	*ft_nodelast(t_env *node);
 int		ft_nodesize(t_env *node);
 
 void	put_node_for_debug(t_env *node);
+void	put_array_for_debug(char **str);
 
 // loop_pipex
-int		loop_pipex(char **argv, char **envp, t_env **env);
+int		loop_pipex(char **argv, t_env **env);
 void	get_loop_pipex(char **argv, char ****splitted_argv, char ***splitter);
-int		do_loop_pipex(char ***splitted_argv, char **splitter, char **envp,
-			t_env **env);
+int		do_loop_pipex(char ***splitted_argv, char **splitter, t_env **env);
 void	end_loop_pipex(char ***splitted_argv, char **splitter);
 char	***get_splitted_argv(char **argv);
 char	**get_splitter(char **argv);

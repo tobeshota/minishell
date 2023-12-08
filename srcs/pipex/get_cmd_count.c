@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 09:00:12 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/07 13:26:53 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/08 17:47:55 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	check_is_dot(int ret)
 	}
 }
 
-int	get_cmd_count(char **argv)
+int	get_cmd_count(char **argv, char **heap_envp)
 {
 	int		cmd_count;
 	int		arg_i;
