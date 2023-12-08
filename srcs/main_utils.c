@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:36:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/08 12:57:53 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/08 14:17:29 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	implement_tools(t_tools *tools)
 	tools->simple_cmds = NULL;
 	tools->lexer_list = NULL;
 	tools->str = NULL;
-	tools->envp = NULL;
 	tools->tmp_array = NULL;
 	signal_init();
 	return (1);
@@ -28,7 +27,6 @@ int	free_tools(t_tools *tools)
 {
 	ft_simple_cmdsclear(&tools->simple_cmds);
 	free(tools->str);
-	all_free_tab(tools->envp);
 	implement_tools(tools);
 	free(tools);
 	return (1);

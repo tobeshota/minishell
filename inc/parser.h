@@ -6,20 +6,20 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 12:55:55 by cjia              #+#    #+#             */
-/*   Updated: 2023/12/08 13:13:27 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/08 14:33:29 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
 
+# include <fcntl.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+
 # define EXIT_FAILURE 1
 # define EXIT_SUCCESS 0
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
 
 typedef enum s_tokens
 {
@@ -48,7 +48,6 @@ typedef struct s_tools
 	char					*str;
 	struct s_simple_cmds	*simple_cmds;
 	t_lexer					*lexer_list;
-	char					**envp;
 	char					**tmp_array;
 }							t_tools;
 
@@ -96,6 +95,7 @@ int							parser_token_error(t_tools *tools,
 								t_lexer *lexer_list, t_tokens token);
 int							handle_operator_error(t_tools *tools,
 								t_tokens token);
+
 char						**change_to_array(t_tools *tools);
 int							ft_error(int error);
 
