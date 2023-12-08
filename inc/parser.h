@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 12:55:55 by cjia              #+#    #+#             */
-/*   Updated: 2023/12/08 14:33:29 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/08 17:38:01 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int							count_args(t_lexer *lexer_list);
 t_simple_cmds				*recreated_node(char **str, int num_redirections,
 								t_lexer *redirections);
 int							grouping_redirections(t_parser_tools *parser_tools);
-void						parser_error(int error, t_lexer *lexer_list);
+void						parser_error(int error, t_tools *tools);
 int							parser_token_error(t_tools *tools,
 								t_lexer *lexer_list, t_tokens token);
 int							handle_operator_error(t_tools *tools,

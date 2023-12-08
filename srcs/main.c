@@ -126,17 +126,36 @@ int	process_input(t_tools *tools)
 	return (1);
 }
 
+void	ft_nodefirst_cmdsver(t_simple_cmds **node)
+{
+	if (node == NULL || *node == NULL)
+		return ;
+	while ((*node)->prev != NULL)
+		*node = (*node)->prev;
+}
+
+void	ft_nodefirst_cmdsver(t_simple_cmds **node)
+{
+	if (node == NULL || *node == NULL)
+		return ;
+	while ((*node)->prev != NULL)
+		*node = (*node)->prev;
+}
+
 void	check_exit(t_tools *tools, char **argv, t_env **env)
 {
-	while (tools->simple_cmds && tools->simple_cmds->str)
+	t_simple_cmds	*node;
+
+	node = tools->simple_cmds;
+	while (node && node->str)
 	{
-		if (is_match(tools->simple_cmds->str[0], "exit") == true)
+		if (is_match(node->str[0], "exit") == true)
 		{
 			free_tools(tools);
 			argv = check_malloc(ft_split("exit", ':'));
 			g_global.error_num = loop_pipex(argv, env);
 		}
-		tools->simple_cmds = tools->simple_cmds->next;
+		node = node->next;
 	}
 }
 
