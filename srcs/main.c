@@ -103,11 +103,14 @@ int	process_input(t_tools *tools)
 				tools->lexer_list->token) == EXIT_FAILURE)
 			return (0);
 	}
-	if (tools->lexer_list->str[0] == '\0')
-		return (0);
-	if (parser(tools) == EXIT_FAILURE)
+	if(tools->lexer_list->token == 0 && tools->lexer_list->str[0] == '\0')
 	{
 		free_tools(tools);
+		return (0);
+	}
+	if (parser(tools) == EXIT_FAILURE)
+	{
+		// free_tools(tools);
 		return (0);
 	}
 	return (1);
