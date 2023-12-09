@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/06 14:24:32 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/09 20:59:46 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,14 @@ bool	proc_here_doc(char *limitter, t_pipex *pipex)
 	if (check_open(pipex->infile_fd, "here_doc") == false)
 		return (free(line), free(limitter_endl), false);
 	return (free(line), free(limitter_endl), true);
+}
+
+bool	rm_hd(void)
+{
+	if (is_file_exist(HERE_DOC_FILE_PATH))
+	{
+		if (check_unlink(unlink(HERE_DOC_FILE_PATH)) == false)
+			return (false);
+	}
+	return (true);
 }

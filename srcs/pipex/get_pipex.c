@@ -70,6 +70,21 @@ static void	init_pipex(t_pipex *pipex)
 	pipex->outfile_fd = STDOUT_FILENO;
 }
 
+// #include "expander.h"
+// /tmp/here_docファイルがあれば各行に対して変数展開を行う！
+// char *get_expanded_line(t_tools *tools, char **heap_envp)
+// {
+	/*
+	expanded_here_docファイルをオープンする
+	hare_docの各行がなくなるまで繰り返す
+	{
+		gnlで1行を取得する
+		その行をexpander();で変数展開する
+		変数展開した行をexpanded_here_docファイルに追記で出力する
+	}
+	*/
+// }
+
 bool	get_pipex(char **argv, char **heap_envp, t_pipex *pipex)
 {
 	init_pipex(pipex);
@@ -77,16 +92,17 @@ bool	get_pipex(char **argv, char **heap_envp, t_pipex *pipex)
 		return (false);
 	if (get_cmd_absolute_path_count(pipex) == 0)
 	{
-		if (get_infile_fd(pipex, 0, argv, true) == false)
+		if (get_infile_fd(pipex, argv, true) == false)
 			return (false);
 	}
 	else
 	{
-		if (get_infile_fd(pipex, 0, argv, false) == false)
+		if (get_infile_fd(pipex, argv, false) == false)
 			return (false);
 	}
-	if (get_outfile_fd(pipex, 0, argv) == false)
+	if (get_outfile_fd(pipex, argv) == false)
 		return (false);
 	malloc_multiple_pipe(argv, pipex);
+
 	return (true);
 }
