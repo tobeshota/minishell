@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 01:22:30 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/09 22:11:25 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/09 22:17:47 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	get_arg_start_pos(int pipe_count, char **argv)
 	return (arg_i);
 }
 
-bool	get_infile_fd(t_pipex *pipex, char **argv, int exec_flag)
+bool	get_infile_fd(t_pipex *pipex, char **argv)
 {
 	int	arg_i;
 
@@ -39,7 +39,8 @@ bool	get_infile_fd(t_pipex *pipex, char **argv, int exec_flag)
 			if (check_open(pipex->infile_fd, argv[arg_i + 1]) == false)
 				return (false);
 		}
-		else if (is_specified_here_doc(argv[arg_i]) && argv[arg_i + 1] && is_file_exist(HERE_DOC_FILE_PATH) == false)
+		else if (is_specified_here_doc(argv[arg_i]) && argv[arg_i + 1] \
+		&& is_file_exist(HERE_DOC_FILE_PATH) == false)
 			if (proc_here_doc(argv[arg_i + 1], pipex) == false)
 				return (false);
 		arg_i++;

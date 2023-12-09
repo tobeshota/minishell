@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/09 21:57:19 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/09 22:14:24 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ bool	is_specified_outfile_overwriting(char *str);
 bool	is_specified_outfile_apend(char *str);
 bool	is_specified_operators(char *str);
 
-bool	get_infile_fd(t_pipex *pipex, char **argv, int exec_flag);
+bool	get_infile_fd(t_pipex *pipex, char **argv);
 bool	get_outfile_fd(t_pipex *pipex, char **argv);
 
 // is_file_ok

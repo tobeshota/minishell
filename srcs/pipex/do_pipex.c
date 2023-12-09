@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 22:46:35 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/09 22:11:11 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/09 22:17:02 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,7 @@ bool	do_pipex(char **argv, char **heap_envp, t_env **env, t_pipex *pipex)
 	cmd_i = -1;
 	while (pipex->cmd_absolute_path[++cmd_i])
 	{
-		// はじめにpipex->infile_fd = STDIN_FILENOが行われてしまうため，here_docしたfdがリセットされてしまう！
-		// fdのリセットは別の場所で行うべき！
-		get_infile_fd(pipex, argv + get_arg_start_pos(cmd_i, argv), true);
+		get_infile_fd(pipex, argv + get_arg_start_pos(cmd_i, argv));
 		get_outfile_fd(pipex, argv + get_arg_start_pos(cmd_i, argv));
 		if (cmd_i < get_pipe_count(argv) && get_pipe(pipex, cmd_i) == false)
 			return (false);
