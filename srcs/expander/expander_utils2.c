@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_utils2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
+/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 09:35:08 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/08 14:23:22 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/09 21:30:38 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,3 +75,13 @@ int	question_mark(char **tmp)
 	*tmp = ft_itoa(g_global.error_num);
 	return (ft_strlen(*tmp) + 1);
 }
+
+// int	question_mark(char **tmp)
+// {
+// 	char *tmp2;
+// 	free(*tmp);
+// 	tmp2 = ft_itoa(g_global.error_num);
+// 	*tmp = ft_strjoin("echo ", tmp2);
+// 	free(tmp2);
+// 	return (ft_strlen(*tmp) + 1);
+// }
