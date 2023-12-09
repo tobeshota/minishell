@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/08 14:27:27 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/09 13:09:02 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int			question_mark(char **tmp);
 
 //main_utils
 char		**ft_arrdup(char **arr);
-void		ft_simple_cmdsclear(t_simple_cmds **lst);
+bool		ft_simple_cmdsclear(t_simple_cmds **lst);
 void		ft_lexerclear(t_lexer **lst);
 
 int			free_tools(t_tools *tools);
