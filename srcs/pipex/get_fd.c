@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 01:22:30 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/09 20:33:49 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/09 22:11:25 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ bool	get_infile_fd(t_pipex *pipex, char **argv, int exec_flag)
 	int	arg_i;
 
 	arg_i = 0;
-	pipex->infile_fd = STDIN_FILENO;
 	while (argv[arg_i] && !is_specified_pipe(argv[arg_i]))
 	{
 		if (is_specified_infile(argv[arg_i]) && argv[arg_i + 1])
@@ -40,8 +39,7 @@ bool	get_infile_fd(t_pipex *pipex, char **argv, int exec_flag)
 			if (check_open(pipex->infile_fd, argv[arg_i + 1]) == false)
 				return (false);
 		}
-		else if (is_specified_here_doc(argv[arg_i]) && \
-		argv[arg_i + 1] && exec_flag == true)
+		else if (is_specified_here_doc(argv[arg_i]) && argv[arg_i + 1] && is_file_exist(HERE_DOC_FILE_PATH) == false)
 			if (proc_here_doc(argv[arg_i + 1], pipex) == false)
 				return (false);
 		arg_i++;
@@ -54,7 +52,6 @@ bool	get_outfile_fd(t_pipex *pipex, char **argv)
 	int	arg_i;
 
 	arg_i = 0;
-	pipex->outfile_fd = STDOUT_FILENO;
 	while (argv[arg_i] && !is_specified_pipe(argv[arg_i]))
 	{
 		if (is_specified_outfile_overwriting(argv[arg_i]) && argv[arg_i + 1])

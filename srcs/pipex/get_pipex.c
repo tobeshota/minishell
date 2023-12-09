@@ -90,16 +90,9 @@ bool	get_pipex(char **argv, char **heap_envp, t_pipex *pipex)
 	init_pipex(pipex);
 	if (get_cmd_absolute_path(argv, heap_envp, pipex) == false)
 		return (false);
-	if (get_cmd_absolute_path_count(pipex) == 0)
-	{
-		if (get_infile_fd(pipex, argv, true) == false)
-			return (false);
-	}
-	else
-	{
-		if (get_infile_fd(pipex, argv, false) == false)
-			return (false);
-	}
+	// 「/tmp/here_docg が存在していない場合，proc_here_docを実効する」とすれば proc_here_docg が二重で実行されるのを防げる！
+	if (get_infile_fd(pipex, argv, false) == false)
+		return (false);
 	if (get_outfile_fd(pipex, argv) == false)
 		return (false);
 	malloc_multiple_pipe(argv, pipex);
