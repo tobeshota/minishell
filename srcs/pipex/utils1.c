@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/09 10:27:46 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/09 10:49:40 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,11 @@ void	get_order(t_env *node)
 char	*getenv_from_heap_envp(char **heap_envp, char *varname)
 {
 	int	he_i;
+	int	varname_len;
 
 	he_i = 0;
-	while (heap_envp[he_i] && ft_strncmp(heap_envp[he_i], varname,
-			ft_strlen(varname)))
+	varname_len = ft_strlen(varname);
+	while (heap_envp[he_i] && ft_strlen(heap_envp[he_i]) >= varname_len &&  ft_strncmp(heap_envp[he_i], varname, varname_len))
 		he_i++;
 	return (heap_envp[he_i]);
 }
