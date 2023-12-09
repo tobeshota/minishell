@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/09 14:25:52 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/09 19:27:30 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,10 @@ char	*getenv_from_heap_envp(char **heap_envp, char *varname)
 
 	he_i = 0;
 	varname_len = ft_strlen(varname);
-	while(heap_envp[he_i])
+	while (heap_envp[he_i])
 	{
-		if (ft_strlen(heap_envp[he_i]) > 0 && !ft_strncmp(heap_envp[he_i], varname, varname_len))
+		if (ft_strlen(heap_envp[he_i]) > 0 && !ft_strncmp(heap_envp[he_i],
+				varname, varname_len))
 			break ;
 		he_i++;
 	}

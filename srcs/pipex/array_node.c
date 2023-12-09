@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 15:36:11 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/09 15:07:59 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/09 19:26:24 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ char	**node_to_array(t_env *env)
 	char	**heap_envp;
 
 	env_i = 0;
-	heap_envp = (char **)check_malloc(malloc(sizeof(char *) * (ft_nodesize(env) + 1)));
+	heap_envp = (char **)check_malloc \
+	(malloc(sizeof(char *) * (ft_nodesize(env) + 1)));
 	while (env->next)
 	{
 		heap_envp[env_i] = check_malloc(ft_strdup(env->content));

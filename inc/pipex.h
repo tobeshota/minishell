@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/09 10:27:36 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/09 19:19:05 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ bool	check_close(int ret);
 bool	check_pipe(int ret);
 bool	check_fork(pid_t child_pid);
 bool	check_dup(int ret);
-bool	check_execve(int ret);
-bool	check_exec_builtin(int ret);
+bool	check_execve(int ret, char *cmd);
+bool	check_exec_builtin(int ret, char *cmd);
 bool	check_wait(int ret);
 bool	check_unlink(int ret);
 bool	is_path_found(char *path);
@@ -133,7 +133,7 @@ bool	is_splitter_exist(char **argv);
 
 // put_error
 void	put_error(char *err_msg);
-void	put_error_w_cmd(char *filename, char *error_msg);
+void	put_error_w_cmd(char *cmd, char *error_msg);
 void	put_error_w_file(char *file, char *error_msg);
 void	put_error_w_cmd_filename(char *cmdname, char *filename,
 			char *error_msg);
