@@ -39,9 +39,9 @@ void	add_shlvl(t_env **env)
 	int		shlvl_nb;
 	char	*shlvl_str;
 
-	if (getenv("SHLVL") == NULL)
+	if (getenv_from_t_env(*env, "SHLVL=") == NULL)
 		return ;
-	shlvl_nb = ft_atoi(getenv("SHLVL"));
+	shlvl_nb = ft_atoi(getenv_from_t_env(*env, "SHLVL=") + ft_strlen("SHLVL="));
 	shlvl_str = check_malloc(ft_itoa(shlvl_nb + 1));
 	update_envp(env, "SHLVL=", shlvl_str);
 	free(shlvl_str);
@@ -64,6 +64,7 @@ void	add_basic_shell_variables(char **envp)
 
 void	init_minishell(char **envp, t_env **env)
 {
+// envp[0] = NULL;
 	if (envp[0] == NULL)
 		add_basic_shell_variables(envp);
 	*env = array_to_node(envp);

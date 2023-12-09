@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:36:07 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/08 23:13:24 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/09 10:12:48 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,22 @@ int	exec_unset(char **cmd, t_env **env)
 		unseted_env = get_old_env_to_be_updated(cmd[i], *env);
 		if (unseted_env == false)
 			continue ;
-		if (is_node_last(unseted_env) == true)
-			unseted_env->prev->next = NULL;
+		// if (is_node_last(unseted_env) == true)
+		// 	unseted_env->prev->next = NULL;
 		if (is_node_first(unseted_env) == true)
-			unseted_env->next->prev = NULL;
+			// unseted_env->next->prev = NULL;
+		{
+			unseted_env = unseted_env->next;
+			ft_nodedelone(&unseted_env->prev);
+			ft_nodenext(env);
+		}
 		else
 		{
 			unseted_env->prev->next = unseted_env->next;
 			unseted_env->next->prev = unseted_env->prev;
+			ft_nodedelone(&unseted_env);
 		}
-		ft_nodedelone(&unseted_env);
+		// ft_nodedelone(&unseted_env);
 		ft_nodefirst(env);
 	}
 	return (true);

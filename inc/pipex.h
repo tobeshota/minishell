@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/08 21:29:57 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/09 10:27:36 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int		get_pipe_count(char **argv);
 int		get_builtin_cmd_count(t_pipex *pipex);
 void	get_order(t_env *node);
 char	*getenv_from_heap_envp(char **heap_envp, char *varname);
+char	*getenv_from_t_env(t_env *env, char *varname);
 int		is_cmd(char **argv, int arg_i, char **heap_envp);
 bool	is_specified_redirect(char *str);
 bool	is_io_file(char **argv, int arg_i);
