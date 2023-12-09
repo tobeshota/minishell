@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 13:17:23 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/08 22:01:00 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/09 19:41:45 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ int	parser_token_error(t_tools *tools, t_lexer *lexer_list,
 		ft_putstr_fd("'||'\n", STDERR_FILENO);
 	else
 		ft_putstr_fd("\n", STDERR_FILENO);
-	ft_lexerclear(&lexer_list);
 	free_tools(tools);
 	return (EXIT_FAILURE);
 }

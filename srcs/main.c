@@ -123,6 +123,7 @@ int	process_input(t_tools *tools)
 	if (tools->lexer_list->token == 0 && tools->lexer_list->str[0] == '\0')
 	{
 		free_tools(tools);
+		ft_lexerclear(&tools->lexer_list);
 		return (0);
 	}
 	if (parser(tools) == EXIT_FAILURE)
@@ -183,15 +184,16 @@ int	handle_input(t_tools *tools, t_env **env, char **argv)
 int	minishell(char **envp, t_tools *tools, char **argv)
 {
 	t_env	*env;
-
+	char    *line;
 	init_minishell(envp, &env);
 	while (true)
 	{
+		line = readline(MINISHELL_PROMPT);
+		if (!line)
+			break ;
 		tools = (t_tools *)check_malloc(malloc(sizeof(t_tools)));
 		implement_tools(tools);
-		tools->str = readline(MINISHELL_PROMPT);
-		if (!tools->str && free_tools(tools))
-			break ;
+		tools->str = line;
 		if (*tools->str)
 			add_history(tools->str);
 		handle_input(tools, &env, argv);
