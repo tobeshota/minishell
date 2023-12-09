@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
+/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 09:57:45 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/08 12:57:00 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/09 21:30:09 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	sigint_handler(int sig)
 {
+	g_global.error_num = 130;
 	if (!g_global.in_heredoc)
 		ft_putstr_fd("\n", STDERR_FILENO);
 	if (g_global.in_cmd)
@@ -31,6 +32,7 @@ void	sigint_handler(int sig)
 
 void	sigquit_handler(int sig)
 {
+	g_global.error_num = 131;
 	ft_putstr_fd("Quit: ", STDERR_FILENO);
 	ft_putnbr_fd(sig, STDERR_FILENO);
 	ft_putchar_fd('\n', STDERR_FILENO);
