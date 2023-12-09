@@ -15,11 +15,11 @@ static void	put_arg_for_debug(char **argv)
 
 void	put_array_for_debug(char **str)
 {
-	int	i;
-
-	i = -1;
-	while (str[++i])
-		ft_printf("%d\t%s\n", i, str[i]);
+	while(*str)
+	{
+		ft_printf(">>>\t%s\n", *str);
+		str++;
+	}
 }
 
 
