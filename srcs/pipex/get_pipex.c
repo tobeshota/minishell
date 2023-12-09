@@ -85,15 +85,40 @@ static void	init_pipex(t_pipex *pipex)
 	*/
 // }
 
+static int get_argc(char **argv)
+{
+	int argc;
+
+	argc = 0;
+	while(argv[argc])
+		argc++;
+	return argc;
+}
+
+static void cp_argv(char **argv, t_pipex *pipex)
+{
+	int arg_i;
+
+	pipex->argv = (char **)check_malloc(malloc(sizeof(char *) * (get_argc(argv) + 1)));
+	arg_i = 0;
+	while(argv[arg_i])
+	{
+		pipex->argv[arg_i] = check_malloc(ft_strdup(argv[arg_i]));
+		arg_i++;
+	}
+	pipex->argv[arg_i] = NULL;
+}
+
 bool	get_pipex(char **argv, char **heap_envp, t_pipex *pipex)
 {
 	init_pipex(pipex);
-	if (get_infile_fd(pipex, argv) == false)
+	cp_argv(argv, pipex);
+	if (get_infile_fd(pipex, pipex->argv) == false)
 		return (false);
-	if (get_outfile_fd(pipex, argv) == false)
+	if (get_outfile_fd(pipex, pipex->argv) == false)
 		return (false);
-	if (get_cmd_absolute_path(argv, heap_envp, pipex) == false)
+	if (get_cmd_absolute_path(pipex->argv, heap_envp, pipex) == false)
 		return (false);
-	malloc_multiple_pipe(argv, pipex);
+	malloc_multiple_pipe(pipex->argv, pipex);
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:54:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/09 21:55:01 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/09 22:35:36 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	all_free_int(int **ptr)
 
 bool	end_pipex(t_pipex *pipex)
 {
+	all_free_tab(pipex->argv);
 	all_free_tab(pipex->cmd_absolute_path);
 	all_free_tab(pipex->cmd_absolute_path_with_parameter);
 	all_free_int(pipex->pipe_fd);

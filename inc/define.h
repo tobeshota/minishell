@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 13:12:10 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/05 17:29:39 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/09 22:24:41 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_pipex
 	int						outfile_fd;
 	char					**cmd_absolute_path;
 	char					**cmd_absolute_path_with_parameter;
+	char					**argv;
 	int						**pipe_fd;
 }							t_pipex;
 
