@@ -190,13 +190,10 @@ int	minishell(char **envp, t_tools *tools, char **argv)
 		tools = (t_tools *)check_malloc(malloc(sizeof(t_tools)));
 		implement_tools(tools);
 		tools->str = readline(MINISHELL_PROMPT);
+		if (!tools->str && free_tools(tools))
+			break ;
 		if (*tools->str)
 			add_history(tools->str);
-		if (!tools->str)
-		{
-			free_tools(tools);
-			break ;
-		}
 		handle_input(tools, &env, argv);
 	}
 	ft_nodeclear(&env);
