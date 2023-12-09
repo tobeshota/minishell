@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 22:46:35 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/09 20:33:21 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/09 21:08:40 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ bool	do_pipex(char **argv, char **heap_envp, t_env **env, t_pipex *pipex)
 			|| (child_pid == 0 && exec(heap_envp, env, pipex, cmd_i) == false))
 				return (false);
 		}
-		if (cmd_i > 0 && close_pipe(pipex->pipe_fd[cmd_i - 1]) == false)
+		if (!rm_hd() || (cmd_i > 0 && !close_pipe(pipex->pipe_fd[cmd_i - 1])))
 			return (false);
 	}
 	return (wait_children(cmd_i - get_builtin_cmd_count(pipex)));
