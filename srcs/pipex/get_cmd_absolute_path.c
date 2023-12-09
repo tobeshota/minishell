@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/08 21:29:05 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/09 23:09:28 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,13 @@ t_pipex *pipex)
 	pipex->cmd_absolute_path_with_parameter[cmd_i] = NULL;
 }
 
-bool	get_cmd_absolute_path(char **argv, char **heap_envp, t_pipex *pipex)
+bool	get_cmd_absolute_path(char **heap_envp, t_pipex *pipex)
 {
 	char	**cmd_parameter;
 
-	get_cmd_name_from_arg(argv, heap_envp, &pipex->cmd_absolute_path);
+	get_cmd_name_from_arg(pipex->argv, heap_envp, &pipex->cmd_absolute_path);
 	cmd_parameter = get_cmd_parameter \
-	(argv, heap_envp, &pipex->cmd_absolute_path, pipex);
+	(pipex->argv, heap_envp, &pipex->cmd_absolute_path, pipex);
 	if (add_absolute_path_to_cmd_name \
 	(heap_envp, &pipex->cmd_absolute_path) == false)
 		return (all_free_tab(cmd_parameter), false);

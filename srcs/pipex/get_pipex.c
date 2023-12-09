@@ -44,13 +44,13 @@ int	get_pipe_count(char **argv)
 	return (pipe_count);
 }
 
-static void	malloc_multiple_pipe(char **argv, t_pipex *pipex)
+static void	malloc_multiple_pipe(t_pipex *pipex)
 {
 	int	i;
 	int	pipe_count;
 
 	i = 0;
-	pipe_count = get_pipe_count(argv);
+	pipe_count = get_pipe_count(pipex->argv);
 	if (pipe_count == 0)
 		return ;
 	pipex->pipe_fd = \
@@ -117,8 +117,8 @@ bool	get_pipex(char **argv, char **heap_envp, t_pipex *pipex)
 		return (false);
 	if (get_outfile_fd(pipex, pipex->argv) == false)
 		return (false);
-	if (get_cmd_absolute_path(pipex->argv, heap_envp, pipex) == false)
+	if (get_cmd_absolute_path(heap_envp, pipex) == false)
 		return (false);
-	malloc_multiple_pipe(pipex->argv, pipex);
+	malloc_multiple_pipe(pipex);
 	return (true);
 }

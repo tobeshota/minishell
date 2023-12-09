@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/09 23:03:56 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/09 23:08:41 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	*getenv_from_t_env(t_env *env, char *varname);
 int		is_cmd(char **argv, int arg_i, char **heap_envp);
 bool	is_specified_redirect(char *str);
 bool	is_io_file(char **argv, int arg_i);
-bool	get_cmd_absolute_path(char **argv, char **heap_envp, t_pipex *pipex);
+bool	get_cmd_absolute_path(char **heap_envp, t_pipex *pipex);
 bool	add_absolute_path_to_cmd_name(char **heap_envp,
 			char ***cmd_absolute_path);
 char	**add_slash_eos(char **path);
