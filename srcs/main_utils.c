@@ -6,12 +6,12 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:36:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/09 11:04:22 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/09 12:41:50 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/expander.h"
-#include "../inc/minishell.h"
+#include "expander.h"
+#include "minishell.h"
 
 int	implement_tools(t_tools *tools)
 {
@@ -25,8 +25,9 @@ int	implement_tools(t_tools *tools)
 
 int	free_tools(t_tools *tools)
 {
-	ft_simple_cmdsclear(&tools->simple_cmds);
 	free(tools->str);
+	if(!ft_simple_cmdsclear(&tools->simple_cmds))
+		ft_lexerclear(&tools->lexer_list);
 	implement_tools(tools);
 	free(tools);
 	return (1);
@@ -80,13 +81,13 @@ void	ft_lexerclear(t_lexer **lst)
 	*lst = NULL;
 }
 
-void	ft_simple_cmdsclear(t_simple_cmds **simple_cmds)
+bool	ft_simple_cmdsclear(t_simple_cmds **simple_cmds)
 {
 	t_simple_cmds *tmp;
 	t_lexer *redirections_tmp;
 
 	if (!*simple_cmds)
-		return ;
+		return false;
 	while (*simple_cmds)
 	{
 		tmp = (*simple_cmds)->next;
@@ -99,4 +100,5 @@ void	ft_simple_cmdsclear(t_simple_cmds **simple_cmds)
 		*simple_cmds = tmp;
 	}
 	*simple_cmds = NULL;
+	return true;
 }

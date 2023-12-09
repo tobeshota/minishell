@@ -159,7 +159,7 @@ int	handle_input(t_tools *tools, t_env **env, char **argv)
 	if (tools->str[0] != '\0')
 	{
 		if (!process_input(tools))
-			return (0);
+			return (false);
 		signal(SIGQUIT, sigquit_handler);
 		tools->tmp_array = change_to_array(tools);
 		heap_envp = node_to_array(*env);
@@ -169,8 +169,10 @@ int	handle_input(t_tools *tools, t_env **env, char **argv)
 		check_exit(tools, argv, env);
 		g_global.error_num = loop_pipex(tools->tmp_array, env);
 		free_tools(tools);
+		return (true);
 	}
-	return (true);
+	free_tools(tools);
+	return (false);
 }
 
 int	minishell(char **envp, t_tools *tools, char **argv)
