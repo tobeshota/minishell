@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmd_absolute_path_utils.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/08 21:22:58 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/09 15:05:20 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ char	**add_slash_eos(char **path)
 		tmp = path[i];
 		path[i] = check_malloc(ft_strjoin(path[i], "/"));
 		free(tmp);
+		tmp = NULL;
 		i++;
 	}
 	return (path);
