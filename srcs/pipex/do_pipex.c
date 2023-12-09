@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_pipex.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 22:46:35 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/09 22:17:02 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/09 23:03:59 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static bool	get_child(pid_t *child_pid)
 	return (true);
 }
 
-bool	do_pipex(char **argv, char **heap_envp, t_env **env, t_pipex *pipex)
+bool	do_pipex(char **heap_envp, t_env **env, t_pipex *pipex)
 {
 	int		cmd_i;
 	pid_t	child_pid;
@@ -74,9 +74,9 @@ bool	do_pipex(char **argv, char **heap_envp, t_env **env, t_pipex *pipex)
 	cmd_i = -1;
 	while (pipex->cmd_absolute_path[++cmd_i])
 	{
-		get_infile_fd(pipex, argv + get_arg_start_pos(cmd_i, argv));
-		get_outfile_fd(pipex, argv + get_arg_start_pos(cmd_i, argv));
-		if (cmd_i < get_pipe_count(argv) && get_pipe(pipex, cmd_i) == false)
+		get_infile_fd(pipex, pipex->argv + get_arg_start_pos(cmd_i, pipex->argv));
+		get_outfile_fd(pipex, pipex->argv + get_arg_start_pos(cmd_i, pipex->argv));
+		if (cmd_i < get_pipe_count(pipex->argv) && get_pipe(pipex, cmd_i) == false)
 			return (false);
 		if (is_cmd_builtin(pipex->cmd_absolute_path[cmd_i]))
 		{

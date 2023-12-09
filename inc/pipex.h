@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/09 22:14:24 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/09 23:03:56 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ bool	wait_children(int cmd_i);
 bool	reset_pipex(t_pipex *pipex, int cmd_i);
 int		pipex(char **argv, char **heap_envp, t_env **env);
 bool	get_pipex(char **argv, char **heap_envp, t_pipex *pipex);
-bool	do_pipex(char **argv, char **heap_envp, t_env **env, t_pipex *pipex);
+bool	do_pipex(char **heap_envp, t_env **env, t_pipex *pipex);
 bool	end_pipex(t_pipex *pipex);
 
 // is_specified_file
