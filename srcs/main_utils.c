@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:36:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/09 20:21:33 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/09 22:47:46 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	implement_tools(t_tools *tools)
 int	free_tools(t_tools *tools)
 {
 	free(tools->str);
-	if (ft_simple_cmdsclear(&tools->simple_cmds) == false && tools->lexer_list->str)
+	if (ft_simple_cmdsclear(&tools->simple_cmds) == false)
 		ft_lexerclear(&tools->lexer_list);
 	implement_tools(tools);
 	free(tools);
