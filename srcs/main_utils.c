@@ -6,12 +6,34 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:36:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/08 17:06:33 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/09 13:11:31 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/expander.h"
-#include "../inc/minishell.h"
+#include "expander.h"
+#include "minishell.h"
+
+bool	ft_simple_cmdsclear(t_simple_cmds **simple_cmds)
+{
+	t_simple_cmds	*tmp;
+	t_lexer			*redirections_tmp;
+
+	if (!*simple_cmds)
+		return (false);
+	while (*simple_cmds)
+	{
+		tmp = (*simple_cmds)->next;
+		redirections_tmp = (*simple_cmds)->redirections;
+		ft_lexerclear(&redirections_tmp);
+		if ((*simple_cmds)->str)
+			all_free_tab((*simple_cmds)->str);
+		free((*simple_cmds)->prev);
+		free(*simple_cmds);
+		*simple_cmds = tmp;
+	}
+	*simple_cmds = NULL;
+	return (true);
+}
 
 int	implement_tools(t_tools *tools)
 {
@@ -25,8 +47,10 @@ int	implement_tools(t_tools *tools)
 
 int	free_tools(t_tools *tools)
 {
-	ft_simple_cmdsclear(&tools->simple_cmds);
 	free(tools->str);
+	ft_simple_cmdsclear(&tools->simple_cmds);
+		// if (!ft_simple_cmdsclear(&tools->simple_cmds))
+		// ft_lexerclear(&tools->lexer_list);
 	implement_tools(tools);
 	free(tools);
 	return (1);
@@ -78,24 +102,4 @@ void	ft_lexerclear(t_lexer **lst)
 		*lst = tmp;
 	}
 	*lst = NULL;
-}
-
-void	ft_simple_cmdsclear(t_simple_cmds **simple_cmds)
-{
-	t_simple_cmds *tmp;
-	t_lexer *redirections_tmp;
-
-	if (!*simple_cmds)
-		return ;
-	while (*simple_cmds)
-	{
-		tmp = (*simple_cmds)->next;
-		redirections_tmp = (*simple_cmds)->redirections;
-		ft_lexerclear(&redirections_tmp);
-		if ((*simple_cmds)->str)
-			all_free_tab((*simple_cmds)->str);
-		free(*simple_cmds);
-		*simple_cmds = tmp;
-	}
-	*simple_cmds = NULL;
 }
