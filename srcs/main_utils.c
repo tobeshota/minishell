@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
+/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:36:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/08 17:06:33 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/09 11:04:22 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ void	ft_simple_cmdsclear(t_simple_cmds **simple_cmds)
 		ft_lexerclear(&redirections_tmp);
 		if ((*simple_cmds)->str)
 			all_free_tab((*simple_cmds)->str);
+		free((*simple_cmds)->prev);
 		free(*simple_cmds);
 		*simple_cmds = tmp;
 	}
