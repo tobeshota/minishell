@@ -53,8 +53,8 @@ static void	malloc_multiple_pipe(t_pipex *pipex)
 	pipe_count = get_pipe_count(pipex->argv);
 	if (pipe_count == 0)
 		return ;
-	pipex->pipe_fd = \
-	(int **)check_malloc(malloc(sizeof(int *) * (pipe_count + 1)));
+	pipex->pipe_fd = (int **)check_malloc \
+	(malloc(sizeof(int *) * (pipe_count + 1)));
 	while (i < pipe_count)
 	{
 		pipex->pipe_fd[i] = (int *)check_malloc(malloc(sizeof(int) * 2));
@@ -63,18 +63,19 @@ static void	malloc_multiple_pipe(t_pipex *pipex)
 	pipex->pipe_fd[i] = NULL;
 }
 
-static void	init_pipex(t_pipex *pipex)
+static bool	init_pipex(t_pipex *pipex)
 {
 	ft_bzero(pipex, sizeof(t_pipex));
 	pipex->infile_fd = STDIN_FILENO;
 	pipex->outfile_fd = STDOUT_FILENO;
+	return (rm_here_doc());
 }
 
 // #include "expander.h"
 // /tmp/here_docファイルがあれば各行に対して変数展開を行う！
 // char *get_expanded_line(t_tools *tools, char **heap_envp)
 // {
-	/*
+/*
 	expanded_here_docファイルをオープンする
 	hare_docの各行がなくなるまで繰り返す
 	{
@@ -85,23 +86,24 @@ static void	init_pipex(t_pipex *pipex)
 	*/
 // }
 
-static int get_argc(char **argv)
+static int	get_argc(char **argv)
 {
-	int argc;
+	int	argc;
 
 	argc = 0;
-	while(argv[argc])
+	while (argv[argc])
 		argc++;
-	return argc;
+	return (argc);
 }
 
-static void cp_argv(char **argv, t_pipex *pipex)
+static void	cp_argv(char **argv, t_pipex *pipex)
 {
-	int arg_i;
+	int	arg_i;
 
-	pipex->argv = (char **)check_malloc(malloc(sizeof(char *) * (get_argc(argv) + 1)));
+	pipex->argv = (char **)check_malloc \
+	(malloc(sizeof(char *) * (get_argc(argv) + 1)));
 	arg_i = 0;
-	while(argv[arg_i])
+	while (argv[arg_i])
 	{
 		pipex->argv[arg_i] = check_malloc(ft_strdup(argv[arg_i]));
 		arg_i++;
@@ -111,7 +113,8 @@ static void cp_argv(char **argv, t_pipex *pipex)
 
 bool	get_pipex(char **argv, char **heap_envp, t_pipex *pipex)
 {
-	init_pipex(pipex);
+	if (init_pipex(pipex) == false)
+		return (false);
 	cp_argv(argv, pipex);
 	if (get_infile_fd(pipex, pipex->argv) == false)
 		return (false);
