@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_fd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 01:22:30 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/09 22:17:47 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/10 22:21:40 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	get_arg_start_pos(int pipe_count, char **argv)
+int	get_arg_i(int pipe_count, char **argv)
 {
 	int	arg_i;
 
@@ -26,7 +26,7 @@ int	get_arg_start_pos(int pipe_count, char **argv)
 	return (arg_i);
 }
 
-bool	get_infile_fd(t_pipex *pipex, char **argv)
+bool	get_infile_fd(t_pipex *pipex, char **argv, char **heap_envp)
 {
 	int	arg_i;
 
@@ -41,7 +41,7 @@ bool	get_infile_fd(t_pipex *pipex, char **argv)
 		}
 		else if (is_specified_here_doc(argv[arg_i]) && argv[arg_i + 1] \
 		&& is_file_exist(HERE_DOC_FILE_PATH) == false)
-			if (proc_here_doc(argv[arg_i + 1], pipex) == false)
+			if (proc_here_doc(argv[arg_i + 1], pipex, heap_envp) == false)
 				return (false);
 		arg_i++;
 	}
@@ -65,5 +65,14 @@ bool	get_outfile_fd(t_pipex *pipex, char **argv)
 			return (false);
 		arg_i++;
 	}
+	return (true);
+}
+
+bool	get_fd(t_pipex *pipex, char **argv, char **heap_envp)
+{
+	if (get_infile_fd(pipex, argv, heap_envp) == false)
+		return (false);
+	if (get_outfile_fd(pipex, argv) == false)
+		return (false);
 	return (true);
 }

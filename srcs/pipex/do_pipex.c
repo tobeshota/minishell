@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 22:46:35 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/09 23:03:59 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/10 22:22:50 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,9 @@ bool	do_pipex(char **heap_envp, t_env **env, t_pipex *pipex)
 	cmd_i = -1;
 	while (pipex->cmd_absolute_path[++cmd_i])
 	{
-		get_infile_fd(pipex, pipex->argv + get_arg_start_pos(cmd_i, pipex->argv));
-		get_outfile_fd(pipex, pipex->argv + get_arg_start_pos(cmd_i, pipex->argv));
-		if (cmd_i < get_pipe_count(pipex->argv) && get_pipe(pipex, cmd_i) == false)
+		if (!get_fd(pipex, pipex->argv + get_arg_i(cmd_i, pipex->argv), heap_envp))
+			return (false);
+		if (cmd_i < get_pipe_count(pipex->argv) && !get_pipe(pipex, cmd_i))
 			return (false);
 		if (is_cmd_builtin(pipex->cmd_absolute_path[cmd_i]))
 		{

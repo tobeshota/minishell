@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:32:48 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/09 23:04:07 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/10 22:08:30 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ int	pipex(char **argv, char **heap_envp, t_env **env)
 
 	if (is_true(get_pipex(argv, heap_envp, &pipex)) == false)
 		return (end_pipex(&pipex), false);
-	// do_pipexの第1引数argvをpipexから持ってこれれば引数が1つ空く！
-	// 空いた引数にtoolsを入れればproc_here_doc();内にexpander();を入れられる！
 	if (is_true(do_pipex(heap_envp, env, &pipex)) == false)
 		return (end_pipex(&pipex), false);
 	if (is_true(end_pipex(&pipex)) == false)

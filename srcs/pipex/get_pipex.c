@@ -71,21 +71,6 @@ static bool	init_pipex(t_pipex *pipex)
 	return (rm_here_doc());
 }
 
-// #include "expander.h"
-// /tmp/here_docファイルがあれば各行に対して変数展開を行う！
-// char *get_expanded_line(t_tools *tools, char **heap_envp)
-// {
-/*
-	expanded_here_docファイルをオープンする
-	hare_docの各行がなくなるまで繰り返す
-	{
-		gnlで1行を取得する
-		その行をexpander();で変数展開する
-		変数展開した行をexpanded_here_docファイルに追記で出力する
-	}
-	*/
-// }
-
 static int	get_argc(char **argv)
 {
 	int	argc;
@@ -116,7 +101,7 @@ bool	get_pipex(char **argv, char **heap_envp, t_pipex *pipex)
 	if (init_pipex(pipex) == false)
 		return (false);
 	cp_argv(argv, pipex);
-	if (get_infile_fd(pipex, pipex->argv) == false)
+	if (get_infile_fd(pipex, pipex->argv, heap_envp) == false)
 		return (false);
 	if (get_outfile_fd(pipex, pipex->argv) == false)
 		return (false);
