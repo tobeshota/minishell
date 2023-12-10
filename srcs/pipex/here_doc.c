@@ -6,48 +6,30 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/10 16:15:28 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/10 18:41:44 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static int	check_is_limitter_specified(char *limitter)
-{
-	if (limitter == NULL)
-	{
-		put_error("-minishell: syntax error near unexpected token `newline'\n");
-		return (false);
-	}
-	return (true);
-}
-
 bool	proc_here_doc(char *limitter, t_pipex *pipex)
 {
 	char	*line;
-	char	*limitter_endl;
 
-	if (check_is_limitter_specified(limitter) == false)
-		return (false);
 	pipex->infile_fd = open_file(HERE_DOC_FILE_PATH, INFILE_HERE_DOC);
 	if (check_open(pipex->infile_fd, "here_doc") == false)
 		return (false);
-	ft_printf("> ");
-	line = get_next_line(STDIN_FILENO);
-	limitter_endl = check_malloc(ft_strjoin(limitter, "\n"));
-	while (is_match(line, limitter_endl))
+	line = readline(HERE_DOC_PROMPT);
+	while (is_match(line, limitter) == false)
 	{
-		ft_putstr_fd(line, pipex->infile_fd);
+		ft_putendl_fd(line, pipex->infile_fd);
 		free(line);
-		ft_printf("> ");
-		line = get_next_line(STDIN_FILENO);
+		line = readline(HERE_DOC_PROMPT);
 	}
 	if (check_close(close(pipex->infile_fd)) == false)
-		return (free(line), free(limitter_endl), false);
+		return (free(line), false);
 	pipex->infile_fd = open_file(HERE_DOC_FILE_PATH, INFILE_HERE_DOC);
-	if (check_open(pipex->infile_fd, "here_doc") == false)
-		return (free(line), free(limitter_endl), false);
-	return (free(line), free(limitter_endl), true);
+	return (free(line), check_open(pipex->infile_fd, "here_doc"));
 }
 
 bool	rm_here_doc(void)

@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/09 23:08:41 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/10 18:04:14 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <stdio.h>
 # include <sys/stat.h>
 # include <sys/types.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 # define HERE_DOC_FILE_PATH "/tmp/here_doc"
 # define INFILE 0

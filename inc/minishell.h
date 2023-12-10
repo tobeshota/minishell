@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 12:34:46 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/08 13:06:03 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/10 18:04:21 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,5 @@
 # include <termios.h>
 # include <signal.h>
 # include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
 
 #endif
