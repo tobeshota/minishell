@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/10 22:21:40 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/10 22:33:10 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,31 +52,32 @@ bool	check_unlink(int ret);
 bool	is_path_found(char *path);
 bool	is_parameter_file(char *cmd_parameter);
 bool	is_parameter_dir(char *cmd_parameter);
-int		get_cmd_count(char **argv, char **heap_envp);
+void	cp_argv(char **argv, t_pipex *pipex);
+int		get_cmd_count(char **argv, char **h_envp);
 int		get_cmd_absolute_path_count(t_pipex *pipex);
 int		get_pipe_count(char **argv);
 int		get_builtin_cmd_count(t_pipex *pipex);
 void	get_order(t_env *node);
 int		get_arg_i(int pipe_count, char **argv);
-char	*getenv_from_heap_envp(char **heap_envp, char *varname);
+char	*getenv_from_h_envp(char **h_envp, char *varname);
 char	*getenv_from_t_env(t_env *env, char *varname);
-int		is_cmd(char **argv, int arg_i, char **heap_envp);
+int		is_cmd(char **argv, int arg_i, char **h_envp);
 bool	is_specified_redirect(char *str);
 bool	is_io_file(char **argv, int arg_i);
-bool	get_cmd_absolute_path(char **heap_envp, t_pipex *pipex);
-bool	add_absolute_path_to_cmd_name(char **heap_envp,
+bool	get_cmd_absolute_path(char **h_envp, t_pipex *pipex);
+bool	add_absolute_path_to_cmd_name(char **h_envp,
 			char ***cmd_absolute_path);
 char	**add_slash_eos(char **path);
 int		get_cmd_arg_fd(t_pipex *pipex, int cmd_i);
-bool	proc_here_doc(char *limitter, t_pipex *pipex, char **heap_envp);
+bool	proc_here_doc(char *limitter, t_pipex *pipex, char **h_envp);
 bool	rm_here_doc(void);
 bool	is_cmd_relative_path(char ***cmd_absolute_path, int cmd_i);
 bool	is_cmd_alreadly_absollute_path(char ***cmd_absolute_path, int cmd_i);
 bool	wait_children(int cmd_i);
 bool	reset_pipex(t_pipex *pipex, int cmd_i);
-int		pipex(char **argv, char **heap_envp, t_env **env);
-bool	get_pipex(char **argv, char **heap_envp, t_pipex *pipex);
-bool	do_pipex(char **heap_envp, t_env **env, t_pipex *pipex);
+int		pipex(char **argv, char **h_envp, t_env **env);
+bool	get_pipex(char **argv, char **h_envp, t_pipex *pipex);
+bool	do_pipex(char **h_envp, t_env **env, t_pipex *pipex);
 bool	end_pipex(t_pipex *pipex);
 
 // is_specified_file
@@ -87,8 +88,8 @@ bool	is_specified_outfile_apend(char *str);
 bool	is_specified_operators(char *str);
 
 // get_fd
-bool	get_fd(t_pipex *pipex, char **argv, char **heap_envp);
-bool	get_infile_fd(t_pipex *pipex, char **argv, char **heap_envp);
+bool	get_fd(t_pipex *pipex, char **argv, char **h_envp);
+bool	get_infile_fd(t_pipex *pipex, char **argv, char **h_envp);
 bool	get_outfile_fd(t_pipex *pipex, char **argv);
 
 // is_file_ok

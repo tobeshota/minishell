@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 12:49:44 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/08 21:23:28 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/10 22:27:11 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,16 @@ int	do_loop_pipex(char ***splitted_argv, char **splitter, t_env **env)
 	int		sparg_i;
 	int		spl_i;
 	int		ret;
-	char	**heap_envp;
+	char	**h_envp;
 
 	sparg_i = 0;
 	spl_i = 0;
 	while (splitted_argv[sparg_i])
 	{
 		g_global.error_num = 0;
-		heap_envp = node_to_array(*env);
-		ret = pipex(splitted_argv[sparg_i], heap_envp, env);
-		all_free_tab(heap_envp);
+		h_envp = node_to_array(*env);
+		ret = pipex(splitted_argv[sparg_i], h_envp, env);
+		all_free_tab(h_envp);
 		if (splitter[spl_i] == NULL)
 			break ;
 		if (is_continue(splitter, spl_i, g_global.error_num) && ++spl_i

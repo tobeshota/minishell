@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmd_absolute_path_utils.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/09 15:05:20 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/10 22:27:11 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,17 @@ char	**add_slash_eos(char **path)
 	return (path);
 }
 
-static bool	add_absolute_from_env_path(char **heap_envp,
+static bool	add_absolute_from_env_path(char **h_envp,
 		char ***cmd_absolute_path, int cmd_i)
 {
 	char	**path;
 	char	*tmp;
 	int		i;
 
-	if (check_getenv(getenv_from_heap_envp(heap_envp, "PATH")) == false)
+	if (check_getenv(getenv_from_h_envp(h_envp, "PATH")) == false)
 		return (false);
 	path = check_malloc \
-	(add_slash_eos(ft_split(getenv_from_heap_envp(heap_envp, "PATH"), ':')));
+	(add_slash_eos(ft_split(getenv_from_h_envp(h_envp, "PATH"), ':')));
 	i = 0;
 	while (path[i])
 	{
@@ -71,7 +71,7 @@ static bool	add_absolute_from_env_path(char **heap_envp,
 	return (all_free_tab(path), true);
 }
 
-bool	add_absolute_path_to_cmd_name(char **heap_envp,
+bool	add_absolute_path_to_cmd_name(char **h_envp,
 		char ***cmd_absolute_path)
 {
 	int	cmd_i;
@@ -85,7 +85,7 @@ bool	add_absolute_path_to_cmd_name(char **heap_envp,
 			continue ;
 		if (is_cmd_alreadly_absollute_path(cmd_absolute_path, cmd_i))
 			continue ;
-		if (add_absolute_from_env_path(heap_envp, cmd_absolute_path,
+		if (add_absolute_from_env_path(h_envp, cmd_absolute_path,
 				cmd_i) == false)
 			return (false);
 	}

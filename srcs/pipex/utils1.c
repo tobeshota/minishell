@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/09 19:27:30 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/10 22:27:11 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,21 +44,21 @@ void	get_order(t_env *node)
 	}
 }
 
-char	*getenv_from_heap_envp(char **heap_envp, char *varname)
+char	*getenv_from_h_envp(char **h_envp, char *varname)
 {
 	int	he_i;
 	int	varname_len;
 
 	he_i = 0;
 	varname_len = ft_strlen(varname);
-	while (heap_envp[he_i])
+	while (h_envp[he_i])
 	{
-		if (ft_strlen(heap_envp[he_i]) > 0 && !ft_strncmp(heap_envp[he_i],
+		if (ft_strlen(h_envp[he_i]) > 0 && !ft_strncmp(h_envp[he_i],
 				varname, varname_len))
 			break ;
 		he_i++;
 	}
-	return (heap_envp[he_i]);
+	return (h_envp[he_i]);
 }
 
 char	*getenv_from_t_env(t_env *env, char *varname)

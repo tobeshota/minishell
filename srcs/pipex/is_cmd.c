@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 23:22:47 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/08 21:25:46 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/10 22:27:11 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static char	*get_argv_wo_param(char **argv, int arg_i)
 	(ft_substr(argv[arg_i], 0, strlen_until_c(argv[arg_i], ' '))));
 }
 
-int	is_cmd(char **argv, int arg_i, char **heap_envp)
+int	is_cmd(char **argv, int arg_i, char **h_envp)
 {
 	char	*argv_wo_param;
 	char	**path;
@@ -54,11 +54,11 @@ int	is_cmd(char **argv, int arg_i, char **heap_envp)
 		return (free_tab(argv_wo_param), true);
 	else if (is_false(argv, arg_i))
 		return (free_tab(argv_wo_param), false);
-	else if (getenv_from_heap_envp(heap_envp, "PATH") == NULL
+	else if (getenv_from_h_envp(h_envp, "PATH") == NULL
 		|| is_match(argv_wo_param, ".."))
 		return (free_tab(argv_wo_param), NOT_FOUND);
 	path = check_malloc \
-	(add_slash_eos(ft_split(getenv_from_heap_envp(heap_envp, "PATH"), ':')));
+	(add_slash_eos(ft_split(getenv_from_h_envp(h_envp, "PATH"), ':')));
 	i = -1;
 	while (path[++i])
 	{

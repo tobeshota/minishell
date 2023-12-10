@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 22:46:35 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/10 22:22:50 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/10 22:28:42 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static bool	dup_std_fileno(int *stdin_fileno,
 	return (true);
 }
 
-static bool	exec(char **heap_envp, t_env **env, t_pipex *pipex, int cmd_i)
+static bool	exec(char **h_envp, t_env **env, t_pipex *pipex, int cmd_i)
 {
 	char		**cmd;
 	int			stdin_fileno;
@@ -48,7 +48,7 @@ static bool	exec(char **heap_envp, t_env **env, t_pipex *pipex, int cmd_i)
 		cmd = check_malloc \
 		(ft_split(pipex->cmd_absolute_path_with_parameter[cmd_i], ' '));
 		return (check_execve \
-		(execve(pipex->cmd_absolute_path[cmd_i], cmd, heap_envp), \
+		(execve(pipex->cmd_absolute_path[cmd_i], cmd, h_envp), \
 		pipex->cmd_absolute_path[cmd_i]));
 	}
 }
@@ -66,7 +66,7 @@ static bool	get_child(pid_t *child_pid)
 	return (true);
 }
 
-bool	do_pipex(char **heap_envp, t_env **env, t_pipex *pipex)
+bool	do_pipex(char **h_envp, t_env **env, t_pipex *pipex)
 {
 	int		cmd_i;
 	pid_t	child_pid;
@@ -74,19 +74,19 @@ bool	do_pipex(char **heap_envp, t_env **env, t_pipex *pipex)
 	cmd_i = -1;
 	while (pipex->cmd_absolute_path[++cmd_i])
 	{
-		if (!get_fd(pipex, pipex->argv + get_arg_i(cmd_i, pipex->argv), heap_envp))
+		if (!get_fd(pipex, pipex->argv + get_arg_i(cmd_i, pipex->argv), h_envp))
 			return (false);
 		if (cmd_i < get_pipe_count(pipex->argv) && !get_pipe(pipex, cmd_i))
 			return (false);
 		if (is_cmd_builtin(pipex->cmd_absolute_path[cmd_i]))
 		{
-			if (exec(heap_envp, env, pipex, cmd_i) == false)
+			if (exec(h_envp, env, pipex, cmd_i) == false)
 				return (false);
 		}
 		else
 		{
 			if (get_child(&child_pid) == false \
-			|| (child_pid == 0 && exec(heap_envp, env, pipex, cmd_i) == false))
+			|| (child_pid == 0 && exec(h_envp, env, pipex, cmd_i) == false))
 				return (false);
 		}
 		if (reset_pipex(pipex, cmd_i) == false)

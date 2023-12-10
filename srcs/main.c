@@ -160,7 +160,7 @@ void	check_exit(t_tools *tools, char **argv, t_env **env)
 
 int	handle_input(t_tools *tools, t_env **env, char **argv)
 {
-	char **heap_envp;
+	char **h_envp;
 
 	if (tools->str[0] != '\0')
 	{
@@ -168,9 +168,9 @@ int	handle_input(t_tools *tools, t_env **env, char **argv)
 			return (false);
 		signal(SIGQUIT, sigquit_handler);
 		tools->tmp_array = change_to_array(tools);
-		heap_envp = node_to_array(*env);
-		tools->simple_cmds->str = expander(tools, tools->tmp_array, heap_envp);
-		all_free_tab(heap_envp);
+		h_envp = node_to_array(*env);
+		tools->simple_cmds->str = expander(tools, tools->tmp_array, h_envp);
+		all_free_tab(h_envp);
 		put_arg_for_debug(tools->tmp_array);
 		check_exit(tools, argv, env);
 		g_global.error_num = loop_pipex(tools->tmp_array, env);
@@ -207,7 +207,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_tools	tools;
 
-	// if (argc == 2 && is_match(argv[1], "p"))
+	if (argc == 2 && is_match(argv[1], "p"))
 		return (minipipex(argv, envp));
 	if (argc == 1)
 		return (minishell(envp, &tools, argv));
