@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 13:27:33 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/09 10:52:17 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/10 09:10:27 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,9 @@ int	handle_a_case(t_tools *tools, t_simple_cmds **node,
 	if (parser_tools->lexer_list->next == NULL
 		&& parser_tools->lexer_list->token != SEMICOLON)
 	{
-		parser_error(0, tools);
+		ft_lexerclear(&parser_tools->lexer_list);
+		ft_lexerclear(&parser_tools->redirections);
+		ft_error(0);
 		return (0);
 	}
 	*node = create_a_node(tools);

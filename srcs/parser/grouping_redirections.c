@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:09:54 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/09 23:00:47 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/09 23:21:52 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	grouping_redirections(t_parser_tools *parser_tools)
 		ft_lexerclear(&parser_tools->lexer_list);
 		ft_lexerclear(&parser_tools->redirections);
 		ft_error(0);
+		// free(parser_tools->tools);
 		return (1);
 	}
 	if (tmp->next->token)
@@ -60,6 +61,7 @@ int	grouping_redirections(t_parser_tools *parser_tools)
 		ft_lexerclear(&parser_tools->lexer_list);
 		ft_lexerclear(&parser_tools->redirections);
 		ft_error(0);
+		// free(parser_tools->tools);
 		return(EXIT_FAILURE);
 	}
 	if ((tmp->token >= GREAT && tmp->token <= OR_OR))
