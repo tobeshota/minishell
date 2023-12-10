@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/09 21:55:01 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/10 16:15:28 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ bool	proc_here_doc(char *limitter, t_pipex *pipex)
 	ft_printf("> ");
 	line = get_next_line(STDIN_FILENO);
 	limitter_endl = check_malloc(ft_strjoin(limitter, "\n"));
-	while (ft_strncmp(line, limitter_endl, ft_strlen(line)))
+	while (is_match(line, limitter_endl))
 	{
 		ft_putstr_fd(line, pipex->infile_fd);
 		free(line);
