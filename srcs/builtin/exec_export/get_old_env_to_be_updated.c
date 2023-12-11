@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_old_env_to_be_updated.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 23:29:27 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/11 12:01:39 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/11 12:43:10 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ char	*omit_c(char *str, char c)
 		else
 			str++;
 	}
+	str_without_c[i] = '\0';
 	return (str_without_c);
 }
 
