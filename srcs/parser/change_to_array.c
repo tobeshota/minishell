@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 11:51:33 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/11 20:57:59 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/11 21:04:26 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,11 +125,11 @@ int	count_elements(t_tools *tools)
 
 	count = 0;
 	tmp = tools->simple_cmds;
-	tmp2 = tmp->redirections;
 	while (tmp)
 	{
 		if (tmp->str)
 			count++;
+		tmp2 = tmp->redirections;
 		while (tmp2)
 		{
 			if (tmp2->str)

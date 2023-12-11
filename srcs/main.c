@@ -173,8 +173,8 @@ int	handle_input(t_tools *tools, t_env **env, char **argv)
 		tools->simple_cmds->str = expander(tools, tools->tmp_array, h_envp);
 		all_free_tab(h_envp);
 		put_arg_for_debug(tools->tmp_array);
-		check_exit(tools, argv, env);
-		g_global.error_num = loop_pipex(tools->tmp_array, env);
+		// check_exit(tools, argv, env);
+		// g_global.error_num = loop_pipex(tools->tmp_array, env);
 		free_tools(tools);
 		return (true);
 	}
@@ -209,7 +209,7 @@ int	main(int argc, char **argv, char **envp)
 	t_tools	tools;
 
 	// if (argc == 2 && is_match(argv[1], "p"))
-		return (minipipex(argv, envp));
+		// return (minipipex(argv, envp));
 	if (argc == 1)
 		return (minishell(envp, &tools, argv));
 	return (put_error("minishell: too many arguments"), 1);
