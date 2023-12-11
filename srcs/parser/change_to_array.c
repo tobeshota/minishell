@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 11:51:33 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/09 20:07:07 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/11 20:52:57 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ int	process_redirections(char **tmparray, t_simple_cmds *tmp, int i)
 		if (tmp->redirections->str)
 		{
 			tmparray[i++] = ft_strdup(tmp->redirections->str);
-			free(tmp->redirections->str);
-			free(tmp->redirections);
+			// free(tmp->redirections->str);
+			// free(tmp->redirections);
 			tmp->redirections->str = NULL;
 		}
 		tmp->redirections = tmp->redirections->next;
@@ -121,15 +121,29 @@ int	count_elements(t_tools *tools)
 {
 	int				count;
 	t_simple_cmds	*tmp;
+	t_lexer			*tmp2;
 
 	count = 0;
 	tmp = tools->simple_cmds;
+	tmp2 = tmp->redirections;
 	while (tmp)
 	{
 		if (tmp->str)
 			count++;
-		if (tmp->redirections)
-			count++;
+		while (tmp2)
+		{
+			if (tmp->redirections->str)
+				count++;
+			while(tmp2)
+			{
+				if (tmp2->str)
+					count++;
+				if(tmp2->token)
+					count++;
+				tmp2 = tmp2->next;
+			}
+			tmp2 = tmp2->next;
+		}
 		tmp = tmp->next;
 	}
 	return (count);
