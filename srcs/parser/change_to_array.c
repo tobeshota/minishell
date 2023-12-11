@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 11:51:33 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/11 20:52:57 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/11 20:57:59 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,16 +132,10 @@ int	count_elements(t_tools *tools)
 			count++;
 		while (tmp2)
 		{
-			if (tmp->redirections->str)
+			if (tmp2->str)
 				count++;
-			while(tmp2)
-			{
-				if (tmp2->str)
-					count++;
-				if(tmp2->token)
-					count++;
-				tmp2 = tmp2->next;
-			}
+			if(tmp2->token)
+				count++;
 			tmp2 = tmp2->next;
 		}
 		tmp = tmp->next;
