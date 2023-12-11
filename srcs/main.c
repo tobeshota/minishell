@@ -17,7 +17,7 @@ void	put_array_for_debug(char **str)
 {
 	while(*str)
 	{
-		ft_printf(">>>\t%s\n", *str);
+		ft_printf(">>>\t[%s]\n", *str);
 		str++;
 	}
 }
@@ -95,6 +95,7 @@ int	minipipex(char **argv, char **envp)
 		/* 本来はft_splitでなくlexerとparser．いまは区切り文字','で分割している */
 		if (*line)
 			add_history(line);
+		put_arg_for_debug(argv);
 		if (is_match(line, "putnode"))
 			put_node_for_debug(env);
 		else
@@ -207,7 +208,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_tools	tools;
 
-	if (argc == 2 && is_match(argv[1], "p"))
+	// if (argc == 2 && is_match(argv[1], "p"))
 		return (minipipex(argv, envp));
 	if (argc == 1)
 		return (minishell(envp, &tools, argv));

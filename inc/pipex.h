@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/11 11:27:04 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/11 15:04:14 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ bool	is_path_found(char *path);
 bool	is_parameter_file(char *cmd_parameter);
 bool	is_parameter_dir(char *cmd_parameter);
 void	cp_argv(char **argv, t_pipex *pipex);
+int		get_element_count(char **array);
 int		get_cmd_count(char **argv, char **h_envp);
 int		get_cmd_absolute_path_count(t_pipex *pipex);
 int		get_pipe_count(char **argv);
