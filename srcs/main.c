@@ -173,8 +173,8 @@ int	handle_input(t_tools *tools, t_env **env, char **argv)
 		tools->simple_cmds->str = expander(tools, tools->tmp_array, h_envp);
 		all_free_tab(h_envp);
 		put_arg_for_debug(tools->tmp_array);
-		// check_exit(tools, argv, env);
-		// g_global.error_num = loop_pipex(tools->tmp_array, env);
+		check_exit(tools, argv, env);
+		g_global.error_num = loop_pipex(tools->tmp_array, env);
 		free_tools(tools);
 		return (true);
 	}
@@ -189,6 +189,7 @@ int	minishell(char **envp, t_tools *tools, char **argv)
 	init_minishell(envp, &env);
 	while (true)
 	{
+		signal_init();
 		line = readline(MINISHELL_PROMPT);
 		if (!line)
 			break ;

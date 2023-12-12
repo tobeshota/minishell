@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:36:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/12 10:57:14 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/12 14:17:06 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int	implement_tools(t_tools *tools)
 	g_global.stop_heredoc = 0;
 	g_global.in_cmd = 0;
 	g_global.in_heredoc = 0;
-	signal_init();
 	return (1);
 }
 
