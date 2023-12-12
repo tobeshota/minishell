@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:39:54 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/08 14:27:57 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/12 17:24:44 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,14 @@ char	*detect_dollar(char *str, char **envp)
 	return (tmp);
 }
 
+void	ft_nodefirst_for_t_simple_cmds(t_simple_cmds **node)
+{
+	if (node == NULL || *node == NULL)
+		return ;
+	while ((*node)->prev != NULL)
+		*node = (*node)->prev;
+}
+
 char	**expander(t_tools *tools, char **str, char **envp)
 {
 	int		i;
@@ -111,5 +119,6 @@ char	**expander(t_tools *tools, char **str, char **envp)
 			break ;
 		tools->simple_cmds = tools->simple_cmds->next;
 	}
+	ft_nodefirst_for_t_simple_cmds(&tools->simple_cmds);
 	return (str);
 }

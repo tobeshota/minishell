@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 13:27:33 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/12 15:31:54 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/12 16:07:24 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 bool	add_list(t_simple_cmds **list, t_simple_cmds *new, t_tools *tools)
 {
 	t_simple_cmds	*tmp;
-
+	
 	tmp = *list;
 	if (*list == NULL)
 	{

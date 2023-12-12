@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:36:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/12 14:17:06 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/12 17:25:58 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,17 @@
 bool	ft_simple_cmdsclear(t_simple_cmds **simple_cmds)
 {
 	t_simple_cmds	*tmp;
-	t_lexer			*redirections_tmp;
 
 	if (!*simple_cmds)
 		return (false);
+
 	while (*simple_cmds)
 	{
 		tmp = (*simple_cmds)->next;
-		redirections_tmp = (*simple_cmds)->redirections;
-		ft_lexerclear(&redirections_tmp);
+		ft_lexerclear(&(*simple_cmds)->redirections);
 		if ((*simple_cmds)->str)
 			all_free_tab((*simple_cmds)->str);
-		// free((*simple_cmds)->prev);
+		(*simple_cmds)->prev = NULL;
 		free(*simple_cmds);
 		*simple_cmds = tmp;
 	}
@@ -99,8 +98,9 @@ void	ft_lexerclear(t_lexer **lst)
 		if (*lst)
 		{
 			free(*lst);
+			*lst = NULL;
 		}
 		*lst = tmp;
 	}
-	*lst = NULL;
+	lst = NULL;
 }
