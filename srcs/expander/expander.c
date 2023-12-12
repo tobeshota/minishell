@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:39:54 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/12 17:49:06 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/12 19:46:16 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,19 @@ void	ft_nodefirst_for_t_simple_cmds(t_simple_cmds **node)
 		*node = (*node)->prev;
 }
 
+void	free_old_str(t_tools *tools)
+{
+	while (tools->simple_cmds->str)
+	{
+		all_free_tab(tools->simple_cmds->str);
+		tools->simple_cmds->str = NULL;
+		if (tools->simple_cmds->next == NULL)
+			break ;
+		tools->simple_cmds = tools->simple_cmds->next;
+	}
+	ft_nodefirst_for_t_simple_cmds(&tools->simple_cmds);
+}
+
 char	**expander(t_tools *tools, char **str, char **envp)
 {
 	int		i;
@@ -111,14 +124,6 @@ char	**expander(t_tools *tools, char **str, char **envp)
 		// }
 		i++;
 	}
-	while (tools->simple_cmds->str)
-	{
-		all_free_tab(tools->simple_cmds->str);
-		tools->simple_cmds->str = NULL;
-		if (tools->simple_cmds->next == NULL)
-			break ;
-		tools->simple_cmds = tools->simple_cmds->next;
-	}
-	ft_nodefirst_for_t_simple_cmds(&tools->simple_cmds);
+	free_old_str(tools);
 	return (str);
 }
