@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
+/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/09 13:09:02 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/12 19:42:52 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ size_t		find_equal(char *str);
 size_t		find_dollar(char *str);
 int			loop_if_dollar_sign(char **envp, char *str, char **tmp, int j);
 int			question_mark(char **tmp);
+char	*delete_quotes(char *str, char c);
+char	*detect_dollar(char *str, char **envp);
+
 
 //main_utils
 char		**ft_arrdup(char **arr);

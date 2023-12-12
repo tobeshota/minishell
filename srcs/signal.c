@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 09:57:45 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/12 14:59:07 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/12 19:41:34 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	sigint_handler(int sig)
 	g_global.error_num = 130;
 	if (!g_global.in_heredoc)
 		ft_putstr_fd("\n", STDERR_FILENO);
+	rm_here_doc();
 	if (g_global.in_cmd)
 	{
 		g_global.stop_heredoc = 1;
