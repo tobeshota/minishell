@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
+/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:39:54 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/12 17:24:44 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/12 17:49:06 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,11 +104,11 @@ char	**expander(t_tools *tools, char **str, char **envp)
 			free(str[i]);
 			str[i] = tmp;
 		}
-		if (ft_strncmp(str[0], "export", ft_strlen(str[0]) - 1) != 0)
-		{
-			str[i] = delete_quotes(str[i], '\"');
-			str[i] = delete_quotes(str[i], '\'');
-		}
+		// if (ft_strncmp(str[0], "export", ft_strlen(str[0]) - 1) != 0)
+		// {
+		// 	str[i] = delete_quotes(str[i], '\"');
+		// 	str[i] = delete_quotes(str[i], '\'');
+		// }
 		i++;
 	}
 	while (tools->simple_cmds->str)
