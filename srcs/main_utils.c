@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:36:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/09 22:47:46 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/12 10:57:14 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ bool	ft_simple_cmdsclear(t_simple_cmds **simple_cmds)
 		ft_lexerclear(&redirections_tmp);
 		if ((*simple_cmds)->str)
 			all_free_tab((*simple_cmds)->str);
-		free((*simple_cmds)->prev);
+		// free((*simple_cmds)->prev);
 		free(*simple_cmds);
 		*simple_cmds = tmp;
 	}
@@ -41,6 +41,9 @@ int	implement_tools(t_tools *tools)
 	tools->lexer_list = NULL;
 	tools->str = NULL;
 	tools->tmp_array = NULL;
+	g_global.stop_heredoc = 0;
+	g_global.in_cmd = 0;
+	g_global.in_heredoc = 0;
 	signal_init();
 	return (1);
 }

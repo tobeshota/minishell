@@ -6,13 +6,32 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 13:27:33 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/10 09:10:27 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/12 14:06:45 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	add_list(t_simple_cmds **list, t_simple_cmds *new)
+bool check_double_operator(t_simple_cmds *new, t_simple_cmds *tmp, t_tools *tools)
+{
+	if (tmp->redirections && (tmp->redirections->token == SEMICOLON
+		|| tmp->redirections->token == AND_AND
+		|| tmp->redirections->token == OR_OR
+		|| tmp->redirections->token == PIPE))
+	{
+		if (tmp->redirections && (new->redirections->token == SEMICOLON
+			|| new->redirections->token == AND_AND
+			|| new->redirections->token == OR_OR
+			|| new->redirections->token == PIPE))
+		{
+			parser_error(0, tools);
+			return false;
+		}
+	}
+	return true;
+}
+
+bool	add_list(t_simple_cmds **list, t_simple_cmds *new, t_tools *tools)
 {
 	t_simple_cmds	*tmp;
 
@@ -20,12 +39,15 @@ static void	add_list(t_simple_cmds **list, t_simple_cmds *new)
 	if (*list == NULL)
 	{
 		*list = new;
-		return ;
+		return true;
 	}
 	while (tmp->next != NULL)
 		tmp = tmp->next;
 	tmp->next = new;
 	new->prev = tmp;
+	if(check_double_operator(new, tmp, tools) == false)
+		return false;
+	return true;
 }
 
 static t_simple_cmds	*creat_ast(t_parser_tools *parser_tools)
@@ -102,9 +124,10 @@ int	handle_a_case(t_tools *tools, t_simple_cmds **node,
 	if (parser_tools->lexer_list->next == NULL
 		&& parser_tools->lexer_list->token != SEMICOLON)
 	{
-		ft_lexerclear(&parser_tools->lexer_list);
-		ft_lexerclear(&parser_tools->redirections);
-		ft_error(0);
+		parser_error(0, tools);
+		// ft_lexerclear(&parser_tools->lexer_list);
+		// ft_lexerclear(&parser_tools->redirections);
+		// ft_error(0);
 		return (0);
 	}
 	*node = create_a_node(tools);
@@ -113,7 +136,8 @@ int	handle_a_case(t_tools *tools, t_simple_cmds **node,
 		parser_error(0, tools);
 		return (0);
 	}
-	add_list(&tools->simple_cmds, *node);
+	if(add_list(&tools->simple_cmds, *node, tools) == false)
+		return (0);
 	parser_tools->lexer_list = tools->lexer_list;
 	return (1);
 }
@@ -128,7 +152,7 @@ int	handle_b_case(t_tools *tools, t_simple_cmds **node,
 	{
 		return (0);
 	}
-	add_list(&tools->simple_cmds, *node);
+	add_list(&tools->simple_cmds, *node, tools);
 	tools->lexer_list = parser_tools->lexer_list;
 	return (1);
 }
@@ -149,6 +173,14 @@ int	parser(t_tools *tools)
 		{
 			if (!handle_a_case(tools, &node, &parser_tools))
 				return (EXIT_FAILURE);
+			// if(tools->simple_cmds->prev && (tools->simple_cmds->prev->redirections->token == SEMICOLON
+			// 	|| tools->simple_cmds->prev->redirections->token == AND_AND
+			// 	|| tools->simple_cmds->prev->redirections->token == OR_OR
+			// 	|| tools->simple_cmds->prev->redirections->token == PIPE))//探索できるようにする。これでは最初に照準を合わせているだけ
+			// {
+			// 	parser_error(0, tools);
+			// 	return (0);
+			// }
 		}
 		else
 		{
