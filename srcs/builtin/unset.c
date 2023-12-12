@@ -6,20 +6,20 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:36:07 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/09 15:19:25 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/12 15:37:31 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
-static bool	is_node_last(t_env *node)
-{
-	return (node->next == NULL);
-}
-
-static bool	is_node_first(t_env *node)
+bool	is_node_first(t_env *node)
 {
 	return (node->prev == NULL);
+}
+
+bool	is_node_last(t_env *node)
+{
+	return (node->next == NULL);
 }
 
 int	exec_unset(char **cmd, t_env **env)

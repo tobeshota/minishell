@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 16:15:47 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/11 11:59:15 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/12 15:37:24 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,7 @@ char	*omit_c(char *str, char c);
 char	*omit_str(char *str, char *omit);
 bool	check_identifier(char *identifier);
 bool	is_under_bar(char *cmd);
+bool	is_node_first(t_env *node);
+bool	is_node_last(t_env *node);
 
 #endif

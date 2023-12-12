@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   node_utils1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 10:50:31 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/02 20:23:57 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/12 15:08:11 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,16 @@ t_env	*ft_nodenew(char *content)
 	newnode->next = NULL;
 	newnode->prev = NULL;
 	return (newnode);
+}
+
+void	ft_nodeadd_front(t_env **node, t_env *new)
+{
+	if (node == NULL || new == NULL)
+		return ;
+	new->next = *node;
+	if (*node)
+		(*node)->prev = new;
+	*node = new;
 }
 
 void	ft_nodeadd_back(t_env **node, t_env *new)
@@ -61,19 +71,4 @@ void	ft_nodeclear(t_env **node)
 		ft_nodedelone(node);
 		*node = tmp;
 	}
-}
-
-int	ft_nodesize(t_env *node)
-{
-	int		count;
-	t_env	*ptr;
-
-	count = 0;
-	ptr = node;
-	while (ptr != NULL)
-	{
-		ptr = ptr->next;
-		count++;
-	}
-	return (count);
 }

@@ -14,23 +14,22 @@
 
 bool	is_under_bar(char *cmd)
 {
-	return (is_match(cmd, "_") \
-	|| (ft_strlen(cmd) >= 2 && !ft_strncmp(cmd, "_=", 2)));
+	return (is_match(cmd, "_") || (ft_strlen(cmd) >= 2 && !ft_strncmp(cmd, "_=",
+				2)));
 }
 
 bool	is_match(char *s1, char *s2)
 {
-	return (s1 && s2 && ft_strlen(s1) == ft_strlen(s2) \
-	&& (!ft_strncmp(s1, s2, ft_strlen(s1))));
+	return (s1 && s2 && ft_strlen(s1) == ft_strlen(s2) && (!ft_strncmp(s1, s2,
+				ft_strlen(s1))));
 }
 
 bool	is_cmd_builtin(char *cmd)
 {
-	return (is_match(cmd, "echo") || is_match(cmd, "/bin/echo")
-		|| is_match(cmd, "cd") || is_match(cmd, "/usr/bin/cd")
-		|| is_match(cmd, "pwd") || is_match(cmd, "/bin/pwd")
-		|| is_match(cmd, "export") || is_match(cmd, "unset")
-		|| is_match(cmd, "env") || is_match(cmd, "/usr/bin/env")
+	return (is_match(cmd, "echo") || is_match(cmd, "/bin/echo") || is_match(cmd,
+			"cd") || is_match(cmd, "/usr/bin/cd") || is_match(cmd, "pwd")
+		|| is_match(cmd, "/bin/pwd") || is_match(cmd, "export") || is_match(cmd,
+			"unset") || is_match(cmd, "env") || is_match(cmd, "/usr/bin/env")
 		|| is_match(cmd, "exit"));
 }
 
@@ -48,28 +47,30 @@ bool	is_cmd_builtin(char *cmd)
 // 		{
 // 			// c_i++;
 // 			// if (str[str_i][c_i] == '\0')
-// 			// 	break;
+// 			// 	break ;
 // 			// 囲い文字が来たときインクリメントを終了する
 // 			if (str[str_i][c_i] == encloser)
-// 				return len;
+// 				return (len);
 // 			len++;
 // 			c_i++;
 // 		}
 // 		str_i++;
 // 		c_i = 0;
 // 	}
-// 	return -1;
+// 	return (-1);
 // }
 
 // 囲い文字の初めから終わりまでの文字列をresultに入れる
-// char *strdup_between_encloser(char **str, int *str_i, int *c_i, char encloser)
+// char *strdup_between_encloser(char **str, int *str_i, int *c_i,
+		// char encloser)
 // {
 // 	char *dest;
 // 	int dest_i;
 
 // 	if (strlen_between_encloser(str, *str_i, *c_i, encloser) == -1)
-// 		return NULL;
-// 	dest = (char *)check_malloc(malloc(sizeof(char) * (strlen_between_encloser(str, *str_i, *c_i, encloser) + 1)));
+// 		return (NULL);
+// 	dest = (char *)check_malloc(malloc(sizeof(char)
+				// * (strlen_between_encloser(str, *str_i, *c_i, encloser) + 1)));
 // 	// 各strを見る
 // 	dest_i = 0;
 // 	while(str[*str_i])
@@ -79,12 +80,12 @@ bool	is_cmd_builtin(char *cmd)
 // 		{
 // 			// (*c_i)++;
 // 			// if (str[*str_i][*c_i] == '\0')
-// 			// 	break;
+// 			// 	break ;
 // 			// 囲い文字が来たときコピーを終了する
 // 			if(str[*str_i][*c_i] == encloser)
 // 			{
 // 				dest[dest_i] = '\0';
-// 				return dest;
+// 				return (dest);
 // 			}
 // 			dest[dest_i] = str[*str_i][*c_i];
 // 			dest_i++;
@@ -94,7 +95,7 @@ bool	is_cmd_builtin(char *cmd)
 // 		*c_i = 0;
 // 	}
 // 	dest[dest_i] = '\0';
-// 	return dest;
+// 	return (dest);
 // }
 
 // 囲い文字で囲われている文字列を連結する
@@ -105,7 +106,8 @@ bool	is_cmd_builtin(char *cmd)
 // 	int str_i;
 // 	int c_i;
 
-// 	result = (char **)check_malloc(malloc(sizeof(char *) * (get_element_count(str) + 1)));
+// 	result = (char **)check_malloc(malloc(sizeof(char *)
+				// * (get_element_count(str) + 1)));
 // 	str_i = -1;
 // 	// 各strを見る
 // 	while(str[++str_i])
@@ -119,9 +121,12 @@ bool	is_cmd_builtin(char *cmd)
 // 			{
 // 				c_i++;
 // 				if (strlen_between_encloser(str, str_i, c_i, encloser) == -1)
-// 					return NULL;
-// 				result[str_i] = (char *)check_malloc(malloc(sizeof(char) * (strlen_between_encloser(str, str_i, c_i, encloser) + 1)));
-// 				result[str_i] = check_malloc(strdup_between_encloser(str, &str_i, &c_i, encloser));
+// 					return (NULL);
+// 				result[str_i] = (char *)check_malloc(malloc(sizeof(char)
+							// * (strlen_between_encloser(str, str_i, c_i,
+							// 		encloser) + 1)));
+// 				result[str_i] = check_malloc(strdup_between_encloser(str,
+							// &str_i, &c_i, encloser));
 // 				if(str[str_i])
 // 					break ;
 // 				continue ;
@@ -130,28 +135,127 @@ bool	is_cmd_builtin(char *cmd)
 // 		result[str_i] = check_malloc(ft_strdup(str[str_i]));
 // 	}
 // 	result[str_i] = NULL;
-// 	return result;
+// 	return (result);
 // }
 
-char	**split_wo_enclosed_str(char const *str, char splitter, char *encloser)
+void ft_nodedel_front(t_env *cmd_node)
 {
-return check_malloc(ft_split(str, splitter));
+	if (is_node_first(cmd_node))
+		return ;
+	else
+	{
+		if (cmd_node->prev->prev == NULL)
+			cmd_node->prev = NULL;
+		else
+		{
+			cmd_node->prev = cmd_node->prev->prev;
+			cmd_node->prev->prev->next = cmd_node;
+		}
+		ft_nodedelone(&cmd_node->prev);
+	}
+}
+/* 次に同じ囲い文字が現れるまで文字列をcmd_node->contentに文字列を追加する */
+void append_until_next_same_encloser_appears(t_env *cmd_node, int content_i)
+{
+	char	encloser;
+	char	*enclosed_content;
+	char	*tmp;
 
-	char **str_splitted_by_encloser;
+	// char encloserに囲い文字を取得する（次にまたその囲い文字が来るまでコピーを繰り返す）
+	encloser = cmd_node->content[content_i];
+	// char *enclosed_contentにcmd_node->content[0 ~ iまでの文字]をヒープ領域で格納する
+	enclosed_content = check_malloc(malloc(sizeof(char) * (strlen_until_c(cmd_node->content, encloser) + 1)));
+	ft_strlcpy(enclosed_content, cmd_node->content, strlen_until_c(cmd_node->content, encloser));
+	// i++; して囲い文字の次の文字を参照するようにする
+	content_i++;
+	// cmd_node->nextがあるまで繰り返す．
+	while (cmd_node->next)
+	{
+		// cmd_node->content[i]があるまで繰り返す
+		while (cmd_node->content[content_i])
+		{
+			// 次に同じ囲い文字が来たら
+			if (cmd_node->content[content_i] == encloser)
+			{
+				// ft_nodenew(enclosed_content)をもとに新しいノードをつくる
+				// ノードをft_nodeaddfront();で追加する
+				// 関数を終了する
+				return ft_nodeadd_front(&cmd_node, ft_nodenew(enclosed_content)), ft_nodefirst(&cmd_node);
+			}
+			// ft_strjoin(enclosed_content, &cmd_node->content[i])を入れる
+			tmp = enclosed_content;
+			enclosed_content = check_malloc(ft_strjoin(enclosed_content, &cmd_node->content[content_i]));
+			free(tmp);
+			// iをインクリメントする
+			content_i++;
+		}
+		// 次のノードへ．
+		ft_nodenext(&cmd_node);
+		// 前回のノードを削除する
+		ft_nodedel_front(cmd_node);
+		// iを0にしcontentの先頭を指し示すようにする
+		content_i = 0;
+	}
 
-	str_splitted_by_encloser = check_malloc(ft_split(str, splitter));
-/* 囲い文字のある文，囲い文字のない文を二重配列arrayにコピーする */
-// '\0' が来るまで繰り返す
-// {
-	// 囲い文字 ∨ '\0' が来るまでの文字列strの長さを取得する(strlen_until_c)
-	// 囲い文字 ∨ '\0' が来るまでの文字列strの長さぶんmallocする(malloc)
-	// 囲い文字 ∨ '\0' が来るまでの文字列strの長さぶんコピーする(ft_strlcpy)
-	// 囲い文字が来るまでstrをインクリメントする(+=strlen_until_c)
-	// array[i]のiをインクリメントする
-// }
+	// cmd_node->content[i]があるまで繰り返す
+	while (cmd_node->content[content_i])
+	{
+		// 次に同じ囲い文字が来たら
+		if (cmd_node->content[content_i] == encloser)
+		{
+			// ft_nodenew(enclosed_content)をもとに新しいノードをつくる
+			// ノードをft_nodeaddfront();で追加する
+			// 関数を終了する
+			return ft_nodeadd_front(&cmd_node, ft_nodenew(enclosed_content));
+		}
+		// ft_strjoin(enclosed_content, &cmd_node->content[i])を入れる
+		tmp = enclosed_content;
+		enclosed_content = check_malloc(ft_strjoin(enclosed_content, &cmd_node->content[content_i]));
+		free(tmp);
+		// iをインクリメントする
+		content_i++;
+	}
+	// ノードを最初にする
+	ft_nodefirst(&cmd_node);
+}
+char	**split_wo_enclosed_str(char const *str, char splitter)
+{
+	t_env	*cmd_node;
+	char	**cmd;
+	char	encloser;
+	char	*enclosed_content;
+	int		content_i;
 
-/* arrayの各文字列のうち，囲い文字のない文字列はft_splitによって分割する．他方で，囲い文字のある文字列はft_strdupする．そしてft_split，ft_strdupの返り値のアドレスを，NULLとなるまでi++したchar *result[i]に格納する． */
-
+	cmd = check_malloc(ft_split(str, splitter));
+	// 囲い文字（\'\"）がなかったら
+	if (ft_strchr(str, '\'') == NULL && ft_strchr(str, '\"') == NULL)
+		// splitしたものを返す
+		return cmd;
+return cmd;
+	// 文字列をリストに格納する
+	cmd_node = array_to_node(cmd);
+// put_node_for_debug(cmd_node);
+	// cmd_node->nextがあるまで繰り返す．
+	while (cmd_node->next)
+	{
+		content_i = 0;
+		// cmd_node->content[i]があるまで繰り返す
+		while (cmd_node->content[content_i])
+		{
+			// もしcmd_node->content[i]が囲い文字であれば，
+			if (cmd_node->content[content_i] == '\'' || cmd_node->content[content_i] == '\"')
+				/* 次に同じ囲い文字が現れるまで文字列をcmd_node->contentに文字列を追加する */
+				append_until_next_same_encloser_appears(cmd_node, content_i);
+			// iをインクリメントする
+			content_i++;
+		}
+		ft_nodenext(&cmd_node);
+	}
+	// リストを文字列に格納する
+	ft_nodefirst(&cmd_node);
+	all_free_tab(cmd);
+	cmd = node_to_array(cmd_node);
+	return cmd;
 }
 
 int	exec_builtin(t_env **env, t_pipex *pipex, int cmd_i)
@@ -167,10 +271,8 @@ int	exec_builtin(t_env **env, t_pipex *pipex, int cmd_i)
 	現在	"A= "   "abc"
 	理想	"A= abc"
 	*/
-	if (ft_strchr(pipex->cmd_absolute_path_with_parameter[cmd_i], '\'') == NULL && ft_strchr(pipex->cmd_absolute_path_with_parameter[cmd_i], '\"') == NULL)
-		cmd = check_malloc(ft_split(pipex->cmd_absolute_path_with_parameter[cmd_i], ' '));
-	else
-		cmd = (check_malloc(split_wo_enclosed_str(pipex->cmd_absolute_path_with_parameter[cmd_i], ' ', "\'\"")));
+	cmd = check_malloc \
+	(split_wo_enclosed_str(pipex->cmd_absolute_path_with_parameter[cmd_i], ' '));
 	if (is_match(target, "/bin/echo") || is_match(target, "echo"))
 		ret = exec_echo(cmd, pipex);
 	else if (is_match(target, "/usr/bin/cd") || is_match(target, "cd"))

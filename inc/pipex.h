@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/11 15:04:14 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/12 15:08:30 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ char	**node_to_array(t_env *env);
 
 // node
 t_env	*ft_nodenew(char *content);
+void	ft_nodeadd_front(t_env **node, t_env *new);
 void	ft_nodeadd_back(t_env **node, t_env *new);
 void	ft_nodedelone(t_env **node);
 void	ft_nodeclear(t_env **node);
