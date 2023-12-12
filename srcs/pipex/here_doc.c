@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/11 12:15:07 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/12 15:03:56 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,13 @@ bool	proc_here_doc(char *delimiter, t_pipex *pipex, char **h_envp)
 		return (false);
 	line = get_expanded_line(readline(HERE_DOC_PROMPT), h_envp, delimiter);
 	delimiter_wo_quotas = omit_str(delimiter, "\'\"");
-	while (is_match(line, delimiter_wo_quotas) == false)
+	while (is_match(line, delimiter_wo_quotas) == false && g_global.stop_heredoc == 0)
 	{
 		ft_putendl_fd(line, pipex->infile_fd);
 		free(line);
 		line = get_expanded_line(readline(HERE_DOC_PROMPT), h_envp, delimiter);
 	}
-	if (check_close(close(pipex->infile_fd)) == false)
+	if (check_close(close(pipex->infile_fd)) == false || g_global.stop_heredoc == 1)
 		return (free(line), free(delimiter_wo_quotas), false);
 	pipex->infile_fd = open_file(HERE_DOC_FILE_PATH, INFILE_HERE_DOC);
 	return (free(line), free(delimiter_wo_quotas), check_open(pipex->infile_fd,

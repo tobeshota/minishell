@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_fd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 01:22:30 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/10 22:27:11 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/12 15:03:47 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ bool	get_infile_fd(t_pipex *pipex, char **argv, char **h_envp)
 	int	arg_i;
 
 	arg_i = 0;
+
 	while (argv[arg_i] && !is_specified_pipe(argv[arg_i]))
 	{
 		if (is_specified_infile(argv[arg_i]) && argv[arg_i + 1])
@@ -41,8 +42,13 @@ bool	get_infile_fd(t_pipex *pipex, char **argv, char **h_envp)
 		}
 		else if (is_specified_here_doc(argv[arg_i]) && argv[arg_i + 1] \
 		&& is_file_exist(HERE_DOC_FILE_PATH) == false)
+		{
+			g_global.stop_heredoc = 0;
+			g_global.in_heredoc = 1;
 			if (proc_here_doc(argv[arg_i + 1], pipex, h_envp) == false)
 				return (false);
+			g_global.in_heredoc = 0;
+		}
 		arg_i++;
 	}
 	return (true);

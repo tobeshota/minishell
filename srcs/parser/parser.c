@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 13:27:33 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/12 14:06:45 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/12 14:21:02 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,14 +173,6 @@ int	parser(t_tools *tools)
 		{
 			if (!handle_a_case(tools, &node, &parser_tools))
 				return (EXIT_FAILURE);
-			// if(tools->simple_cmds->prev && (tools->simple_cmds->prev->redirections->token == SEMICOLON
-			// 	|| tools->simple_cmds->prev->redirections->token == AND_AND
-			// 	|| tools->simple_cmds->prev->redirections->token == OR_OR
-			// 	|| tools->simple_cmds->prev->redirections->token == PIPE))//探索できるようにする。これでは最初に照準を合わせているだけ
-			// {
-			// 	parser_error(0, tools);
-			// 	return (0);
-			// }
 		}
 		else
 		{
