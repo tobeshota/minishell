@@ -135,6 +135,8 @@ bool	is_cmd_builtin(char *cmd)
 
 char	**split_wo_enclosed_str(char const *str, char splitter, char *encloser)
 {
+return check_malloc(ft_split(str, splitter));
+
 	char **str_splitted_by_encloser;
 
 	str_splitted_by_encloser = check_malloc(ft_split(str, splitter));
@@ -156,7 +158,6 @@ int	exec_builtin(t_env **env, t_pipex *pipex, int cmd_i)
 {
 	int		ret;
 	char	**cmd;
-	char	**cmd_enclosed_by_quotas;
 	char	*target;
 
 	ret = false;
@@ -166,7 +167,7 @@ int	exec_builtin(t_env **env, t_pipex *pipex, int cmd_i)
 	現在	"A= "   "abc"
 	理想	"A= abc"
 	*/
-	if(ft_strchr(pipex->cmd_absolute_path_with_parameter[cmd_i], '\'') == NULL && ft_strchr(pipex->cmd_absolute_path_with_parameter[cmd_i], '\"'))
+	if (ft_strchr(pipex->cmd_absolute_path_with_parameter[cmd_i], '\'') == NULL && ft_strchr(pipex->cmd_absolute_path_with_parameter[cmd_i], '\"') == NULL)
 		cmd = check_malloc(ft_split(pipex->cmd_absolute_path_with_parameter[cmd_i], ' '));
 	else
 		cmd = (check_malloc(split_wo_enclosed_str(pipex->cmd_absolute_path_with_parameter[cmd_i], ' ', "\'\"")));
@@ -184,5 +185,5 @@ int	exec_builtin(t_env **env, t_pipex *pipex, int cmd_i)
 		ret = exec_env(env, pipex);
 	else if (is_match(target, "exit"))
 		ret = exec_exit(cmd, pipex);
-	return (all_free_tab(cmd), all_free_tab(cmd_enclosed_by_quotas), ret);
+	return (all_free_tab(cmd), ret);
 }
