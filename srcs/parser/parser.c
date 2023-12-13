@@ -6,30 +6,30 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 13:27:33 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/13 09:43:58 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/13 10:17:00 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// bool check_double_operator(t_simple_cmds *new, t_simple_cmds *tmp, t_tools *tools)
-// {
-// 	if (tmp->redirections && (tmp->redirections->token == SEMICOLON
-// 		|| tmp->redirections->token == AND_AND
-// 		|| tmp->redirections->token == OR_OR
-// 		|| tmp->redirections->token == PIPE))
-// 	{
-// 		if (tmp->redirections && (new->redirections->token == SEMICOLON
-// 			|| new->redirections->token == AND_AND
-// 			|| new->redirections->token == OR_OR
-// 			|| new->redirections->token == PIPE))
-// 		{
-// 			parser_error(0, tools);
-// 			return false;
-// 		}
-// 	}
-// 	return true;
-// }
+bool check_double_operator(t_simple_cmds *new, t_simple_cmds *tmp, t_tools *tools)
+{
+	if (tmp && tmp->redirections && (tmp->redirections->token == SEMICOLON
+		|| tmp->redirections->token == AND_AND
+		|| tmp->redirections->token == OR_OR
+		|| tmp->redirections->token == PIPE))
+	{
+		if (new->redirections && (new->redirections->token == SEMICOLON
+			|| new->redirections->token == AND_AND
+			|| new->redirections->token == OR_OR
+			|| new->redirections->token == PIPE))
+		{
+			parser_error(0, tools);
+			return false;
+		}
+	}
+	return true;
+}
 
 bool	add_list(t_simple_cmds **list, t_simple_cmds *new, t_tools *tools)
 {
@@ -45,8 +45,8 @@ bool	add_list(t_simple_cmds **list, t_simple_cmds *new, t_tools *tools)
 		tmp = tmp->next;
 	tmp->next = new;
 	new->prev = tmp;
-	// if(check_double_operator(new, tmp, tools) == false)
-	// 	return false;
+	if(check_double_operator(new, tmp, tools) == false)
+		return false;
 	return true;
 }
 

@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 09:57:45 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/12 19:41:34 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/13 10:00:06 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,10 @@ void	sigint_handler(int sig)
 	if (g_global.in_cmd)
 	{
 		g_global.stop_heredoc = 1;
-		rl_replace_line("", 0);
 		rl_redisplay();
 		return ;
 	}
 	rl_on_new_line();
-	rl_replace_line("", 0);
 	rl_redisplay();
 	(void)sig;
 }
