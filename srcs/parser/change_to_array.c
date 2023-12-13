@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 11:51:33 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/13 09:23:25 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/13 11:50:50 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,29 +68,27 @@ int	process_str(char **tmparray, t_simple_cmds *tmp, int i)
 
 int	process_redirections(char **tmparray, t_simple_cmds *tmp, int i)
 {
-	
-	while (tmp->redirections && tmp->redirections->token != PIPE
-		&& tmp->redirections->token != AND_AND
-		&& tmp->redirections->token != OR_OR
-		&& tmp->redirections->token != SEMICOLON)
+	t_lexer    *tmp2;
+
+    tmp2 = tmp->redirections;
+	while (tmp2 && tmp2->token != PIPE
+		&& tmp2->token != AND_AND
+		&& tmp2->token != OR_OR
+		&& tmp2->token != SEMICOLON)
 	{
-		tmparray[i++] = ft_strdup(token_to_char(tmp->redirections->token));
-		if (tmp->redirections->str)
+		tmparray[i++] = ft_strdup(token_to_char(tmp2->token));
+		if (tmp2->str)
 		{
-			tmparray[i++] = ft_strdup(tmp->redirections->str);
-			// free(tmp->redirections->str);
-			// free(tmp->redirections);
-			// tmp->redirections->str = NULL;
+			tmparray[i++] = ft_strdup(tmp2->str);
 		}
-		tmp->redirections = tmp->redirections->next;
+		tmp2 = tmp2->next;
 	}
-	nodefirst_ver_lexer(&tmp->redirections);
-	if (tmp->redirections && (tmp->redirections->token == PIPE
-			|| tmp->redirections->token == AND_AND
-			|| tmp->redirections->token == OR_OR
-			|| tmp->redirections->token == SEMICOLON))
+	if (tmp2 && (tmp2->token == PIPE
+			|| tmp2->token == AND_AND
+			|| tmp2->token == OR_OR
+			|| tmp2->token == SEMICOLON))
 	{
-		tmparray[i++] = ft_strdup(token_to_char(tmp->redirections->token));
+		tmparray[i++] = ft_strdup(token_to_char(tmp2->token));
 	}
 	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/12 22:22:43 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/13 11:51:05 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ void		ft_lexerclear(t_lexer **lst);
 void	    ft_nodefirst_cmdsver(t_simple_cmds **node);
 int			free_tools(t_tools *tools);
 int			implement_tools(t_tools *tools);
-
-void	nodefirst_ver_lexer(t_lexer **node);
 
 //グローバル変数(終了ステータス)
 extern int	g_status;
