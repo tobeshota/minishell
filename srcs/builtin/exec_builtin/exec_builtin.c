@@ -33,85 +33,6 @@ bool	is_cmd_builtin(char *cmd)
 		|| is_match(cmd, "exit"));
 }
 
-#define ENCLOSER 1
-/* nodeに空白までの文字列を格納する */
-void nodeadd_upto_blank(t_env **node_cmd, char *str, int i)
-{
-	t_env	*new;
-	char	*content;
-	char	*content_wo_quotas;
-
-	content = check_malloc(ft_substr(str, 0, i));
-	content_wo_quotas = omit_str(content, "\'\"");
-	new = ft_nodenew(content_wo_quotas);
-	free(content);
-	free(content_wo_quotas);
-	if (*node_cmd == NULL)
-		*node_cmd = new;
-	else
-		ft_nodeadd_back(node_cmd, new);
-}
-
-/* nodeに囲い文字までの文字列を格納する（ほんとうは「今指しているポインタ〜次の囲い文字まで」の文字列を格納したい） */
-void nodeadd_upto_encloser(t_env **node_cmd, char *str, char encloser)
-{
-	t_env	*new;
-	int		len_upto_next_encloser;
-	char	*content;
-	char	*content_wo_quotas;
-
-	// len_upto_next_encloser = strlen_until_c(str + ENCLOSER, encloser);
-	len_upto_next_encloser = ft_strchr(ft_strchr(str, encloser) + ENCLOSER, encloser) - str;
-	content = check_malloc(ft_substr(str, 0, len_upto_next_encloser + ENCLOSER));
-
-	content_wo_quotas = omit_str(content, "\'\"");
-	new = ft_nodenew(content_wo_quotas);
-	free(content);
-	free(content_wo_quotas);
-	if (*node_cmd == NULL)
-		*node_cmd = new;
-	else
-		ft_nodeadd_back(node_cmd, new);
-}
-/*
-export c=abc" def"
-export a=abc "b=def ghi"
-*/
-char **ft_split_x(char *str, char splitter)
-{
-	t_env *node_cmd;
-	char **cmd;
-	char encloser;
-	int i;
-
-	i = 0;
-	node_cmd = NULL;
-	if (ft_strchr(str, '\'') == NULL && ft_strchr(str, '\"') == NULL)
-		return check_malloc(ft_split(str, splitter));
-	while (str[i])
-	{
-		if (str[i] == ' ')
-		{
-			// nodeに空白までの文字列を格納する
-			nodeadd_upto_blank(&node_cmd, str, i);
-			str += i + 1;
-			i = -1;
-		}
-		else if (str[i] == '\'' || str[i] == '\"')
-		{
-			encloser = str[i];
-			// nodeに囲い文字までの文字列を格納する（ほんとうは「今指しているポインタ〜次の囲い文字まで」の文字列を格納したい）
-			nodeadd_upto_encloser(&node_cmd, str, encloser);
-			str += ENCLOSER;
-			str += i + strlen_until_c(str, encloser) + 1;
-			i = -1;
-		}
-		i++;
-	}
-	cmd = node_to_array(node_cmd);
-	return ft_nodeclear(&node_cmd), cmd;
-}
-
 int	exec_builtin(t_env **env, t_pipex *pipex, int cmd_i)
 {
 	int		ret;
@@ -125,8 +46,7 @@ int	exec_builtin(t_env **env, t_pipex *pipex, int cmd_i)
 	現在	"A= "   "abc"
 	理想	"A= abc"
 	*/
-	// cmd = check_malloc(split_wo_enclosed_str(pipex->cmd_absolute_path_with_parameter[cmd_i], ' '));
-	cmd = check_malloc(ft_split_x(pipex->cmd_absolute_path_with_parameter[cmd_i], ' '));
+	cmd = check_malloc(split_wo_enclosed_str(pipex->cmd_absolute_path_with_parameter[cmd_i], ' '));
 put_array_for_debug(cmd);
 	if (is_match(target, "/bin/echo") || is_match(target, "echo"))
 		ret = exec_echo(cmd, pipex);
