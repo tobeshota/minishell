@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/12 15:08:30 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/13 20:47:39 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,11 @@ bool	is_specified_pipe(char *str);
 bool	is_specified_pipe_pipe(char *str);
 bool	is_specified_ampersant(char *str);
 bool	is_specified_apersant_ampersant(char *str);
+
+// omit
+char	*omit_c(char *str, char c);
+char	*omit_str(char *str, char *omit);
+char	*omit_quotas(char *str, bool is_str_malloced);
 
 // set_fd
 bool	set_input_fd(t_pipex *pipex, int cmd_i);

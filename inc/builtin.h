@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 16:15:47 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/12 15:37:24 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/13 20:39:20 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ void	add_new_value(char *added_value, t_env **env);
 void	update_value(char *added, t_env **env);
 bool	update_envp(t_env **env, char *varname, char *new_data);
 t_env	*get_old_env_to_be_updated(char *added, t_env *env);
-char	*omit_c(char *str, char c);
-char	*omit_str(char *str, char *omit);
 bool	check_identifier(char *identifier);
 bool	is_under_bar(char *cmd);
 bool	is_node_first(t_env *node);
