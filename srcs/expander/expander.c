@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:39:54 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/12 19:46:16 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/13 11:22:05 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*detect_dollar(char *str, char **envp)
 		j += handle_digit_after_dollar(j, str);
 		if (str[j] == '$' && str[j + 1] == '?')
 			j += question_mark(&tmp);
-		else if (str[j] == '$' && (str[j + 1] != ' ' && (str[j + 1] != '"'
+		else if (str[j] == '$' && (str[j + 1] != ' ' && str[j + 1] != '$' && (str[j + 1] != '"'
 						|| str[j + 2] != '\0')) && str[j + 1] != '\0')
 			j += loop_if_dollar_sign(envp, str, &tmp, j);
 		else
