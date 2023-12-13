@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 13:27:33 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/13 10:17:00 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/13 10:42:48 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ bool check_double_operator(t_simple_cmds *new, t_simple_cmds *tmp, t_tools *tool
 			|| new->redirections->token == OR_OR
 			|| new->redirections->token == PIPE))
 		{
-			parser_error(0, tools);
+			free(new);
+			ft_lexerclear(&tools->lexer_list);
+			ft_error(0);
 			return false;
 		}
 	}
@@ -46,7 +48,11 @@ bool	add_list(t_simple_cmds **list, t_simple_cmds *new, t_tools *tools)
 	tmp->next = new;
 	new->prev = tmp;
 	if(check_double_operator(new, tmp, tools) == false)
+	{
+		// free(new);
+		// free_tools(tools);
 		return false;
+	}
 	return true;
 }
 

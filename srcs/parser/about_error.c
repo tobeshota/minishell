@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 13:17:23 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/09 22:56:43 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/13 10:39:47 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	parser_error(int error, t_tools *tools)
 	// (void) tools;
 	// (void) lexer_list;
 	// ft_lexerclear(&lexer_list);
-	ft_error(error);    
+	ft_error(error);
 }
 
 int	parser_token_error(t_tools *tools, t_lexer *lexer_list,
