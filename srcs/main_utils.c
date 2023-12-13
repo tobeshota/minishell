@@ -6,12 +6,48 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:36:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/13 16:17:55 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/13 17:04:58 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
 #include "minishell.h"
+
+int	find_matching_quote(char *line, int i, int *num, int del)
+{
+	int	j;
+
+	j = i + 1;
+	*num += 1;
+	while (line[j] && line[j] != del)
+		j++;
+	if (line[j] == del)
+		*num += 1;
+	return (j - i);
+}
+
+
+int	count_quotes(char *line)
+{
+	int	i;
+	int	s;
+	int	d;
+
+	s = 0;
+	d = 0;
+	i = -1;
+	while (line[++i])
+	{
+		if (line[i] == 34)
+			i += find_matching_quote(line, i, &d, 34);
+		if (line[i] == 39)
+			i += find_matching_quote(line, i, &s, 39);
+	}
+	if ((d > 0 && d % 2 != 0) || (s > 0 && s % 2 != 0))
+		return (0);
+	return (1);
+}
+
 
 bool	ft_simple_cmdsclear(t_simple_cmds **simple_cmds)
 {

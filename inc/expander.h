@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/13 12:23:52 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/13 17:01:11 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void		ft_lexerclear(t_lexer **lst);
 void	    ft_nodefirst_cmdsver(t_simple_cmds **node);
 int			free_tools(t_tools *tools);
 int			implement_tools(t_tools *tools);
+int	        count_quotes(char *line);
+
 
 //グローバル変数(終了ステータス)
 extern int	g_status;
