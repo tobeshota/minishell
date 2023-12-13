@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 13:27:33 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/13 10:42:48 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/13 16:22:23 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,12 @@ bool check_double_operator(t_simple_cmds *new, t_simple_cmds *tmp, t_tools *tool
 			|| new->redirections->token == OR_OR
 			|| new->redirections->token == PIPE))
 		{
-			free(new);
+			free(tools->str);
+			tools->str = NULL;
+			ft_simple_cmdsclear(&tools->simple_cmds);
 			ft_lexerclear(&tools->lexer_list);
+			implement_tools(tools);
+			free(tools);
 			ft_error(0);
 			return false;
 		}
@@ -49,8 +53,6 @@ bool	add_list(t_simple_cmds **list, t_simple_cmds *new, t_tools *tools)
 	new->prev = tmp;
 	if(check_double_operator(new, tmp, tools) == false)
 	{
-		// free(new);
-		// free_tools(tools);
 		return false;
 	}
 	return true;
@@ -139,11 +141,14 @@ int	handle_a_case(t_tools *tools, t_simple_cmds **node,
 	if (parser_tools->lexer_list->next == NULL
 		&& parser_tools->lexer_list->token != SEMICOLON)
 	{
-		parser_error(0, tools);
-		// ft_lexerclear(&parser_tools->lexer_list);
-		// ft_lexerclear(&parser_tools->redirections);
-		// ft_error(0);
-		return (0);
+		free(tools->str);
+		tools->str = NULL;
+		if (ft_simple_cmdsclear(&tools->simple_cmds) == false)
+			ft_lexerclear(&tools->lexer_list);
+		implement_tools(tools);
+		free(tools);
+		ft_error(0);
+		return false;
 	}
 	*node = create_a_node(tools);
 	if (!*node)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
+/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:36:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/12 17:25:58 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/13 16:17:55 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ bool	ft_simple_cmdsclear(t_simple_cmds **simple_cmds)
 		if ((*simple_cmds)->str)
 			all_free_tab((*simple_cmds)->str);
 		(*simple_cmds)->prev = NULL;
-		free(*simple_cmds);
+		if(*simple_cmds)
+			free(*simple_cmds);
 		*simple_cmds = tmp;
 	}
 	*simple_cmds = NULL;
@@ -49,6 +50,7 @@ int	implement_tools(t_tools *tools)
 int	free_tools(t_tools *tools)
 {
 	free(tools->str);
+	tools->str = NULL;
 	if (ft_simple_cmdsclear(&tools->simple_cmds) == false)
 		ft_lexerclear(&tools->lexer_list);
 	implement_tools(tools);
@@ -81,6 +83,14 @@ char	**ft_arrdup(char **arr)
 	return (rtn);
 }
 
+void	ft_nodefirst_for_lexer(t_lexer **node)
+{
+	if (node == NULL || *node == NULL)
+		return ;
+	while ((*node)->prev != NULL)
+		*node = (*node)->prev;
+}
+
 void	ft_lexerclear(t_lexer **lst)
 {
 	t_lexer	*tmp;
@@ -89,18 +99,24 @@ void	ft_lexerclear(t_lexer **lst)
 		return ;
 	while (*lst)
 	{
-		tmp = (*lst)->next;
+		if((*lst)->next)
+			tmp = (*lst)->next;
+		else
+			tmp = NULL;
 		if ((*lst)->str)
-		{
+		{	
 			free((*lst)->str);
 			(*lst)->str = NULL;
 		}
 		if (*lst)
 		{
+			if ((*lst)->next == NULL)
+				break ;
 			free(*lst);
 			*lst = NULL;
 		}
 		*lst = tmp;
 	}
+	ft_nodefirst_for_lexer(lst);
 	lst = NULL;
 }

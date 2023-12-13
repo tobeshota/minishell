@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 13:17:23 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/13 10:39:47 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/13 11:59:53 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,7 @@ int	ft_error(int error)
 void	parser_error(int error, t_tools *tools)
 {
 	free_tools(tools);
-	// (void) tools;
-	// (void) lexer_list;
-	// ft_lexerclear(&lexer_list);
+	ft_lexerclear(&tools->lexer_list);
 	ft_error(error);
 }
 

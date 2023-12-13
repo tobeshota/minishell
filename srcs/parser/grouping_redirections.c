@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:09:54 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/12 10:18:19 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/13 15:59:30 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,19 @@ int	grouping_redirections(t_parser_tools *parser_tools)
 	{
 		ft_lexerclear(&parser_tools->lexer_list);
 		ft_lexerclear(&parser_tools->redirections);
+		free(parser_tools->tools);
 		ft_error(0);
 		// free(parser_tools->tools);
 		return (EXIT_FAILURE);
 	}
 	if (tmp->next->token)
 	{
-		ft_lexerclear(&parser_tools->lexer_list);
-		ft_lexerclear(&parser_tools->redirections);
+		free(parser_tools->tools->str);
+		parser_tools->tools->str = NULL;
+		if (ft_simple_cmdsclear(&parser_tools->tools->simple_cmds) == false)
+			ft_lexerclear(&parser_tools->tools->lexer_list);
 		ft_error(0);
-		// free(parser_tools->tools);
+		free(parser_tools->tools);
 		return(EXIT_FAILURE);
 	}
 	if ((tmp->token >= GREAT && tmp->token <= OR_OR))
