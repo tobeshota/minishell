@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 11:51:33 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/13 11:46:38 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/13 12:25:12 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,23 +68,27 @@ int	process_str(char **tmparray, t_simple_cmds *tmp, int i)
 
 int	process_redirections(char **tmparray, t_simple_cmds *tmp, int i)
 {
+	t_lexer    *tmp2;
 
-	while (tmp->redirections && tmp->redirections->token != PIPE
-		&& tmp->redirections->token != AND_AND
-		&& tmp->redirections->token != OR_OR
-		&& tmp->redirections->token != SEMICOLON)
+    tmp2 = tmp->redirections;
+	while (tmp2 && tmp2->token != PIPE
+		&& tmp2->token != AND_AND
+		&& tmp2->token != OR_OR
+		&& tmp2->token != SEMICOLON)
 	{
-		tmparray[i++] = check_malloc(ft_strdup(token_to_char(tmp->redirections->token)));
-		if (tmp->redirections->str)
-			tmparray[i++] = check_malloc(ft_strdup(tmp->redirections->str));
-		tmp->redirections = tmp->redirections->next;
+		tmparray[i++] = ft_strdup(token_to_char(tmp2->token));
+		if (tmp2->str)
+		{
+			tmparray[i++] = ft_strdup(tmp2->str);
+		}
+		tmp2 = tmp2->next;
 	}
-	if (tmp->redirections && (tmp->redirections->token == PIPE
-			|| tmp->redirections->token == AND_AND
-			|| tmp->redirections->token == OR_OR
-			|| tmp->redirections->token == SEMICOLON))
+	if (tmp2 && (tmp2->token == PIPE
+			|| tmp2->token == AND_AND
+			|| tmp2->token == OR_OR
+			|| tmp2->token == SEMICOLON))
 	{
-		tmparray[i++] = ft_strdup(token_to_char(tmp->redirections->token));
+		tmparray[i++] = ft_strdup(token_to_char(tmp2->token));
 	}
 	return (i);
 }
