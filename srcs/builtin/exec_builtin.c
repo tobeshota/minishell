@@ -37,12 +37,15 @@ bool	is_cmd_builtin(char *cmd)
 /* nodeに空白までの文字列を格納する */
 void nodeadd_upto_blank(t_env **node_cmd, char *str, int i)
 {
-	t_env *new;
-	char *content;
+	t_env	*new;
+	char	*content;
+	char	*content_wo_quotas;
 
 	content = check_malloc(ft_substr(str, 0, i));
-	new = ft_nodenew(content);
+	content_wo_quotas = omit_str(content, "\'\"");
+	new = ft_nodenew(content_wo_quotas);
 	free(content);
+	free(content_wo_quotas);
 	if (*node_cmd == NULL)
 		*node_cmd = new;
 	else
@@ -55,12 +58,16 @@ void nodeadd_upto_encloser(t_env **node_cmd, char *str, char encloser)
 	t_env	*new;
 	int		len_upto_next_encloser;
 	char	*content;
+	char	*content_wo_quotas;
 
 	// len_upto_next_encloser = strlen_until_c(str + ENCLOSER, encloser);
 	len_upto_next_encloser = ft_strchr(ft_strchr(str, encloser) + ENCLOSER, encloser) - str;
 	content = check_malloc(ft_substr(str, 0, len_upto_next_encloser + ENCLOSER));
-	new = ft_nodenew(content);
+
+	content_wo_quotas = omit_str(content, "\'\"");
+	new = ft_nodenew(content_wo_quotas);
 	free(content);
+	free(content_wo_quotas);
 	if (*node_cmd == NULL)
 		*node_cmd = new;
 	else
