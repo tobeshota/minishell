@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   change_to_array.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 11:51:33 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/13 09:23:25 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/13 11:46:38 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,23 +68,17 @@ int	process_str(char **tmparray, t_simple_cmds *tmp, int i)
 
 int	process_redirections(char **tmparray, t_simple_cmds *tmp, int i)
 {
-	
+
 	while (tmp->redirections && tmp->redirections->token != PIPE
 		&& tmp->redirections->token != AND_AND
 		&& tmp->redirections->token != OR_OR
 		&& tmp->redirections->token != SEMICOLON)
 	{
-		tmparray[i++] = ft_strdup(token_to_char(tmp->redirections->token));
+		tmparray[i++] = check_malloc(ft_strdup(token_to_char(tmp->redirections->token)));
 		if (tmp->redirections->str)
-		{
-			tmparray[i++] = ft_strdup(tmp->redirections->str);
-			// free(tmp->redirections->str);
-			// free(tmp->redirections);
-			// tmp->redirections->str = NULL;
-		}
+			tmparray[i++] = check_malloc(ft_strdup(tmp->redirections->str));
 		tmp->redirections = tmp->redirections->next;
 	}
-	nodefirst_ver_lexer(&tmp->redirections);
 	if (tmp->redirections && (tmp->redirections->token == PIPE
 			|| tmp->redirections->token == AND_AND
 			|| tmp->redirections->token == OR_OR

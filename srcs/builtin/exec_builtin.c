@@ -138,59 +138,85 @@ bool	is_cmd_builtin(char *cmd)
 // 	return (result);
 // }
 
-void ft_nodedel_front(t_env *cmd_node)
+void ft_nodedel_front(t_env **cmd_node)
 {
-	if (is_node_first(cmd_node))
+	t_env *unseted_node;
+
+	if (is_node_first(*cmd_node))
 		return ;
 	else
 	{
-		if (cmd_node->prev->prev == NULL)
-			cmd_node->prev = NULL;
-		else
+		unseted_node = (*cmd_node)->prev;
+		if (is_node_first(unseted_node) == false)
 		{
-			cmd_node->prev = cmd_node->prev->prev;
-			cmd_node->prev->prev->next = cmd_node;
+			unseted_node->prev->next = unseted_node->next;
+			unseted_node->next->prev = unseted_node->prev;
 		}
-		ft_nodedelone(&cmd_node->prev);
+		ft_nodedelone(&unseted_node);
 	}
 }
+
+char	*ft_str_c_join(char const *s1, char const c)
+{
+	char	s2[2];
+
+	s2[0] = c;
+	s2[1] = '\0';
+	return ft_strjoin(s1, s2);
+}
+
 /* 次に同じ囲い文字が現れるまで文字列をcmd_node->contentに文字列を追加する */
-void append_until_next_same_encloser_appears(t_env *cmd_node, int content_i)
+void append_until_next_same_encloser_appears(t_env **cmd_node, int content_i, char splitter)
 {
 	char	encloser;
 	char	*enclosed_content;
 	char	*tmp;
 
 	// char encloserに囲い文字を取得する（次にまたその囲い文字が来るまでコピーを繰り返す）
-	encloser = cmd_node->content[content_i];
+	encloser = (*cmd_node)->content[content_i];
 	// char *enclosed_contentにcmd_node->content[0 ~ iまでの文字]をヒープ領域で格納する
-	enclosed_content = check_malloc(malloc(sizeof(char) * (strlen_until_c(cmd_node->content, encloser) + 1)));
-	ft_strlcpy(enclosed_content, cmd_node->content, strlen_until_c(cmd_node->content, encloser));
+	enclosed_content = check_malloc(malloc(sizeof(char) * (strlen_until_c((*cmd_node)->content, encloser) + 1)));
+	ft_strlcpy(enclosed_content, (*cmd_node)->content, (strlen_until_c((*cmd_node)->content, encloser) + 1));
 	// i++; して囲い文字の次の文字を参照するようにする
 	content_i++;
 	// cmd_node->nextがあるまで繰り返す．
-	while (cmd_node->next)
+	while ((*cmd_node)->next)
 	{
 		// cmd_node->content[i]があるまで繰り返す
-		while (cmd_node->content[content_i])
+		while ((*cmd_node)->content[content_i])
 		{
 			// 次に同じ囲い文字が来たら
-			if (cmd_node->content[content_i] == encloser)
+			if ((*cmd_node)->content[content_i] == encloser)
 			{
-				// ft_nodenew(enclosed_content)をもとに新しいノードをつくる
-				// ノードをft_nodeaddfront();で追加する
-				// 関数を終了する
-				return ft_nodeadd_front(&cmd_node, ft_nodenew(enclosed_content)), ft_nodefirst(&cmd_node);
+				// 囲い文字以降に文字が存在するなら
+				// if ((*cmd_node)->next)
+				if ((*cmd_node)->content[content_i + 1])
+				{
+					// 次に区切り文字が来るまでの文字列（==次のノードのcontentすべて）をft_strjoinで連結する
+					tmp = enclosed_content;
+					enclosed_content = check_malloc(ft_strjoin(enclosed_content, (*cmd_node)->content + 1));
+					free(tmp);
+				}
+				free((*cmd_node)->content);
+				(*cmd_node)->content = check_malloc(ft_strdup(enclosed_content));
+
+				free(enclosed_content);
+				ft_nodefirst(cmd_node);
+				return ;
 			}
 			// ft_strjoin(enclosed_content, &cmd_node->content[i])を入れる
 			tmp = enclosed_content;
-			enclosed_content = check_malloc(ft_strjoin(enclosed_content, &cmd_node->content[content_i]));
+			enclosed_content = check_malloc(ft_str_c_join(enclosed_content, (*cmd_node)->content[content_i]));
 			free(tmp);
 			// iをインクリメントする
 			content_i++;
 		}
+		// ft_splitにより消されてしまった囲い文字内の区切り文字を追加する
+		tmp = enclosed_content;
+		enclosed_content = check_malloc(ft_str_c_join(enclosed_content, splitter));
+		free(tmp);
 		// 次のノードへ．
-		ft_nodenext(&cmd_node);
+		ft_nodenext(cmd_node);
 		// 前回のノードを削除する
 		ft_nodedel_front(cmd_node);
 		// iを0にしcontentの先頭を指し示すようにする
@@ -198,25 +224,36 @@ void append_until_next_same_encloser_appears(t_env *cmd_node, int content_i)
 	}
 
 	// cmd_node->content[i]があるまで繰り返す
-	while (cmd_node->content[content_i])
+	while ((*cmd_node)->content[content_i])
 	{
 		// 次に同じ囲い文字が来たら
-		if (cmd_node->content[content_i] == encloser)
+		if ((*cmd_node)->content[content_i] == encloser)
 		{
-			// ft_nodenew(enclosed_content)をもとに新しいノードをつくる
-			// ノードをft_nodeaddfront();で追加する
-			// 関数を終了する
-			return ft_nodeadd_front(&cmd_node, ft_nodenew(enclosed_content));
+			// 囲い文字以降に文字が存在するなら
+			// if ((*cmd_node)->next)
+			if ((*cmd_node)->content[content_i + 1])
+			{
+				// 次に区切り文字が来るまでの文字列（==次のノードのcontentすべて）をft_strjoinで連結する
+				tmp = enclosed_content;
+				enclosed_content = check_malloc(ft_strjoin(enclosed_content, (*cmd_node)->content + 1));
+				free(tmp);
+			}
+			free((*cmd_node)->content);
+			(*cmd_node)->content = check_malloc(ft_strdup(enclosed_content));
+
+			free(enclosed_content);
+			ft_nodefirst(cmd_node);
+			return ;
 		}
 		// ft_strjoin(enclosed_content, &cmd_node->content[i])を入れる
 		tmp = enclosed_content;
-		enclosed_content = check_malloc(ft_strjoin(enclosed_content, &cmd_node->content[content_i]));
+		enclosed_content = check_malloc(ft_str_c_join(enclosed_content, (*cmd_node)->content[content_i]));
 		free(tmp);
 		// iをインクリメントする
 		content_i++;
 	}
 	// ノードを最初にする
-	ft_nodefirst(&cmd_node);
+	ft_nodefirst(cmd_node);
 }
 char	**split_wo_enclosed_str(char const *str, char splitter)
 {
@@ -231,10 +268,10 @@ char	**split_wo_enclosed_str(char const *str, char splitter)
 	if (ft_strchr(str, '\'') == NULL && ft_strchr(str, '\"') == NULL)
 		// splitしたものを返す
 		return cmd;
-return cmd;
+// return cmd;
 	// 文字列をリストに格納する
 	cmd_node = array_to_node(cmd);
-// put_node_for_debug(cmd_node);
+put_node_for_debug(cmd_node);
 	// cmd_node->nextがあるまで繰り返す．
 	while (cmd_node->next)
 	{
@@ -245,7 +282,7 @@ return cmd;
 			// もしcmd_node->content[i]が囲い文字であれば，
 			if (cmd_node->content[content_i] == '\'' || cmd_node->content[content_i] == '\"')
 				/* 次に同じ囲い文字が現れるまで文字列をcmd_node->contentに文字列を追加する */
-				append_until_next_same_encloser_appears(cmd_node, content_i);
+				append_until_next_same_encloser_appears(&cmd_node, content_i, splitter);
 			// iをインクリメントする
 			content_i++;
 		}
@@ -255,7 +292,7 @@ return cmd;
 	ft_nodefirst(&cmd_node);
 	all_free_tab(cmd);
 	cmd = node_to_array(cmd_node);
-	return cmd;
+	return ft_nodeclear(&cmd_node), cmd;
 }
 
 int	exec_builtin(t_env **env, t_pipex *pipex, int cmd_i)
