@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 13:27:33 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/12 17:31:09 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/13 09:43:58 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,25 @@ bool	add_list(t_simple_cmds **list, t_simple_cmds *new, t_tools *tools)
 	return true;
 }
 
+void	grouping_cmd(int arg_size, char **str, t_parser_tools *parser_tools)
+{
+	t_lexer	*tmp;
+	int		i;
+
+	i = 0;
+	tmp = parser_tools->lexer_list;
+	while (arg_size > 0)
+	{
+		if (tmp->str)
+		{
+			str[i++] = ft_strdup(tmp->str);
+			erase_token(&parser_tools->lexer_list, tmp->i);
+			tmp = parser_tools->lexer_list;
+		}
+		arg_size--;
+	}
+}
+
 static t_simple_cmds	*creat_ast(t_parser_tools *parser_tools)
 {
 	char	**str;
@@ -65,17 +84,7 @@ static t_simple_cmds	*creat_ast(t_parser_tools *parser_tools)
 	str = (char **)check_malloc(ft_calloc(arg_size + 1, sizeof(char *)));
 	if (!str)
 		parser_error(1, parser_tools->tools);
-	tmp = parser_tools->lexer_list;
-	while (arg_size > 0)
-	{
-		if (tmp->str)
-		{
-			str[i++] = ft_strdup(tmp->str);
-			erase_token(&parser_tools->lexer_list, tmp->i);
-			tmp = parser_tools->lexer_list;
-		}
-		arg_size--;
-	}
+	grouping_cmd(arg_size, str, parser_tools);
 	if (str[0] == NULL && parser_tools->num_redirections == 0)
 		return (NULL);
 	return (recreated_node(str, parser_tools->num_redirections,
