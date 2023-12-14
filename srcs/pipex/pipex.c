@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:32:48 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/10 22:27:11 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/13 21:16:08 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ static int	is_true(int ret)
 	return (true);
 }
 
+/* 囲い文字はコマンドとその引数，そして入出力ファイル（つまり<>\;&&以外）すべてつけられうる
+━▶︎pipex.argvの囲い文字を外し，以降はpipex.argvを用いることとする！  */
 int	pipex(char **argv, char **h_envp, t_env **env)
 {
 	t_pipex	pipex;
