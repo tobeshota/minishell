@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 09:00:12 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/10 22:27:11 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/14 13:04:58 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,20 @@ int	get_cmd_count(char **argv, char **h_envp)
 		free(argv_wo_param);
 	}
 	return (cmd_count);
+}
+
+int	get_builtin_cmd_count(t_pipex *pipex)
+{
+	int	cmd_i;
+	int	builtin_cmd_count;
+
+	cmd_i = 0;
+	builtin_cmd_count = 0;
+	while (pipex->cmd_absolute_path[cmd_i])
+	{
+		if (is_cmd_builtin(pipex->cmd_absolute_path[cmd_i]))
+			builtin_cmd_count++;
+		cmd_i++;
+	}
+	return (builtin_cmd_count);
 }

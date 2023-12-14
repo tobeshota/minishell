@@ -212,14 +212,14 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_tools	tools;
 
-	// if (argc == 2 && is_match(argv[1], "p"))
-	// 	return (minipipex(argv, envp));
+	if (argc == 2 && is_match(argv[1], "p"))
+		return (minipipex(argv, envp));
 	if (argc == 1)
 		return (minishell(envp, &tools, argv));
 	return (put_error("minishell: too many arguments"), 1);
 }
 
-// __attribute__((destructor)) static void destructor()
-// {
-// 	system("leaks -q minishell");
-// }
+__attribute__((destructor)) static void destructor()
+{
+	system("leaks -q minishell");
+}

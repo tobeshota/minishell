@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 20:38:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/13 20:47:25 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/13 22:24:06 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,33 @@ char	*omit_str(char *str, char *omit)
 	return (result);
 }
 
+char	**omit_array(char **array, char *omit, bool is_str_malloced)
+{
+	int		i;
+	char	*tmp;
+
+	i = 0;
+	if (is_str_malloced == true)
+	{
+		while (array[i])
+		{
+			tmp = array[i];
+			array[i] = omit_str(array[i], omit);
+			free(tmp);
+			i++;
+		}
+	}
+	else
+	{
+		while (array[i])
+		{
+			array[i] = omit_str(array[i], omit);
+			i++;
+		}
+	}
+	return (array);
+}
+
 char	*omit_quotas(char *str, bool is_str_malloced)
 {
 	char	*tmp;
@@ -80,5 +107,5 @@ char	*omit_quotas(char *str, bool is_str_malloced)
 	{
 		str = omit_str(str, "\'\"");
 	}
-	return str;
+	return (str);
 }

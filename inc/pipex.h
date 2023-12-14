@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/13 20:47:39 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/14 13:09:30 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	cp_argv(char **argv, t_pipex *pipex);
 int		get_element_count(char **array);
 int		get_cmd_count(char **argv, char **h_envp);
 int		get_cmd_absolute_path_count(t_pipex *pipex);
-int		get_pipe_count(char **argv);
 int		get_builtin_cmd_count(t_pipex *pipex);
 void	get_order(t_env *node);
 int		get_arg_i(int pipe_count, char **argv);
@@ -109,12 +108,21 @@ bool	is_specified_apersant_ampersant(char *str);
 // omit
 char	*omit_c(char *str, char c);
 char	*omit_str(char *str, char *omit);
+char	**omit_array(char **array, char *omit, bool is_str_malloced);
 char	*omit_quotas(char *str, bool is_str_malloced);
 
 // set_fd
 bool	set_input_fd(t_pipex *pipex, int cmd_i);
 bool	set_output_fd(t_pipex *pipex, int cmd_i);
 bool	reset_fd(int *stdin_fileno, int *stdout_fileno);
+
+// get_pipex
+int		get_pipe_count(char **argv);
+bool	get_pipe(t_pipex *pipex, int cmd_i);
+void	malloc_multiple_pipe(t_pipex *pipex);
+
+// get_child
+bool	get_child(pid_t *child_pid);
 
 // array_node
 t_env	*array_to_node(char **envp);

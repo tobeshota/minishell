@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 22:46:35 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/10 22:28:42 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/14 13:12:50 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,6 @@ static bool	exec(char **h_envp, t_env **env, t_pipex *pipex, int cmd_i)
 		(execve(pipex->cmd_absolute_path[cmd_i], cmd, h_envp), \
 		pipex->cmd_absolute_path[cmd_i]));
 	}
-}
-
-static bool	get_pipe(t_pipex *pipex, int cmd_i)
-{
-	return (check_pipe(pipe(pipex->pipe_fd[cmd_i])));
-}
-
-static bool	get_child(pid_t *child_pid)
-{
-	*child_pid = fork();
-	if (check_fork(*child_pid) == false)
-		return (false);
-	return (true);
 }
 
 bool	do_pipex(char **h_envp, t_env **env, t_pipex *pipex)
