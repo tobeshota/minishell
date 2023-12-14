@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 22:46:35 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/14 13:12:50 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/14 14:12:56 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,23 @@ static bool	dup_std_fileno(int *stdin_fileno,
 	return (true);
 }
 
+static bool do_execve(char **h_envp, t_pipex *pipex, int cmd_i)
+{
+	char	**cmd;
+
+	cmd = check_malloc(ft_split(pipex->cmd_absolute_path_with_parameter[cmd_i], ' '));
+	return (check_execve(execve(pipex->cmd_absolute_path[cmd_i], cmd, h_envp), pipex->cmd_absolute_path[cmd_i]));
+}
+
+static bool do_exec_builtin(t_env **env, t_pipex *pipex, int cmd_i)
+{
+	return (check_exec_builtin(exec_builtin(env, pipex, cmd_i), pipex->cmd_absolute_path[cmd_i]));
+}
+
 static bool	exec(char **h_envp, t_env **env, t_pipex *pipex, int cmd_i)
 {
-	char		**cmd;
-	int			stdin_fileno;
-	int			stdout_fileno;
+	int		stdin_fileno;
+	int		stdout_fileno;
 
 	dup_std_fileno(&stdin_fileno, &stdout_fileno);
 	if (set_input_fd(pipex, cmd_i) == false)
@@ -37,20 +49,12 @@ static bool	exec(char **h_envp, t_env **env, t_pipex *pipex, int cmd_i)
 		return (reset_fd(&stdin_fileno, &stdout_fileno), false);
 	if (is_cmd_builtin(pipex->cmd_absolute_path[cmd_i]))
 	{
-		if (check_exec_builtin \
-		(exec_builtin(env, pipex, cmd_i), \
-		pipex->cmd_absolute_path[cmd_i]) == false)
+		if (do_exec_builtin(env, pipex, cmd_i) == false)
 			return (reset_fd(&stdin_fileno, &stdout_fileno), false);
 		return (reset_fd(&stdin_fileno, &stdout_fileno));
 	}
 	else
-	{
-		cmd = check_malloc \
-		(ft_split(pipex->cmd_absolute_path_with_parameter[cmd_i], ' '));
-		return (check_execve \
-		(execve(pipex->cmd_absolute_path[cmd_i], cmd, h_envp), \
-		pipex->cmd_absolute_path[cmd_i]));
-	}
+		return (do_execve(h_envp, pipex, cmd_i));
 }
 
 bool	do_pipex(char **h_envp, t_env **env, t_pipex *pipex)
