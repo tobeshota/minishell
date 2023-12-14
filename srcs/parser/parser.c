@@ -6,23 +6,24 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 13:27:33 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/14 12:16:56 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/14 14:20:09 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool check_double_operator(t_simple_cmds *new, t_simple_cmds *tmp, t_tools *tools)
+bool	check_double_operator(t_simple_cmds *new, t_simple_cmds *tmp,
+		t_tools *tools)
 {
 	if (tmp && tmp->redirections && (tmp->redirections->token == SEMICOLON
-		|| tmp->redirections->token == AND_AND
-		|| tmp->redirections->token == OR_OR
-		|| tmp->redirections->token == PIPE))
+			|| tmp->redirections->token == AND_AND
+			|| tmp->redirections->token == OR_OR
+			|| tmp->redirections->token == PIPE))
 	{
 		if (new->redirections && (new->redirections->token == SEMICOLON
-			|| new->redirections->token == AND_AND
-			|| new->redirections->token == OR_OR
-			|| new->redirections->token == PIPE))
+				|| new->redirections->token == AND_AND
+				|| new->redirections->token == OR_OR
+				|| new->redirections->token == PIPE))
 		{
 			free(tools->str);
 			tools->str = NULL;
@@ -31,31 +32,31 @@ bool check_double_operator(t_simple_cmds *new, t_simple_cmds *tmp, t_tools *tool
 			implement_tools(tools);
 			free(tools);
 			ft_error(0);
-			return false;
+			return (false);
 		}
 	}
-	return true;
+	return (true);
 }
 
 bool	add_list(t_simple_cmds **list, t_simple_cmds *new, t_tools *tools)
 {
 	t_simple_cmds	*tmp;
-	
+
 	tmp = *list;
 	if (*list == NULL)
 	{
 		*list = new;
-		return true;
+		return (true);
 	}
 	while (tmp->next != NULL)
 		tmp = tmp->next;
 	tmp->next = new;
 	new->prev = tmp;
-	if(check_double_operator(new, tmp, tools) == false)
+	if (check_double_operator(new, tmp, tools) == false)
 	{
-		return false;
+		return (false);
 	}
-	return true;
+	return (true);
 }
 
 void	grouping_cmd(int arg_size, char **str, t_parser_tools *parser_tools)
@@ -143,12 +144,14 @@ int	handle_a_case(t_tools *tools, t_simple_cmds **node,
 	{
 		free(tools->str);
 		tools->str = NULL;
-		if (ft_simple_cmdsclear(&tools->simple_cmds) == false)
-			ft_lexerclear(&tools->lexer_list);
+		// if (ft_simple_cmdsclear(&tools->simple_cmds) == false)
+		// 	ft_lexerclear(&tools->lexer_list);
+		ft_simple_cmdsclear(&tools->simple_cmds);
+		ft_lexerclear(&tools->lexer_list);
 		implement_tools(tools);
 		free(tools);
 		ft_error(0);
-		return false;
+		return (false);
 	}
 	*node = create_a_node(tools);
 	if (!*node)
@@ -156,7 +159,7 @@ int	handle_a_case(t_tools *tools, t_simple_cmds **node,
 		parser_error(0, tools);
 		return (0);
 	}
-	if(add_list(&tools->simple_cmds, *node, tools) == false)
+	if (add_list(&tools->simple_cmds, *node, tools) == false)
 		return (0);
 	parser_tools->lexer_list = tools->lexer_list;
 	return (1);

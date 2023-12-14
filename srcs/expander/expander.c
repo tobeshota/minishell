@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:39:54 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/13 16:53:15 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/14 14:08:42 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*delete_quotes(char *str, char c)
 			j = 0;
 			while (str[i + j] == c)
 				j++;
-			ft_strlcpy(&str[i], &str[i + j], strlen(str) - i);
+			ft_strlcpy(&str[i], &str[i + j], ft_strlen(str) - i);
 		}
 		i++;
 	}

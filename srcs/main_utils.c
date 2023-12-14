@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:36:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/14 12:17:53 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/14 14:16:53 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,8 +146,8 @@ void	ft_lexerclear(t_lexer **lst)
 		}
 		if (*lst)
 		{
-			if ((*lst)->next == NULL)
-				break ;
+			// if ((*lst)->next == NULL)
+			// 	break ;
 			free(*lst);
 			*lst = NULL;
 		}
