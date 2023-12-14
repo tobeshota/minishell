@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   grouping_redirections.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:09:54 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/13 15:59:30 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/14 12:16:45 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	grouping_redirections(t_parser_tools *parser_tools)
 	}
 	if (tmp->next->token)
 	{
-		free(parser_tools->tools->str);
+		// free(parser_tools->tools->str);
 		parser_tools->tools->str = NULL;
 		if (ft_simple_cmdsclear(&parser_tools->tools->simple_cmds) == false)
 			ft_lexerclear(&parser_tools->tools->lexer_list);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:36:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/13 17:04:58 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/14 12:17:53 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,6 @@ void	ft_lexerclear(t_lexer **lst)
 		}
 		*lst = tmp;
 	}
-	ft_nodefirst_for_lexer(lst);
+	// ft_nodefirst_for_lexer(lst);//ここでセグフォがおきたので一度コメントアウト（例：｜｜TEST｜）
 	lst = NULL;
 }

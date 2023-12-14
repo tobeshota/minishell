@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   about_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 13:17:23 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/13 11:59:53 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/14 12:20:17 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ void	parser_error(int error, t_tools *tools)
 	ft_error(error);
 }
 
-int	parser_token_error(t_tools *tools, t_lexer *lexer_list,
-	t_tokens token)
+int	parser_token_error(t_tools *tools, t_lexer *lexer_list, t_tokens token)
 {
 	ft_putstr_fd("minishell: syntax error near unexpected token ",
 		STDERR_FILENO);
@@ -62,7 +61,9 @@ int	parser_token_error(t_tools *tools, t_lexer *lexer_list,
 		ft_putstr_fd("'||'\n", STDERR_FILENO);
 	else
 		ft_putstr_fd("\n", STDERR_FILENO);
-	free_tools(tools);
+	ft_lexerclear(&tools->lexer_list);
+	free(tools->str);
+	free(tools);
 	return (EXIT_FAILURE);
 }
 
