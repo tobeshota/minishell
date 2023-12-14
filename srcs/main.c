@@ -15,13 +15,12 @@ static void	put_arg_for_debug(char **argv)
 
 void	put_array_for_debug(char **str)
 {
-	while(*str)
+	while (*str)
 	{
 		ft_printf(">>>\t[%s]\n", *str);
 		str++;
 	}
 }
-
 
 void	put_node_for_debug(t_env *node)
 {
@@ -55,20 +54,19 @@ void	add_basic_shell_variables(t_env **env)
 	if (getcwd(cwd, PATH_MAX) == NULL)
 		return ;
 	cwd_w_varname = check_malloc(ft_strjoin("PWD=", cwd));
-
 	*env = ft_nodenew(cwd_w_varname);
 	ft_nodeadd_back(env, ft_nodenew("SHLVL=0"));
 	ft_nodeadd_back(env, ft_nodenew("_=./minishell"));
-// envp[0] = check_malloc(ft_strdup(cwd_w_varname));
-// envp[1] = check_malloc(ft_strdup("SHLVL=0"));
-// envp[2] = check_malloc(ft_strdup("_=./minishell"));
-// envp[3] = NULL;
+	// envp[0] = check_malloc(ft_strdup(cwd_w_varname));
+	// envp[1] = check_malloc(ft_strdup("SHLVL=0"));
+	// envp[2] = check_malloc(ft_strdup("_=./minishell"));
+	// envp[3] = NULL;
 	free(cwd_w_varname);
 }
 
 void	init_minishell(char **envp, t_env **env)
 {
-// envp[0] = NULL;
+	// envp[0] = NULL;
 	if (envp[0] == NULL)
 		add_basic_shell_variables(env);
 	else
@@ -161,7 +159,7 @@ void	check_exit(t_tools *tools, char **argv, t_env **env)
 
 int	handle_input(t_tools *tools, t_env **env, char **argv)
 {
-	char **h_envp;
+	char	**h_envp;
 
 	if (tools->str[0] != '\0')
 	{
@@ -189,7 +187,8 @@ int	handle_input(t_tools *tools, t_env **env, char **argv)
 int	minishell(char **envp, t_tools *tools, char **argv)
 {
 	t_env	*env;
-	char    *line;
+	char	*line;
+
 	init_minishell(envp, &env);
 	while (true)
 	{
@@ -220,7 +219,7 @@ int	main(int argc, char **argv, char **envp)
 	return (put_error("minishell: too many arguments"), 1);
 }
 
-__attribute__((destructor)) static void destructor()
-{
-	system("leaks -q minishell");
-}
+// __attribute__((destructor)) static void destructor()
+// {
+// 	system("leaks -q minishell");
+// }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_utils2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 09:35:08 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/09 21:30:38 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/14 10:33:30 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,8 @@ int	loop_if_dollar_sign(char **envp, char *str, char **tmp, int j)
 	ret = 0;
 	while (envp[k])
 	{
-		if (ft_strncmp(str + j + 1, envp[k], find_equal(envp[k])
-				- 1) == 0 && after_dol_lenght(str, j)
-			- j == (int)find_equal(envp[k]))
+		if (ft_strncmp(str + j + 1, envp[k], find_equal(envp[k]) - 1) == 0
+			&& after_dol_lenght(str, j) - j == (int)find_equal(envp[k]))
 		{
 			tmp2 = ft_strdup(envp[k] + find_equal(envp[k]));
 			tmp3 = ft_strjoin(*tmp, tmp2);
@@ -71,8 +70,12 @@ int	loop_if_dollar_sign(char **envp, char *str, char **tmp, int j)
 
 int	question_mark(char **tmp)
 {
+	char *tmp2;
+	
 	free(*tmp);
-	*tmp = ft_itoa(g_global.error_num);
+	tmp2 = ft_itoa(g_global.error_num);
+	*tmp = ft_strjoin("echo ", tmp2);
+	free(tmp2);
 	return (ft_strlen(*tmp) + 1);
 }
 
