@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/12 21:03:43 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/14 16:49:09 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,15 @@ bool	proc_here_doc(char *delimiter, t_pipex *pipex, char **h_envp)
 	pipex->infile_fd = open_file(HERE_DOC_FILE_PATH, INFILE_HERE_DOC);
 	if (check_open(pipex->infile_fd, "here_doc") == false)
 		return (false);
-	line = get_expanded_line(readline(HERE_DOC_PROMPT), h_envp, delimiter);
+	ft_putstr_fd(HERE_DOC_PROMPT, STDOUT_FILENO);
+	line = get_expanded_line(get_next_line(STDIN_FILENO), h_envp, delimiter);
 	delimiter_wo_quotas = omit_str(delimiter, "\'\"");
 	while (is_match(line, delimiter_wo_quotas) == false && g_global.stop_heredoc == 0)
 	{
 		ft_putendl_fd(line, pipex->infile_fd);
 		free(line);
-		line = get_expanded_line(readline(HERE_DOC_PROMPT), h_envp, delimiter);
+		ft_putstr_fd(HERE_DOC_PROMPT, STDOUT_FILENO);
+		line = get_expanded_line(get_next_line(STDIN_FILENO), h_envp, delimiter);
 	}
 	if (check_close(close(pipex->infile_fd)) == false || g_global.stop_heredoc == 1)
 		return (free(line), free(delimiter_wo_quotas), false);
