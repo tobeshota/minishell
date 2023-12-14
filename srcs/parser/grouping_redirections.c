@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:09:54 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/14 12:16:45 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/14 14:27:58 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,20 +59,22 @@ int	grouping_redirections(t_parser_tools *parser_tools)
 	}
 	if (tmp->next->token)
 	{
-		// free(parser_tools->tools->str);
+		free(parser_tools->tools->str);
 		parser_tools->tools->str = NULL;
-		if (ft_simple_cmdsclear(&parser_tools->tools->simple_cmds) == false)
-			ft_lexerclear(&parser_tools->tools->lexer_list);
+		// if (ft_simple_cmdsclear(&parser_tools->tools->simple_cmds) == false)
+		// 	ft_lexerclear(&parser_tools->tools->lexer_list);
+		ft_simple_cmdsclear(&parser_tools->tools->simple_cmds);
+		ft_lexerclear(&parser_tools->tools->lexer_list);
 		ft_error(0);
 		free(parser_tools->tools);
-		return(EXIT_FAILURE);
+		return (EXIT_FAILURE);
 	}
 	if ((tmp->token >= GREAT && tmp->token <= OR_OR))
 	{
 		if (add_new_redirection(tmp, parser_tools) == 1)
 			return (EXIT_FAILURE);
 	}
-	if(grouping_redirections(parser_tools))
+	if (grouping_redirections(parser_tools))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

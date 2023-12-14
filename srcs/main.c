@@ -164,7 +164,7 @@ int	handle_input(t_tools *tools, t_env **env, char **argv)
 	if (tools->str[0] != '\0')
 	{
 		if (!count_quotes(tools->str))
-			return (ft_error(2));
+			return (free(tools->str), free(tools), ft_error(2));
 		if (!process_input(tools))
 			return (false);
 		signal(SIGQUIT, sigquit_handler);
