@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 09:57:45 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/13 11:28:54 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/14 17:36:57 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,11 @@ void	sigint_handler(int sig)
 	rm_here_doc();
 	if (g_global.in_cmd)
 	{
+		ft_putstr_fd("\n", STDERR_FILENO);
 		g_global.stop_heredoc = 1;
 		rl_redisplay();
 		rl_replace_line("", 0);
+		close(STDIN_FILENO);
 		return ;
 	}
 	rl_on_new_line();

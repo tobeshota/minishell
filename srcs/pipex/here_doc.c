@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/14 16:49:09 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/14 17:46:59 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,10 @@ static char	*get_expanded_line(char *line, char **h_envp, char *delimiter)
 		free(line);
 		line = tmp;
 	}
-	if (ft_strncmp(line, "export", ft_strlen(line) - 1) != 0)
-	{
-		line = delete_quotes(line, '\"');
-		line = delete_quotes(line, '\'');
-	}
 	return (line);
 }
 
-bool	proc_here_doc(char *delimiter, t_pipex *pipex, char **h_envp)
+bool	do_proc_here_doc(char *delimiter, t_pipex *pipex, char **h_envp)
 {
 	char	*line;
 	char	*delimiter_wo_quotas;
@@ -56,21 +51,36 @@ bool	proc_here_doc(char *delimiter, t_pipex *pipex, char **h_envp)
 	pipex->infile_fd = open_file(HERE_DOC_FILE_PATH, INFILE_HERE_DOC);
 	if (check_open(pipex->infile_fd, "here_doc") == false)
 		return (false);
-	ft_putstr_fd(HERE_DOC_PROMPT, STDOUT_FILENO);
-	line = get_expanded_line(get_next_line(STDIN_FILENO), h_envp, delimiter);
+	line = get_expanded_line(readline(HERE_DOC_PROMPT), h_envp, delimiter);
 	delimiter_wo_quotas = omit_str(delimiter, "\'\"");
 	while (is_match(line, delimiter_wo_quotas) == false && g_global.stop_heredoc == 0)
 	{
 		ft_putendl_fd(line, pipex->infile_fd);
 		free(line);
-		ft_putstr_fd(HERE_DOC_PROMPT, STDOUT_FILENO);
-		line = get_expanded_line(get_next_line(STDIN_FILENO), h_envp, delimiter);
+		line = get_expanded_line(readline(HERE_DOC_PROMPT), h_envp, delimiter);
 	}
 	if (check_close(close(pipex->infile_fd)) == false || g_global.stop_heredoc == 1)
 		return (free(line), free(delimiter_wo_quotas), false);
 	pipex->infile_fd = open_file(HERE_DOC_FILE_PATH, INFILE_HERE_DOC);
 	return (free(line), free(delimiter_wo_quotas), check_open(pipex->infile_fd,
 			"here_doc"));
+}
+
+bool	proc_here_doc(char *delimiter, t_pipex *pipex, char **h_envp)
+{
+	pid_t	child_pid;
+	int		cmd_num;
+
+	cmd_num = 1;
+	if (get_child(&child_pid) == false)
+		return (false);
+	if (child_pid == 0)
+	{
+		if (do_proc_here_doc(delimiter, pipex, h_envp) == false)
+			return exit(1), false;
+		return exit(0), true;
+	}
+	return (wait_children(cmd_num));
 }
 
 bool	rm_here_doc(void)

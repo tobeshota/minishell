@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   omit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 20:38:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/13 22:24:06 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/14 17:09:02 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ char	**omit_array(char **array, char *omit, bool is_str_malloced)
 {
 	int		i;
 	char	*tmp;
+	
 
 	i = 0;
 	if (is_str_malloced == true)

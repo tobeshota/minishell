@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 01:22:30 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/14 16:57:28 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/14 17:09:11 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,10 @@ bool	get_fd(t_pipex *pipex, char **argv, char **h_envp)
 {
 	char **argv_wo_encloser;
 
-	argv_wo_encloser = omit_array(argv, "\'\"", true);
-	if (get_infile_fd(pipex, argv_wo_encloser, h_envp) == false)
+	argv_wo_encloser = omit_array(argv, "\'\"", true);	/* argvそのものを書き換えるのをやめる！コピーを送信する */
+	if (get_infile_fd(pipex, argv, h_envp) == false)
 		return (false);
-	if (get_outfile_fd(pipex, argv_wo_encloser) == false)
+	if (get_outfile_fd(pipex, argv) == false)
 		return (false);
 	return (true);
 }
