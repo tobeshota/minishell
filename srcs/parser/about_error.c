@@ -6,11 +6,37 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 13:17:23 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/14 12:20:17 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/15 11:52:54 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+bool	check_double_operator(t_simple_cmds *new, t_simple_cmds *tmp,
+		t_tools *tools)
+{
+	if (tmp && tmp->redirections && (tmp->redirections->token == SEMICOLON
+			|| tmp->redirections->token == AND_AND
+			|| tmp->redirections->token == OR_OR
+			|| tmp->redirections->token == PIPE))
+	{
+		if (new->redirections && (new->redirections->token == SEMICOLON
+				|| new->redirections->token == AND_AND
+				|| new->redirections->token == OR_OR
+				|| new->redirections->token == PIPE))
+		{
+			free(tools->str);
+			tools->str = NULL;
+			ft_simple_cmdsclear(&tools->simple_cmds);
+			ft_lexerclear(&tools->lexer_list);
+			implement_tools(tools);
+			free(tools);
+			ft_error(0);
+			return (false);
+		}
+	}
+	return (true);
+}
 
 int	ft_error(int error)
 {
@@ -71,8 +97,7 @@ int	handle_operator_error(t_tools *tools, t_tokens token)
 {
 	if (token == PIPE)
 	{
-		parser_token_error(tools, tools->lexer_list,
-			tools->lexer_list->token);
+		parser_token_error(tools, tools->lexer_list, tools->lexer_list->token);
 		return (EXIT_FAILURE);
 	}
 	if (!tools->lexer_list)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/13 17:01:11 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/15 11:11:46 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ char	*detect_dollar(char *str, char **envp);
 
 
 //main_utils
-char		**ft_arrdup(char **arr);
 bool		ft_simple_cmdsclear(t_simple_cmds **lst);
 void		ft_lexerclear(t_lexer **lst);
 void	    ft_nodefirst_cmdsver(t_simple_cmds **node);

@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:36:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/14 14:16:53 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/15 11:11:51 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	find_matching_quote(char *line, int i, int *num, int del)
 		*num += 1;
 	return (j - i);
 }
-
 
 int	count_quotes(char *line)
 {
@@ -48,14 +47,12 @@ int	count_quotes(char *line)
 	return (1);
 }
 
-
 bool	ft_simple_cmdsclear(t_simple_cmds **simple_cmds)
 {
 	t_simple_cmds	*tmp;
 
 	if (!*simple_cmds)
 		return (false);
-
 	while (*simple_cmds)
 	{
 		tmp = (*simple_cmds)->next;
@@ -63,7 +60,7 @@ bool	ft_simple_cmdsclear(t_simple_cmds **simple_cmds)
 		if ((*simple_cmds)->str)
 			all_free_tab((*simple_cmds)->str);
 		(*simple_cmds)->prev = NULL;
-		if(*simple_cmds)
+		if (*simple_cmds)
 			free(*simple_cmds);
 		*simple_cmds = tmp;
 	}
@@ -94,39 +91,6 @@ int	free_tools(t_tools *tools)
 	return (1);
 }
 
-char	**ft_arrdup(char **arr)
-{
-	char	**rtn;
-	size_t	i;
-
-	i = 0;
-	while (arr[i] != NULL)
-		i++;
-	rtn = ft_calloc(sizeof(char *), i + 1);
-	if (!rtn)
-		return (NULL);
-	i = 0;
-	while (arr[i] != NULL)
-	{
-		rtn[i] = ft_strdup(arr[i]);
-		if (rtn[i] == NULL)
-		{
-			all_free_tab(rtn);
-			return (rtn);
-		}
-		i++;
-	}
-	return (rtn);
-}
-
-void	ft_nodefirst_for_lexer(t_lexer **node)
-{
-	if (node == NULL || *node == NULL)
-		return ;
-	while ((*node)->prev != NULL)
-		*node = (*node)->prev;
-}
-
 void	ft_lexerclear(t_lexer **lst)
 {
 	t_lexer	*tmp;
@@ -135,24 +99,21 @@ void	ft_lexerclear(t_lexer **lst)
 		return ;
 	while (*lst)
 	{
-		if((*lst)->next)
+		if ((*lst)->next)
 			tmp = (*lst)->next;
 		else
 			tmp = NULL;
 		if ((*lst)->str)
-		{	
+		{
 			free((*lst)->str);
 			(*lst)->str = NULL;
 		}
 		if (*lst)
 		{
-			// if ((*lst)->next == NULL)
-			// 	break ;
 			free(*lst);
 			*lst = NULL;
 		}
 		*lst = tmp;
 	}
-	// ft_nodefirst_for_lexer(lst);//ここでセグフォがおきたので一度コメントアウト（例：｜｜TEST｜）
 	lst = NULL;
 }
