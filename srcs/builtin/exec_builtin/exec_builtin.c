@@ -33,6 +33,24 @@ bool	is_cmd_builtin(char *cmd)
 		|| is_match(cmd, "exit"));
 }
 
+bool	update_envp(t_env **env, char *varname, char *new_data)
+{
+	char	*tmp;
+
+	if (env == NULL)
+		return (false);
+	while ((*env)->next && ft_strncmp((*env)->content, varname,
+			ft_strlen(varname)))
+		ft_nodenext(env);
+	if (is_path_found((*env)->content) == false)
+		return (ft_nodefirst(env), false);
+	new_data = check_malloc(ft_strjoin(varname, new_data));
+	tmp = (*env)->content;
+	(*env)->content = check_malloc(ft_strdup(new_data));
+	ft_nodefirst(env);
+	return (free(tmp), free(new_data), true);
+}
+
 int	exec_builtin(t_env **env, t_pipex *pipex, int cmd_i)
 {
 	int		ret;
