@@ -6,13 +6,37 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 21:10:43 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/13 21:12:20 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/15 13:21:03 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 #define SPLITTER 1
 #define ENCLOSER 1
+
+static bool	is_quotas(char c)
+{
+	return (c == '\'' || c == '\"');
+}
+
+static char	*omit_encloser_in_bos_and_eos(char *str)
+{
+	char	bos;
+	char	eos;
+
+	if (str == NULL)
+		return (NULL);
+	bos = str[0];
+	eos = str[ft_strlen(str) - 1];
+	if (is_quotas(bos) && is_quotas(eos))
+		return (check_malloc(ft_substr(str, 1, ft_strlen(str) - 2)));
+	else if (is_quotas(bos))
+		return (check_malloc(ft_substr(str, 1, ft_strlen(str))));
+	else if (is_quotas(eos))
+		return (check_malloc(ft_substr(str, 0, ft_strlen(str) - 1)));
+	else
+		return (check_malloc(ft_strdup(str)));
+}
 
 /* nodeに空白までの文字列を格納する */
 static void nodeadd_upto_blank(t_env **node_cmd, char *str, int i)
@@ -22,7 +46,7 @@ static void nodeadd_upto_blank(t_env **node_cmd, char *str, int i)
 	char	*content_wo_quotas;
 
 	content = check_malloc(ft_substr(str, 0, i));
-	content_wo_quotas = omit_str(content, "\'\"");
+	content_wo_quotas = omit_encloser_in_bos_and_eos(content);
 	new = ft_nodenew(content_wo_quotas);
 	free(content);
 	free(content_wo_quotas);
@@ -42,7 +66,7 @@ static void nodeadd_upto_encloser(t_env **node_cmd, char *str, char encloser)
 
 	len_upto_next_encloser = ft_strchr(ft_strchr(str, encloser) + ENCLOSER, encloser) - str;
 	content = check_malloc(ft_substr(str, 0, len_upto_next_encloser + ENCLOSER));
-	content_wo_quotas = omit_str(content, "\'\"");
+	content_wo_quotas = omit_encloser_in_bos_and_eos(content);
 	new = ft_nodenew(content_wo_quotas);
 	free(content);
 	free(content_wo_quotas);
