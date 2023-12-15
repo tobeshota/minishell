@@ -3,32 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/06 14:25:30 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/15 12:50:17 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
-
-bool	update_envp(t_env **env, char *varname, char *new_data)
-{
-	char	*tmp;
-
-	if (env == NULL)
-		return (false);
-	while ((*env)->next && ft_strncmp((*env)->content, varname,
-			ft_strlen(varname)))
-		ft_nodenext(env);
-	if (is_path_found((*env)->content) == false)
-		return (ft_nodefirst(env), false);
-	new_data = check_malloc(ft_strjoin(varname, new_data));
-	tmp = (*env)->content;
-	(*env)->content = check_malloc(ft_strdup(new_data));
-	ft_nodefirst(env);
-	return (free(tmp), free(new_data), true);
-}
 
 static bool	update_oldpwd(t_env **env, t_pipex *pipex)
 {
@@ -95,7 +77,13 @@ static bool	get_path_from_cd(char **path_ptr, char **cmd, t_env **env,
 	return (true);
 }
 
-/* `unset PATH`後にcdするとセグフォするのを防ぐ！ */
+static void put_parent_dir_error(void)
+{
+	put_error("cd: error retrieving current directory: ");
+	put_error("getcwd: cannot access parent directories: ");
+	put_error("No such file or directory\n");
+}
+
 int	exec_cd(char **cmd, t_env **env, t_pipex *pipex)
 {
 	char	*path_from_cd;
@@ -104,7 +92,11 @@ int	exec_cd(char **cmd, t_env **env, t_pipex *pipex)
 	if (get_path_from_cd(&path_from_cd, cmd, env, pipex) == false)
 		return (false);
 	if (is_match(path_from_cd, ".") || is_match(path_from_cd, "./"))
+	{
+		if (getcwd(cwd, PATH_MAX) == NULL)
+			put_parent_dir_error();
 		return (free(path_from_cd), true);
+	}
 	if (is_parameter_dir(path_from_cd) == false)
 		return (put_file_error("cd", path_from_cd), free(path_from_cd), true);
 	update_oldpwd(env, pipex);
@@ -112,6 +104,6 @@ int	exec_cd(char **cmd, t_env **env, t_pipex *pipex)
 		return (free(path_from_cd), false);
 	free(path_from_cd);
 	if (getcwd(cwd, PATH_MAX) == NULL)
-		return (false);
+		return (put_parent_dir_error(), true);
 	return (update_envp(env, "PWD=", cwd));
 }
