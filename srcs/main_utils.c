@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:36:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/15 14:01:12 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/15 16:05:13 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ int	implement_tools(t_tools *tools)
 	tools->str = NULL;
 	tools->tmp_array = NULL;
 	g_global.in_cmd = 0;
-	g_global.in_heredoc = 0;
 	return (1);
 }
 

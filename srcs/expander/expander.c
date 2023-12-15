@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
+/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:39:54 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/15 15:07:00 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/15 16:04:28 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ bool	check_case_herecoc(char **str, int i)
 {
 	char *tmp;
 
-	if(str[i + 1] &&is_match(str[i], "<<") == true && str[i + 1] != '\0')
+	if(str[i + 1] &&is_match(str[i], "<<") == true && str[i + 1] != (void *)'\0')
 	{
 		tmp = check_malloc(ft_strdup(str[i]));
 		free(str[i]);
@@ -75,7 +75,7 @@ bool	check_case_herecoc(char **str, int i)
 		tmp = check_malloc(ft_strdup(str[i + 1]));
 		free(str[i + 1]);
 		str[i + 1] = tmp;
-		// i = i + 2;
+		i = i + 2;
 	}
 	return (i);
 }

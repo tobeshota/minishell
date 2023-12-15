@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   define.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 13:12:10 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/15 14:01:18 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/15 16:05:31 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ typedef struct s_global
 {
 	int						error_num;
 	int						in_cmd;
-	int						in_heredoc;
 }							t_global;
 
 t_global					g_global;
