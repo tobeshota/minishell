@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/15 12:36:30 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/15 12:59:42 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "minishell.h"
 # include "parser.h"
 
+int			handle_digit_after_dollar(int j, char *str);
 char		**expander(t_tools *tools, char **str, char **envp);
 size_t		dollar_sign(char *str);
 char		*char_to_str(char c);

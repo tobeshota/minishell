@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 23:08:47 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/11 12:01:35 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/15 13:32:48 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,13 @@ static bool	is_append_properly_written(char current_c, char next_c)
 	return (true);
 }
 
+static void put_identifier_error(char *identifier)
+{
+	ft_putstr_fd("minishell: export: '", STDERR_FILENO);
+	ft_putstr_fd(identifier, STDERR_FILENO);
+	ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
+}
+
 bool	check_identifier(char *identifier)
 {
 	int	i;
@@ -30,21 +37,16 @@ bool	check_identifier(char *identifier)
 	i = 0;
 	if (ft_isalpha(identifier[i]) == false && identifier[i] != '_')
 	{
-		ft_putstr_fd("bash: export: '", STDERR_FILENO);
-		ft_putstr_fd(identifier, STDERR_FILENO);
-		ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
-		return (false);
+		g_global.error_num = 1;
+		return (put_identifier_error(identifier), false);
 	}
 	while (identifier[i])
 	{
-		if (ft_isalnum(identifier[i]) == false && identifier[i] != '_'
-			&& is_append_properly_written \
-			(identifier[i], identifier[i + 1]) == false)
+		if ((ft_isalnum(identifier[i]) == false && identifier[i] != '_') || \
+		is_append_properly_written(identifier[i], identifier[i + 1]) == false)
 		{
-			ft_putstr_fd("bash: export: '", STDERR_FILENO);
-			ft_putstr_fd(identifier, STDERR_FILENO);
-			ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
-			return (false);
+			g_global.error_num = 1;
+			return (put_identifier_error(identifier), false);
 		}
 		i++;
 	}
