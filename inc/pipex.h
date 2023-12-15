@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/14 13:09:30 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/15 10:12:26 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ bool	is_specified_apersant_ampersant(char *str);
 // omit
 char	*omit_c(char *str, char c);
 char	*omit_str(char *str, char *omit);
-char	**omit_array(char **array, char *omit, bool is_str_malloced);
+char	**omit_array(char **array, char *omit);
 char	*omit_quotas(char *str, bool is_str_malloced);
 
 // set_fd

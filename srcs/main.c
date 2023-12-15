@@ -219,7 +219,7 @@ int	main(int argc, char **argv, char **envp)
 	return (put_error("minishell: too many arguments"), 1);
 }
 
-// __attribute__((destructor)) static void destructor()
-// {
-// 	system("leaks -q minishell");
-// }
+__attribute__((destructor)) static void destructor()
+{
+	system("leaks -q minishell");
+}

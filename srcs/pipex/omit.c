@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   omit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 20:38:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/14 17:09:02 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/15 10:12:22 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,32 +66,21 @@ char	*omit_str(char *str, char *omit)
 	return (result);
 }
 
-char	**omit_array(char **array, char *omit, bool is_str_malloced)
+char	**omit_array(char **array, char *omit)
 {
 	int		i;
 	char	*tmp;
-	
+	char	**dest;
 
 	i = 0;
-	if (is_str_malloced == true)
+	dest = (char **)check_malloc(malloc(sizeof(char*) * (get_element_count(array) + 1)));
+	while (array[i])
 	{
-		while (array[i])
-		{
-			tmp = array[i];
-			array[i] = omit_str(array[i], omit);
-			free(tmp);
-			i++;
-		}
+		dest[i] = omit_str(array[i], omit);
+		i++;
 	}
-	else
-	{
-		while (array[i])
-		{
-			array[i] = omit_str(array[i], omit);
-			i++;
-		}
-	}
-	return (array);
+	dest[i] = NULL;
+	return (dest);
 }
 
 char	*omit_quotas(char *str, bool is_str_malloced)
