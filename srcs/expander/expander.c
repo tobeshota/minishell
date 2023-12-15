@@ -6,21 +6,13 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:39:54 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/15 12:32:28 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/15 15:07:00 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
 #include "minishell.h"
 #include "pipex.h"
-
-bool	title(char *str, int j)
-{
-	return (str[j] == '$'
-		&& (str[j + 1] != ' ' && str[j + 1] != '$'
-			&& (str[j + 1] != '"' || str[j + 2] != '\0'))
-		&& str[j + 1] != '\0');
-}
 
 char	*detect_dollar(char *str, char **envp)
 {
@@ -71,6 +63,23 @@ void	free_old_str(t_tools *tools)
 	ft_nodefirst_for_t_simple_cmds(&tools->simple_cmds);
 }
 
+bool	check_case_herecoc(char **str, int i)
+{
+	char *tmp;
+
+	if(str[i + 1] &&is_match(str[i], "<<") == true && str[i + 1] != '\0')
+	{
+		tmp = check_malloc(ft_strdup(str[i]));
+		free(str[i]);
+		str[i] = tmp;
+		tmp = check_malloc(ft_strdup(str[i + 1]));
+		free(str[i + 1]);
+		str[i + 1] = tmp;
+		// i = i + 2;
+	}
+	return (i);
+}
+
 char	**expander(t_tools *tools, char **str, char **envp)
 {
 	int		i;
@@ -80,9 +89,12 @@ char	**expander(t_tools *tools, char **str, char **envp)
 	tmp = NULL;
 	while (str[i] != NULL)
 	{
-		if (find_dollar(str[i]) != 0 && str[i][find_dollar(str[i]) - 2] != '\''
-			&&
-			str[i][find_dollar(str[i])] != '\0')
+
+		if(check_case_herecoc(str, i) != 0)
+			i = i + 2;
+		else if (find_dollar(str[i]) != 0 && str[i][find_dollar(str[i]) - 2] != '\''
+		&&
+		str[i][find_dollar(str[i])] != '\0')
 		{
 			tmp = detect_dollar(str[i], envp);
 			free(str[i]);

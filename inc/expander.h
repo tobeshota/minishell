@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/15 13:34:42 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/15 14:10:20 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int			question_mark(char **tmp);
 char		*delete_quotes(char *str, char c);
 char		*detect_dollar(char *str, char **envp);
 int			handle_digit_after_dollar(int j, char *str);
+bool		title(char *str, int j);
+
 
 //main_utils
 bool		ft_simple_cmdsclear(t_simple_cmds **lst);
