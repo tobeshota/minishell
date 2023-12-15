@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/10 22:27:11 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/15 11:02:02 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,16 @@ static void	get_cmd_name_from_arg(char **argv, char **h_envp,
 {
 	int	arg_i;
 	int	cmd_i;
+	char **argv_wo_encloser;
 
+	argv_wo_encloser = omit_array(argv, "\'\"");
 	*cmd_absolute_path = (char **)check_malloc \
-	(malloc(sizeof(char *) * (get_cmd_count(argv, h_envp) + 1)));
+	(malloc(sizeof(char *) * (get_cmd_count(argv_wo_encloser, h_envp) + 1)));
 	arg_i = 0;
 	cmd_i = 0;
 	while (argv[arg_i])
 	{
-		if (is_cmd(argv, arg_i, h_envp) == true)
+		if (is_cmd(argv_wo_encloser, arg_i, h_envp) == true)
 		{
 			cmd_absolute_path[0][cmd_i] = check_malloc \
 			(ft_substr(argv[arg_i], 0, strlen_until_c(argv[arg_i], ' ')));
@@ -33,6 +35,7 @@ static void	get_cmd_name_from_arg(char **argv, char **h_envp,
 		arg_i++;
 	}
 	cmd_absolute_path[0][cmd_i] = NULL;
+	all_free_tab(argv_wo_encloser);
 }
 
 static char	**get_cmd_parameter(char **argv, char **h_envp,
@@ -41,14 +44,16 @@ static char	**get_cmd_parameter(char **argv, char **h_envp,
 	int		arg_i;
 	int		cmd_i;
 	char	**cmd_parameter;
+	char	**argv_wo_encloser;
 
+	argv_wo_encloser = omit_array(argv, "\'\"");
 	arg_i = 0;
 	cmd_i = 0;
 	cmd_parameter = (char **)check_malloc \
 	(malloc(sizeof(char *) * (get_cmd_absolute_path_count(pipex) + 1)));
 	while (argv[arg_i])
 	{
-		if (is_cmd(argv, arg_i, h_envp) == true)
+		if (is_cmd(argv_wo_encloser, arg_i, h_envp) == true)
 		{
 			cmd_parameter[cmd_i] = check_malloc(ft_substr(argv[arg_i], \
 			ft_strlen(cmd_absolute_path[0][cmd_i]), ft_strlen(argv[arg_i])));
@@ -57,7 +62,7 @@ static char	**get_cmd_parameter(char **argv, char **h_envp,
 		arg_i++;
 	}
 	cmd_parameter[cmd_i] = NULL;
-	return (cmd_parameter);
+	return (all_free_tab(argv_wo_encloser), cmd_parameter);
 }
 
 static void	get_cmd_absolute_path_with_parameter(char ***cmd_parameter, \

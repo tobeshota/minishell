@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 01:22:30 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/15 10:12:35 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/15 11:05:11 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,6 @@ bool	get_fd(t_pipex *pipex, char **argv, char **h_envp)
 	char **argv_wo_encloser;
 
 	argv_wo_encloser = omit_array(argv, "\'\"");
-// puts("━━━━━━━━━━━━━━━");
-// put_array_for_debug(argv);
-// put_array_for_debug(argv_wo_encloser);
-// puts("━━━━━━━━━━━━━━━");
 	if (get_infile_fd(pipex, argv_wo_encloser, h_envp) == false)
 		return (all_free_tab(argv_wo_encloser), false);
 	if (get_outfile_fd(pipex, argv_wo_encloser) == false)

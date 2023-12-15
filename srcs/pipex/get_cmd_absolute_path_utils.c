@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/10 22:27:11 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/15 11:04:06 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,29 +46,28 @@ static bool	add_absolute_from_env_path(char **h_envp,
 {
 	char	**path;
 	char	*tmp;
+	char	*tmp_wo_encloser;
 	int		i;
 
 	if (check_getenv(getenv_from_h_envp(h_envp, "PATH")) == false)
 		return (false);
 	path = check_malloc \
 	(add_slash_eos(ft_split(getenv_from_h_envp(h_envp, "PATH"), ':')));
-	i = 0;
-	while (path[i])
+	i = -1;
+	while (path[++i])
 	{
 		tmp = check_malloc(ft_strjoin(path[i], cmd_absolute_path[0][cmd_i]));
-		if (is_file_exectable(tmp) == true)
+		tmp_wo_encloser = omit_str(tmp, "\'\"");
+		if (is_file_exectable(tmp_wo_encloser) == true)
 		{
 			free(cmd_absolute_path[0][cmd_i]);
 			cmd_absolute_path[0][cmd_i] = check_malloc(ft_strdup(tmp));
-			free(tmp);
-			break ;
+			return (all_free_tab(path), free(tmp), free(tmp_wo_encloser), true);
 		}
 		free(tmp);
-		i++;
+		free(tmp_wo_encloser);
 	}
-	if (path[i] == NULL)
-		return (all_free_tab(path), false);
-	return (all_free_tab(path), true);
+	return (all_free_tab(path), false);
 }
 
 bool	add_absolute_path_to_cmd_name(char **h_envp,
