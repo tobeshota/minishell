@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 13:17:23 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/15 11:52:54 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/15 13:00:33 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ bool	check_double_operator(t_simple_cmds *new, t_simple_cmds *tmp,
 			ft_simple_cmdsclear(&tools->simple_cmds);
 			ft_lexerclear(&tools->lexer_list);
 			implement_tools(tools);
-			free(tools);
 			ft_error(0);
 			return (false);
 		}
@@ -89,7 +88,6 @@ int	parser_token_error(t_tools *tools, t_lexer *lexer_list, t_tokens token)
 		ft_putstr_fd("\n", STDERR_FILENO);
 	ft_lexerclear(&tools->lexer_list);
 	free(tools->str);
-	free(tools);
 	return (EXIT_FAILURE);
 }
 

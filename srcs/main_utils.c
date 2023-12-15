@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:36:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/15 12:24:06 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/15 12:56:56 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,5 @@ int	free_tools(t_tools *tools)
 	if (ft_simple_cmdsclear(&tools->simple_cmds) == false)
 		ft_lexerclear(&tools->lexer_list);
 	implement_tools(tools);
-	free(tools);
 	return (1);
 }

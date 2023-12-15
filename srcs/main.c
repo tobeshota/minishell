@@ -164,7 +164,7 @@ int	handle_input(t_tools *tools, t_env **env, char **argv)
 	if (tools->str[0] != '\0')
 	{
 		if (!count_quotes(tools->str))
-			return (free(tools->str), free(tools), ft_error(2));
+			return (free(tools->str), ft_error(2));
 		if (!process_input(tools))
 			return (false);
 		signal(SIGQUIT, sigquit_handler);
@@ -190,19 +190,20 @@ int	minishell(char **envp, t_tools *tools, char **argv)
 	char	*line;
 
 	init_minishell(envp, &env);
+	tools = (t_tools *)check_malloc(malloc(sizeof(t_tools)));
 	while (true)
 	{
 		signal_init();
 		line = readline(MINISHELL_PROMPT);
 		if (!line)
 			break ;
-		tools = (t_tools *)check_malloc(malloc(sizeof(t_tools)));
 		implement_tools(tools);
 		tools->str = line;
 		if (*tools->str)
 			add_history(tools->str);
 		handle_input(tools, &env, argv);
 	}
+	free(tools);
 	ft_nodeclear(&env);
 	ft_printf(EXIT_MSG);
 	return (0);
