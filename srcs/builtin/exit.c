@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/07 16:31:12 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/15 14:10:12 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,10 @@ int	exec_exit(char **cmd, t_pipex *pipex)
 	if (cmd[1])
 	{
 		if (get_exit_argc(cmd) > 2)
-			return (put_error("bash: exit: too many arguments\n"), false);
+		{
+			g_global.error_num = 1;
+			return (put_error("minishell: exit: too many arguments\n"), true);
+		}
 		if (is_cmd_arg_num(cmd[1]) == false)
 		{
 			put_error("minishell: exit: ");
