@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 12:55:55 by cjia              #+#    #+#             */
-/*   Updated: 2023/12/15 11:58:00 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/15 12:38:59 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,31 +91,27 @@ t_simple_cmds				*recreated_node(char **str, int num_redirections,
 								t_lexer *redirections);
 int							grouping_redirections(t_parser_tools *parser_tools);
 void						parser_error(int error, t_tools *tools);
-int	parser_token_error(t_tools *tools,
-						t_lexer *lexer_list,
-						t_tokens token);
-int	handle_operator_error(t_tools *tools,
-							t_tokens token);
+int							parser_token_error(t_tools *tools,
+								t_lexer *lexer_list, t_tokens token);
+int							handle_operator_error(t_tools *tools,
+								t_tokens token);
 
 char						**change_to_array(t_tools *tools);
-int	process_redirections(char **tmparray,
-							t_simple_cmds *tmp,
-							int i);
-int	process_redirection_str(char **tmparray,
-							t_simple_cmds *tmp,
-							int i);
+int							process_redirections(char **tmparray,
+								t_simple_cmds *tmp, int i);
+int							process_redirection_str(char **tmparray,
+								t_simple_cmds *tmp, int i);
 
 int							ft_error(int error);
 
 bool						check_double_operator(t_simple_cmds *new,
-							t_simple_cmds *tmp,
-							t_tools *tools);
+								t_simple_cmds *tmp, t_tools *tools);
 bool						add_list(t_simple_cmds **list, t_simple_cmds *new,
 								t_tools *tools);
 void						grouping_cmd(int arg_size, char **str,
 								t_parser_tools *parser_tools);
 t_simple_cmds				*creat_ast(t_parser_tools *parser_tools);
-t_parser_tools		init_parser_tools(t_tools *tools);
-t_simple_cmds		*create_a_node(t_tools *tools);
+t_parser_tools				init_parser_tools(t_tools *tools);
+t_simple_cmds				*create_a_node(t_tools *tools);
 
 #endif

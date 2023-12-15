@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 16:15:47 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/13 21:11:52 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/15 12:39:14 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		exec_exit(char **cmd, t_pipex *pipex);
 // exec_builtin.c
 bool	is_match(char *s1, char *s2);
 bool	is_cmd_builtin(char *cmd);
-char 	**split_wo_enclosed_str(char *str, char splitter);
+char	**split_wo_enclosed_str(char *str, char splitter);
 int		exec_builtin(t_env **env, t_pipex *pipex, int cmd_i);
 
 // exec_export

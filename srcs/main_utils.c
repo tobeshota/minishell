@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:36:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/15 11:11:51 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/15 12:24:06 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,31 +89,4 @@ int	free_tools(t_tools *tools)
 	implement_tools(tools);
 	free(tools);
 	return (1);
-}
-
-void	ft_lexerclear(t_lexer **lst)
-{
-	t_lexer	*tmp;
-
-	if (!*lst)
-		return ;
-	while (*lst)
-	{
-		if ((*lst)->next)
-			tmp = (*lst)->next;
-		else
-			tmp = NULL;
-		if ((*lst)->str)
-		{
-			free((*lst)->str);
-			(*lst)->str = NULL;
-		}
-		if (*lst)
-		{
-			free(*lst);
-			*lst = NULL;
-		}
-		*lst = tmp;
-	}
-	lst = NULL;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 12:34:46 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/12 19:42:32 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/15 12:36:54 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,5 @@
 # include <termios.h>
 # include <signal.h>
 # include <stdio.h>
-
 
 #endif

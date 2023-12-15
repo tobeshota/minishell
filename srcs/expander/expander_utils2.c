@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 09:35:08 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/14 10:33:30 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/15 12:06:57 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ int	loop_if_dollar_sign(char **envp, char *str, char **tmp, int j)
 
 int	question_mark(char **tmp)
 {
-	char *tmp2;
-	
+	char	*tmp2;	
+
 	free(*tmp);
 	tmp2 = ft_itoa(g_global.error_num);
 	*tmp = ft_strjoin("echo ", tmp2);

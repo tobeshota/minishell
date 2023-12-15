@@ -3,14 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   expander_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 10:11:50 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/11/23 10:13:03 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/15 12:22:12 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/expander.h"
+
+char	*delete_quotes(char *str, char c)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+		{
+			j = 0;
+			while (str[i + j] == c)
+				j++;
+			ft_strlcpy(&str[i], &str[i + j], ft_strlen(str) - i);
+		}
+		i++;
+	}
+	return (str);
+}
+
+int	handle_digit_after_dollar(int j, char *str)
+{
+	int	i;
+
+	i = j;
+	if (str[j] == '$')
+	{
+		if (ft_isdigit(str[j + 1]) == 1)
+		{
+			j += 2;
+		}
+	}
+	return (j - i);
+}
 
 char	*char_to_str(char c)
 {

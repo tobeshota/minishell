@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:39:54 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/14 14:08:42 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/15 12:32:28 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,40 +14,12 @@
 #include "minishell.h"
 #include "pipex.h"
 
-char	*delete_quotes(char *str, char c)
+bool	title(char *str, int j)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (str[i])
-	{
-		if (str[i] == c)
-		{
-			j = 0;
-			while (str[i + j] == c)
-				j++;
-			ft_strlcpy(&str[i], &str[i + j], ft_strlen(str) - i);
-		}
-		i++;
-	}
-	return (str);
-}
-
-int	handle_digit_after_dollar(int j, char *str)
-{
-	int	i;
-
-	i = j;
-	if (str[j] == '$')
-	{
-		if (ft_isdigit(str[j + 1]) == 1)
-		{
-			j += 2;
-		}
-	}
-	return (j - i);
+	return (str[j] == '$'
+		&& (str[j + 1] != ' ' && str[j + 1] != '$'
+			&& (str[j + 1] != '"' || str[j + 2] != '\0'))
+		&& str[j + 1] != '\0');
 }
 
 char	*detect_dollar(char *str, char **envp)
@@ -64,8 +36,7 @@ char	*detect_dollar(char *str, char **envp)
 		j += handle_digit_after_dollar(j, str);
 		if (str[j] == '$' && str[j + 1] == '?')
 			j += question_mark(&tmp);
-		else if (str[j] == '$' && (str[j + 1] != ' ' && str[j + 1] != '$' && (str[j + 1] != '"'
-						|| str[j + 2] != '\0')) && str[j + 1] != '\0')
+		else if (title(str, j) == true)
 			j += loop_if_dollar_sign(envp, str, &tmp, j);
 		else
 		{
@@ -117,11 +88,6 @@ char	**expander(t_tools *tools, char **str, char **envp)
 			free(str[i]);
 			str[i] = tmp;
 		}
-		// if (ft_strncmp(str[0], "export", ft_strlen(str[0]) - 1) != 0)
-		// {
-		// 	str[i] = delete_quotes(str[i], '\"');
-		// 	str[i] = delete_quotes(str[i], '\'');
-		// }
 		i++;
 	}
 	free_old_str(tools);

@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/15 11:11:46 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/15 12:36:30 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,16 @@ size_t		find_equal(char *str);
 size_t		find_dollar(char *str);
 int			loop_if_dollar_sign(char **envp, char *str, char **tmp, int j);
 int			question_mark(char **tmp);
-char	*delete_quotes(char *str, char c);
-char	*detect_dollar(char *str, char **envp);
-
+char		*delete_quotes(char *str, char c);
+char		*detect_dollar(char *str, char **envp);
 
 //main_utils
 bool		ft_simple_cmdsclear(t_simple_cmds **lst);
 void		ft_lexerclear(t_lexer **lst);
-void	    ft_nodefirst_cmdsver(t_simple_cmds **node);
+void		ft_nodefirst_cmdsver(t_simple_cmds **node);
 int			free_tools(t_tools *tools);
 int			implement_tools(t_tools *tools);
-int	        count_quotes(char *line);
-
+int			count_quotes(char *line);
 
 //グローバル変数(終了ステータス)
 extern int	g_status;
