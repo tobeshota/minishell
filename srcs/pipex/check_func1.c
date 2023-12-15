@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_func1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/06 14:23:14 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/15 23:42:19 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ bool	check_open(int fd, char *file)
 	if (fd == -1)
 	{
 		if (stat(file, &st) < 0)
-			return (false);
+			return (put_file_error(NULL, file), false);
 		else if (S_ISDIR(st.st_mode))
 			return (put_error_w_file(file, "Is a directory"), false);
 		if (file)
