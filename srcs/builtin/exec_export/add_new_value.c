@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 23:08:47 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/15 13:32:48 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/15 21:42:45 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ bool	check_identifier(char *identifier)
 	}
 	while (identifier[i])
 	{
-		if ((ft_isalnum(identifier[i]) == false && identifier[i] != '_') || \
+		if (ft_isalnum(identifier[i]) == false && identifier[i] != '_'  && \
 		is_append_properly_written(identifier[i], identifier[i + 1]) == false)
 		{
 			g_global.error_num = 1;
