@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 09:57:45 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/15 11:09:00 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/15 14:01:15 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	sigint_handler(int sig)
 	g_global.error_num = 130;
 	if (g_global.in_cmd)
 	{
-		g_global.stop_heredoc = true;
 		g_global.error_num = 1;
 		rl_on_new_line();
 		rl_replace_line("", 0);
