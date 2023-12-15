@@ -3,18 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/05 16:36:19 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/15 09:54:03 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-// エラーメッセージ（）はここで出し，fd = -1を返すようにする
-// bash: infile: Permission denied
-// bash: infilea: No such file or directory
 int	open_file(char *file, int file_type)
 {
 	int	fd;
