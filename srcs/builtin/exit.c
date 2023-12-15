@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/15 14:10:12 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/15 23:08:14 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,17 @@ int	exec_exit(char **cmd, t_pipex *pipex)
 	ft_putstr_fd(EXIT_MSG, pipex->outfile_fd);
 	if (cmd[1])
 	{
-		if (get_exit_argc(cmd) > 2)
-		{
-			g_global.error_num = 1;
-			return (put_error("minishell: exit: too many arguments\n"), true);
-		}
 		if (is_cmd_arg_num(cmd[1]) == false)
 		{
 			put_error("minishell: exit: ");
 			put_error(cmd[1]);
 			put_error(": numeric argument required\n");
 			exit(255);
+		}
+		if (get_exit_argc(cmd) > 2)
+		{
+			g_global.error_num = 1;
+			return (put_error("minishell: exit: too many arguments\n"), true);
 		}
 		exit((unsigned char)ft_atoi(cmd[1]));
 	}
