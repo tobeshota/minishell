@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 20:38:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/15 10:12:22 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/15 11:05:40 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,32 +70,15 @@ char	**omit_array(char **array, char *omit)
 {
 	int		i;
 	char	*tmp;
-	char	**dest;
+	char	**result;
 
 	i = 0;
-	dest = (char **)check_malloc(malloc(sizeof(char*) * (get_element_count(array) + 1)));
+	result = (char **)check_malloc(malloc(sizeof(char*) * (get_element_count(array) + 1)));
 	while (array[i])
 	{
-		dest[i] = omit_str(array[i], omit);
+		result[i] = omit_str(array[i], omit);
 		i++;
 	}
-	dest[i] = NULL;
-	return (dest);
-}
-
-char	*omit_quotas(char *str, bool is_str_malloced)
-{
-	char	*tmp;
-
-	if (is_str_malloced == true)
-	{
-		tmp = str;
-		str = omit_str(str, "\'\"");
-		free(tmp);
-	}
-	else
-	{
-		str = omit_str(str, "\'\"");
-	}
-	return (str);
+	result[i] = NULL;
+	return (result);
 }
