@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/08 23:15:30 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/16 22:41:10 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	exec_export(char **cmd, t_env **env, t_pipex *pipex)
 		while (cmd[i] && is_under_bar(cmd[i]) == false)
 		{
 			if (get_old_env_to_be_updated(cmd[i], *env) == NULL)
-				add_new_value(cmd[i], env);
+				add_new_value(cmd[i], env, pipex);
 			else
 				update_value(cmd[i], env);
 			ft_nodefirst(env);

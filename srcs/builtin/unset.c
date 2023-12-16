@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:36:07 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/12 15:37:31 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/16 22:40:10 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ bool	is_node_last(t_env *node)
 	return (node->next == NULL);
 }
 
-int	exec_unset(char **cmd, t_env **env)
+int	exec_unset(char **cmd, t_env **env, t_pipex *pipex)
 {
 	int		i;
 	t_env	*unseted_env;
@@ -30,7 +30,7 @@ int	exec_unset(char **cmd, t_env **env)
 	i = 0;
 	while (cmd[++i])
 	{
-		if (check_identifier(cmd[i]) == false || is_under_bar(cmd[i]) == true)
+		if (check_identifier(cmd[i], pipex) == false || is_under_bar(cmd[i]) == true)
 			continue ;
 		unseted_env = get_old_env_to_be_updated(cmd[i], *env);
 		if (unseted_env == false)

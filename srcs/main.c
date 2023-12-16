@@ -169,7 +169,7 @@ int	handle_input(t_tools *tools, t_env **env)
 		all_free_tab(h_envp);
 		put_arg_for_debug(tools->tmp_array);
 		in_cmd = IN_CMD;
-		g_global.error_num = loop_pipex(tools, env);
+		tools->error_num = loop_pipex(tools, env);
 		free_tools(tools);
 		in_cmd = 0;
 		return (true);
