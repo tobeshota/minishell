@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   about_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
+/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 13:17:23 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/15 13:00:33 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/16 11:09:17 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,9 @@ int	ft_error(int error)
 
 void	parser_error(int error, t_tools *tools)
 {
-	free_tools(tools);
+	// free_tools(tools);
+	free(tools->str);
+	ft_simple_cmdsclear(&tools->simple_cmds);
 	ft_lexerclear(&tools->lexer_list);
 	ft_error(error);
 }
@@ -88,6 +90,7 @@ int	parser_token_error(t_tools *tools, t_lexer *lexer_list, t_tokens token)
 		ft_putstr_fd("\n", STDERR_FILENO);
 	ft_lexerclear(&tools->lexer_list);
 	free(tools->str);
+	free(tools);
 	return (EXIT_FAILURE);
 }
 

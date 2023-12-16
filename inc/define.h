@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 13:12:10 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/15 16:05:31 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/16 09:48:12 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,12 @@ typedef struct s_env
 typedef struct s_global
 {
 	int						error_num;
-	int						in_cmd;
 }							t_global;
 
 t_global					g_global;
+
+extern int						in_cmd;
+
 
 // color
 # define BLACK "\x1b[30m"

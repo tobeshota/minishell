@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 11:36:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/15 16:05:13 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/16 11:08:58 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ int	implement_tools(t_tools *tools)
 	tools->lexer_list = NULL;
 	tools->str = NULL;
 	tools->tmp_array = NULL;
-	g_global.in_cmd = 0;
 	return (1);
 }
 

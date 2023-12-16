@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
+/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 12:55:55 by cjia              #+#    #+#             */
-/*   Updated: 2023/12/15 12:38:59 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/16 10:17:23 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_tools
 	struct s_simple_cmds	*simple_cmds;
 	t_lexer					*lexer_list;
 	char					**tmp_array;
+	int						error_num;
 }							t_tools;
 
 typedef struct s_parser_tools
