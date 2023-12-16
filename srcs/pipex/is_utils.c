@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/07 13:18:30 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/15 23:59:06 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ bool	is_specified_redirect(char *str)
 		|| is_specified_outfile_apend(str));
 }
 
-bool	is_io_file(char **argv, int arg_i)
+bool	is_io_file(char *argv, char *prev_argv)
 {
-	return (arg_i > 0 && is_specified_redirect(argv[arg_i - 1]) && argv[arg_i]);
+	return (is_specified_redirect(prev_argv) && argv);
 }
 
 bool	is_cmd_relative_path(char ***cmd_absolute_path, int cmd_i)

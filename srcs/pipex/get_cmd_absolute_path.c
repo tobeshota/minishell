@@ -6,22 +6,26 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/15 11:02:02 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/16 11:00:54 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static void	get_cmd_name_from_arg(char **argv, char **h_envp,
+static bool	get_cmd_name_from_arg(char **argv, char **h_envp,
 		char ***cmd_absolute_path)
 {
-	int	arg_i;
-	int	cmd_i;
-	char **argv_wo_encloser;
+	int		cmd_count;
+	int		arg_i;
+	int		cmd_i;
+	char	**argv_wo_encloser;
 
 	argv_wo_encloser = omit_array(argv, "\'\"");
+	cmd_count = get_cmd_count(argv_wo_encloser, h_envp);
+	if (cmd_count == false)
+		return (all_free_tab(argv_wo_encloser), false);
 	*cmd_absolute_path = (char **)check_malloc \
-	(malloc(sizeof(char *) * (get_cmd_count(argv_wo_encloser, h_envp) + 1)));
+	(malloc(sizeof(char *) * (cmd_count + 1)));
 	arg_i = 0;
 	cmd_i = 0;
 	while (argv[arg_i])
@@ -35,7 +39,7 @@ static void	get_cmd_name_from_arg(char **argv, char **h_envp,
 		arg_i++;
 	}
 	cmd_absolute_path[0][cmd_i] = NULL;
-	all_free_tab(argv_wo_encloser);
+	return (all_free_tab(argv_wo_encloser), true);
 }
 
 static char	**get_cmd_parameter(char **argv, char **h_envp,
@@ -86,7 +90,8 @@ bool	get_cmd_absolute_path(char **h_envp, t_pipex *pipex)
 {
 	char	**cmd_parameter;
 
-	get_cmd_name_from_arg(pipex->argv, h_envp, &pipex->cmd_absolute_path);
+	if (get_cmd_name_from_arg(pipex->argv, h_envp, &pipex->cmd_absolute_path) == false)
+		return (false);
 	cmd_parameter = get_cmd_parameter \
 	(pipex->argv, h_envp, &pipex->cmd_absolute_path, pipex);
 	if (add_absolute_path_to_cmd_name \

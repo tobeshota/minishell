@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/15 11:05:43 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/16 10:48:50 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@ bool	check_fork(pid_t child_pid);
 bool	check_dup(int ret);
 bool	check_execve(int ret, char *cmd);
 bool	check_exec_builtin(int ret, char *cmd);
+bool	check_is_dir(char *filename, int ret);
+bool	check_cmd_exist(char *filename, int ret);
+bool	check_is_dot(int ret);
 bool	check_wait(int ret);
 bool	check_unlink(int ret);
 bool	is_path_found(char *path);
@@ -63,7 +66,7 @@ char	*getenv_from_h_envp(char **h_envp, char *varname);
 char	*getenv_from_t_env(t_env *env, char *varname);
 int		is_cmd(char **argv, int arg_i, char **h_envp);
 bool	is_specified_redirect(char *str);
-bool	is_io_file(char **argv, int arg_i);
+bool	is_io_file(char *argv, char *prev_argv);
 bool	get_cmd_absolute_path(char **h_envp, t_pipex *pipex);
 bool	add_absolute_path_to_cmd_name(char **h_envp,
 			char ***cmd_absolute_path);
