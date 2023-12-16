@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 21:10:43 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/16 15:35:57 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/16 17:24:25 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static char	*omit_encloser_in_bos_and_eos(char *str)
 }
 
 /* nodeに空白までの文字列を格納する */
-static void	nodeadd_upto_blank(t_env **node_cmd, char *str, int i)
+static void	nodeadd_from_0_to_i(t_env **node_cmd, char *str, int i)
 {
 	t_env	*new;
 	char	*content;
@@ -60,8 +60,8 @@ static void	nodeadd_upto_blank(t_env **node_cmd, char *str, int i)
 		ft_nodeadd_back(node_cmd, new);
 }
 
-/* nodeに囲い文字までの文字列を格納する（ほんとうは「今指しているポインタ〜次の囲い文字まで」の文字列を格納したい） */
-static void	nodeadd_upto_encloser(t_env **node_cmd, char *str, char encloser)
+/* nodeに今指しているポインタから次の囲い文字までの文字列を格納する */
+static void	nodeadd_upto_next_encloser(t_env **node_cmd, char *str, char encloser)
 {
 	t_env	*new;
 	int		len_upto_next_encloser;
@@ -95,6 +95,12 @@ static void	nodeadd_upto_encloser(t_env **node_cmd, char *str, char encloser)
 split_wo_enclosed_str();
 
 */
+
+static bool are_there_any_str_to_be_stored_in_node_left(char *str)
+{
+	return (str[0] != '\0');
+}
+
 char	**split_wo_enclosed_str(char *str, char splitter)
 {
 	t_env	*node_cmd;
@@ -108,23 +114,31 @@ char	**split_wo_enclosed_str(char *str, char splitter)
 		return (check_malloc(ft_split(str, splitter)));
 	while (str[i])
 	{
-		// 囲い文字の後にスペースが来るとそれを要素と認識してしまう問題をなんとかする！
+		/* もし空白だったら */
 		if (str[i] == splitter)
 		{
-			nodeadd_upto_blank(&node_cmd, str, i);
+			/* nodeに空白までの文字列を格納する */
+			nodeadd_from_0_to_i(&node_cmd, str, i);
 			str += ft_strlen(ft_nodelast(node_cmd)->content) + SPLITTER;
 			i = -1;
 		}
+		/* もし囲い文字だったら */
 		else if (str[i] == '\'' || str[i] == '\"')
 		{
 			encloser = str[i];
-			nodeadd_upto_encloser(&node_cmd, str, encloser);
+			/* nodeに今指しているポインタから次の囲い文字までの文字列を格納する */
+			nodeadd_upto_next_encloser(&node_cmd, str, encloser);
 			str += ft_strlen(ft_nodelast(node_cmd)->content)
 				+ BEGINNING_OF_ENCLOSER + END_OF_ENCLOSER;
 			i = -1;
 		}
 		i++;
 	}
+	/* 現状では最後にクウォートがあることが前提となっている！
+	それゆえ，最後にクウォートがない場合，その文字列を取れない！
+	もしstrに文字列が残っている場合は，whileループを抜けたとき，nodeに終端文字までの文字列を格納する！ */
+	if (are_there_any_str_to_be_stored_in_node_left(str))
+		nodeadd_from_0_to_i(&node_cmd, str, i);
 	cmd = node_to_array(node_cmd);
 	return (ft_nodeclear(&node_cmd), cmd);
 }
