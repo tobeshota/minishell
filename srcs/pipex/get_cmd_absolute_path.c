@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmd_absolute_path.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/16 13:20:20 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/16 19:50:37 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,28 +18,29 @@ static bool	get_cmd_name_from_arg(char **argv, char **h_envp,
 	int		cmd_count;
 	int		arg_i;
 	int		cmd_i;
-	char	**argv_wo_encloser;
+	char	**cmd_array;
 
-	argv_wo_encloser = omit_array(argv, "\'\"");
-	cmd_count = get_cmd_count(argv_wo_encloser, h_envp);
+	cmd_count = get_cmd_count(argv, h_envp);
 	if (cmd_count == false)
-		return (all_free_tab(argv_wo_encloser), false);
+		return (false);
 	*cmd_absolute_path = (char **)check_malloc \
 	(malloc(sizeof(char *) * (cmd_count + 1)));
 	arg_i = 0;
 	cmd_i = 0;
 	while (argv[arg_i])
 	{
-		if (is_cmd(argv_wo_encloser, arg_i, h_envp) == true)
+		cmd_array = split_wo_enclosed_str(argv[arg_i], ' ');
+		if (is_cmd(cmd_array, 0, h_envp) == true)
 		{
 			cmd_absolute_path[0][cmd_i] = check_malloc \
 			(ft_substr(argv[arg_i], 0, strlen_until_c(argv[arg_i], ' ')));
 			cmd_i++;
 		}
+		all_free_tab(cmd_array);
 		arg_i++;
 	}
 	cmd_absolute_path[0][cmd_i] = NULL;
-	return (all_free_tab(argv_wo_encloser), true);
+	return (true);
 }
 
 static char	**get_cmd_parameter(char **argv, char **h_envp,
@@ -48,25 +49,26 @@ static char	**get_cmd_parameter(char **argv, char **h_envp,
 	int		arg_i;
 	int		cmd_i;
 	char	**cmd_parameter;
-	char	**argv_wo_encloser;
+	char	**cmd_array;
 
-	argv_wo_encloser = omit_array(argv, "\'\"");
 	arg_i = 0;
 	cmd_i = 0;
 	cmd_parameter = (char **)check_malloc \
 	(malloc(sizeof(char *) * (get_cmd_absolute_path_count(pipex) + 1)));
 	while (argv[arg_i])
 	{
-		if (is_cmd(argv_wo_encloser, arg_i, h_envp) == true)
+		cmd_array = split_wo_enclosed_str(argv[arg_i], ' ');
+		if (is_cmd(cmd_array, 0, h_envp) == true)
 		{
 			cmd_parameter[cmd_i] = check_malloc(ft_substr(argv[arg_i], \
 			ft_strlen(cmd_absolute_path[0][cmd_i]), ft_strlen(argv[arg_i])));
 			cmd_i++;
 		}
+		all_free_tab(cmd_array);
 		arg_i++;
 	}
 	cmd_parameter[cmd_i] = NULL;
-	return (all_free_tab(argv_wo_encloser), cmd_parameter);
+	return (cmd_parameter);
 }
 
 static void	get_cmd_absolute_path_with_parameter(char ***cmd_parameter, \
