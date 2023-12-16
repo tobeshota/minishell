@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/16 21:39:26 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/16 22:34:03 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,16 @@ void	all_free_int(int **ptr);
 size_t	strlen_until_c(char *str, char c);
 void	*check_malloc(void *ptr);
 bool	check_getenv(char *ptr);
-bool	check_open(int fd, char *file);
+bool	check_open(int fd, char *file, t_pipex *pipex);
 bool	check_close(int ret);
 bool	check_pipe(int ret);
 bool	check_fork(pid_t child_pid);
 bool	check_dup(int ret);
-bool	check_execve(int ret, char *cmd);
-bool	check_exec_builtin(int ret, char *cmd);
-bool	check_is_dir(char *filename, int ret);
-bool	check_cmd_exist(char *filename, int ret);
-bool	check_is_dot(int ret);
+bool	check_execve(int ret, char *cmd, t_pipex *pipex);
+bool	check_exec_builtin(int ret, char *cmd, t_pipex *pipex);
+bool	check_is_dir(char *filename, int ret, t_pipex *pipex);
+bool	check_cmd_exist(char *filename, int ret, t_pipex *pipex);
+bool	check_is_dot(int ret, t_pipex *pipex);
 bool	check_wait(int ret);
 bool	check_unlink(int ret);
 bool	is_path_found(char *path);
@@ -57,7 +57,7 @@ bool	is_parameter_file(char *cmd_parameter);
 bool	is_parameter_dir(char *cmd_parameter);
 void	cp_argv(char **argv, t_pipex *pipex);
 int		get_element_count(char **array);
-int		get_cmd_count(char **argv, char **h_envp);
+int		get_cmd_count(t_pipex *pipex, char **h_envp);
 int		get_cmd_absolute_path_count(t_pipex *pipex);
 int		get_builtin_cmd_count(t_pipex *pipex);
 void	get_order(t_env *node);
@@ -161,8 +161,7 @@ bool	is_splitter_exist(char **argv);
 void	put_error(char *err_msg);
 void	put_error_w_cmd(char *cmd, char *error_msg);
 void	put_error_w_file(char *file, char *error_msg);
-void	put_error_w_cmd_filename(char *cmdname, char *filename,
-			char *error_msg);
-int		put_file_error(char *cmd, char *file);
+void	put_error_w_cmd_filename(char *cmd, char *file, char *error_msg, t_pipex *pipex);
+int		put_file_error(char *cmd, char *file, t_pipex *pipex);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 09:23:37 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/16 21:34:02 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/16 21:47:01 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ int	loop_pipex(t_tools *tools, t_env **env)
 		h_envp = node_to_array(*env);
 		pipex(tools->tmp_array, h_envp, env, tools);
 		all_free_tab(h_envp);
-		return (g_global.error_num);
+		return (tools->error_num);
 	}
 	get_loop_pipex(tools->tmp_array, &splitted_argv, &splitter);
 	do_loop_pipex(splitted_argv, splitter, env, tools);
-	return (end_loop_pipex(splitted_argv, splitter), g_global.error_num);
+	return (end_loop_pipex(splitted_argv, splitter), tools->error_num);
 }

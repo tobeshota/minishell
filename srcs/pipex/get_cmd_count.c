@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 09:00:12 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/16 19:50:27 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/16 22:31:56 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	increment_upto_space(char *str)
 	return (i);
 }
 
-int	get_cmd_count(char **argv, char **h_envp)
+int	get_cmd_count(t_pipex *pipex, char **h_envp)
 {
 	int		cmd_count;
 	int		arg_i;
@@ -31,14 +31,14 @@ int	get_cmd_count(char **argv, char **h_envp)
 
 	cmd_count = 0;
 	arg_i = 0;
-	while (argv[arg_i])
+	while (pipex->argv[arg_i])
 	{
-		cmd_array = split_wo_enclosed_str(argv[arg_i], ' ');
+		cmd_array = split_wo_enclosed_str(pipex->argv[arg_i], ' ');
 		ret = is_cmd(cmd_array, 0, h_envp);
 		if (ret == true)
 			cmd_count++;
-		if (check_cmd_exist(cmd_array[0], ret) == false || \
-		check_is_dot(ret) == false || check_is_dir(cmd_array[0], ret) == false)
+		if (check_cmd_exist(cmd_array[0], ret, pipex) == false || \
+		check_is_dot(ret, pipex) == false || check_is_dir(cmd_array[0], ret, pipex) == false)
 			return (all_free_tab(cmd_array), false);
 		arg_i++;
 		all_free_tab(cmd_array);

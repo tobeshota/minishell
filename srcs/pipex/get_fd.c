@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_fd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 01:22:30 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/16 13:20:59 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/16 21:56:34 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ bool	get_infile_fd(t_pipex *pipex, char **argv, char **h_envp)
 		if (is_specified_infile(argv[arg_i]) && argv[arg_i + 1])
 		{
 			pipex->infile_fd = open_file(argv[arg_i + 1], INFILE);
-			if (check_open(pipex->infile_fd, argv[arg_i + 1]) == false)
+			if (check_open(pipex->infile_fd, argv[arg_i + 1], pipex) == false)
 				return (false);
 		}
 		else if (is_specified_here_doc(argv[arg_i]) && argv[arg_i + 1] \
@@ -63,7 +63,7 @@ bool	get_outfile_fd(t_pipex *pipex, char **argv)
 		else if (is_specified_outfile_apend(argv[arg_i]) && argv[arg_i + 1])
 			pipex->outfile_fd = \
 			open_file(argv[arg_i + 1], OUTFILE_APEND);
-		if (check_open(pipex->outfile_fd, argv[arg_i + 1]) == false)
+		if (check_open(pipex->outfile_fd, argv[arg_i + 1], pipex) == false)
 			return (false);
 		arg_i++;
 	}

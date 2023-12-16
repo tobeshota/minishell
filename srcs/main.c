@@ -152,24 +152,7 @@ void	ft_nodefirst_cmdsver(t_simple_cmds **node)
 		*node = (*node)->prev;
 }
 
-void	check_exit(t_tools *tools, char **argv, t_env **env)
-{
-	t_simple_cmds	*node;
-
-	node = tools->simple_cmds;
-	while (node && node->str)
-	{
-		if (is_match(node->str[0], "exit") == true)
-		{
-			free_tools(tools);
-			argv = check_malloc(ft_split("exit", ':'));
-			g_global.error_num = loop_pipex(tools, env);
-		}
-		node = node->next;
-	}
-}
-
-int	handle_input(t_tools *tools, t_env **env, char **argv)
+int	handle_input(t_tools *tools, t_env **env)
 {
 	char	**h_envp;
 
@@ -186,7 +169,6 @@ int	handle_input(t_tools *tools, t_env **env, char **argv)
 		all_free_tab(h_envp);
 		put_arg_for_debug(tools->tmp_array);
 		in_cmd = IN_CMD;
-		check_exit(tools, argv, env);
 		g_global.error_num = loop_pipex(tools, env);
 		free_tools(tools);
 		in_cmd = 0;
@@ -196,7 +178,7 @@ int	handle_input(t_tools *tools, t_env **env, char **argv)
 	return (false);
 }
 
-int	minishell(char **envp, t_tools *tools, char **argv)
+int	minishell(char **envp, t_tools *tools)
 {
 	t_env	*env;
 	char	*line;
@@ -213,7 +195,7 @@ int	minishell(char **envp, t_tools *tools, char **argv)
 		tools->str = line;
 		if (*tools->str)
 			add_history(tools->str);
-		handle_input(tools, &env, argv);
+		handle_input(tools, &env);
 	}
 	free(tools);
 	ft_nodeclear(&env);
@@ -228,7 +210,7 @@ int	main(int argc, char **argv, char **envp)
 	if (argc == 2 && is_match(argv[1], "p"))
 		return (minipipex(argv, envp));
 	if (argc == 1)
-		return (minishell(envp, &tools, argv));
+		return (minishell(envp, &tools));
 	return (put_error("minishell: too many arguments"), 1);
 }
 

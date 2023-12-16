@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 20:47:06 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/09 19:17:13 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/16 21:58:27 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void	put_error_w_file(char *file, char *error_msg)
 	put_error("\n");
 }
 
-void	put_error_w_cmd_filename(char *cmd, char *file, char *error_msg)
+void	put_error_w_cmd_filename(char *cmd, char *file, char *error_msg, t_pipex *pipex)
 {
-	g_global.error_num = 1;
+	*pipex->error_num = 1;
 	if (file == NULL)
 		return (put_error_w_cmd(cmd, error_msg));
 	if (cmd == NULL)
@@ -54,9 +54,9 @@ void	put_error_w_cmd_filename(char *cmd, char *file, char *error_msg)
 	}
 }
 
-int	put_file_error(char *cmd, char *file)
+int	put_file_error(char *cmd, char *file, t_pipex *pipex)
 {
 	if (errno == 0)
 		return (true);
-	return (put_error_w_cmd_filename(cmd, file, strerror(errno)), false);
+	return (put_error_w_cmd_filename(cmd, file, strerror(errno), pipex), false);
 }
