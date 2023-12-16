@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_utils2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
+/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 09:35:08 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/15 14:10:02 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/16 17:15:05 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 bool	title(char *str, int j)
 {
 	return (str[j] == '$'
-		&& (str[j + 1] != ' ' && str[j + 1] != '$'
-			&& (str[j + 1] != '"' || str[j + 2] != '\0'))
+		&& (str[j + 1] != ' '  && (str[j + 1] != '"' || str[j + 2] != '\0'))
 		&& str[j + 1] != '\0');
 }
 
@@ -48,7 +47,7 @@ size_t	find_dollar(char *str)
 	return (0);
 }
 
-int	loop_if_dollar_sign(char **envp, char *str, char **tmp, int j)
+int		loop_if_dollar_sign(char **envp, char *str, char **tmp, int j)
 {
 	int		k;
 	int		ret;
@@ -79,20 +78,13 @@ int	loop_if_dollar_sign(char **envp, char *str, char **tmp, int j)
 int	question_mark(char **tmp)
 {
 	char	*tmp2;
+	char	*tmp3;
 
-	free(*tmp);
 	tmp2 = ft_itoa(g_global.error_num);
-	*tmp = ft_strjoin("echo ", tmp2);
+	tmp3 = ft_strjoin(*tmp, tmp2);
+	free(*tmp);
+	*tmp = tmp3;
 	free(tmp2);
 	return (ft_strlen(*tmp) + 1);
 }
 
-// int	question_mark(char **tmp)
-// {
-// 	char *tmp2;
-// 	free(*tmp);
-// 	tmp2 = ft_itoa(g_global.error_num);
-// 	*tmp = ft_strjoin("echo ", tmp2);
-// 	free(tmp2);
-// 	return (ft_strlen(*tmp) + 1);
-// }

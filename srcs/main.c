@@ -59,11 +59,16 @@ void	add_basic_shell_variables(t_env **env)
 	*env = ft_nodenew(cwd_w_varname);
 	ft_nodeadd_back(env, ft_nodenew("SHLVL=0"));
 	ft_nodeadd_back(env, ft_nodenew("_=./minishell"));
+	// envp[0] = check_malloc(ft_strdup(cwd_w_varname));
+	// envp[1] = check_malloc(ft_strdup("SHLVL=0"));
+	// envp[2] = check_malloc(ft_strdup("_=./minishell"));
+	// envp[3] = NULL;
 	free(cwd_w_varname);
 }
 
 void	init_minishell(char **envp, t_env **env)
 {
+	// envp[0] = NULL;
 	if (envp[0] == NULL)
 		add_basic_shell_variables(env);
 	else
@@ -72,28 +77,13 @@ void	init_minishell(char **envp, t_env **env)
 	get_order(*env);
 }
 
-void	cp_argv_for_minipipex(char **argv, t_tools *tools)
-{
-	int	arg_i;
-
-	tools->tmp_array = (char **)check_malloc \
-	(malloc(sizeof(char *) * (get_element_count(argv) + 1)));
-	arg_i = 0;
-	while (argv[arg_i])
-	{
-		tools->tmp_array[arg_i] = check_malloc(ft_strdup(argv[arg_i]));
-		arg_i++;
-	}
-	tools->tmp_array[arg_i] = NULL;
-}
-
 #define MINIPIPEX_PROMPT "\x1b[32mminipipex $ \x1b[0m\x1b[39m"
+
 /* lexer(); と parser(); のない minishell ． pipex のテスト用 */
 int	minipipex(char **argv, char **envp)
 {
 	char	*line;
 	t_env	*env;
-	t_tools	tools;
 
 	init_minishell(envp, &env);
 	while (true)
@@ -101,17 +91,16 @@ int	minipipex(char **argv, char **envp)
 		line = readline(MINIPIPEX_PROMPT);
 		if (!line)
 			break ;
-		argv = ft_split(line, ',');	/* 本来はft_splitでなくlexerとparser．いまは区切り文字','で分割している */
-		cp_argv_for_minipipex(argv, &tools);
+		argv = ft_split(line, ',');
+		/* 本来はft_splitでなくlexerとparser．いまは区切り文字','で分割している */
 		if (*line)
 			add_history(line);
 		put_arg_for_debug(argv);
 		if (is_match(line, "putnode"))
 			put_node_for_debug(env);
 		else
-			loop_pipex(&tools, &env);
+			loop_pipex(tools, &env);
 		all_free_tab(argv);
-		all_free_tab(tools.tmp_array);
 		free(line);
 	}
 	ft_nodeclear(&env);
@@ -163,7 +152,7 @@ void	check_exit(t_tools *tools, char **argv, t_env **env)
 		{
 			free_tools(tools);
 			argv = check_malloc(ft_split("exit", ':'));
-			g_global.error_num = loop_pipex(tools, env);
+			g_global.error_num = loop_pipex(argv, env);
 		}
 		node = node->next;
 	}
@@ -187,7 +176,7 @@ int	handle_input(t_tools *tools, t_env **env, char **argv)
 		put_arg_for_debug(tools->tmp_array);
 		in_cmd = IN_CMD;
 		check_exit(tools, argv, env);
-		g_global.error_num = loop_pipex(tools, env);
+		g_global.error_num = loop_pipex(tools->tmp_array, env);
 		free_tools(tools);
 		in_cmd = 0;
 		return (true);
@@ -232,7 +221,7 @@ int	main(int argc, char **argv, char **envp)
 	return (put_error("minishell: too many arguments"), 1);
 }
 
-__attribute__((destructor)) static void destructor()
-{
-	system("leaks -q minishell");
-}
+// __attribute__((destructor)) static void destructor()
+// {
+// 	system("leaks -q minishell");
+// }

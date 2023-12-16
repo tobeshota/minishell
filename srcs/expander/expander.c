@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:39:54 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/16 13:45:55 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/16 22:46:04 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,138 @@
 #include "minishell.h"
 #include "pipex.h"
 
+// 文字列中の囲い文字で囲われた文字列の文字数を取得する
+int strlen_between_c(char *str, char c)
+{
+    char *str_after_1st_c;
+    char *str_after_2nd_c;
 
+    str_after_1st_c = ft_strchr(str, c) + 1;
+    str_after_2nd_c = ft_strchr(str_after_1st_c, c);
+    return str_after_2nd_c - str_after_1st_c;
+}
+
+size_t	strlen_until_c_expansion(char *str, char c)
+{
+	size_t	len;
+
+	len = 1;
+	while (str[len] != '\0')
+	{
+		if(str[len] != c)
+			return (len);
+		len++;
+	}
+	return (len);
+}
+
+
+int find_matching_quote_expansion(char *str, int j, char **tmp, char **envp)
+{
+	char *tmp2;
+	char *tmp3;
+	char *tmp4;
+	char *tmp5;
+	int 	num;
+	int		num2;
+	int		endpoint;
+	int 	num_tmp = 0;
+	
+	tmp4 = NULL;
+		num = 0;
+	 	if(str[j] == '"')
+		{
+			endpoint = strlen_between_c(str + j, '"');
+			tmp2 = check_malloc(ft_substr(str, j + 1, endpoint));
+			num = loop_if_dollar_sign(envp, tmp2, &tmp4, 0);
+			tmp4 = check_malloc(ft_strjoin("\"" , tmp4));
+			tmp4 = check_malloc(ft_strjoin(tmp4, "\""));
+			tmp3 = check_malloc(ft_strjoin(*tmp, tmp4));
+			free(*tmp);
+			*tmp = tmp3;
+			free(tmp2);
+		}
+		j += num;
+	return (endpoint + 2);
+}
 
 char	*detect_dollar(char *str, char **envp)
 {
 	int		j;
+	int 	endpoint;
+	int 	num;
+	int 	frags;
 	char	*tmp;
 	char	*tmp2;
 	char	*tmp3;
+	char	*tmp4;
+	char	*tmp5;
 
 	j = 0;
+	frags = 0;
 	tmp = check_malloc(ft_strdup("\0"));
 	while (str[j])
 	{
 		j += handle_digit_after_dollar(j, str);
-		if (str[j] == '$' && str[j + 1] == '?')
+		if(str[j] == '"')
+		{
+			if(frags == 0)
+			{
+				tmp2 = check_malloc(char_to_str(str[j++]));
+				tmp3 = check_malloc(ft_strjoin(tmp, tmp2));
+				free(tmp);
+				tmp = tmp3;
+				free(tmp2);
+				frags = 1;
+			}
+			else
+			{
+				tmp2 = check_malloc(char_to_str(str[j++]));
+				tmp3 = check_malloc(ft_strjoin(tmp, tmp2));
+				free(tmp);
+				tmp = tmp3;
+				free(tmp2);
+				frags = 0;
+			}
+		}
+		if(str[j] == '\'')
+		{
+			if(str[j + 1] != '\'')
+			{
+				endpoint = strlen_between_c(str + j, '\'');
+				tmp4 = ft_strchr(str + j + 1, '\'');
+				tmp2 = check_malloc(ft_substr(str, j + 1, endpoint));
+				tmp5 = check_malloc(ft_strjoin("\'", tmp2));
+				free(tmp2);
+				tmp2 = check_malloc(ft_strjoin("\'", tmp5));
+				free(tmp5);
+				tmp5 = check_malloc(ft_strjoin(tmp2, "\'"));
+				free(tmp2);
+				tmp3 = check_malloc(ft_strjoin(tmp, tmp5));
+				if(tmp)
+					free(tmp);
+				tmp = tmp3;
+				j =  j + endpoint + 2;
+			}
+			else
+				j += 2;
+		}
+		else if (str[j] == '$' && str[j + 1] == '?')
 			j += question_mark(&tmp);
 		else if (str[j] == '$' && str[j + 1] == '$')
 		{
+			tmp2 = check_malloc(ft_strdup("$$"));
+			tmp3 = check_malloc(ft_strjoin(tmp, tmp2));
 			free(tmp);
-			tmp = check_malloc(ft_strdup("$$"));
+			tmp = tmp3;
+			free(tmp2);
 			j += 2;
 		}
 		else if (title(str, j) == true)
 			j += loop_if_dollar_sign(envp, str, &tmp, j);
 		else
 		{
-			tmp2 = char_to_str(str[j++]);
+			tmp2 = check_malloc(char_to_str(str[j++]));
 			tmp3 = check_malloc(ft_strjoin(tmp, tmp2));
 			free(tmp);
 			tmp = tmp3;
@@ -100,7 +205,7 @@ char	**expander(t_tools *tools, char **str, char **envp)
 
 		if(check_case_herecoc(str, i) == true)
 			i++;
-		else if (find_dollar(str[i]) != 0 && str[i][find_dollar(str[i])] != '\0')
+		else if (str[i][find_dollar(str[i])] != '\0')
 		{
 			tmp = detect_dollar(str[i], envp);
 			free(str[i]);
