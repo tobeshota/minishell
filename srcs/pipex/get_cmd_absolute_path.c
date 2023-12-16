@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/16 11:00:54 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/16 13:20:20 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ bool	get_cmd_absolute_path(char **h_envp, t_pipex *pipex)
 {
 	char	**cmd_parameter;
 
-	if (get_cmd_name_from_arg(pipex->argv, h_envp, &pipex->cmd_absolute_path) == false)
+	if (get_cmd_name_from_arg \
+	(pipex->argv, h_envp, &pipex->cmd_absolute_path) == false)
 		return (false);
 	cmd_parameter = get_cmd_parameter \
 	(pipex->argv, h_envp, &pipex->cmd_absolute_path, pipex);
