@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/16 10:07:35 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/16 11:47:10 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 # include "define.h"
 # include "minishell.h"
 # include "parser.h"
+
+# define IF_HEREDOC 2
+# define IN_CMD 1
 
 int			handle_digit_after_dollar(int j, char *str);
 char		**expander(t_tools *tools, char **str, char **envp);

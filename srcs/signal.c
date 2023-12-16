@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 09:57:45 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/16 11:43:11 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/16 11:47:32 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	sigint_handler(int sig)
 {
-	if (in_cmd == 2)
+	if (in_cmd == IF_HEREDOC)
 	{
 		g_global.error_num = 1;
 		rl_on_new_line();
@@ -22,7 +22,7 @@ void	sigint_handler(int sig)
 		exit(1);
 		return ;
 	}
-	else if(in_cmd == 1)
+	else if(in_cmd == IN_CMD)
 	{
 		ft_printf("\n");
 		rl_replace_line("", 0);
