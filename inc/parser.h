@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 12:55:55 by cjia              #+#    #+#             */
-/*   Updated: 2023/12/16 10:17:23 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/16 14:23:43 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,57 +17,9 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-
+# include "define.h"
 # define EXIT_FAILURE 1
 # define EXIT_SUCCESS 0
-
-typedef enum s_tokens
-{
-	PIPE = 1,
-	GREAT,
-	GREAT_GREAT,
-	LESS,
-	LESS_LESS,
-	SEMICOLON,
-	AND_AND,
-	OR_OR,
-	NONE = 0,
-}							t_tokens;
-
-typedef struct s_lexer
-{
-	struct s_lexer			*next;
-	struct s_lexer			*prev;
-	char					*str;
-	int						i;
-	t_tokens				token;
-}							t_lexer;
-
-typedef struct s_tools
-{
-	char					*str;
-	struct s_simple_cmds	*simple_cmds;
-	t_lexer					*lexer_list;
-	char					**tmp_array;
-	int						error_num;
-}							t_tools;
-
-typedef struct s_parser_tools
-{
-	t_lexer					*lexer_list;
-	t_lexer					*redirections;
-	int						num_redirections;
-	struct s_tools			*tools;
-}							t_parser_tools;
-
-typedef struct s_simple_cmds
-{
-	char					**str;
-	int						num_redirections;
-	t_lexer					*redirections;
-	struct s_simple_cmds	*next;
-	struct s_simple_cmds	*prev;
-}							t_simple_cmds;
 
 //about lexer
 int							lexer(t_tools *lexer_tools);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/16 11:47:10 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/16 14:23:21 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "define.h"
 # include "minishell.h"
 # include "parser.h"
-
 # define IF_HEREDOC 2
 # define IN_CMD 1
 
