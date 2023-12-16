@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/16 13:18:55 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/16 21:05:39 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ void	put_node_for_debug(t_env *node);
 void	put_array_for_debug(char **str);
 
 // loop_pipex
-int		loop_pipex(char **argv, t_env **env);
+int		loop_pipex(t_tools *tools, t_env **env);
 void	get_loop_pipex(char **argv, char ****splitted_argv, char ***splitter);
 int		do_loop_pipex(char ***splitted_argv, char **splitter, t_env **env);
 void	end_loop_pipex(char ***splitted_argv, char **splitter);
