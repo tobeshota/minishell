@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:39:54 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/15 16:04:28 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/16 12:24:51 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	free_old_str(t_tools *tools)
 	ft_nodefirst_for_t_simple_cmds(&tools->simple_cmds);
 }
 
-bool	check_case_herecoc(char **str, int i)
+bool		check_case_herecoc(char **str, int i)
 {
 	char *tmp;
 
@@ -75,9 +75,9 @@ bool	check_case_herecoc(char **str, int i)
 		tmp = check_malloc(ft_strdup(str[i + 1]));
 		free(str[i + 1]);
 		str[i + 1] = tmp;
-		i = i + 2;
-	}
-	return (i);
+		return (true);
+	}	
+	return (false);
 }
 
 char	**expander(t_tools *tools, char **str, char **envp)
@@ -90,7 +90,7 @@ char	**expander(t_tools *tools, char **str, char **envp)
 	while (str[i] != NULL)
 	{
 
-		if(check_case_herecoc(str, i) != 0)
+		if(check_case_herecoc(str, i) == true)
 			i = i + 2;
 		else if (find_dollar(str[i]) != 0 && str[i][find_dollar(str[i]) - 2] != '\''
 		&&
