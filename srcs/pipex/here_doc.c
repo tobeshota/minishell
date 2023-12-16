@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/16 13:21:11 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/16 16:49:46 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ bool	do_proc_here_doc(char *delimiter, t_pipex *pipex, char **h_envp)
 	char	*line;
 	char	*delimiter_wo_quotas;
 
-	in_cmd = 2;
+	in_cmd = IF_HEREDOC;
 	line = get_expanded_line(readline(HERE_DOC_PROMPT), h_envp, delimiter);
 	delimiter_wo_quotas = omit_str(delimiter, "\'\"");
 	while (is_match(line, delimiter_wo_quotas) == false)
@@ -78,7 +78,7 @@ bool	proc_here_doc(char *delimiter, t_pipex *pipex, char **h_envp)
 	}
 	else
 	{
-		in_cmd = 0;
+		in_cmd = HEREDOC_PARENT_CASE;
 		if (check_close(close(pipex->infile_fd)) == false)
 			return (false);
 		pipex->infile_fd = open_file(HERE_DOC_FILE_PATH, INFILE_HERE_DOC);

@@ -174,7 +174,7 @@ int	handle_input(t_tools *tools, t_env **env, char **argv)
 		tools->simple_cmds->str = expander(tools, tools->tmp_array, h_envp);
 		all_free_tab(h_envp);
 		put_arg_for_debug(tools->tmp_array);
-		in_cmd = 1;
+		in_cmd = IN_CMD;
 		check_exit(tools, argv, env);
 		g_global.error_num = loop_pipex(tools->tmp_array, env);
 		free_tools(tools);
@@ -221,7 +221,7 @@ int	main(int argc, char **argv, char **envp)
 	return (put_error("minishell: too many arguments"), 1);
 }
 
-__attribute__((destructor)) static void destructor()
-{
-	system("leaks -q minishell");
-}
+// __attribute__((destructor)) static void destructor()
+// {
+// 	system("leaks -q minishell");
+// }

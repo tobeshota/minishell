@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/16 14:23:21 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/16 16:45:55 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@
 # include "define.h"
 # include "minishell.h"
 # include "parser.h"
+# define IN_READLINE 0
 # define IF_HEREDOC 2
 # define IN_CMD 1
+# define HEREDOC_PARENT_CASE 3
 
 int			handle_digit_after_dollar(int j, char *str);
 char		**expander(t_tools *tools, char **str, char **envp);

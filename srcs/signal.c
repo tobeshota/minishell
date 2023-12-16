@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 09:57:45 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/16 11:49:13 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/16 16:50:41 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ void	sigint_handler(int sig)
 	if (in_cmd == IF_HEREDOC)
 	{
 		g_global.error_num = 1;
-		rl_on_new_line();
-		rl_replace_line("", 0);
 		exit(1);
 		return ;
 	}
@@ -27,6 +25,11 @@ void	sigint_handler(int sig)
 		ft_printf("\n");
 		rl_replace_line("", 0);
 		rl_redisplay();
+		return ;
+	}
+	else if(in_cmd == HEREDOC_PARENT_CASE)
+	{
+		ft_printf("\n");
 		return ;
 	}
 	ft_printf("\n");
