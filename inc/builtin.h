@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 16:15:47 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/15 12:42:25 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/16 18:30:39 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int		exec_exit(char **cmd, t_pipex *pipex);
 // exec_builtin.c
 bool	is_match(char *s1, char *s2);
 bool	is_cmd_builtin(char *cmd);
-char	**split_wo_enclosed_str(char *str, char splitter);
 int		exec_builtin(t_env **env, t_pipex *pipex, int cmd_i);
 
 // exec_export
@@ -40,5 +39,17 @@ bool	check_identifier(char *identifier);
 bool	is_under_bar(char *cmd);
 bool	is_node_first(t_env *node);
 bool	is_node_last(t_env *node);
+
+// split_wo_enclosed_str
+#define SPLITTER 1
+#define ENCLOSER 1
+#define BEGINNING_OF_ENCLOSER 1
+#define END_OF_ENCLOSER 1
+
+char	**split_wo_enclosed_str(char *str, char splitter);
+void	split_str_according_to_encloser(char **str, t_env **node_cmd, int i);
+void	split_str_according_to_splitter(char **str, t_env **node_cmd, int i);
+char	*omit_encloser_in_bos_and_eos(char *str);
+void	nodeadd_from_0_to_i(t_env **node_cmd, char *str, int i);
 
 #endif
