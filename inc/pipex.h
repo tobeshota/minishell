@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/16 21:05:39 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/16 21:39:26 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ bool	is_cmd_relative_path(char ***cmd_absolute_path, int cmd_i);
 bool	is_cmd_alreadly_absollute_path(char ***cmd_absolute_path, int cmd_i);
 bool	wait_children(int cmd_i);
 bool	reset_pipex(t_pipex *pipex, int cmd_i);
-int		pipex(char **argv, char **h_envp, t_env **env);
-bool	get_pipex(char **argv, char **h_envp, t_pipex *pipex);
+int		pipex(char **argv, char **h_envp, t_env **env, t_tools *tools);
+bool	get_pipex(char **argv, char **h_envp, t_pipex *pipex, t_tools *tools);
 bool	do_pipex(char **h_envp, t_env **env, t_pipex *pipex);
 bool	end_pipex(t_pipex *pipex);
 
@@ -149,7 +149,7 @@ void	put_array_for_debug(char **str);
 // loop_pipex
 int		loop_pipex(t_tools *tools, t_env **env);
 void	get_loop_pipex(char **argv, char ****splitted_argv, char ***splitter);
-int		do_loop_pipex(char ***splitted_argv, char **splitter, t_env **env);
+int		do_loop_pipex(char ***splitted_argv, char **splitter, t_env **env, t_tools *tools);
 void	end_loop_pipex(char ***splitted_argv, char **splitter);
 char	***get_splitted_argv(char **argv);
 char	**get_splitter(char **argv);

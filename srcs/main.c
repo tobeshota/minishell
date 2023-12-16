@@ -59,16 +59,11 @@ void	add_basic_shell_variables(t_env **env)
 	*env = ft_nodenew(cwd_w_varname);
 	ft_nodeadd_back(env, ft_nodenew("SHLVL=0"));
 	ft_nodeadd_back(env, ft_nodenew("_=./minishell"));
-	// envp[0] = check_malloc(ft_strdup(cwd_w_varname));
-	// envp[1] = check_malloc(ft_strdup("SHLVL=0"));
-	// envp[2] = check_malloc(ft_strdup("_=./minishell"));
-	// envp[3] = NULL;
 	free(cwd_w_varname);
 }
 
 void	init_minishell(char **envp, t_env **env)
 {
-	// envp[0] = NULL;
 	if (envp[0] == NULL)
 		add_basic_shell_variables(env);
 	else

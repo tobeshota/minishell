@@ -12,17 +12,18 @@
 
 #include "pipex.h"
 
-static bool	init_pipex(t_pipex *pipex)
+static bool	init_pipex(t_pipex *pipex, t_tools *tools)
 {
 	ft_bzero(pipex, sizeof(t_pipex));
 	pipex->infile_fd = STDIN_FILENO;
 	pipex->outfile_fd = STDOUT_FILENO;
+	pipex->error_num = &tools->error_num;
 	return (rm_here_doc());
 }
 
-bool	get_pipex(char **argv, char **h_envp, t_pipex *pipex)
+bool	get_pipex(char **argv, char **h_envp, t_pipex *pipex, t_tools *tools)
 {
-	if (init_pipex(pipex) == false)
+	if (init_pipex(pipex, tools) == false)
 		return (false);
 	cp_argv(argv, pipex);
 	if (get_fd(pipex, pipex->argv, h_envp) == false)

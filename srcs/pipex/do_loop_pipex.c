@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_loop_pipex.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 12:49:44 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/16 12:56:31 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/16 21:36:00 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ static void	increment(char **splitter, int *sparg_i, int *spl_i)
 	}
 }
 
-int	do_loop_pipex(char ***splitted_argv, char **splitter, t_env **env)
+int	do_loop_pipex(char ***splitted_argv, char **splitter, t_env **env,
+		t_tools *tools)
 {
 	int		sparg_i;
 	int		spl_i;
@@ -55,7 +56,7 @@ int	do_loop_pipex(char ***splitted_argv, char **splitter, t_env **env)
 	{
 		g_global.error_num = 0;
 		h_envp = node_to_array(*env);
-		ret = pipex(splitted_argv[sparg_i], h_envp, env);
+		ret = pipex(splitted_argv[sparg_i], h_envp, env, tools);
 		all_free_tab(h_envp);
 		if (splitter[spl_i] == NULL)
 			break ;
