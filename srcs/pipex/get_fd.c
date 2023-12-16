@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_fd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 01:22:30 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/15 16:05:18 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/16 13:20:59 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ bool	get_infile_fd(t_pipex *pipex, char **argv, char **h_envp)
 	int	arg_i;
 
 	arg_i = 0;
-
 	while (argv[arg_i] && !is_specified_pipe(argv[arg_i]))
 	{
 		if (is_specified_infile(argv[arg_i]) && argv[arg_i + 1])
@@ -73,7 +72,7 @@ bool	get_outfile_fd(t_pipex *pipex, char **argv)
 
 bool	get_fd(t_pipex *pipex, char **argv, char **h_envp)
 {
-	char **argv_wo_encloser;
+	char	**argv_wo_encloser;
 
 	argv_wo_encloser = omit_array(argv, "\'\"");
 	if (get_infile_fd(pipex, argv_wo_encloser, h_envp) == false)

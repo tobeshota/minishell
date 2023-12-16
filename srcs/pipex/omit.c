@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 20:38:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/15 11:05:40 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/16 13:23:41 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ char	**omit_array(char **array, char *omit)
 	char	**result;
 
 	i = 0;
-	result = (char **)check_malloc(malloc(sizeof(char*) * (get_element_count(array) + 1)));
+	result = (char **)check_malloc \
+	(malloc(sizeof(char *) * (get_element_count(array) + 1)));
 	while (array[i])
 	{
 		result[i] = omit_str(array[i], omit);

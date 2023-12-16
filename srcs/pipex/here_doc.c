@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/16 11:41:00 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/16 13:21:11 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ static char	*get_expanded_line(char *line, char **h_envp, char *delimiter)
 {
 	char	*tmp;
 
-	if (line == NULL || line[0] == '\0' || is_surrounded_by_quotas(delimiter) || is_match(line, delimiter))
+	if (line == NULL || line[0] == '\0' || \
+	is_surrounded_by_quotas(delimiter) || is_match(line, delimiter))
 		return (line);
 	if (find_dollar(line) && line[find_dollar(line) - 2] != '\''
 		&& line[find_dollar(line)])

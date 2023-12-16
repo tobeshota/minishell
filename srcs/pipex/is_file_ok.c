@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_file_ok.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/11/30 16:12:35 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/16 13:20:29 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,10 @@ bool	is_file_writable(char *file)
 bool	is_file_exectable(char *file)
 {
 	return (!access(file, X_OK));
+}
+
+bool	is_file_exectable_wo_additional_path(char *file)
+{
+	return (is_cmd_builtin(file) \
+	|| (is_file_exectable(file) && ft_strchr(file, '/')));
 }

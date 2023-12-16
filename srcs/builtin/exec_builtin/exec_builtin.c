@@ -59,13 +59,8 @@ int	exec_builtin(t_env **env, t_pipex *pipex, int cmd_i)
 
 	ret = false;
 	target = pipex->cmd_absolute_path[cmd_i];
-	/* export A=" abc" のとき cmd[1]=A=" abc"となるようにする！
-	入力	export A=" abc"
-	現在	"A= "   "abc"
-	理想	"A= abc"
-	*/
-	cmd = check_malloc(split_wo_enclosed_str(pipex->cmd_absolute_path_with_parameter[cmd_i], ' '));
-// put_array_for_debug(cmd);
+	cmd = check_malloc(split_wo_enclosed_str \
+	(pipex->cmd_absolute_path_with_parameter[cmd_i], ' '));
 	if (is_match(target, "/bin/echo") || is_match(target, "echo"))
 		ret = exec_echo(cmd, pipex);
 	else if (is_match(target, "/usr/bin/cd") || is_match(target, "cd"))
