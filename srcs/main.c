@@ -123,7 +123,6 @@ int	process_input(t_tools *tools)
 	}
 	if (tools->lexer_list->token == 0 && tools->lexer_list->str[0] == '\0')
 	{
-		free_tools(tools);
 		ft_lexerclear(&tools->lexer_list);
 		return (0);
 	}

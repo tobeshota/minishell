@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   grouping_redirections.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
+/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:09:54 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/15 11:44:47 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/16 11:16:04 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ bool	check_redirections_error(t_lexer *tmp, t_parser_tools *parser_tools)
 	{
 		ft_lexerclear(&parser_tools->lexer_list);
 		ft_lexerclear(&parser_tools->redirections);
-		free(parser_tools->tools);
 		ft_error(0);
 		return (true);
 	}
@@ -55,7 +54,6 @@ bool	check_redirections_error(t_lexer *tmp, t_parser_tools *parser_tools)
 		ft_simple_cmdsclear(&parser_tools->tools->simple_cmds);
 		ft_lexerclear(&parser_tools->tools->lexer_list);
 		ft_error(0);
-		free(parser_tools->tools);
 		return (true);
 	}
 	return (false);
