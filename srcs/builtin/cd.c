@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/15 12:50:17 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/16 22:38:05 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	change_oldpwd(char **path_ptr, t_env **env, t_pipex *pipex)
 		ft_nodenext(env);
 	if (ft_strncmp((*env)->content, "OLDPWD=", ft_strlen("OLDPWD=")))
 	{
-		g_global.error_num = 1;
+		*pipex->error_num = 1;
 		put_error("-minishell: cd: OLDPWD not set\n");
 		ft_nodefirst(env);
 		return (false);
@@ -98,7 +98,7 @@ int	exec_cd(char **cmd, t_env **env, t_pipex *pipex)
 		return (free(path_from_cd), true);
 	}
 	if (is_parameter_dir(path_from_cd) == false)
-		return (put_file_error("cd", path_from_cd), free(path_from_cd), true);
+		return (put_file_error("cd", path_from_cd, pipex), free(path_from_cd), true);
 	update_oldpwd(env, pipex);
 	if (chdir(path_from_cd) == -1)
 		return (free(path_from_cd), false);

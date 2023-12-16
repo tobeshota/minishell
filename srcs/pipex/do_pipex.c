@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_pipex.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 22:46:35 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/16 13:23:17 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/16 22:34:13 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static bool	do_execve(char **h_envp, t_pipex *pipex, int cmd_i)
 	cmd = check_malloc(ft_split(cmd_abspath_w_param_wo_encloser, ' '));
 	cmd_abspath_wo_encloser = omit_str(pipex->cmd_absolute_path[cmd_i], "\'\"");
 	ret = check_execve(execve \
-	(cmd_abspath_wo_encloser, cmd, h_envp), cmd_abspath_wo_encloser);
+	(cmd_abspath_wo_encloser, cmd, h_envp), cmd_abspath_wo_encloser, pipex);
 	free(cmd_abspath_w_param_wo_encloser);
 	free(cmd_abspath_wo_encloser);
 	if (ret == false)
@@ -48,7 +48,7 @@ static bool	do_execve(char **h_envp, t_pipex *pipex, int cmd_i)
 static bool	do_exec_builtin(t_env **env, t_pipex *pipex, int cmd_i)
 {
 	return (check_exec_builtin(exec_builtin \
-	(env, pipex, cmd_i), pipex->cmd_absolute_path[cmd_i]));
+	(env, pipex, cmd_i), pipex->cmd_absolute_path[cmd_i], pipex));
 }
 
 static bool	exec(char **h_envp, t_env **env, t_pipex *pipex, int cmd_i)

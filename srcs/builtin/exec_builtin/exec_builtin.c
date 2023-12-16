@@ -77,7 +77,7 @@ int	exec_builtin(t_env **env, t_pipex *pipex, int cmd_i)
 	else if (is_match(target, "export"))
 		ret = exec_export(cmd, env, pipex);
 	else if (is_match(target, "unset"))
-		ret = exec_unset(cmd, env);
+		ret = exec_unset(cmd, env, pipex);
 	else if (is_match(target, "/usr/bin/env") || is_match(target, "env"))
 		ret = exec_env(env, pipex);
 	else if (is_match(target, "exit"))

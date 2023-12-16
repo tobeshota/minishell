@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_new_value.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 23:08:47 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/15 21:42:45 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/16 22:42:26 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ static void put_identifier_error(char *identifier)
 	ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
 }
 
-bool	check_identifier(char *identifier)
+bool	check_identifier(char *identifier, t_pipex *pipex)
 {
 	int	i;
 
 	i = 0;
 	if (ft_isalpha(identifier[i]) == false && identifier[i] != '_')
 	{
-		g_global.error_num = 1;
+		*pipex->error_num = 1;
 		return (put_identifier_error(identifier), false);
 	}
 	while (identifier[i])
@@ -45,7 +45,7 @@ bool	check_identifier(char *identifier)
 		if (ft_isalnum(identifier[i]) == false && identifier[i] != '_'  && \
 		is_append_properly_written(identifier[i], identifier[i + 1]) == false)
 		{
-			g_global.error_num = 1;
+			*pipex->error_num = 1;
 			return (put_identifier_error(identifier), false);
 		}
 		i++;
@@ -53,11 +53,11 @@ bool	check_identifier(char *identifier)
 	return (true);
 }
 
-void	add_new_value(char *added_value, t_env **env)
+void	add_new_value(char *added_value, t_env **env, t_pipex *pipex)
 {
 	char	*added_value_without_plus;
 
-	if (check_identifier(added_value) == false)
+	if (check_identifier(added_value, pipex) == false)
 		return ;
 	added_value_without_plus = omit_c(added_value, '+');
 	*env = ft_nodelast(*env);
