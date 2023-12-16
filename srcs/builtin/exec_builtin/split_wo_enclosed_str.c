@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_wo_enclosed_str.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 21:10:43 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/15 23:02:54 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/16 15:35:57 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,19 @@ static void	nodeadd_upto_encloser(t_env **node_cmd, char *str, char encloser)
 		ft_nodeadd_back(node_cmd, new);
 }
 
+/* コマンドが囲い文字で囲われているときに引数に1つなぜかスペースが含まれる問題をなんとかする！
+問題：
+コマンドが囲い文字で囲われているときに引数に1つなぜかスペースが含まれる！
+
+例：
+入力　"echo"   "a"
+出力　" a"
+理想　"a"
+
+問題の所在：
+split_wo_enclosed_str();
+
+*/
 char	**split_wo_enclosed_str(char *str, char splitter)
 {
 	t_env	*node_cmd;
@@ -95,6 +108,7 @@ char	**split_wo_enclosed_str(char *str, char splitter)
 		return (check_malloc(ft_split(str, splitter)));
 	while (str[i])
 	{
+		// 囲い文字の後にスペースが来るとそれを要素と認識してしまう問題をなんとかする！
 		if (str[i] == splitter)
 		{
 			nodeadd_upto_blank(&node_cmd, str, i);

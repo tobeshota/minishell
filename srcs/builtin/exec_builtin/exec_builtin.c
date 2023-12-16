@@ -26,11 +26,18 @@ bool	is_match(char *s1, char *s2)
 
 bool	is_cmd_builtin(char *cmd)
 {
-	return (is_match(cmd, "echo") || is_match(cmd, "/bin/echo") || is_match(cmd,
-			"cd") || is_match(cmd, "/usr/bin/cd") || is_match(cmd, "pwd")
-		|| is_match(cmd, "/bin/pwd") || is_match(cmd, "export") || is_match(cmd,
-			"unset") || is_match(cmd, "env") || is_match(cmd, "/usr/bin/env")
-		|| is_match(cmd, "exit"));
+	char	*cmd_wo_enlser;
+
+	cmd_wo_enlser = omit_str(cmd, "\'\"");
+	if (is_match(cmd_wo_enlser, "echo") || is_match(cmd_wo_enlser, "/bin/echo")
+		|| is_match(cmd_wo_enlser, "cd") || is_match(cmd_wo_enlser,
+			"/usr/bin/cd") || is_match(cmd_wo_enlser, "pwd")
+		|| is_match(cmd_wo_enlser, "/bin/pwd") || is_match(cmd_wo_enlser,
+			"export") || is_match(cmd_wo_enlser, "unset")
+		|| is_match(cmd_wo_enlser, "env") || is_match(cmd_wo_enlser,
+			"/usr/bin/env") || is_match(cmd_wo_enlser, "exit"))
+		return (free(cmd_wo_enlser), true);
+	return (free(cmd_wo_enlser), false);
 }
 
 bool	update_envp(t_env **env, char *varname, char *new_data)
@@ -58,7 +65,7 @@ int	exec_builtin(t_env **env, t_pipex *pipex, int cmd_i)
 	char	*target;
 
 	ret = false;
-	target = pipex->cmd_absolute_path[cmd_i];
+	target = omit_str(pipex->cmd_absolute_path[cmd_i], "\'\"");
 	cmd = check_malloc(split_wo_enclosed_str \
 	(pipex->cmd_absolute_path_with_parameter[cmd_i], ' '));
 	if (is_match(target, "/bin/echo") || is_match(target, "echo"))
@@ -75,5 +82,5 @@ int	exec_builtin(t_env **env, t_pipex *pipex, int cmd_i)
 		ret = exec_env(env, pipex);
 	else if (is_match(target, "exit"))
 		ret = exec_exit(cmd, pipex);
-	return (all_free_tab(cmd), ret);
+	return (all_free_tab(cmd), free(target), ret);
 }
