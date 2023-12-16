@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/16 10:48:50 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/16 13:18:55 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ bool	is_file_exist(char *file);
 bool	is_file_readable(char *file);
 bool	is_file_writable(char *file);
 bool	is_file_exectable(char *file);
+bool	is_file_exectable_wo_additional_path(char *file);
 
 // is_specified_control_operators
 bool	is_specified_semicolon(char *str);
