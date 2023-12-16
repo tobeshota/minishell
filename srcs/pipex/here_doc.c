@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/16 09:49:17 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/16 11:41:00 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ bool	do_proc_here_doc(char *delimiter, t_pipex *pipex, char **h_envp)
 	char	*line;
 	char	*delimiter_wo_quotas;
 
+	in_cmd = 2;
 	line = get_expanded_line(readline(HERE_DOC_PROMPT), h_envp, delimiter);
 	delimiter_wo_quotas = omit_str(delimiter, "\'\"");
 	while (is_match(line, delimiter_wo_quotas) == false)
