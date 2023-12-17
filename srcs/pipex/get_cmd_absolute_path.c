@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmd_absolute_path.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/16 22:28:43 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/17 00:11:47 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-// get_cmd_name_from_arg(pipex->argv, h_envp, &pipex->cmd_absolute_path)
 static bool	get_cmd_name_from_arg(char **h_envp, t_pipex *pipex)
 {
 	int		cmd_count;
