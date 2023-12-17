@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 23:22:47 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/17 15:15:49 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/17 15:45:06 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,24 @@ static int	is_false(char *cunnret_argv, char *prev_argv)
 	char	*current_argv_wo_param;
 	char	*prev_argv_wo_param;
 
-	current_argv_wo_param = check_malloc(ft_substr(cunnret_argv, 0, strlen_until_c(cunnret_argv, ' ')));
+	current_argv_wo_param = check_malloc \
+	(ft_substr(cunnret_argv, 0, strlen_until_c(cunnret_argv, ' ')));
 	if (is_specified_operators(current_argv_wo_param))
 		return (free(current_argv_wo_param), true);
 	if (prev_argv)
 	{
-		prev_argv_wo_param = check_malloc(ft_substr(prev_argv, 0, strlen_until_c(prev_argv, ' ')));
+		prev_argv_wo_param = check_malloc \
+		(ft_substr(prev_argv, 0, strlen_until_c(prev_argv, ' ')));
 		if (is_io_file(current_argv_wo_param, prev_argv_wo_param))
-			return (free(current_argv_wo_param), free(prev_argv_wo_param), true);
+			return (free(current_argv_wo_param), free(prev_argv_wo_param),
+				true);
 		free(prev_argv_wo_param);
 	}
 	return (free(current_argv_wo_param), false);
 }
 
-static int	is_arg_determined_wo_path(char *cunnret_argv, char *prev_argv, char **h_envp)
+static int	is_arg_determined_wo_path(char *cunnret_argv, char *prev_argv,
+		char **h_envp)
 {
 	if (is_match(cunnret_argv, "."))
 		return (IS_DOT);
@@ -51,7 +55,7 @@ static int	is_arg_determined_wo_path(char *cunnret_argv, char *prev_argv, char *
 	if (is_false(cunnret_argv, prev_argv))
 		return (false);
 	if (getenv_from_h_envp(h_envp, "PATH") == NULL || \
-	is_match(cunnret_argv, "..") || ft_strlen(cunnret_argv) == 0)
+		is_match(cunnret_argv, "..") || ft_strlen(cunnret_argv) == 0)
 		return (NOT_FOUND);
 	return (ARG_IS_NOT_DETERMINED_WO_PATH);
 }

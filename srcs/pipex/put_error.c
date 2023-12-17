@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   put_error.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 20:47:06 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/16 21:58:27 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/17 15:56:28 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ void	put_error_w_file(char *file, char *error_msg)
 	put_error("\n");
 }
 
-void	put_error_w_cmd_filename(char *cmd, char *file, char *error_msg, t_pipex *pipex)
+void	put_error_w_cmd_filename(char *cmd, char *file, char *error_msg,
+		t_pipex *pipex)
 {
 	*pipex->error_num = 1;
 	if (file == NULL)

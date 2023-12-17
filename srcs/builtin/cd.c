@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/16 22:38:05 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/17 15:58:38 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static bool	get_path_from_cd(char **path_ptr, char **cmd, t_env **env,
 	return (true);
 }
 
-static void put_parent_dir_error(void)
+static void	put_parent_dir_error(void)
 {
 	put_error("cd: error retrieving current directory: ");
 	put_error("getcwd: cannot access parent directories: ");
@@ -98,7 +98,8 @@ int	exec_cd(char **cmd, t_env **env, t_pipex *pipex)
 		return (free(path_from_cd), true);
 	}
 	if (is_parameter_dir(path_from_cd) == false)
-		return (put_file_error("cd", path_from_cd, pipex), free(path_from_cd), true);
+		return (put_file_error("cd", path_from_cd, pipex), \
+		free(path_from_cd), true);
 	update_oldpwd(env, pipex);
 	if (chdir(path_from_cd) == -1)
 		return (free(path_from_cd), false);

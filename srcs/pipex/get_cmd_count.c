@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 09:00:12 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/17 15:42:43 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/17 15:56:39 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	get_cmd_count(t_pipex *pipex, char **h_envp)
 		ret = is_cmd(cunnret_argv, prev_argv, h_envp);
 		if (ret == true)
 			cmd_count++;
-		if (check_cmd_exist(cunnret_argv, ret, pipex) == false ||
+		if (check_cmd_exist(cunnret_argv, ret, pipex) == false || \
 			check_is_dot(ret, pipex) == false || \
 			check_is_dir(cunnret_argv, ret, pipex) == false)
 			return (free_tab(cunnret_argv), free_tab(prev_argv), false);

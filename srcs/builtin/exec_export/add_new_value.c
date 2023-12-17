@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_new_value.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 23:08:47 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/16 22:42:26 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/17 15:57:48 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static bool	is_append_properly_written(char current_c, char next_c)
 	return (true);
 }
 
-static void put_identifier_error(char *identifier)
+static void	put_identifier_error(char *identifier)
 {
 	ft_putstr_fd("minishell: export: '", STDERR_FILENO);
 	ft_putstr_fd(identifier, STDERR_FILENO);
@@ -42,8 +42,8 @@ bool	check_identifier(char *identifier, t_pipex *pipex)
 	}
 	while (identifier[i])
 	{
-		if (ft_isalnum(identifier[i]) == false && identifier[i] != '_'  && \
-		is_append_properly_written(identifier[i], identifier[i + 1]) == false)
+		if (ft_isalnum(identifier[i]) == false && identifier[i] != '_' && \
+			!is_append_properly_written(identifier[i], identifier[i + 1]))
 		{
 			*pipex->error_num = 1;
 			return (put_identifier_error(identifier), false);

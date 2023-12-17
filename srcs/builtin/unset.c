@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:36:07 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/16 22:40:10 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/17 15:59:17 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	exec_unset(char **cmd, t_env **env, t_pipex *pipex)
 	i = 0;
 	while (cmd[++i])
 	{
-		if (check_identifier(cmd[i], pipex) == false || is_under_bar(cmd[i]) == true)
+		if (!check_identifier(cmd[i], pipex) || is_under_bar(cmd[i]))
 			continue ;
 		unseted_env = get_old_env_to_be_updated(cmd[i], *env);
 		if (unseted_env == false)
