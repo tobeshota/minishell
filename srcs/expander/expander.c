@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:39:54 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/18 01:41:00 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/18 01:55:58 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ char	*detect_dollar(char *str, char **envp, t_tools *tools)
 	char	*tmp2;
 	char	*tmp3;
 	char	*tmp4;
-	char	*tmp5;
 
 	j = 0;
 	frags = 0;
@@ -107,17 +106,19 @@ char	*detect_dollar(char *str, char **envp, t_tools *tools)
 				free(tmp2);
 				frags = 0;
 			}
+			else
+				j += 2;
 		}
-		else if(str[j] == '\'')
+		else if(str[j] == '\'' && frags == 0)
 		{
 			if(str[j + 1] != '\'')
 			{
 				endpoint = strlen_between_c(str + j, '\'');
 				tmp2 = check_malloc(ft_substr(str, j + 1, endpoint));
-				tmp5 = check_malloc(ft_strjoin("\'", tmp2));
+				tmp3 = check_malloc(ft_strjoin("\'", tmp2));
 				free(tmp2);
-				tmp2 = check_malloc(ft_strjoin(tmp5, "\'"));
-				free(tmp5);
+				tmp2 = check_malloc(ft_strjoin(tmp3, "\'"));
+				free(tmp3);
 				tmp3 = check_malloc(ft_strjoin(tmp, tmp2));
 				free(tmp2);
 				if(tmp)
