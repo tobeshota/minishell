@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:39:54 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/16 23:02:57 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/18 01:11:30 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ char	*detect_dollar(char *str, char **envp)
 				free(tmp2);
 				frags = 0;
 			}
-			j++;
 		}
 		if(str[j] == '\'')
 		{
