@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:39:54 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/18 02:19:23 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/18 02:40:36 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char	*detect_dollar(char *str, char **envp, t_tools *tools)
 			}
 			else
 			{
-				tmp2 = check_malloc(char_to_str('\"'));
+				tmp2 = check_malloc(ft_strdup("\"\""));
 				tmp3 = check_malloc(ft_strjoin(tmp, tmp2));
 				free(tmp);
 				tmp = tmp3;
@@ -101,7 +101,7 @@ char	*detect_dollar(char *str, char **envp, t_tools *tools)
 			}
 			else
 			{
-				tmp2 = check_malloc(char_to_str('\''));
+				tmp2 = check_malloc(ft_strdup("\'\'"));
 				tmp3 = check_malloc(ft_strjoin(tmp, tmp2));
 				free(tmp);
 				tmp = tmp3;

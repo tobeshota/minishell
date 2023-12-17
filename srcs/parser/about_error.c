@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 13:17:23 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/16 11:15:46 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/18 02:27:58 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ bool	check_double_operator(t_simple_cmds *new, t_simple_cmds *tmp,
 
 int	ft_error(int error)
 {
-	g_global.error_num = 1;
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	if (error == 0)
 		ft_putstr_fd("syntax error near unexpected token 'newline'\n",
