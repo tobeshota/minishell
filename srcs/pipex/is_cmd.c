@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_cmd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 23:22:47 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/16 19:50:45 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/17 15:15:49 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,54 +22,48 @@ static bool	is_dir(char *file)
 	return (S_ISDIR(st.st_mode));
 }
 
-static char	*get_argv_wo_param(char **argv, int arg_i)
+static int	is_false(char *cunnret_argv, char *prev_argv)
 {
-	return (check_malloc \
-	(ft_substr(argv[arg_i], 0, strlen_until_c(argv[arg_i], ' '))));
-}
-
-static int	is_false(char **argv, int arg_i)
-{
-	char	*argv_wo_param;
+	char	*current_argv_wo_param;
 	char	*prev_argv_wo_param;
 
-	argv_wo_param = get_argv_wo_param(argv, arg_i);
-	if (is_specified_operators(argv_wo_param))
-		return (free(argv_wo_param), true);
-	if (arg_i > 0)
+	current_argv_wo_param = check_malloc(ft_substr(cunnret_argv, 0, strlen_until_c(cunnret_argv, ' ')));
+	if (is_specified_operators(current_argv_wo_param))
+		return (free(current_argv_wo_param), true);
+	if (prev_argv)
 	{
-		prev_argv_wo_param = get_argv_wo_param(argv, arg_i - 1);
-		if (is_io_file(argv_wo_param, prev_argv_wo_param))
-			return (free(argv_wo_param), free(prev_argv_wo_param), true);
+		prev_argv_wo_param = check_malloc(ft_substr(prev_argv, 0, strlen_until_c(prev_argv, ' ')));
+		if (is_io_file(current_argv_wo_param, prev_argv_wo_param))
+			return (free(current_argv_wo_param), free(prev_argv_wo_param), true);
 		free(prev_argv_wo_param);
 	}
-	return (free(argv_wo_param), false);
+	return (free(current_argv_wo_param), false);
 }
 
-static int	is_arg_determined_wo_path(char **argv, int arg_i, char **h_envp)
+static int	is_arg_determined_wo_path(char *cunnret_argv, char *prev_argv, char **h_envp)
 {
-	if (is_match(*argv, "."))
+	if (is_match(cunnret_argv, "."))
 		return (IS_DOT);
-	if (is_dir(*argv))
+	if (is_dir(cunnret_argv))
 		return (IS_A_DIRECTORY);
-	if (is_file_exectable_wo_additional_path(*argv))
+	if (is_file_exectable_wo_additional_path(cunnret_argv))
 		return (true);
-	if (is_false(argv, arg_i))
+	if (is_false(cunnret_argv, prev_argv))
 		return (false);
 	if (getenv_from_h_envp(h_envp, "PATH") == NULL || \
-	is_match(*argv, "..") || ft_strlen(*argv) == 0)
+	is_match(cunnret_argv, "..") || ft_strlen(cunnret_argv) == 0)
 		return (NOT_FOUND);
 	return (ARG_IS_NOT_DETERMINED_WO_PATH);
 }
 
-int	is_cmd(char **argv, int arg_i, char **h_envp)
+int	is_cmd(char *cunnret_argv, char *prev_argv, char **h_envp)
 {
 	int		ret;
 	char	**path;
 	int		i;
 	char	*tmp;
 
-	ret = is_arg_determined_wo_path(argv, arg_i, h_envp);
+	ret = is_arg_determined_wo_path(cunnret_argv, prev_argv, h_envp);
 	if (ret != ARG_IS_NOT_DETERMINED_WO_PATH)
 		return (ret);
 	path = check_malloc \
@@ -77,7 +71,7 @@ int	is_cmd(char **argv, int arg_i, char **h_envp)
 	i = -1;
 	while (path[++i])
 	{
-		tmp = check_malloc(ft_strjoin(path[i], *argv));
+		tmp = check_malloc(ft_strjoin(path[i], cunnret_argv));
 		if (is_file_exectable(tmp) || free_tab(tmp))
 			return (all_free_tab(path), free(tmp), true);
 	}

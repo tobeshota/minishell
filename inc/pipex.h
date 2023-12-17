@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/16 22:34:03 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/17 15:19:02 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,10 @@ int		get_cmd_absolute_path_count(t_pipex *pipex);
 int		get_builtin_cmd_count(t_pipex *pipex);
 void	get_order(t_env *node);
 int		get_arg_i(int pipe_count, char **argv);
+void	get_argv_wo_param(char **argv, int arg_i, char **cunnret_argv, char **prev_argv);
 char	*getenv_from_h_envp(char **h_envp, char *varname);
 char	*getenv_from_t_env(t_env *env, char *varname);
-int		is_cmd(char **argv, int arg_i, char **h_envp);
+int		is_cmd(char *cunnret_argv, char *prev_argv, char **h_envp);
 bool	is_specified_redirect(char *str);
 bool	is_io_file(char *argv, char *prev_argv);
 bool	get_cmd_absolute_path(char **h_envp, t_pipex *pipex);

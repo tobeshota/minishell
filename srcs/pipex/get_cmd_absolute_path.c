@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/17 00:11:47 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/17 15:43:21 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ static bool	get_cmd_name_from_arg(char **h_envp, t_pipex *pipex)
 	int		cmd_count;
 	int		arg_i;
 	int		cmd_i;
-	char	**cmd_array;
+	char	*cunnret_argv;
+	char	*prev_argv;
 
 	cmd_count = get_cmd_count(pipex, h_envp);
 	if (cmd_count == false)
@@ -28,14 +29,15 @@ static bool	get_cmd_name_from_arg(char **h_envp, t_pipex *pipex)
 	cmd_i = 0;
 	while (pipex->argv[arg_i])
 	{
-		cmd_array = split_wo_enclosed_str(pipex->argv[arg_i], ' ');
-		if (is_cmd(cmd_array, 0, h_envp) == true)
+		get_argv_wo_param(pipex->argv, arg_i, &cunnret_argv, &prev_argv);
+		if (is_cmd(cunnret_argv, prev_argv, h_envp) == true)
 		{
-			pipex->cmd_absolute_path[cmd_i] = check_malloc \
-			(ft_substr(pipex->argv[arg_i], 0, strlen_until_c(pipex->argv[arg_i], ' ')));
+			pipex->cmd_absolute_path[cmd_i] = check_malloc(ft_substr \
+			(pipex->argv[arg_i], 0, strlen_until_c(pipex->argv[arg_i], ' ')));
 			cmd_i++;
 		}
-		all_free_tab(cmd_array);
+		free_tab(cunnret_argv);
+		free_tab(prev_argv);
 		arg_i++;
 	}
 	pipex->cmd_absolute_path[cmd_i] = NULL;
@@ -47,7 +49,8 @@ static char	**get_cmd_parameter(char **h_envp, t_pipex *pipex)
 	int		arg_i;
 	int		cmd_i;
 	char	**cmd_parameter;
-	char	**cmd_array;
+	char	*cunnret_argv;
+	char	*prev_argv;
 
 	arg_i = 0;
 	cmd_i = 0;
@@ -55,14 +58,16 @@ static char	**get_cmd_parameter(char **h_envp, t_pipex *pipex)
 	(malloc(sizeof(char *) * (get_cmd_absolute_path_count(pipex) + 1)));
 	while (pipex->argv[arg_i])
 	{
-		cmd_array = split_wo_enclosed_str(pipex->argv[arg_i], ' ');
-		if (is_cmd(cmd_array, 0, h_envp) == true)
+		get_argv_wo_param(pipex->argv, arg_i, &cunnret_argv, &prev_argv);
+		if (is_cmd(cunnret_argv, prev_argv, h_envp) == true)
 		{
 			cmd_parameter[cmd_i] = check_malloc(ft_substr(pipex->argv[arg_i], \
-			ft_strlen(pipex->cmd_absolute_path[cmd_i]), ft_strlen(pipex->argv[arg_i])));
+			ft_strlen(pipex->cmd_absolute_path[cmd_i]), \
+			ft_strlen(pipex->argv[arg_i])));
 			cmd_i++;
 		}
-		all_free_tab(cmd_array);
+		free_tab(cunnret_argv);
+		free_tab(prev_argv);
 		arg_i++;
 	}
 	cmd_parameter[cmd_i] = NULL;
