@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:39:54 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/18 01:55:58 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/18 02:19:23 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,46 +39,13 @@ size_t	strlen_until_c_expansion(char *str, char c)
 	return (len);
 }
 
-
-int find_matching_quote_expansion(char *str, int j, char **tmp, char **envp)
-{
-	char *tmp2;
-	char *tmp3;
-	char *tmp4;
-	char *tmp5;
-	int 	num;
-	int		num2;
-	int		endpoint;
-	int 	num_tmp = 0;
-	
-	tmp4 = NULL;
-		num = 0;
-	 	if(str[j] == '"')
-		{
-			endpoint = strlen_between_c(str + j, '"');
-			tmp2 = check_malloc(ft_substr(str, j + 1, endpoint));
-			num = loop_if_dollar_sign(envp, tmp2, &tmp4, 0);
-			tmp4 = check_malloc(ft_strjoin("\"" , tmp4));
-			tmp4 = check_malloc(ft_strjoin(tmp4, "\""));
-			tmp3 = check_malloc(ft_strjoin(*tmp, tmp4));
-			free(*tmp);
-			*tmp = tmp3;
-			free(tmp2);
-		}
-		j += num;
-	return (endpoint + 2);
-}
-
 char	*detect_dollar(char *str, char **envp, t_tools *tools)
 {
 	int		j;
-	int 	endpoint;
-	int 	num;
 	int 	frags;
 	char	*tmp;
 	char	*tmp2;
 	char	*tmp3;
-	char	*tmp4;
 
 	j = 0;
 	frags = 0;
@@ -107,14 +74,20 @@ char	*detect_dollar(char *str, char **envp, t_tools *tools)
 				frags = 0;
 			}
 			else
+			{
+				tmp2 = check_malloc(char_to_str('\"'));
+				tmp3 = check_malloc(ft_strjoin(tmp, tmp2));
+				free(tmp);
+				tmp = tmp3;
+				free(tmp2);
 				j += 2;
+			}
 		}
 		else if(str[j] == '\'' && frags == 0)
 		{
 			if(str[j + 1] != '\'')
 			{
-				endpoint = strlen_between_c(str + j, '\'');
-				tmp2 = check_malloc(ft_substr(str, j + 1, endpoint));
+				tmp2 = check_malloc(ft_substr(str, j + 1, strlen_between_c(str + j, '\'')));
 				tmp3 = check_malloc(ft_strjoin("\'", tmp2));
 				free(tmp2);
 				tmp2 = check_malloc(ft_strjoin(tmp3, "\'"));
@@ -124,10 +97,17 @@ char	*detect_dollar(char *str, char **envp, t_tools *tools)
 				if(tmp)
 					free(tmp);
 				tmp = tmp3;
-				j =  j + endpoint + 2;
+				j =  j + strlen_between_c(str + j, '\'') + 2;
 			}
 			else
+			{
+				tmp2 = check_malloc(char_to_str('\''));
+				tmp3 = check_malloc(ft_strjoin(tmp, tmp2));
+				free(tmp);
+				tmp = tmp3;
+				free(tmp2);
 				j += 2;
+			}
 		}
 		else if (str[j] == '$' && str[j + 1] == '?')
 			j += question_mark(&tmp, tools);
