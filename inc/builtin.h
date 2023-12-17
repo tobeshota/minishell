@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 16:15:47 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/16 22:40:55 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/17 16:01:42 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ bool	update_envp(t_env **env, char *varname, char *new_data);
 t_env	*get_old_env_to_be_updated(char *added, t_env *env);
 bool	check_identifier(char *identifier, t_pipex *pipex);
 bool	is_under_bar(char *cmd);
-bool	is_node_first(t_env *node);
-bool	is_node_last(t_env *node);
 
 // split_wo_enclosed_str
 #define SPLITTER 1
