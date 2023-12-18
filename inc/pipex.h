@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/17 15:19:02 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/18 12:00:55 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ bool	add_absolute_path_to_cmd_name(char **h_envp,
 			char ***cmd_absolute_path);
 char	**add_slash_eos(char **path);
 int		get_cmd_arg_fd(t_pipex *pipex, int cmd_i);
-bool	proc_here_doc(char *delimiter, t_pipex *pipex, char **h_envp);
+bool	proc_here_doc(char *delimiter, t_pipex *pipex, char **h_envp, t_tools *tools);
 bool	rm_here_doc(void);
 bool	is_cmd_relative_path(char ***cmd_absolute_path, int cmd_i);
 bool	is_cmd_alreadly_absollute_path(char ***cmd_absolute_path, int cmd_i);
@@ -81,7 +81,7 @@ bool	wait_children(int cmd_i);
 bool	reset_pipex(t_pipex *pipex, int cmd_i);
 int		pipex(char **argv, char **h_envp, t_env **env, t_tools *tools);
 bool	get_pipex(char **argv, char **h_envp, t_pipex *pipex, t_tools *tools);
-bool	do_pipex(char **h_envp, t_env **env, t_pipex *pipex);
+bool	do_pipex(char **h_envp, t_env **env, t_pipex *pipex, t_tools *tools);
 bool	end_pipex(t_pipex *pipex);
 
 // is_specified_file
@@ -92,9 +92,7 @@ bool	is_specified_outfile_apend(char *str);
 bool	is_specified_operators(char *str);
 
 // get_fd
-bool	get_fd(t_pipex *pipex, char **argv, char **h_envp);
-bool	get_infile_fd(t_pipex *pipex, char **argv, char **h_envp);
-bool	get_outfile_fd(t_pipex *pipex, char **argv);
+bool	get_fd(t_pipex *pipex, char **argv, char **h_envp, t_tools *tools);
 
 // is_file_ok
 bool	is_file_exist(char *file);

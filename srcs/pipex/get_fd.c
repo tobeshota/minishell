@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_fd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 01:22:30 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/16 21:56:34 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/18 12:00:03 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	get_arg_i(int pipe_count, char **argv)
 	return (arg_i);
 }
 
-bool	get_infile_fd(t_pipex *pipex, char **argv, char **h_envp)
+static bool	get_infile_fd(t_pipex *pipex, char **argv, char **h_envp, t_tools *tools)
 {
 	int	arg_i;
 
@@ -42,7 +42,7 @@ bool	get_infile_fd(t_pipex *pipex, char **argv, char **h_envp)
 		else if (is_specified_here_doc(argv[arg_i]) && argv[arg_i + 1] \
 		&& is_file_exist(HERE_DOC_FILE_PATH) == false)
 		{
-			if (proc_here_doc(argv[arg_i + 1], pipex, h_envp) == false)
+			if (proc_here_doc(argv[arg_i + 1], pipex, h_envp, tools) == false)
 				return (false);
 		}
 		arg_i++;
@@ -50,7 +50,7 @@ bool	get_infile_fd(t_pipex *pipex, char **argv, char **h_envp)
 	return (true);
 }
 
-bool	get_outfile_fd(t_pipex *pipex, char **argv)
+static bool	get_outfile_fd(t_pipex *pipex, char **argv)
 {
 	int	arg_i;
 
@@ -70,12 +70,12 @@ bool	get_outfile_fd(t_pipex *pipex, char **argv)
 	return (true);
 }
 
-bool	get_fd(t_pipex *pipex, char **argv, char **h_envp)
+bool	get_fd(t_pipex *pipex, char **argv, char **h_envp, t_tools *tools)
 {
 	char	**argv_wo_encloser;
 
 	argv_wo_encloser = omit_array(argv, "\'\"");
-	if (get_infile_fd(pipex, argv_wo_encloser, h_envp) == false)
+	if (get_infile_fd(pipex, argv_wo_encloser, h_envp, tools) == false)
 		return (all_free_tab(argv_wo_encloser), false);
 	if (get_outfile_fd(pipex, argv_wo_encloser) == false)
 		return (all_free_tab(argv_wo_encloser), false);

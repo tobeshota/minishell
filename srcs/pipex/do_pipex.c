@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_pipex.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 22:46:35 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/16 22:34:13 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/18 12:00:57 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static bool	exec(char **h_envp, t_env **env, t_pipex *pipex, int cmd_i)
 		return (do_execve(h_envp, pipex, cmd_i));
 }
 
-bool	do_pipex(char **h_envp, t_env **env, t_pipex *pipex)
+bool	do_pipex(char **h_envp, t_env **env, t_pipex *pipex, t_tools *tools)
 {
 	int		cmd_i;
 	pid_t	child_pid;
@@ -79,7 +79,7 @@ bool	do_pipex(char **h_envp, t_env **env, t_pipex *pipex)
 	cmd_i = -1;
 	while (pipex->cmd_absolute_path[++cmd_i])
 	{
-		if (!get_fd(pipex, pipex->argv + get_arg_i(cmd_i, pipex->argv), h_envp))
+		if (!get_fd(pipex, pipex->argv + get_arg_i(cmd_i, pipex->argv), h_envp, tools))
 			return (false);
 		if (cmd_i < get_pipe_count(pipex->argv) && !get_pipe(pipex, cmd_i))
 			return (false);

@@ -26,7 +26,7 @@ bool	get_pipex(char **argv, char **h_envp, t_pipex *pipex, t_tools *tools)
 	if (init_pipex(pipex, tools) == false)
 		return (false);
 	cp_argv(argv, pipex);
-	if (get_fd(pipex, pipex->argv, h_envp) == false)
+	if (get_fd(pipex, pipex->argv, h_envp, tools) == false)
 		return (false);
 	if (get_cmd_absolute_path(h_envp, pipex) == false)
 		return (false);

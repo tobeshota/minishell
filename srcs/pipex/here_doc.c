@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/16 21:56:35 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/18 11:58:07 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	is_surrounded_by_quotas(char *str)
 	return (false);
 }
 
-static char	*get_expanded_line(char *line, char **h_envp, char *delimiter)
+static char	*get_expanded_line(char *line, char **h_envp, char *delimiter, t_tools *tools)
 {
 	char	*tmp;
 
@@ -38,31 +38,33 @@ static char	*get_expanded_line(char *line, char **h_envp, char *delimiter)
 	if (find_dollar(line) && line[find_dollar(line) - 2] != '\''
 		&& line[find_dollar(line)])
 	{
-		tmp = detect_dollar(line, h_envp);
+		tmp = detect_dollar(line, h_envp, tools);
 		free(line);
 		line = tmp;
 	}
 	return (line);
 }
 
-bool	do_proc_here_doc(char *delimiter, t_pipex *pipex, char **h_envp)
+static bool	do_proc_here_doc(char *delimiter, t_pipex *pipex, char **h_envp, t_tools *tools)
 {
 	char	*line;
 	char	*delimiter_wo_quotas;
 
 	in_cmd = IF_HEREDOC;
-	line = get_expanded_line(readline(HERE_DOC_PROMPT), h_envp, delimiter);
+	line = get_expanded_line \
+	(readline(HERE_DOC_PROMPT), h_envp, delimiter, tools);
 	delimiter_wo_quotas = omit_str(delimiter, "\'\"");
 	while (is_match(line, delimiter_wo_quotas) == false)
 	{
 		ft_putendl_fd(line, pipex->infile_fd);
 		free(line);
-		line = get_expanded_line(readline(HERE_DOC_PROMPT), h_envp, delimiter);
+		line = get_expanded_line \
+		(readline(HERE_DOC_PROMPT), h_envp, delimiter, tools);
 	}
 	return (free(line), free(delimiter_wo_quotas), true);
 }
 
-bool	proc_here_doc(char *delimiter, t_pipex *pipex, char **h_envp)
+bool	proc_here_doc(char *delimiter, t_pipex *pipex, char **h_envp, t_tools *tools)
 {
 	pid_t	child_pid;
 
@@ -73,7 +75,7 @@ bool	proc_here_doc(char *delimiter, t_pipex *pipex, char **h_envp)
 		return (false);
 	if (child_pid == 0)
 	{
-		do_proc_here_doc(delimiter, pipex, h_envp);
+		do_proc_here_doc(delimiter, pipex, h_envp, tools);
 		exit(0);
 	}
 	else
