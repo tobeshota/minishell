@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/18 12:00:55 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/18 14:57:31 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "define.h"
 # include "libft.h"
 # include <stdio.h>
+# include <sys/wait.h>
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <readline/readline.h>
@@ -77,7 +78,7 @@ bool	proc_here_doc(char *delimiter, t_pipex *pipex, char **h_envp, t_tools *tool
 bool	rm_here_doc(void);
 bool	is_cmd_relative_path(char ***cmd_absolute_path, int cmd_i);
 bool	is_cmd_alreadly_absollute_path(char ***cmd_absolute_path, int cmd_i);
-bool	wait_children(int cmd_i);
+bool	wait_children(int cmd_i, t_pipex *pipex);
 bool	reset_pipex(t_pipex *pipex, int cmd_i);
 int		pipex(char **argv, char **h_envp, t_env **env, t_tools *tools);
 bool	get_pipex(char **argv, char **h_envp, t_pipex *pipex, t_tools *tools);
@@ -125,6 +126,7 @@ void	malloc_multiple_pipe(t_pipex *pipex);
 
 // get_child
 bool	get_child(pid_t *child_pid);
+int		get_child_exit_status(int status);
 
 // array_node
 t_env	*array_to_node(char **envp);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/15 09:54:03 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/18 14:57:42 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,18 @@ bool	is_path_found(char *path)
 	return (true);
 }
 
-bool	wait_children(int cmd_i)
+bool	wait_children(int cmd_i, t_pipex *pipex)
 {
 	int	i;
+	int	status;
+	int	ret;
 
 	i = 0;
 	while (i < cmd_i)
 	{
-		if (check_wait(wait(NULL)) == false)
+		ret = wait(&status);
+		*pipex->error_num = get_child_exit_status(status);
+		if (check_wait(ret) == false)
 			return (false);
 		i++;
 	}
