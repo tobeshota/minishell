@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_wildcard.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 16:43:07 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/18 13:05:15 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/18 18:35:28 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,8 +153,10 @@ void	get_wild(t_env **expanded)
 // 	while (true)
 // 	{
 // 		// prefixにマッチしなければ消す
-// 		// if (ft_strncmp((*expanded)->content, prefix, ft_strlen(prefix)) == NULL)
+// 		if (ft_strncmp((*expanded)->content, prefix, ft_strlen(prefix)))
+// 		{
 // 			;
+// 		}
 // 		// backwardにマッチしなければ消す
 // 		if ((*expanded)->next == NULL)
 // 			break;
@@ -219,11 +221,11 @@ void	expand_wildcard(char **h_argv) /* 引数としてヒープ領域で確保�
 {
 	int arg_i;
 
-	arg_i = 0;
-	while (h_argv[arg_i]) /* whileで回して各文字列ごとに変数展開する */
-	{
-		if (is_specified_wildcard(h_argv[arg_i]))
-			expand_argv_w_wildcard(&h_argv[arg_i]); /* argv[arg_i]内のwildcardを変数展開しargv[arg_i]の値を更新する */
-		arg_i++;
-	}
+	// arg_i = 0;
+	// while (h_argv[arg_i]) /* whileで回して各文字列ごとに変数展開する */
+	// {
+	// 	if (is_specified_wildcard(h_argv[arg_i]))
+	// 		expand_argv_w_wildcard(&h_argv[arg_i]); /* argv[arg_i]内のwildcardを変数展開しargv[arg_i]の値を更新する */
+	// 	arg_i++;
+	// }
 }
