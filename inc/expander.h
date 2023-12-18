@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/19 00:22:00 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/19 00:29:14 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int			strlen_between_c(char *str, char c);
 
 // expand_wildcard
 void		expand_wildcard(char **h_argv);
+bool		is_specified_wildcard(char *str);
 void		expand_argv_w_wildcard(char **argv_to_be_updated);
 
 //main_utils

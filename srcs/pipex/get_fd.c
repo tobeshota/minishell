@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_fd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 01:22:30 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/18 17:43:56 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/19 00:26:16 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ int	get_arg_i(int pipe_count, char **argv)
 	return (arg_i);
 }
 
-bool	get_infile_fd(t_pipex *pipex, char **argv, char **h_envp, t_tools *tools)
+bool	get_infile_fd(t_pipex *pipex, char **argv, char **h_envp,
+		t_tools *tools)
 {
 	int	arg_i;
 

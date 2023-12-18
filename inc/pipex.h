@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/19 00:18:38 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/19 00:40:46 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 # include "builtin.h"
 # include "define.h"
 # include "libft.h"
+# include <readline/history.h>
+# include <readline/readline.h>
 # include <stdio.h>
-# include <sys/wait.h>
 # include <sys/stat.h>
 # include <sys/types.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+# include <sys/wait.h>
 
 # define HERE_DOC_FILE_PATH "/tmp/here_doc"
 # define INFILE 0
@@ -67,7 +67,8 @@ int		get_cmd_absolute_path_count(t_pipex *pipex);
 int		get_builtin_cmd_count(t_pipex *pipex);
 void	get_order(t_env *node);
 int		get_arg_i(int pipe_count, char **argv);
-void	get_argv_wo_param(char **argv, int arg_i, char **cunnret_argv, char **prev_argv);
+void	get_argv_wo_param(char **argv, int arg_i, char **cunnret_argv,
+			char **prev_argv);
 char	*getenv_from_h_envp(char **h_envp, char *varname);
 char	*getenv_from_t_env(t_env *env, char *varname);
 int		is_cmd(char *cunnret_argv, char *prev_argv, char **h_envp);
@@ -78,7 +79,8 @@ bool	add_absolute_path_to_cmd_name(char **h_envp,
 			char ***cmd_absolute_path);
 char	**add_slash_eos(char **path);
 int		get_cmd_arg_fd(t_pipex *pipex, int cmd_i);
-bool	proc_here_doc(char *delimiter, t_pipex *pipex, char **h_envp, t_tools *tools);
+bool	proc_here_doc(char *delimiter, t_pipex *pipex, char **h_envp,
+			t_tools *tools);
 bool	rm_here_doc(void);
 bool	is_cmd_relative_path(char ***cmd_absolute_path, int cmd_i);
 bool	is_cmd_alreadly_absollute_path(char ***cmd_absolute_path, int cmd_i);
@@ -98,7 +100,8 @@ bool	is_specified_operators(char *str);
 
 // get_fd
 bool	get_fd(t_pipex *pipex, char **argv, char **h_envp, t_tools *tools);
-bool	get_infile_fd(t_pipex *pipex, char **argv, char **h_envp, t_tools *tools);
+bool	get_infile_fd(t_pipex *pipex, char **argv, char **h_envp,
+			t_tools *tools);
 bool	get_outfile_fd(t_pipex *pipex, char **argv);
 
 // is_file_ok
@@ -158,15 +161,14 @@ void	unset_first_node(t_env **unseted_env, t_env **env);
 void	unset_last_node(t_env **unseted_env);
 void	unset_middle_node(t_env *unseted_env);
 
-
-
 void	put_node_for_debug(t_env *node);
 void	put_array_for_debug(char **str);
 
 // loop_pipex
 int		loop_pipex(t_tools *tools, t_env **env);
 void	get_loop_pipex(char **argv, char ****splitted_argv, char ***splitter);
-int		do_loop_pipex(char ***splitted_argv, char **splitter, t_env **env, t_tools *tools);
+int		do_loop_pipex(char ***splitted_argv, char **splitter, t_env **env,
+			t_tools *tools);
 void	end_loop_pipex(char ***splitted_argv, char **splitter);
 char	***get_splitted_argv(char **argv);
 char	**get_splitter(char **argv);
@@ -178,7 +180,8 @@ bool	is_splitter_exist(char **argv);
 void	put_error(char *err_msg);
 void	put_error_w_cmd(char *cmd, char *error_msg);
 void	put_error_w_file(char *file, char *error_msg);
-void	put_error_w_cmd_filename(char *cmd, char *file, char *error_msg, t_pipex *pipex);
+void	put_error_w_cmd_filename(char *cmd, char *file, char *error_msg,
+			t_pipex *pipex);
 int		put_file_error(char *cmd, char *file, t_pipex *pipex);
 
 #endif

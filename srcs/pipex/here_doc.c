@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/18 17:45:51 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/19 00:26:45 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static int	is_surrounded_by_quotas(char *str)
 	return (false);
 }
 
-static char	*get_expanded_line(char *line, char **h_envp, char *delimiter, t_tools *tools)
+static char	*get_expanded_line(char *line, char **h_envp, char *delimiter,
+		t_tools *tools)
 {
 	char	*tmp;
 
@@ -45,7 +46,8 @@ static char	*get_expanded_line(char *line, char **h_envp, char *delimiter, t_too
 	return (line);
 }
 
-static bool	do_proc_here_doc(char *delimiter, t_pipex *pipex, char **h_envp, t_tools *tools)
+static bool	do_proc_here_doc(char *delimiter, t_pipex *pipex, char **h_envp,
+		t_tools *tools)
 {
 	char	*line;
 	char	*delimiter_wo_quotas;
@@ -64,7 +66,8 @@ static bool	do_proc_here_doc(char *delimiter, t_pipex *pipex, char **h_envp, t_t
 	return (free(line), free(delimiter_wo_quotas), true);
 }
 
-bool	proc_here_doc(char *delimiter, t_pipex *pipex, char **h_envp, t_tools *tools)
+bool	proc_here_doc(char *delimiter, t_pipex *pipex, char **h_envp,
+		t_tools *tools)
 {
 	pid_t	child_pid;
 

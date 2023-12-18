@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 16:15:47 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/17 16:01:42 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/19 00:40:55 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ bool	check_identifier(char *identifier, t_pipex *pipex);
 bool	is_under_bar(char *cmd);
 
 // split_wo_enclosed_str
-#define SPLITTER 1
-#define ENCLOSER 1
-#define BEGINNING_OF_ENCLOSER 1
-#define END_OF_ENCLOSER 1
+# define SPLITTER 1
+# define ENCLOSER 1
+# define BEGINNING_OF_ENCLOSER 1
+# define END_OF_ENCLOSER 1
 
 char	**split_wo_enclosed_str(char *str, char splitter);
 void	split_str_according_to_encloser(char **str, t_env **node_cmd, int i);
