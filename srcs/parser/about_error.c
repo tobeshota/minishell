@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 13:17:23 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/18 02:27:58 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/18 18:01:04 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	ft_error(int error)
 {
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	if (error == 0)
-		ft_putstr_fd("syntax error near unexpected token 'newline'\n",
+		ft_putstr_fd("syntax error near unexpected token `newline'\n",
 			STDERR_FILENO);
 	else if (error == 1)
 		ft_putstr_fd("memory error: unable to assign memory\n", STDERR_FILENO);
@@ -58,7 +58,6 @@ int	ft_error(int error)
 
 void	parser_error(int error, t_tools *tools)
 {
-	// free_tools(tools);
 	free(tools->str);
 	ft_simple_cmdsclear(&tools->simple_cmds);
 	ft_lexerclear(&tools->lexer_list);
@@ -67,24 +66,25 @@ void	parser_error(int error, t_tools *tools)
 
 int	parser_token_error(t_tools *tools, t_lexer *lexer_list, t_tokens token)
 {
+	tools->error_num = 258;
 	ft_putstr_fd("minishell: syntax error near unexpected token ",
 		STDERR_FILENO);
 	if (token == GREAT)
-		ft_putstr_fd("'>'\n", STDERR_FILENO);
+		ft_putstr_fd("`>'\n", STDERR_FILENO);
 	else if (token == GREAT_GREAT)
-		ft_putstr_fd("'>>'\n", STDERR_FILENO);
+		ft_putstr_fd("`>>'\n", STDERR_FILENO);
 	else if (token == LESS)
-		ft_putstr_fd("'<'\n", STDERR_FILENO);
+		ft_putstr_fd("`<'\n", STDERR_FILENO);
 	else if (token == LESS_LESS)
-		ft_putstr_fd("'<<'\n", STDERR_FILENO);
+		ft_putstr_fd("`<<'\n", STDERR_FILENO);
 	else if (token == PIPE)
-		ft_putstr_fd("'|'\n", STDERR_FILENO);
+		ft_putstr_fd("`|'\n", STDERR_FILENO);
 	else if (token == SEMICOLON)
-		ft_putstr_fd("';'\n", STDERR_FILENO);
+		ft_putstr_fd("`;'\n", STDERR_FILENO);
 	else if (token == AND_AND)
-		ft_putstr_fd("'&&'\n", STDERR_FILENO);
+		ft_putstr_fd("`&&'\n", STDERR_FILENO);
 	else if (token == OR_OR)
-		ft_putstr_fd("'||'\n", STDERR_FILENO);
+		ft_putstr_fd("`||'\n", STDERR_FILENO);
 	else
 		ft_putstr_fd("\n", STDERR_FILENO);
 	ft_lexerclear(&tools->lexer_list);

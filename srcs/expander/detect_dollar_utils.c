@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 09:35:08 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/18 01:46:48 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/18 17:56:16 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 bool	title(char *str, int j)
 {
 	return (str[j] == '$'
-		&& (str[j + 1] != ' '  && (str[j + 1] != '"' || str[j + 2] != '\0'))
+		&& (str[j + 1] != ' ' && (str[j + 1] != '"' || str[j + 2] != '\0'))
 		&& str[j + 1] != '\0');
 }
 
@@ -47,7 +47,7 @@ size_t	find_dollar(char *str)
 	return (0);
 }
 
-int		loop_if_dollar_sign(char **envp, char *str, char **tmp, int j)
+int	loop_if_dollar_sign(char **envp, char *str, char **tmp, int j)
 {
 	int		k;
 	int		ret;
@@ -87,4 +87,3 @@ int	question_mark(char **tmp, t_tools *tools)
 	free(tmp2);
 	return (2);
 }
-

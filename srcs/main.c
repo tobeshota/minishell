@@ -167,7 +167,7 @@ int	handle_input(t_tools *tools, t_env **env)
 		h_envp = node_to_array(*env);
 		tools->simple_cmds->str = expander(tools, tools->tmp_array, h_envp);
 		all_free_tab(h_envp);
-		// put_arg_for_debug(tools->tmp_array);
+		put_arg_for_debug(tools->tmp_array);
 		in_cmd = IN_CMD;
 		tools->error_num = loop_pipex(tools, env);
 		free_tools(tools);
