@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/18 23:48:41 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/19 00:18:38 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,12 @@ int		free_tab(char *ptr);
 void	all_free_tab(char **ptr);
 void	all_free_int(int **ptr);
 size_t	strlen_until_c(char *str, char c);
+int		ft_strrncmp(const char *s1, const char *s2, size_t n);
+char	*double_to_sigle(char **array, char splitter);
 void	*check_malloc(void *ptr);
 bool	check_getenv(char *ptr);
+bool	check_opendir(DIR *dir, char *path);
+bool	check_closedir(int ret);
 bool	check_open(int fd, char *file, t_pipex *pipex);
 bool	check_close(int ret);
 bool	check_pipe(int ret);
@@ -145,12 +149,15 @@ void	ft_nodeprev(t_env **node);
 void	ft_nodefirst(t_env **node);
 t_env	*ft_nodelast(t_env *node);
 int		ft_nodesize(t_env *node);
+void	ft_nodesort(t_env **node);
+void	ft_nodeswap(t_env *n1, t_env *n2);
 bool	is_node_first(t_env *node);
 bool	is_node_last(t_env *node);
 bool	is_node_only_one(t_env *node);
 void	unset_first_node(t_env **unseted_env, t_env **env);
 void	unset_last_node(t_env **unseted_env);
 void	unset_middle_node(t_env *unseted_env);
+
 
 
 void	put_node_for_debug(t_env *node);

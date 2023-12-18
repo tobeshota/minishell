@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/18 18:12:01 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/19 00:22:00 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int			strlen_between_c(char *str, char c);
 
 // expand_wildcard
 void		expand_wildcard(char **h_argv);
+void		expand_argv_w_wildcard(char **argv_to_be_updated);
 
 //main_utils
 bool		ft_simple_cmdsclear(t_simple_cmds **lst);

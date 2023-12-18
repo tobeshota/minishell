@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/10 22:27:11 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/19 00:12:12 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,25 @@ char	*getenv_from_t_env(t_env *env, char *varname)
 		return (env->content);
 	else
 		return (NULL);
+}
+
+int	ft_strrncmp(const char *s1, const char *s2, size_t n)
+{
+	size_t	s1_i;
+	size_t	s2_i;
+	size_t	count;
+
+	s1_i = ft_strlen(s1) - 1;
+	s2_i = ft_strlen(s2) - 1;
+	count = 0;
+	if (n == 0)
+		return (0);
+	while (s1[s1_i] && s2[s2_i] && s1[s1_i] == s2[s2_i] && count < n - 1
+		&& s1_i != 0 && s2_i != 0)
+	{
+		s1_i--;
+		s2_i--;
+		count++;
+	}
+	return ((unsigned char)s1[s1_i] - (unsigned char)s2[s2_i]);
 }

@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   check_func3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 12:04:48 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/16 22:34:53 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/19 00:18:49 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+bool	check_opendir(DIR *dir, char *path)
+{
+	if (dir == NULL)
+		return (put_error_w_file(path, strerror(errno)), false);
+	return (true);
+}
+
+bool	check_closedir(int ret)
+{
+	if (ret == -1)
+		return (ft_putendl_fd(strerror(errno), STDERR_FILENO), false);
+	return (true);
+}
 
 bool	check_execve(int ret, char *cmd, t_pipex *pipex)
 {
@@ -35,40 +49,6 @@ bool	check_exec_builtin(int ret, char *cmd, t_pipex *pipex)
 		else
 			put_error("failed to exec_builtin\n");
 		*pipex->error_num = 126;
-		return (false);
-	}
-	return (true);
-}
-
-bool	check_is_dir(char *filename, int ret, t_pipex *pipex)
-{
-	if (ret == IS_A_DIRECTORY)
-	{
-		put_error_w_cmd(filename, "is a directory");
-		*pipex->error_num = 126;
-		return (false);
-	}
-	return (true);
-}
-
-bool	check_cmd_exist(char *filename, int ret, t_pipex *pipex)
-{
-	if (ret == NOT_FOUND)
-	{
-		put_error_w_cmd(filename, "command not found");
-		*pipex->error_num = 127;
-		return (false);
-	}
-	return (true);
-}
-
-bool	check_is_dot(int ret, t_pipex *pipex)
-{
-	if (ret == IS_DOT)
-	{
-		put_error("minishell: .: filename argument required\n.\
-		: usage: . filename [arguments]\n");
-		*pipex->error_num = 2;
 		return (false);
 	}
 	return (true);
