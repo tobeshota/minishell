@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 16:43:07 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/18 22:42:23 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/18 22:47:08 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,23 +179,20 @@ void	expand_argv_param_w_wildcard(t_env *node)
 	char	*prefix;	/* 前方一致文字 */
 	char	*backward;	/* 後方一致文字 */
 	t_env	*expanded;
+	char	**array;
 
 	prefix = check_malloc(ft_substr(node->content, 0, strlen_until_c(node->content, '*')));    /* 前方一致文字を取得する */
 	backward = check_malloc(ft_strdup(ft_strrchr(node->content, '*') + 1));/* 後方一致文字を取得する */
 	expanded = NULL;
 // ft_printf("{%s}{%s}\n", prefix, backward);
-
-	/* ワイルドカードを展開しexpandedに入れる */
-	get_wild(&expanded);
-	/* expandedをascii順に昇順ソートする */
-	ft_nodesort(&expanded);
-	/* expandedの各contentのうち，prefixとbackwardのマッチ条件に該当しないものを削除する */
-	expanded = del_unmatched_node(expanded, prefix, backward);
-put_node_for_debug(expanded);
-	/* expandedの各contentを二重配列にする */
-	/* 二重配列をスペース区切りの一重配列にする */
-	/* node->contentに一重配列を代入する */
-	return free(prefix), free(backward), ft_nodeclear(&expanded);
+	get_wild(&expanded);	/* ワイルドカードを展開しexpandedに入れる */
+	ft_nodesort(&expanded);	/* expandedをascii順に昇順ソートする */
+	expanded = del_unmatched_node(expanded, prefix, backward);	/* expandedの各contentのうち，prefixとbackwardのマッチ条件に該当しないものを削除する */
+// put_node_for_debug(expanded);
+	array = node_to_array(expanded);	/* expandedの各contentを二重配列にする */
+	free(node->content);	/* 二重配列をスペース区切りの一重配列にする */
+	node->content = double_to_sigle(array, ' ');	/* node->contentに一重配列を代入する */
+	return free(prefix), free(backward), ft_nodeclear(&expanded), all_free_tab(array);
 }
 
 /*
