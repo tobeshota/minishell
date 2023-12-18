@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:36:07 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/18 21:08:20 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/18 22:33:46 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,11 @@ void	unset_first_node(t_env **unseted_env, t_env **env)
 
 void	unset_last_node(t_env **unseted_env)
 {
-	(*unseted_env)->prev->next = NULL;
-	ft_nodedelone(unseted_env);
+	*unseted_env = (*unseted_env)->prev;
+	ft_nodedelone(&(*unseted_env)->next);
+
+	// (*unseted_env)->prev->next = NULL;
+	// ft_nodedelone(unseted_env);
 }
 
 void	unset_middle_node(t_env *unseted_env)

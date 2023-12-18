@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 16:43:07 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/18 18:35:28 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/18 22:42:23 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,24 +146,33 @@ void	get_wild(t_env **expanded)
 通常 : 隠しファイル以外が検索対象
 .* : 隠しファイルのみ検索対象
  */
-// void	del_unmatched_node(t_env **expanded, char *prefix, char *backward)
-// {
-// 	;
-// 	// expandの各要素をwhileループで見ていく
-// 	while (true)
-// 	{
-// 		// prefixにマッチしなければ消す
-// 		if (ft_strncmp((*expanded)->content, prefix, ft_strlen(prefix)))
-// 		{
-// 			;
-// 		}
-// 		// backwardにマッチしなければ消す
-// 		if ((*expanded)->next == NULL)
-// 			break;
-// 		*expanded = (*expanded)->next;
-// 	}
-// 	return ft_nodefirst(expanded);
-// }
+t_env	*del_unmatched_node(t_env *expanded, char *prefix, char *backward)
+{
+	// expandの各要素をwhileループで見ていく
+	while (true)
+	{
+		// prefixにマッチしない，または，backwardにマッチしないならば消す
+		if (ft_strncmp(expanded->content, prefix, ft_strlen(prefix)))
+		{
+			if (is_node_last(expanded) == true)
+				unset_last_node(&expanded);
+			else if (is_node_first(expanded) == true)
+			{
+				unset_first_node(&expanded, NULL);
+				continue ;
+			}
+			else
+				unset_middle_node(expanded);
+		}
+		if (expanded->next == NULL)
+			break;
+		expanded = expanded->next;
+	}
+	ft_nodefirst(&expanded);
+	// ft_printf("━━━━━━━━━━━━━━━\n");
+	// put_node_for_debug(expanded);
+	return expanded;
+}
 
 void	expand_argv_param_w_wildcard(t_env *node)
 {
@@ -181,7 +190,8 @@ void	expand_argv_param_w_wildcard(t_env *node)
 	/* expandedをascii順に昇順ソートする */
 	ft_nodesort(&expanded);
 	/* expandedの各contentのうち，prefixとbackwardのマッチ条件に該当しないものを削除する */
-	// del_unmatched_node(&expanded, prefix, backward);
+	expanded = del_unmatched_node(expanded, prefix, backward);
+put_node_for_debug(expanded);
 	/* expandedの各contentを二重配列にする */
 	/* 二重配列をスペース区切りの一重配列にする */
 	/* node->contentに一重配列を代入する */
@@ -221,11 +231,11 @@ void	expand_wildcard(char **h_argv) /* 引数としてヒープ領域で確保�
 {
 	int arg_i;
 
-	// arg_i = 0;
-	// while (h_argv[arg_i]) /* whileで回して各文字列ごとに変数展開する */
-	// {
-	// 	if (is_specified_wildcard(h_argv[arg_i]))
-	// 		expand_argv_w_wildcard(&h_argv[arg_i]); /* argv[arg_i]内のwildcardを変数展開しargv[arg_i]の値を更新する */
-	// 	arg_i++;
-	// }
+	arg_i = 0;
+	while (h_argv[arg_i]) /* whileで回して各文字列ごとに変数展開する */
+	{
+		if (is_specified_wildcard(h_argv[arg_i]))
+			expand_argv_w_wildcard(&h_argv[arg_i]); /* argv[arg_i]内のwildcardを変数展開しargv[arg_i]の値を更新する */
+		arg_i++;
+	}
 }
