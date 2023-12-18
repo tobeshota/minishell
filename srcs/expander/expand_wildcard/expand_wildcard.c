@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 16:43:07 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/18 22:47:08 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/19 00:07:51 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,19 +142,60 @@ void	get_wild(t_env **expanded)
 	get_order(*expanded);
 }
 
+int	ft_strrncmp(const char *s1, const char *s2, size_t n)
+{
+	size_t	s1_i;
+	size_t	s2_i;
+	size_t	count;
+
+	s1_i = ft_strlen(s1) - 1;
+	s2_i = ft_strlen(s2) - 1;
+	count = 0;
+	if (n == 0)
+		return 0;
+	while (s1[s1_i] && s2[s2_i] && s1[s1_i] == s2[s2_i] && count < n - 1 && s1_i != 0 && s2_i != 0)
+	{
+		s1_i--;
+		s2_i--;
+		count++;
+	}
+	return (unsigned char)s1[s1_i] - (unsigned char)s2[s2_i];
+}
+
+static bool	is_pattern_match(char *content, char *prefix, char *backward)
+{
+	int	ret;
+
+	if (is_match(prefix, ".") == true)
+		ret = !ft_strncmp(content, ".", 1);
+	else
+		ret = ft_strncmp(content, ".", 1);
+	if (prefix[0] == '\0' && backward[0] == '\0')
+		return ret;
+	if (prefix[0] == '\0')
+		return ret && !ft_strrncmp(content, backward, ft_strlen(backward));
+	if (backward[0] == '\0')
+		return ret && !ft_strncmp(content, prefix, ft_strlen(prefix));
+	else
+		return ret && !ft_strncmp(content, prefix, ft_strlen(prefix)) && \
+		!ft_strrncmp(content, backward, ft_strlen(backward));
+}
+
+
+
 /* expandedの各contentのうち，prefixとbackwardのマッチ条件に該当しないものを削除する
 通常 : 隠しファイル以外が検索対象
 .* : 隠しファイルのみ検索対象
  */
 t_env	*del_unmatched_node(t_env *expanded, char *prefix, char *backward)
 {
-	// expandの各要素をwhileループで見ていく
 	while (true)
 	{
-		// prefixにマッチしない，または，backwardにマッチしないならば消す
-		if (ft_strncmp(expanded->content, prefix, ft_strlen(prefix)))
+		if (is_pattern_match(expanded->content, prefix, backward) == false)
 		{
-			if (is_node_last(expanded) == true)
+			if (is_node_only_one(expanded) == true)
+				return ft_nodedelone(&expanded), NULL;
+			else if (is_node_last(expanded) == true)
 				unset_last_node(&expanded);
 			else if (is_node_first(expanded) == true)
 			{
@@ -169,26 +210,25 @@ t_env	*del_unmatched_node(t_env *expanded, char *prefix, char *backward)
 		expanded = expanded->next;
 	}
 	ft_nodefirst(&expanded);
-	// ft_printf("━━━━━━━━━━━━━━━\n");
-	// put_node_for_debug(expanded);
 	return expanded;
 }
 
 void	expand_argv_param_w_wildcard(t_env *node)
 {
-	char	*prefix;	/* 前方一致文字 */
-	char	*backward;	/* 後方一致文字 */
+	char	*prefix;
+	char	*backward;
 	t_env	*expanded;
 	char	**array;
 
-	prefix = check_malloc(ft_substr(node->content, 0, strlen_until_c(node->content, '*')));    /* 前方一致文字を取得する */
-	backward = check_malloc(ft_strdup(ft_strrchr(node->content, '*') + 1));/* 後方一致文字を取得する */
+	prefix = check_malloc(ft_substr(node->content, 0, strlen_until_c(node->content, '*')));
+	backward = check_malloc(ft_strdup(ft_strrchr(node->content, '*') + 1));
 	expanded = NULL;
 // ft_printf("{%s}{%s}\n", prefix, backward);
 	get_wild(&expanded);	/* ワイルドカードを展開しexpandedに入れる */
 	ft_nodesort(&expanded);	/* expandedをascii順に昇順ソートする */
 	expanded = del_unmatched_node(expanded, prefix, backward);	/* expandedの各contentのうち，prefixとbackwardのマッチ条件に該当しないものを削除する */
-// put_node_for_debug(expanded);
+	if (expanded == NULL)
+		return free(prefix), free(backward);
 	array = node_to_array(expanded);	/* expandedの各contentを二重配列にする */
 	free(node->content);	/* 二重配列をスペース区切りの一重配列にする */
 	node->content = double_to_sigle(array, ' ');	/* node->contentに一重配列を代入する */

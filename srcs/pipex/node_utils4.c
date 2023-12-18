@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   node_utils3.c                                      :+:      :+:    :+:   */
+/*   node_utils4.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/27 17:36:07 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/18 23:49:14 by toshota          ###   ########.fr       */
+/*   Created: 2023/12/18 23:47:46 by toshota           #+#    #+#             */
+/*   Updated: 2023/12/18 23:49:18 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-bool	is_node_first(t_env *node)
+void	unset_first_node(t_env **unseted_env, t_env **env)
 {
-	return (node->prev == NULL);
+	*unseted_env = (*unseted_env)->next;
+	ft_nodedelone(&(*unseted_env)->prev);
+	ft_nodenext(env);
 }
 
-bool	is_node_last(t_env *node)
+void	unset_last_node(t_env **unseted_env)
 {
-	return (node->next == NULL);
+	*unseted_env = (*unseted_env)->prev;
+	ft_nodedelone(&(*unseted_env)->next);
 }
 
-bool	is_node_only_one(t_env *node)
+void	unset_middle_node(t_env *unseted_env)
 {
-	return (is_node_first(node) && is_node_last(node));
+	unseted_env->prev->next = unseted_env->next;
+	unseted_env->next->prev = unseted_env->prev;
+	ft_nodedelone(&unseted_env);
 }
