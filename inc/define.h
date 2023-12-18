@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   define.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 13:12:10 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/16 21:32:25 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/18 02:27:18 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,14 +111,6 @@ typedef struct s_env
 	t_env					*next;
 	t_env					*prev;
 }							t_env;
-
-//signal
-typedef struct s_global
-{
-	int						error_num;
-}							t_global;
-
-t_global					g_global;
 
 extern int						in_cmd;
 

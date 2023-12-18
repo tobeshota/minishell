@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 09:57:45 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/16 16:50:41 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/18 02:27:41 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	sigint_handler(int sig)
 {
 	if (in_cmd == IF_HEREDOC)
 	{
-		g_global.error_num = 1;
 		exit(1);
 		return ;
 	}
@@ -48,16 +47,6 @@ void	sigquit_handler(int sig)
 
 void	signal_init_main(t_tools *tools)
 {
-	if (in_cmd == SIGINT)
-	{
-		g_global.error_num = 130;
-		tools->error_num = 130;
-	}
-	else if(in_cmd == SIGQUIT)
-	{
-		g_global.error_num = 131;
-		tools->error_num = 131;
-	}
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
 }

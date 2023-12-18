@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/18 10:25:24 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/18 11:51:46 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ size_t		quotes_lenght(char *str);
 size_t		find_equal(char *str);
 size_t		find_dollar(char *str);
 int			loop_if_dollar_sign(char **envp, char *str, char **tmp, int j);
-int			question_mark(char **tmp);
+int			question_mark(char **tmp, t_tools *tools);
 char		*delete_quotes(char *str, char c);
-char		*detect_dollar(char *str, char **envp);
+char		*detect_dollar(char *str, char **envp, t_tools *tools);
 int			handle_digit_after_dollar(int j, char *str);
 bool		title(char *str, int j);
 
