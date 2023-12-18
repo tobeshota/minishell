@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/18 11:58:07 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/18 15:02:47 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ bool	proc_here_doc(char *delimiter, t_pipex *pipex, char **h_envp, t_tools *tool
 		pipex->infile_fd = open_file(HERE_DOC_FILE_PATH, INFILE_HERE_DOC);
 		if (check_open(pipex->infile_fd, "here_doc", pipex) == false)
 			return (false);
-		return (wait_children(CHILD_NUM));
+		return (wait_children(CHILD_NUM, pipex));
 	}
 }
 
