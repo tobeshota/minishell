@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/18 18:31:06 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/18 21:08:39 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,7 @@ bool	is_node_first(t_env *node);
 bool	is_node_last(t_env *node);
 void	unset_first_node(t_env **unseted_env, t_env **env);
 void	unset_last_node(t_env **unseted_env);
+void	unset_middle_node(t_env *unseted_env);
 
 void	put_node_for_debug(t_env *node);
 void	put_array_for_debug(char **str);
