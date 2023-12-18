@@ -3,32 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:36:07 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/17 16:09:46 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/18 12:21:06 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
-static bool	is_node_last(t_env *node)
+bool	is_node_last(t_env *node)
 {
 	return (node->next == NULL);
 }
 
-static void	unset_last_node(t_env *unseted_env)
+void	unset_last_node(t_env *unseted_env)
 {
 	unseted_env->prev->next = NULL;
 	ft_nodedelone(&unseted_env);
 }
 
-static bool	is_node_first(t_env *node)
+bool	is_node_first(t_env *node)
 {
 	return (node->prev == NULL);
 }
 
-static void	unset_first_node(t_env *unseted_env, t_env **env)
+void	unset_first_node(t_env *unseted_env, t_env **env)
 {
 	unseted_env = unseted_env->next;
 	ft_nodedelone(&unseted_env->prev);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_wildcard.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 16:43:07 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/18 12:08:50 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/18 13:05:15 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,11 +142,26 @@ void	get_wild(t_env **expanded)
 	get_order(*expanded);
 }
 
-/* expandedの各contentのうち，prefixとbackwardのマッチ条件に該当しないものを削除する */
-void	del_unmatched_node(t_env **expanded, char *prefix, char *backward)
-{
-	;
-}
+/* expandedの各contentのうち，prefixとbackwardのマッチ条件に該当しないものを削除する
+通常 : 隠しファイル以外が検索対象
+.* : 隠しファイルのみ検索対象
+ */
+// void	del_unmatched_node(t_env **expanded, char *prefix, char *backward)
+// {
+// 	;
+// 	// expandの各要素をwhileループで見ていく
+// 	while (true)
+// 	{
+// 		// prefixにマッチしなければ消す
+// 		// if (ft_strncmp((*expanded)->content, prefix, ft_strlen(prefix)) == NULL)
+// 			;
+// 		// backwardにマッチしなければ消す
+// 		if ((*expanded)->next == NULL)
+// 			break;
+// 		*expanded = (*expanded)->next;
+// 	}
+// 	return ft_nodefirst(expanded);
+// }
 
 void	expand_argv_param_w_wildcard(t_env *node)
 {
@@ -164,7 +179,7 @@ void	expand_argv_param_w_wildcard(t_env *node)
 	/* expandedをascii順に昇順ソートする */
 	ft_nodesort(&expanded);
 	/* expandedの各contentのうち，prefixとbackwardのマッチ条件に該当しないものを削除する */
-	del_unmatched_node(&expanded, prefix, backward);
+	// del_unmatched_node(&expanded, prefix, backward);
 	/* expandedの各contentを二重配列にする */
 	/* 二重配列をスペース区切りの一重配列にする */
 	/* node->contentに一重配列を代入する */

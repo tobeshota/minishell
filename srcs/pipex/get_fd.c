@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 01:22:30 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/18 13:50:03 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/18 17:43:56 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	get_arg_i(int pipe_count, char **argv)
 	return (arg_i);
 }
 
-static bool	get_infile_fd(t_pipex *pipex, char **argv, char **h_envp, t_tools *tools)
+bool	get_infile_fd(t_pipex *pipex, char **argv, char **h_envp, t_tools *tools)
 {
 	int	arg_i;
 
@@ -39,8 +39,7 @@ static bool	get_infile_fd(t_pipex *pipex, char **argv, char **h_envp, t_tools *t
 			if (check_open(pipex->infile_fd, argv[arg_i + 1], pipex) == false)
 				return (false);
 		}
-		else if (is_specified_here_doc(argv[arg_i]) && argv[arg_i + 1] \
-		&& is_file_exist(HERE_DOC_FILE_PATH) == false)
+		else if (is_specified_here_doc(argv[arg_i]) && argv[arg_i + 1])
 		{
 			if (proc_here_doc(argv[arg_i + 1], pipex, h_envp, tools) == false)
 				return (false);
@@ -50,7 +49,7 @@ static bool	get_infile_fd(t_pipex *pipex, char **argv, char **h_envp, t_tools *t
 	return (true);
 }
 
-static bool	get_outfile_fd(t_pipex *pipex, char **argv)
+bool	get_outfile_fd(t_pipex *pipex, char **argv)
 {
 	int	arg_i;
 

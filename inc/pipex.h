@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/18 14:57:31 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/18 17:44:03 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ bool	is_specified_operators(char *str);
 
 // get_fd
 bool	get_fd(t_pipex *pipex, char **argv, char **h_envp, t_tools *tools);
+bool	get_infile_fd(t_pipex *pipex, char **argv, char **h_envp, t_tools *tools);
+bool	get_outfile_fd(t_pipex *pipex, char **argv);
 
 // is_file_ok
 bool	is_file_exist(char *file);
