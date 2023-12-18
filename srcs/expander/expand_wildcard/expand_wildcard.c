@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 16:43:07 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/18 11:49:42 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/18 12:08:50 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,8 +140,12 @@ void	get_wild(t_env **expanded)
 	}
 	check_closedir(closedir(dir));
 	get_order(*expanded);
-	ft_nodesort(expanded);
-	// put_node_for_debug(*expanded);
+}
+
+/* expandedの各contentのうち，prefixとbackwardのマッチ条件に該当しないものを削除する */
+void	del_unmatched_node(t_env **expanded, char *prefix, char *backward)
+{
+	;
 }
 
 void	expand_argv_param_w_wildcard(t_env *node)
@@ -158,7 +162,9 @@ void	expand_argv_param_w_wildcard(t_env *node)
 	/* ワイルドカードを展開しexpandedに入れる */
 	get_wild(&expanded);
 	/* expandedをascii順に昇順ソートする */
+	ft_nodesort(&expanded);
 	/* expandedの各contentのうち，prefixとbackwardのマッチ条件に該当しないものを削除する */
+	del_unmatched_node(&expanded, prefix, backward);
 	/* expandedの各contentを二重配列にする */
 	/* 二重配列をスペース区切りの一重配列にする */
 	/* node->contentに一重配列を代入する */
