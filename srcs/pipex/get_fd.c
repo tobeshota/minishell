@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_fd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 01:22:30 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/18 12:00:03 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/18 13:50:03 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,9 @@ bool	get_fd(t_pipex *pipex, char **argv, char **h_envp, t_tools *tools)
 	char	**argv_wo_encloser;
 
 	argv_wo_encloser = omit_array(argv, "\'\"");
-	if (get_infile_fd(pipex, argv_wo_encloser, h_envp, tools) == false)
-		return (all_free_tab(argv_wo_encloser), false);
 	if (get_outfile_fd(pipex, argv_wo_encloser) == false)
+		return (all_free_tab(argv_wo_encloser), false);
+	if (get_infile_fd(pipex, argv_wo_encloser, h_envp, tools) == false)
 		return (all_free_tab(argv_wo_encloser), false);
 	return (all_free_tab(argv_wo_encloser), true);
 }
