@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:39:54 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/16 23:02:57 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/17 22:17:32 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int find_matching_quote_expansion(char *str, int j, char **tmp, char **envp)
 	int		num2;
 	int		endpoint;
 	int 	num_tmp = 0;
-	
+
 	tmp4 = NULL;
 		num = 0;
 	 	if(str[j] == '"')
@@ -191,7 +191,7 @@ bool		check_case_herecoc(char **str, int i)
 		free(str[i + 1]);
 		str[i + 1] = tmp;
 		return (true);
-	}	
+	}
 	return (false);
 }
 
@@ -216,5 +216,7 @@ char	**expander(t_tools *tools, char **str, char **envp)
 		i++;
 	}
 	free_old_str(tools);
+// put_array_for_debug(str);
+expand_wildcard(str);
 	return (str);
 }

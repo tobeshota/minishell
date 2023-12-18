@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/16 16:45:55 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/18 10:25:24 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "define.h"
 # include "minishell.h"
 # include "parser.h"
+# include <dirent.h>
 # define IN_READLINE 0
 # define IF_HEREDOC 2
 # define IN_CMD 1
@@ -36,6 +37,8 @@ char		*detect_dollar(char *str, char **envp);
 int			handle_digit_after_dollar(int j, char *str);
 bool		title(char *str, int j);
 
+// expand_wildcard
+void		expand_wildcard(char **h_argv);
 
 //main_utils
 bool		ft_simple_cmdsclear(t_simple_cmds **lst);
