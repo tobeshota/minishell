@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/18 15:02:47 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/18 15:11:19 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static bool	do_proc_here_doc(char *delimiter, t_pipex *pipex, char **h_envp, t_t
 	line = get_expanded_line \
 	(readline(HERE_DOC_PROMPT), h_envp, delimiter, tools);
 	delimiter_wo_quotas = omit_str(delimiter, "\'\"");
-	while (is_match(line, delimiter_wo_quotas) == false)
+	while (line && is_match(line, delimiter_wo_quotas) == false)
 	{
 		ft_putendl_fd(line, pipex->infile_fd);
 		free(line);
