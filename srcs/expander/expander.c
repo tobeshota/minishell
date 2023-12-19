@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:39:54 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/18 18:00:12 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/19 10:15:27 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ char	**expander(t_tools *tools, char **str, char **envp)
 		i++;
 	}
 	free_old_str(tools);
-// put_array_for_debug(str);
-expand_wildcard(str);
+	expand_wildcard(str);
 	return (str);
 }
