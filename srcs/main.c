@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 13:58:05 by cjia              #+#    #+#             */
-/*   Updated: 2023/12/19 14:40:19 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/19 15:24:03 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	minishell(char **envp, t_tools *tools)
 	free(tools);
 	ft_nodeclear(&env);
 	ft_printf(EXIT_MSG);
-	return (0);
+	return (tools->error_num);
 }
 
 int	main(int argc, char **argv, char **envp)
