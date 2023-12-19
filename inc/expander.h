@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/19 12:05:56 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/19 13:01:59 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define IN_READLINE 0
 # define IF_HEREDOC 2
 # define IN_CMD 1
+# define SIG_INT_COMING 130
 # define HEREDOC_PARENT_CASE 3
 
 int			handle_digit_after_dollar(int j, char *str);

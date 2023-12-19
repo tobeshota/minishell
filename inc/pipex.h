@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/19 00:44:34 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/19 12:31:39 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,9 +160,6 @@ bool	is_node_only_one(t_env *node);
 void	unset_first_node(t_env **unseted_env, t_env **env);
 void	unset_last_node(t_env **unseted_env);
 void	unset_middle_node(t_env *unseted_env);
-
-void	put_node_for_debug(t_env *node);
-void	put_array_for_debug(char **str);
 
 // loop_pipex
 int		loop_pipex(t_tools *tools, t_env **env);

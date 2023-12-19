@@ -10,7 +10,7 @@ static void	put_arg_for_debug(char **argv)
 	if (argv[0] != NULL)
 		ft_printf("splitted: ");
 	while (argv[++i])
-		ft_printf("[%s]\t", argv[i]);
+		ft_printf("\"%s\"\t", argv[i]);
 	if (argv[0] != NULL)
 		ft_printf("\n");
 }
@@ -72,53 +72,6 @@ void	init_minishell(char **envp, t_env **env)
 	get_order(*env);
 }
 
-void	cp_argv_for_minipipex(char **argv, t_tools *tools)
-{
-	int	arg_i;
-
-	tools->tmp_array = (char **)check_malloc \
-	(malloc(sizeof(char *) * (get_element_count(argv) + 1)));
-	arg_i = 0;
-	while (argv[arg_i])
-	{
-		tools->tmp_array[arg_i] = check_malloc(ft_strdup(argv[arg_i]));
-		arg_i++;
-	}
-	tools->tmp_array[arg_i] = NULL;
-}
-
-#define MINIPIPEX_PROMPT "\x1b[32mminipipex $ \x1b[0m\x1b[39m"
-/* lexer(); と parser(); のない minishell ． pipex のテスト用 */
-int	minipipex(char **argv, char **envp)
-{
-	char	*line;
-	t_env	*env;
-	t_tools	tools;
-
-	init_minishell(envp, &env);
-	while (true)
-	{
-		line = readline(MINIPIPEX_PROMPT);
-		if (!line)
-			break ;
-		argv = ft_split(line, ',');	/* 本来はft_splitでなくlexerとparser．いまは区切り文字','で分割している */
-		cp_argv_for_minipipex(argv, &tools);
-		if (*line)
-			add_history(line);
-		put_arg_for_debug(argv);
-		if (is_match(line, "putnode"))
-			put_node_for_debug(env);
-		else
-			loop_pipex(&tools, &env);
-		all_free_tab(argv);
-		all_free_tab(tools.tmp_array);
-		free(line);
-	}
-	ft_nodeclear(&env);
-	ft_printf(EXIT_MSG);
-	return (0);
-}
-// /*
 int	process_input(t_tools *tools)
 {
 	if (lexer(tools) == EXIT_FAILURE)
@@ -166,7 +119,7 @@ int	handle_input(t_tools *tools, t_env **env)
 		h_envp = node_to_array(*env);
 		tools->simple_cmds->str = expander(tools, tools->tmp_array, h_envp);
 		all_free_tab(h_envp);
-		put_arg_for_debug(tools->tmp_array);
+		// put_arg_for_debug(tools->tmp_array);
 		in_cmd = IN_CMD;
 		tools->error_num = loop_pipex(tools, env);
 		free_tools(tools);
@@ -186,10 +139,14 @@ int	minishell(char **envp, t_tools *tools)
 	tools = (t_tools *)check_malloc(malloc(sizeof(t_tools)));
 	while (true)
 	{
+		// if (in_cmd == SIG_INT_COMING)
+		// 	tools->error_num = 130;
 		signal_init_main();
 		line = readline(MINISHELL_PROMPT);
 		if (!line)
 			break ;
+		if (in_cmd == SIG_INT_COMING)
+			tools->error_num = 130;
 		implement_tools(tools);
 		tools->str = line;
 		if (*tools->str)
@@ -201,13 +158,12 @@ int	minishell(char **envp, t_tools *tools)
 	ft_printf(EXIT_MSG);
 	return (0);
 }
-// */
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_tools	tools;
 
-	if (argc == 2 && is_match(argv[1], "p"))
-		return (minipipex(argv, envp));
+	(void)argv;
 	if (argc == 1)
 		return (minishell(envp, &tools));
 	return (put_error("minishell: too many arguments"), 1);
