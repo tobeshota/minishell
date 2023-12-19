@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 22:46:35 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/19 19:09:25 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/19 21:06:57 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,7 @@ bool	do_pipex(char **h_envp, t_env **env, t_pipex *pipex, t_tools *tools)
 		get_arg_i(cmd_i, pipex->argv), h_envp, tools))
 			return (false);
 	}
-	if (pipex->infile_fd != STDIN_FILENO)
-		check_close(close(pipex->infile_fd));
-	if (pipex->outfile_fd != STDOUT_FILENO)
-		check_close(close(pipex->outfile_fd));
+	if (close_fd(pipex) == false)
+		return (false);
 	return (wait_children(cmd_i - get_builtg_in_cmd_count(pipex), pipex));
 }

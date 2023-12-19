@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 21:55:41 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/19 19:09:34 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/19 21:05:11 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 
 bool	reset_pipex(t_pipex *pipex, int cmd_i)
 {
-	if (pipex->infile_fd != STDIN_FILENO)
-		check_close(close(pipex->infile_fd));
-	if (pipex->outfile_fd != STDOUT_FILENO)
-		check_close(close(pipex->outfile_fd));
+	if (close_fd(pipex) == false)
+		return (false);
 	pipex->infile_fd = STDIN_FILENO;
 	pipex->outfile_fd = STDOUT_FILENO;
 	if (rm_here_doc() == false)

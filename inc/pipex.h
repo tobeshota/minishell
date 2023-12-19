@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/19 20:43:01 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/19 21:04:27 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ bool	get_fd(t_pipex *pipex, char **argv, char **h_envp, t_tools *tools);
 bool	get_infile_fd(t_pipex *pipex, char **argv, char **h_envp,
 			t_tools *tools);
 bool	get_outfile_fd(t_pipex *pipex, char **argv);
+bool	close_fd(t_pipex *pipex);
 
 // is_file_ok
 bool	is_file_exist(char *file);

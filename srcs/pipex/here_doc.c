@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/19 13:06:52 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/19 21:08:43 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static char	*get_expanded_line(char *line, char **h_envp, char *delimiter,
 	return (line);
 }
 
-static bool	do_proc_here_doc(char *delimiter, t_pipex *pipex, char **h_envp,
+static int	do_proc_here_doc(char *delimiter, t_pipex *pipex, char **h_envp,
 		t_tools *tools)
 {
 	char	*line;
@@ -63,7 +63,7 @@ static bool	do_proc_here_doc(char *delimiter, t_pipex *pipex, char **h_envp,
 		line = get_expanded_line \
 		(readline(HERE_DOC_PROMPT), h_envp, delimiter, tools);
 	}
-	return (free(line), free(delimiter_wo_quotas), true);
+	return (free(line), free(delimiter_wo_quotas), 0);
 }
 
 bool	proc_here_doc(char *delimiter, t_pipex *pipex, char **h_envp,
@@ -79,10 +79,7 @@ bool	proc_here_doc(char *delimiter, t_pipex *pipex, char **h_envp,
 	if (get_child(&child_pid) == false)
 		return (false);
 	if (child_pid == 0)
-	{
-		do_proc_here_doc(delimiter, pipex, h_envp, tools);
-		exit(0);
-	}
+		exit(do_proc_here_doc(delimiter, pipex, h_envp, tools));
 	else
 	{
 		g_in_cmd = HEREDOC_PARENT_CASE;
