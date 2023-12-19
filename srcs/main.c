@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int in_cmd = 0;
+int g_in_cmd = 0;
 
 static void	put_arg_for_debug(char **argv)
 {
@@ -119,11 +119,15 @@ int	handle_input(t_tools *tools, t_env **env)
 		h_envp = node_to_array(*env);
 		tools->simple_cmds->str = expander(tools, tools->tmp_array, h_envp);
 		all_free_tab(h_envp);
+<<<<<<< HEAD
 		// put_arg_for_debug(tools->tmp_array);
 		in_cmd = IN_CMD;
+=======
+		g_in_cmd = IN_CMD;
+>>>>>>> 18dfa9e8bc381a5eb6d22d71bcb8b64dc16a9900
 		tools->error_num = loop_pipex(tools, env);
 		free_tools(tools);
-		in_cmd = 0;
+		g_in_cmd = 0;
 		return (true);
 	}
 	free_tools(tools);
@@ -139,13 +143,13 @@ int	minishell(char **envp, t_tools *tools)
 	tools = (t_tools *)check_malloc(malloc(sizeof(t_tools)));
 	while (true)
 	{
-		// if (in_cmd == SIG_INT_COMING)
+		// if (g_in_cmd == SIG_INT_COMING)
 		// 	tools->error_num = 130;
 		signal_init_main();
 		line = readline(MINISHELL_PROMPT);
 		if (!line)
 			break ;
-		if (in_cmd == SIG_INT_COMING)
+		if (g_in_cmd == SIG_INT_COMING)
 			tools->error_num = 130;
 		implement_tools(tools);
 		tools->str = line;

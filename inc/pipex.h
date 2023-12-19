@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/19 12:31:39 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/19 13:06:52 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	cp_argv(char **argv, t_pipex *pipex);
 int		get_element_count(char **array);
 int		get_cmd_count(t_pipex *pipex, char **h_envp);
 int		get_cmd_absolute_path_count(t_pipex *pipex);
-int		get_builtin_cmd_count(t_pipex *pipex);
+int		get_builtg_in_cmd_count(t_pipex *pipex);
 void	get_order(t_env *node);
 int		get_arg_i(int pipe_count, char **argv);
 void	get_argv_wo_param(char **argv, int arg_i, char **cunnret_argv,

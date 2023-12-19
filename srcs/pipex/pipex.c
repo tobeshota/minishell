@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:32:48 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/18 12:01:32 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/19 13:11:26 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+#include "expander.h"
 
 static int	is_true(int ret, t_pipex *pipex)
 {
@@ -18,6 +19,8 @@ static int	is_true(int ret, t_pipex *pipex)
 	{
 		if (*pipex->error_num == 0)
 			*pipex->error_num = 1;
+		if (g_in_cmd == SIG_INT_COMING)
+			*pipex->error_num = 130;
 		return (false);
 	}
 	return (true);

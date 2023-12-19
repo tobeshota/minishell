@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_pipex.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 22:46:35 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/19 00:39:39 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/19 13:06:52 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,5 @@ bool	do_pipex(char **h_envp, t_env **env, t_pipex *pipex, t_tools *tools)
 		get_arg_i(cmd_i, pipex->argv), h_envp, tools))
 			return (false);
 	}
-	return (wait_children(cmd_i - get_builtin_cmd_count(pipex), pipex));
+	return (wait_children(cmd_i - get_builtg_in_cmd_count(pipex), pipex));
 }
