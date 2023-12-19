@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/19 20:44:55 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/19 23:47:23 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,24 @@
 
 int	open_file(char *file, int file_type)
 {
-	int	fd;
+	int		fd;
+	char	*file_wo_encloser;
 
+	file_wo_encloser = omit_str(file, "\'\"");
 	if (file_type == INFILE)
-		fd = open(file, O_RDONLY);
+		fd = open(file_wo_encloser, O_RDONLY);
 	else if (file_type == INFILE_HERE_DOC)
-		fd = open(file, O_RDWR | O_CREAT | O_APPEND,
+		fd = open(file_wo_encloser, O_RDWR | O_CREAT | O_APPEND,
 				S_IRWXU | S_IRWXG | S_IRWXO);
 	else if (file_type == OUTFILE_OVER_WRITING)
-		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC,
+		fd = open(file_wo_encloser, O_WRONLY | O_CREAT | O_TRUNC,
 				S_IRWXU | S_IRWXG | S_IRWXO);
 	else if (file_type == OUTFILE_APEND)
-		fd = open(file, O_WRONLY | O_CREAT | O_APPEND,
+		fd = open(file_wo_encloser, O_WRONLY | O_CREAT | O_APPEND,
 				S_IRWXU | S_IRWXG | S_IRWXO);
 	else
 		fd = -1;
-	return (fd);
+	return (free(file_wo_encloser), fd);
 }
 
 int	close_file(int fd, int default_fd)

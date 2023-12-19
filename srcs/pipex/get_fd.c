@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 01:22:30 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/19 21:12:13 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/19 23:03:36 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,14 +84,11 @@ bool	get_outfile_fd(t_pipex *pipex, char **argv)
 
 bool	get_fd(t_pipex *pipex, char **argv, char **h_envp, t_tools *tools)
 {
-	char	**argv_wo_encloser;
-
-	argv_wo_encloser = omit_array(argv, "\'\"");
-	if (get_outfile_fd(pipex, argv_wo_encloser) == false)
-		return (all_free_tab(argv_wo_encloser), false);
-	if (get_infile_fd(pipex, argv_wo_encloser, h_envp, tools) == false)
-		return (all_free_tab(argv_wo_encloser), false);
-	return (all_free_tab(argv_wo_encloser), true);
+	if (get_outfile_fd(pipex, argv) == false)
+		return (false);
+	if (get_infile_fd(pipex, argv, h_envp, tools) == false)
+		return (false);
+	return (true);
 }
 
 bool	close_fd(t_pipex *pipex)

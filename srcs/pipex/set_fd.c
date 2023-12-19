@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 13:19:51 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/19 21:45:23 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/19 23:37:26 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ bool	set_output_fd(t_pipex *pipex, int cmd_i)
 			return (false);
 		pipex->outfile_fd = pipex->pipe_fd[cmd_i][1];
 		if (is_cmd_builtin(pipex->cmd_absolute_path[cmd_i]) == false)
-			return close_pipe(pipex->pipe_fd[cmd_i]);;
+			return (close_pipe(pipex->pipe_fd[cmd_i]));
 	}
 	else if (!is_fd_default(pipex->outfile_fd, STDOUT_FILENO))
 	{
@@ -77,7 +77,7 @@ bool	reset_fd(int *stdin_fileno, int *stdout_fileno)
 	duped_outfd_ret = check_dup(dup2(*stdout_fileno, STDOUT_FILENO));
 	closed_infd_ret = check_close(close(*stdin_fileno));
 	closed_outfd_ret = check_close(close(*stdout_fileno));
-	if (duped_infd_ret == false || duped_outfd_ret == false ||
+	if (duped_infd_ret == false || duped_outfd_ret == false || \
 		closed_infd_ret == false || closed_outfd_ret == false)
 		return (false);
 	return (true);
