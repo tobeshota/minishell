@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 10:11:50 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/18 18:12:06 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/19 12:19:45 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
