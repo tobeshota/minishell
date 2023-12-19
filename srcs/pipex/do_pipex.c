@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 22:46:35 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/19 13:06:52 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/19 17:50:28 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ static bool	exec(char **h_envp, t_env **env, t_pipex *pipex, int cmd_i)
 		return (do_execve(h_envp, pipex, cmd_i));
 }
 
+/* 開いたファイルは親プロセス，子プロセスともに閉じる必要がある！ */
 bool	do_pipex(char **h_envp, t_env **env, t_pipex *pipex, t_tools *tools)
 {
 	int		cmd_i;
@@ -97,5 +98,9 @@ bool	do_pipex(char **h_envp, t_env **env, t_pipex *pipex, t_tools *tools)
 		get_arg_i(cmd_i, pipex->argv), h_envp, tools))
 			return (false);
 	}
+	if (pipex->infile_fd == STDIN_FILENO)
+		check_close(close(pipex->infile_fd));
+	if (pipex->outfile_fd == STDOUT_FILENO)
+		check_close(close(pipex->outfile_fd));
 	return (wait_children(cmd_i - get_builtg_in_cmd_count(pipex), pipex));
 }
