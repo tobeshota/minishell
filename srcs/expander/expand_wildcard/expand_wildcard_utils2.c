@@ -5,67 +5,126 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/17 16:43:07 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/19 09:45:04 by toshota          ###   ########.fr       */
+/*   Created: 2023/12/19 00:20:21 by toshota           #+#    #+#             */
+/*   Updated: 2023/12/19 09:48:58 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
 
-static char	get_backward_encloser(char *backward)
+static void	get_wild(t_env **expanded)
 {
-	size_t	i;
+	char			cwd[PATH_MAX];
+	DIR				*dir;
+	struct dirent	*entry;
 
-	i = 0;
-	while (backward[i])
+	if (getcwd(cwd, PATH_MAX) == NULL)
+		return ;
+	dir = opendir(cwd);
+	if (check_opendir(dir, cwd) == false)
+		return ;
+	entry = readdir(dir);
+	while (entry)
 	{
-		if (backward[i] == '\'' || backward[i] == '\"')
-			return (backward[i]);
-		i++;
+		if (*expanded == NULL)
+			*expanded = ft_nodenew(entry->d_name);
+		else
+			ft_nodeadd_back(expanded, ft_nodenew(entry->d_name));
+		entry = readdir(dir);
 	}
-	return ('\0');
+	check_closedir(closedir(dir));
+	get_order(*expanded);
 }
 
-static char	get_prefix_encloser(char *prefix)
+static bool	is_pattern_match(char *content, char *prefix, char *backward)
 {
-	size_t	i;
+	int	ret;
 
-	i = ft_strlen(prefix) - 1;
-	while (i != 0)
-	{
-		if (prefix[i] == '\'' || prefix[i] == '\"')
-			return (prefix[i]);
-		i--;
-	}
-	return ('\0');
+	if (is_match(prefix, ".") == true)
+		ret = !ft_strncmp(content, ".", 1);
+	else
+		ret = ft_strncmp(content, ".", 1);
+	if (prefix[0] == '\0' && backward[0] == '\0')
+		return (ret);
+	if (prefix[0] == '\0')
+		return (ret && !ft_strrncmp(content, backward, ft_strlen(backward)));
+	if (backward[0] == '\0')
+		return (ret && !ft_strncmp(content, prefix, ft_strlen(prefix)));
+	else
+		return (ret && !ft_strncmp(content, prefix, ft_strlen(prefix)) && \
+		!ft_strrncmp(content, backward, ft_strlen(backward)));
 }
 
-static bool	is_asterisk_special_character(char *str)
+static t_env	*del_unmatched_node(t_env *expanded, char *prefix,
+		char *backward)
+{
+	while (true)
+	{
+		if (is_pattern_match(expanded->content, prefix, backward) == false)
+		{
+			if (is_node_only_one(expanded) == true)
+				return (ft_nodedelone(&expanded), NULL);
+			else if (is_node_last(expanded) == true)
+				unset_last_node(&expanded);
+			else if (is_node_first(expanded) == true)
+			{
+				unset_first_node(&expanded, NULL);
+				continue ;
+			}
+			else
+				unset_middle_node(expanded);
+		}
+		if (expanded->next == NULL)
+			break ;
+		expanded = expanded->next;
+	}
+	ft_nodefirst(&expanded);
+	return (expanded);
+}
+
+static void	expand_argv_param_w_wildcard(t_env *node)
 {
 	char	*prefix;
 	char	*backward;
-	char	b_encloser_closest_to_asterisk;
-	char	p_encloser_closest_to_asterisk;
+	t_env	*expanded;
+	char	**array;
 
-	prefix = check_malloc(ft_substr(str, 0, strlen_until_c(str, '*')));
-	backward = check_malloc(ft_strdup(ft_strrchr(str, '*') + 1));
-	p_encloser_closest_to_asterisk = get_prefix_encloser(prefix);
-	b_encloser_closest_to_asterisk = get_backward_encloser(backward);
-	if (b_encloser_closest_to_asterisk == '\0' || \
-		p_encloser_closest_to_asterisk == '\0')
-		return (free(prefix), free(backward), true);
-	if (p_encloser_closest_to_asterisk == b_encloser_closest_to_asterisk)
-		return (free(prefix), free(backward), false);
-	return (free(prefix), free(backward), true);
+	prefix = check_malloc(ft_substr(node->content, 0,
+				strlen_until_c(node->content, '*')));
+	backward = check_malloc(ft_strdup(ft_strrchr(node->content, '*') + 1));
+	expanded = NULL;
+	get_wild(&expanded);
+	ft_nodesort(&expanded);
+	expanded = del_unmatched_node(expanded, prefix, backward);
+	if (expanded == NULL)
+		return (free(prefix), free(backward));
+	array = node_to_array(expanded);
+	free(node->content);
+	node->content = double_to_sigle(array, ' ');
+	return (free(prefix), free(backward), ft_nodeclear(&expanded),
+		all_free_tab(array));
 }
 
-bool	is_specified_wildcard(char *str)
+void	expand_argv_w_wildcard(char **argv_to_be_updated)
 {
-	if (ft_strchr(str, '*') == NULL)
-		return (false);
-	if (is_file_exist(str) == true)
-		return (false);
-	if (is_asterisk_special_character(str) == false)
-		return (false);
-	return (true);
+	char	**array;
+	t_env	*node;
+	char	*tmp;
+
+	array = split_wo_enclosed_str(*argv_to_be_updated, ' ');
+	node = array_to_node(array);
+	all_free_tab(array);
+	while (true)
+	{
+		if (is_specified_wildcard(node->content))
+			expand_argv_param_w_wildcard(node);
+		if (node->next == NULL)
+			break ;
+		node = node->next;
+	}
+	ft_nodefirst(&node);
+	tmp = *argv_to_be_updated;
+	array = node_to_array(node);
+	*argv_to_be_updated = double_to_sigle(array, ' ');
+	return (all_free_tab(array), free(tmp), ft_nodeclear(&node));
 }
