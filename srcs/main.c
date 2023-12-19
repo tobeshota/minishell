@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 13:58:05 by cjia              #+#    #+#             */
-/*   Updated: 2023/12/19 13:58:08 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/19 15:21:01 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	minishell(char **envp, t_tools *tools)
 		if (!line)
 			break ;
 		if (g_in_cmd == SIG_INT_COMING)
-			tools->error_num = 130;
+			tools->error_num = 1;
 		implement_tools(tools);
 		tools->str = line;
 		if (*tools->str)
@@ -38,7 +38,7 @@ int	minishell(char **envp, t_tools *tools)
 	free(tools);
 	ft_nodeclear(&env);
 	ft_printf(EXIT_MSG);
-	return (0);
+	return (tools->error_num);
 }
 
 int	main(int argc, char **argv, char **envp)
