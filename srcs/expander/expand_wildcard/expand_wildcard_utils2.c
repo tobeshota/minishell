@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 00:20:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/19 09:48:58 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/19 10:46:57 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,10 @@ static void	get_wild(t_env **expanded)
 
 static bool	is_pattern_match(char *content, char *prefix, char *backward)
 {
-	int	ret;
+	size_t	len;
+	int		ret;
 
+	len = ft_strlen(content);
 	if (is_match(prefix, ".") == true)
 		ret = !ft_strncmp(content, ".", 1);
 	else
@@ -51,7 +53,8 @@ static bool	is_pattern_match(char *content, char *prefix, char *backward)
 	if (backward[0] == '\0')
 		return (ret && !ft_strncmp(content, prefix, ft_strlen(prefix)));
 	else
-		return (ret && !ft_strncmp(content, prefix, ft_strlen(prefix)) && \
+		return (ret && len >= 2 && \
+		!ft_strncmp(content, prefix, ft_strlen(prefix)) && \
 		!ft_strrncmp(content, backward, ft_strlen(backward)));
 }
 
