@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 12:55:55 by cjia              #+#    #+#             */
-/*   Updated: 2023/12/19 12:03:35 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/19 13:47:32 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int							process_redirections(char **tmparray,
 int							process_redirection_str(char **tmparray,
 								t_simple_cmds *tmp, int i);
 
-int							ft_error(int error);
+int							ft_error(int error, t_tools *tools);
 
 bool						check_double_operator(t_simple_cmds *new,
 								t_simple_cmds *tmp, t_tools *tools);

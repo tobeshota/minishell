@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   about_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 13:17:23 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/19 12:04:03 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/19 13:47:47 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,16 @@ bool	check_double_operator(t_simple_cmds *new, t_simple_cmds *tmp,
 			ft_simple_cmdsclear(&tools->simple_cmds);
 			ft_lexerclear(&tools->lexer_list);
 			implement_tools(tools);
-			ft_error(0);
+			ft_error(0, tools);
 			return (false);
 		}
 	}
 	return (true);
 }
 
-int	ft_error(int error)
+int	ft_error(int error, t_tools *tools)
 {
+	tools->error_num = 258;
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	if (error == 0)
 		ft_putstr_fd("syntax error near unexpected token `newline'\n",
@@ -61,7 +62,7 @@ void	parser_error(int error, t_tools *tools)
 	free(tools->str);
 	ft_simple_cmdsclear(&tools->simple_cmds);
 	ft_lexerclear(&tools->lexer_list);
-	ft_error(error);
+	ft_error(error, tools);
 }
 
 int	parser_token_error(t_tools *tools, t_tokens token)

@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 13:27:33 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/15 13:00:37 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/19 13:48:03 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	handle_a_case(t_tools *tools, t_simple_cmds **node,
 		ft_simple_cmdsclear(&tools->simple_cmds);
 		ft_lexerclear(&tools->lexer_list);
 		implement_tools(tools);
-		ft_error(0);
+		ft_error(0, tools);
 		return (false);
 	}
 	*node = create_a_node(tools);
