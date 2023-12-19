@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/19 13:01:59 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/19 13:45:46 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void		expand_argv_w_wildcard(char **argv_to_be_updated);
 //main_utils
 bool		ft_simple_cmdsclear(t_simple_cmds **lst);
 void		ft_lexerclear(t_lexer **lst);
-void		ft_nodefirst_cmdsver(t_simple_cmds **node);
 int			free_tools(t_tools *tools);
 int			implement_tools(t_tools *tools);
 int			count_quotes(char *line);
