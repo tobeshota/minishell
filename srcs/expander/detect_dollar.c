@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   detect_dollar.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 16:02:58 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/18 18:03:34 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/19 12:17:28 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ void	handle_double_quotes(char **tmp, char *str, int *j, int *frags)
 		(*j) += char_to_tmp(tmp, str[(*j)]);
 		(*frags) = 1;
 	}
-	else if (str[*j] == '"' && *frags == 1)
+	else if (str[*j] == '"' && *frags == 1 && str[*j + 1] != '"')
 	{
 		(*j) += char_to_tmp(tmp, str[(*j)]);
 		(*frags) = 0;
 	}
 	else if (str[*j] == '"' && str[*j + 1] == '"')
-		(*j) += str_to_tmp(tmp, "\"\"");
+		(*j) += 2;
 }
 
 void	handle_single_quotes(char **tmp, char *str, int *j, int *frags)
@@ -77,7 +77,7 @@ void	handle_single_quotes(char **tmp, char *str, int *j, int *frags)
 		(*j) = (*j) + strlen_between_c(str + *j, '\'') + 2;
 	}
 	else if (str[*j] == '\'' && str[*j + 1] == '\'')
-		(*j) += str_to_tmp(tmp, "\'\'");
+		(*j) += 2;
 }
 
 char	*detect_dollar(char *str, char **envp, t_tools *tools)
