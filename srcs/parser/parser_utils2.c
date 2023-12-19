@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 11:53:59 by cjia              #+#    #+#             */
-/*   Updated: 2023/12/15 11:59:20 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/19 12:06:57 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ t_simple_cmds	*creat_ast(t_parser_tools *parser_tools)
 	char	**str;
 	int		i;
 	int		arg_size;
-	t_lexer	*tmp;
 
 	i = 0;
 	str = NULL;

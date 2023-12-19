@@ -24,8 +24,6 @@ static bool	init_pipex(char **argv, t_pipex *pipex, t_tools *tools)
 
 bool	get_pipex(char **argv, char **h_envp, t_pipex *pipex, t_tools *tools)
 {
-	char	**argv_wo_encloser;
-
 	if (init_pipex(argv, pipex, tools) == false)
 		return (false);
 	if (get_fd(pipex, pipex->argv, h_envp, tools) == false)

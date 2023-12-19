@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   omit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 20:38:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/16 13:23:41 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/19 12:02:37 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ char	*omit_str(char *str, char *omit)
 char	**omit_array(char **array, char *omit)
 {
 	int		i;
-	char	*tmp;
 	char	**result;
 
 	i = 0;

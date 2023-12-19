@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   about_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 13:17:23 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/18 18:01:04 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/19 12:04:03 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	parser_error(int error, t_tools *tools)
 	ft_error(error);
 }
 
-int	parser_token_error(t_tools *tools, t_lexer *lexer_list, t_tokens token)
+int	parser_token_error(t_tools *tools, t_tokens token)
 {
 	tools->error_num = 258;
 	ft_putstr_fd("minishell: syntax error near unexpected token ",
@@ -96,7 +96,7 @@ int	handle_operator_error(t_tools *tools, t_tokens token)
 {
 	if (token == PIPE)
 	{
-		parser_token_error(tools, tools->lexer_list, tools->lexer_list->token);
+		parser_token_error(tools, tools->lexer_list->token);
 		return (EXIT_FAILURE);
 	}
 	if (!tools->lexer_list)

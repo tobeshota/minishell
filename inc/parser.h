@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 12:55:55 by cjia              #+#    #+#             */
-/*   Updated: 2023/12/16 14:23:43 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/19 12:03:35 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ t_simple_cmds				*recreated_node(char **str, int num_redirections,
 								t_lexer *redirections);
 int							grouping_redirections(t_parser_tools *parser_tools);
 void						parser_error(int error, t_tools *tools);
-int							parser_token_error(t_tools *tools,
-								t_lexer *lexer_list, t_tokens token);
+int							parser_token_error(t_tools *tools, t_tokens token);
 int							handle_operator_error(t_tools *tools,
 								t_tokens token);
 

@@ -128,8 +128,7 @@ int	process_input(t_tools *tools)
 		|| tools->lexer_list->token == AND_AND
 		|| tools->lexer_list->token == OR_OR)
 	{
-		if (parser_token_error(tools, tools->lexer_list,
-				tools->lexer_list->token) == EXIT_FAILURE)
+		if (parser_token_error(tools, tools->lexer_list->token) == EXIT_FAILURE)
 			return (0);
 	}
 	if (tools->lexer_list->token == 0 && tools->lexer_list->str[0] == '\0')
@@ -187,7 +186,7 @@ int	minishell(char **envp, t_tools *tools)
 	tools = (t_tools *)check_malloc(malloc(sizeof(t_tools)));
 	while (true)
 	{
-		signal_init_main(tools);
+		signal_init_main();
 		line = readline(MINISHELL_PROMPT);
 		if (!line)
 			break ;

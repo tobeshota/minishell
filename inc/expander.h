@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/19 00:29:14 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/19 12:05:56 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int			implement_tools(t_tools *tools);
 int			count_quotes(char *line);
 
 //グローバル変数(終了ステータス)
-void		signal_init_main(t_tools *tools);
+void		signal_init_main(void);
 void		sigquit_handler(int sig);
 void		sigint_handler(int sig);
 
