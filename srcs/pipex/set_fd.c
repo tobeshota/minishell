@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_fd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 13:19:51 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/19 17:46:09 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/19 21:45:23 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,17 @@ bool	set_output_fd(t_pipex *pipex, int cmd_i)
 
 bool	reset_fd(int *stdin_fileno, int *stdout_fileno)
 {
-	if (check_dup(dup2(*stdin_fileno, STDIN_FILENO)) == false)
-		return (false);
-	if (check_dup(dup2(*stdout_fileno, STDOUT_FILENO)) == false)
+	int	duped_infd_ret;
+	int	duped_outfd_ret;
+	int	closed_infd_ret;
+	int	closed_outfd_ret;
+
+	duped_infd_ret = check_dup(dup2(*stdin_fileno, STDIN_FILENO));
+	duped_outfd_ret = check_dup(dup2(*stdout_fileno, STDOUT_FILENO));
+	closed_infd_ret = check_close(close(*stdin_fileno));
+	closed_outfd_ret = check_close(close(*stdout_fileno));
+	if (duped_infd_ret == false || duped_outfd_ret == false ||
+		closed_infd_ret == false || closed_outfd_ret == false)
 		return (false);
 	return (true);
 }
