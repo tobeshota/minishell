@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 00:14:56 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/19 00:17:58 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/19 20:42:18 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,17 @@ char	*double_to_sigle(char **array, char splitter)
 	}
 	return (str);
 }
+
+size_t	strlen_until_c(char *str, char c)
+{
+	size_t	len;
+
+	len = 0;
+	while (str[len] != '\0' && str[len] != c)
+		len++;
+	return (len);
+}
+
 
 bool	check_is_dir(char *filename, int ret, t_pipex *pipex)
 {
