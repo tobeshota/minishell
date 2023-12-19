@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/16 22:38:43 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/19 11:15:04 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	exec_exit(char **cmd, t_pipex *pipex)
 			put_error("minishell: exit: ");
 			put_error(cmd[1]);
 			put_error(": numeric argument required\n");
-			exit(255);
+			exit(2);
 		}
 		if (get_exit_argc(cmd) > 2)
 		{

@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 23:08:47 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/17 15:57:48 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/19 11:58:24 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static bool	is_append_properly_written(char current_c, char next_c)
 			return (true);
 		return (false);
 	}
-	return (true);
+	return (false);
 }
 
 static void	put_identifier_error(char *identifier)
@@ -40,7 +40,7 @@ bool	check_identifier(char *identifier, t_pipex *pipex)
 		*pipex->error_num = 1;
 		return (put_identifier_error(identifier), false);
 	}
-	while (identifier[i])
+	while (identifier[i] && identifier[i] != '=')
 	{
 		if (ft_isalnum(identifier[i]) == false && identifier[i] != '_' && \
 			!is_append_properly_written(identifier[i], identifier[i + 1]))
