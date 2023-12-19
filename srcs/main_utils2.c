@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 13:46:33 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/19 14:02:32 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/19 14:12:39 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ static int	process_input(t_tools *tools)
 	}
 	if (tools->lexer_list->token == 0 && tools->lexer_list->str[0] == '\0')
 	{
+		free(tools->str);
+		tools->str = NULL;
 		ft_lexerclear(&tools->lexer_list);
 		return (0);
 	}
