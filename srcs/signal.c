@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 09:57:45 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/19 12:58:12 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/19 13:06:52 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,27 @@
 
 void	sigint_handler(int sig)
 {
-	if (in_cmd == IF_HEREDOC)
+	if (g_in_cmd == IF_HEREDOC)
 	{
 		exit(1);
-		in_cmd = SIG_INT_COMING;
+		g_in_cmd = SIG_INT_COMING;
 		return ;
 	}
-	else if (in_cmd == IN_CMD)
+	else if (g_in_cmd == IN_CMD)
 	{
 		ft_printf("\n");
 		rl_replace_line("", 0);
 		rl_redisplay();
-		in_cmd = SIG_INT_COMING;
+		g_in_cmd = SIG_INT_COMING;
 		return ;
 	}
-	else if (in_cmd == HEREDOC_PARENT_CASE)
+	else if (g_in_cmd == HEREDOC_PARENT_CASE)
 	{
 		ft_printf("\n");
-		in_cmd = SIG_INT_COMING;
+		g_in_cmd = SIG_INT_COMING;
 		return ;
 	}
-	in_cmd = SIG_INT_COMING;
+	g_in_cmd = SIG_INT_COMING;
 	(void)sig;
 	return (ft_printf("\n"), rl_on_new_line(), rl_replace_line("", 0),
 		rl_redisplay());

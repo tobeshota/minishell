@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 13:12:10 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/19 13:00:49 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/19 13:06:52 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ typedef struct s_env
 	t_env					*prev;
 }							t_env;
 
-extern int					in_cmd;
+extern int					g_in_cmd;
 
 // color
 # define BLACK "\x1b[30m"
