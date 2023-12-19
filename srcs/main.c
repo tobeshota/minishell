@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 13:58:05 by cjia              #+#    #+#             */
-/*   Updated: 2023/12/19 13:58:08 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/19 14:40:19 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	minishell(char **envp, t_tools *tools)
 		if (!line)
 			break ;
 		if (g_in_cmd == SIG_INT_COMING)
-			tools->error_num = 130;
+			tools->error_num = 1;
 		implement_tools(tools);
 		tools->str = line;
 		if (*tools->str)
