@@ -6,20 +6,11 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 16:43:07 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/19 00:22:14 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/19 09:43:35 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
-
-bool	is_specified_wildcard(char *str)
-{
-	if (ft_strchr(str, '*') == NULL)
-		return (false);
-	if (is_file_exist(str) == true)
-		return (false);
-	return (true);
-}
 
 void	expand_wildcard(char **h_argv)
 {
