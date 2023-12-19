@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 13:46:33 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/19 13:47:43 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/19 14:02:32 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	add_basic_shell_variables(t_env **env)
 static int	process_input(t_tools *tools)
 {
 	if (lexer(tools) == EXIT_FAILURE)
-		return (ft_error(1));
+		return (ft_error(1, tools));
 	if (tools->lexer_list->token == PIPE
 		|| tools->lexer_list->token == SEMICOLON
 		|| tools->lexer_list->token == AND_AND
@@ -70,7 +70,7 @@ int	handle_input(t_tools *tools, t_env **env)
 	if (tools->str[0] != '\0')
 	{
 		if (!count_quotes(tools->str))
-			return (free(tools->str), ft_error(2));
+			return (free(tools->str), ft_error(2, tools));
 		if (!process_input(tools))
 			return (false);
 		signal(SIGQUIT, sigquit_handler);
