@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 16:02:58 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/19 13:31:18 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/19 13:42:12 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,17 @@ void	handle_double_quotes(char **tmp, char *str, int *j, int *frags)
 {
 	if (str[*j] == '"' && *frags == 0 && str[*j + 1] != '"')
 	{
-		if(str[*j + 1] == ' ' || str[*j + 1] == '\0' || (*j > 0 && str[*j - 1] == ' ') || str[0] == '"')
+		if (str[*j + 1] == ' ' || str[*j + 1] == '\0'
+			|| (*j > 0 && str[*j - 1] == ' ') || str[0] == '"')
 			(*j) += char_to_tmp(tmp, str[(*j)]);
-	else
+		else
 			(*j) += 1;
 		(*frags) = 1;
 	}
 	else if (str[*j] == '"' && *frags == 1 && str[*j + 1] != '"')
 	{
-		if(str[*j + 1] == ' ' || str[*j + 1] == '\0' || (*j > 0 && str[*j - 1] == ' '))
+		if (str[(*j) + 1] == ' ' || str[(*j) + 1] == '\0'
+			|| (*j > 0 && str[*j - 1] == ' '))
 			(*j) += char_to_tmp(tmp, str[(*j)]);
 		else
 			(*j) += 1;
