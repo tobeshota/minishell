@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmd_count.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 09:00:12 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/20 23:03:09 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/21 02:19:21 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	get_cmd_count_wo_error_msg(t_pipex *pipex, char **h_envp)
 	return (cmd_count);
 }
 
-int	get_builtin_cmd_count(t_pipex *pipex)
+int	get_builtin_count(t_pipex *pipex)
 {
 	int	cmd_i;
 	int	builtg_in_cmd_count;

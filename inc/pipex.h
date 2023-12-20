@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/20 23:02:21 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/21 02:22:14 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int		get_element_count(char **array);
 int		get_cmd_count(t_pipex *pipex, char **h_envp);
 int		get_cmd_count_wo_error_msg(t_pipex *pipex, char **h_envp);
 int		get_cmd_absolute_path_count(t_pipex *pipex);
-int		get_builtin_cmd_count(t_pipex *pipex);
+int		get_builtin_count(t_pipex *pipex);
 void	get_order(t_env *node);
 int		get_arg_i(int pipe_count, char **argv);
 void	get_argv_wo_param(char **argv, int arg_i, char **cunnret_argv,
@@ -86,7 +86,7 @@ bool	rm_here_doc(void);
 bool	is_cmd_relative_path(char ***cmd_absolute_path, int cmd_i);
 bool	is_cmd_alreadly_absollute_path(char ***cmd_absolute_path, int cmd_i);
 bool	wait_children(int cmd_i, t_pipex *pipex);
-bool	reset_pipex(t_pipex *pipex, int cmd_i);
+bool	reset_pipex(char **h_envp, t_pipex *pipex, t_tools *tools, int cmd_i);
 int		pipex(char **argv, char **h_envp, t_env **env, t_tools *tools);
 bool	get_pipex(char **argv, char **h_envp, t_pipex *pipex, t_tools *tools);
 bool	do_pipex(char **h_envp, t_env **env, t_pipex *pipex, t_tools *tools);

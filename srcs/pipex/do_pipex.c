@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_pipex.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 22:46:35 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/20 23:01:42 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/21 02:22:16 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,17 +88,14 @@ bool	do_pipex(char **h_envp, t_env **env, t_pipex *pipex, t_tools *tools)
 		}
 		else
 		{
-			if (get_child(&child_pid) == false && close_pipe(pipex->pipe_fd[cmd_i]) && close_pipe(pipex->pipe_fd[cmd_i - 1]))
-				return (false);
+			if (!get_child(&child_pid) && close_pipe(pipex->pipe_fd[cmd_i]))
+				return (close_pipe(pipex->pipe_fd[cmd_i - 1]), false);
 			if (child_pid == 0 && exec(h_envp, env, pipex, cmd_i) == false)
 				return (false);
 		}
-		if (reset_pipex(pipex, cmd_i) == false || ++cmd_i < 0 || \
-		!get_fd(pipex, pipex->argv + \
-		get_arg_i(cmd_i, pipex->argv), h_envp, tools))
+		if (reset_pipex(h_envp, pipex, tools, cmd_i) == false || ++cmd_i < 0)
 			return (false);
 	}
-	if (close_fd(pipex) == false)
-		return (false);
-	return (wait_children(cmd_i - get_builtin_cmd_count(pipex), pipex));
+	return (close_fd(pipex), \
+	wait_children(cmd_i - get_builtin_count(pipex), pipex));
 }
