@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_fd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 13:19:51 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/19 23:37:26 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/20 12:05:45 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ bool	set_input_fd(t_pipex *pipex, int cmd_i)
 		(dup2(pipex->pipe_fd[cmd_i - 1][0], STDIN_FILENO)) == false)
 			return (false);
 		pipex->infile_fd = pipex->pipe_fd[cmd_i - 1][0];
-		if (is_cmd_builtin(pipex->cmd_absolute_path[cmd_i]) == false)
 			return (close_pipe(pipex->pipe_fd[cmd_i - 1]));
 	}
 	else if (!is_fd_default(pipex->infile_fd, STDIN_FILENO))
@@ -54,7 +53,6 @@ bool	set_output_fd(t_pipex *pipex, int cmd_i)
 		if (check_dup(dup2(pipex->pipe_fd[cmd_i][1], STDOUT_FILENO)) == false)
 			return (false);
 		pipex->outfile_fd = pipex->pipe_fd[cmd_i][1];
-		if (is_cmd_builtin(pipex->cmd_absolute_path[cmd_i]) == false)
 			return (close_pipe(pipex->pipe_fd[cmd_i]));
 	}
 	else if (!is_fd_default(pipex->outfile_fd, STDOUT_FILENO))
