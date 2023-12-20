@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 13:17:23 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/19 13:47:47 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/20 09:34:51 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	handle_operator_error(t_tools *tools, t_tokens token)
 		parser_token_error(tools, tools->lexer_list->token);
 		return (EXIT_FAILURE);
 	}
-	if (!tools->lexer_list)
+	if (!tools->lexer_list || tools->lexer_list->str[0] == '\0')
 	{
 		parser_error(0, tools);
 		return (EXIT_FAILURE);
