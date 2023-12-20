@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 22:33:45 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/20 22:38:27 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/21 00:25:42 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,16 @@ unsigned long long	ascii_to_abs_ull(const char *str, int *sign)
 		str++;
 	}
 	return (ullnb);
+}
+
+void	check_is_double_hyphen(char **cmd, t_pipex *pipex)
+{
+	char	*cmd_arg;
+
+	if (cmd[1] == NULL)
+		return ;
+	cmd_arg = omit_str(cmd[1], "\'\" ");
+	if (is_match(cmd_arg, "--") == true)
+		exit(*pipex->error_num);
+	free(cmd_arg);
 }

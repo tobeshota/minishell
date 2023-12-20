@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 16:15:47 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/20 22:35:09 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/21 00:27:08 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@ bool				is_cmd_builtin(char *cmd);
 int					exec_builtin(t_env **env, t_pipex *pipex, int cmd_i);
 
 // exec_exit
-unsigned long long	ascii_to_abs_ull(const char *str, int *sign);
 int					exec_exit(char **cmd, t_pipex *pipex);
+void				check_is_double_hyphen(char **cmd, t_pipex *pipex);
+unsigned long long	ascii_to_abs_ull(const char *str, int *sign);
 
 // exec_export
 int					exec_export(char **cmd, t_env **env, t_pipex *pipex);
