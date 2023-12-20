@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/20 14:26:57 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/20 16:02:09 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ bool	proc_here_doc(char *delimiter, t_pipex *pipex, char **h_envp,
 		t_tools *tools)
 {
 	pid_t	child_pid;
-	int		status;
 
 	if (rm_here_doc() == false)
 		return (false);
@@ -80,7 +79,7 @@ bool	proc_here_doc(char *delimiter, t_pipex *pipex, char **h_envp,
 		pipex->infile_fd = open_file(HERE_DOC_FILE_PATH, INFILE_HERE_DOC);
 		if (check_open(pipex->infile_fd, "here_doc", pipex) == false)
 			return (false);
-		waitpid(child_pid, &status, 0);
+		waitpid(child_pid, NULL, 0);
 		return (true);
 	}
 }
