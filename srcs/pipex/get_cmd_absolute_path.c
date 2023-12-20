@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmd_absolute_path.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/17 15:55:32 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/20 23:03:17 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static bool	get_cmd_name_from_arg(char **h_envp, t_pipex *pipex)
 	if (get_cmd_count(pipex, h_envp) == false)
 		return (false);
 	pipex->cmd_absolute_path = (char **)check_malloc \
-	(malloc(sizeof(char *) * (get_cmd_count(pipex, h_envp) + 1)));
+	(malloc(sizeof(char *) * (get_cmd_count_wo_error_msg(pipex, h_envp) + 1)));
 	arg_i = -1;
 	cmd_i = 0;
 	while (pipex->argv[++arg_i])

@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 09:00:12 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/19 13:06:52 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/20 23:03:09 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,9 @@ int	get_cmd_count(t_pipex *pipex, char **h_envp)
 		ret = is_cmd(cunnret_argv, prev_argv, h_envp);
 		if (ret == true)
 			cmd_count++;
-		if (check_cmd_exist(cunnret_argv, ret, pipex) == false || \
-			check_is_dot(ret, pipex) == false || \
-			check_is_dir(cunnret_argv, ret, pipex) == false)
-			return (free_tab(cunnret_argv), free_tab(prev_argv), false);
+		check_cmd_exist(cunnret_argv, ret, pipex);
+		check_is_dot(ret, pipex);
+		check_is_dir(cunnret_argv, ret, pipex);
 		arg_i++;
 		free_tab(cunnret_argv);
 		free_tab(prev_argv);
@@ -59,7 +58,30 @@ int	get_cmd_count(t_pipex *pipex, char **h_envp)
 	return (cmd_count);
 }
 
-int	get_builtg_in_cmd_count(t_pipex *pipex)
+int	get_cmd_count_wo_error_msg(t_pipex *pipex, char **h_envp)
+{
+	int		cmd_count;
+	int		arg_i;
+	int		ret;
+	char	*cunnret_argv;
+	char	*prev_argv;
+
+	cmd_count = 0;
+	arg_i = 0;
+	while (pipex->argv[arg_i])
+	{
+		get_argv_wo_param(pipex->argv, arg_i, &cunnret_argv, &prev_argv);
+		ret = is_cmd(cunnret_argv, prev_argv, h_envp);
+		if (ret == true)
+			cmd_count++;
+		arg_i++;
+		free_tab(cunnret_argv);
+		free_tab(prev_argv);
+	}
+	return (cmd_count);
+}
+
+int	get_builtin_cmd_count(t_pipex *pipex)
 {
 	int	cmd_i;
 	int	builtg_in_cmd_count;
