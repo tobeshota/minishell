@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 16:02:58 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/20 15:42:34 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/20 16:19:06 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char *move_to_first(char *str, char c)
 
 	tmp2 = NULL;
 	i = ft_strlen(str) - 1;
-	while(str[i] != '\0' && i >= 0)
+	while(str[i] != '\0' && i > 0)
 	{
 		if (str[i] == c && frags == 0  && i > 0)
 			frags = 1;
@@ -90,7 +90,11 @@ char *move_to_first(char *str, char c)
 	}
 
 	if(tmp2 == NULL)
+	{
+		if(tmp)
+			free(tmp);
 		return (str);
+	}
 	free(str);
 	str = ft_strdup(tmp2);
 	return (str);
@@ -103,17 +107,19 @@ char *move_to_last(char *str, char c)
 {
 	int		i;
 	int		frags;
+	int 	len;
 	char	*tmp;
 	char	*tmp2;
 
 	i = 0;
 	frags = 0;
 	tmp2 = NULL;
+	len = ft_strlen(str);
 	while(str && str[i] != '\0')
 	{
 		if (str[i] == c && frags == 0)
 			frags = 1;
-		else if (str[i] == c && frags == 1)
+		else if (str[i] == c && frags == 1 && i < len - 1)
 		{
 			tmp = omit_ith_c(str, i);
 			i++;
@@ -135,7 +141,11 @@ char *move_to_last(char *str, char c)
 		i++;
 	}
 	if(tmp2 == NULL)
+	{
+		if(tmp)
+			free(tmp);
 		return (str);
+	}
 	free(str);
 	str = ft_strdup(tmp2);
 	return (str);
