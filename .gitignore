@@ -17,3 +17,4 @@ minishell
 tmp/
 test*
 *.txt
+*mpanic/
