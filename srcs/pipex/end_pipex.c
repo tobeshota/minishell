@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   end_pipex.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:54:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/09 22:35:36 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/19 21:07:43 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,9 @@ bool	end_pipex(t_pipex *pipex)
 	all_free_tab(pipex->cmd_absolute_path);
 	all_free_tab(pipex->cmd_absolute_path_with_parameter);
 	all_free_int(pipex->pipe_fd);
-	rm_here_doc();
+	if (close_fd(pipex) == false)
+		return (rm_here_doc(), false);
+	if (rm_here_doc() == false)
+		return (false);
 	return (true);
 }

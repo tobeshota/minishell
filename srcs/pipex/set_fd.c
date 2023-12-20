@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_fd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 13:19:51 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/19 16:21:37 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/19 23:37:26 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ bool	set_input_fd(t_pipex *pipex, int cmd_i)
 	{
 		if (check_dup(dup2(pipex->infile_fd, STDIN_FILENO)) == false)
 			return (false);
+		return (check_close(close(pipex->infile_fd)));
 	}
 	return (true);
 }
@@ -54,21 +55,30 @@ bool	set_output_fd(t_pipex *pipex, int cmd_i)
 			return (false);
 		pipex->outfile_fd = pipex->pipe_fd[cmd_i][1];
 		if (is_cmd_builtin(pipex->cmd_absolute_path[cmd_i]) == false)
-			return close_pipe(pipex->pipe_fd[cmd_i]);;
+			return (close_pipe(pipex->pipe_fd[cmd_i]));
 	}
 	else if (!is_fd_default(pipex->outfile_fd, STDOUT_FILENO))
 	{
 		if (check_dup(dup2(pipex->outfile_fd, STDOUT_FILENO)) == false)
 			return (false);
+		return (check_close(close(pipex->outfile_fd)));
 	}
 	return (true);
 }
 
 bool	reset_fd(int *stdin_fileno, int *stdout_fileno)
 {
-	if (check_dup(dup2(*stdin_fileno, STDIN_FILENO)) == false)
-		return (false);
-	if (check_dup(dup2(*stdout_fileno, STDOUT_FILENO)) == false)
+	int	duped_infd_ret;
+	int	duped_outfd_ret;
+	int	closed_infd_ret;
+	int	closed_outfd_ret;
+
+	duped_infd_ret = check_dup(dup2(*stdin_fileno, STDIN_FILENO));
+	duped_outfd_ret = check_dup(dup2(*stdout_fileno, STDOUT_FILENO));
+	closed_infd_ret = check_close(close(*stdin_fileno));
+	closed_outfd_ret = check_close(close(*stdout_fileno));
+	if (duped_infd_ret == false || duped_outfd_ret == false || \
+		closed_infd_ret == false || closed_outfd_ret == false)
 		return (false);
 	return (true);
 }

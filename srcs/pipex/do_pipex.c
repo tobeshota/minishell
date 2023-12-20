@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_pipex.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 22:46:35 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/19 13:06:52 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/19 23:40:24 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,16 +86,15 @@ bool	do_pipex(char **h_envp, t_env **env, t_pipex *pipex, t_tools *tools)
 			if (exec(h_envp, env, pipex, cmd_i) == false)
 				return (false);
 		}
-		else
-		{
-			if (get_child(&child_pid) == false \
+		else if (get_child(&child_pid) == false \
 			|| (child_pid == 0 && exec(h_envp, env, pipex, cmd_i) == false))
-				return (false);
-		}
+			return (false);
 		if (reset_pipex(pipex, cmd_i) == false || ++cmd_i < 0 || \
 		!get_fd(pipex, pipex->argv + \
 		get_arg_i(cmd_i, pipex->argv), h_envp, tools))
 			return (false);
 	}
+	if (close_fd(pipex) == false)
+		return (false);
 	return (wait_children(cmd_i - get_builtg_in_cmd_count(pipex), pipex));
 }

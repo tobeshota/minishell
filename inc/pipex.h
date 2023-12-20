@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/19 13:06:52 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/19 23:27:54 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define IS_DOT -3
 
 int		open_file(char *file, int file_type);
+int		close_file(int fd, int default_fd);
 bool	close_pipe(int *pipe_fd);
 int		free_tab(char *ptr);
 void	all_free_tab(char **ptr);
@@ -58,7 +59,6 @@ bool	check_is_dot(int ret, t_pipex *pipex);
 bool	check_wait(int ret);
 bool	check_unlink(int ret);
 bool	is_path_found(char *path);
-bool	is_parameter_file(char *cmd_parameter);
 bool	is_parameter_dir(char *cmd_parameter);
 void	cp_argv(char **argv, t_pipex *pipex);
 int		get_element_count(char **array);
@@ -103,6 +103,7 @@ bool	get_fd(t_pipex *pipex, char **argv, char **h_envp, t_tools *tools);
 bool	get_infile_fd(t_pipex *pipex, char **argv, char **h_envp,
 			t_tools *tools);
 bool	get_outfile_fd(t_pipex *pipex, char **argv);
+bool	close_fd(t_pipex *pipex);
 
 // is_file_ok
 bool	is_file_exist(char *file);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 11:53:59 by cjia              #+#    #+#             */
-/*   Updated: 2023/12/19 14:03:16 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/19 20:20:52 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,8 @@ void	grouping_cmd(int arg_size, char **str, t_parser_tools *parser_tools)
 t_simple_cmds	*creat_ast(t_parser_tools *parser_tools)
 {
 	char	**str;
-	int		i;
 	int		arg_size;
 
-	i = 0;
 	str = NULL;
 	if (grouping_redirections(parser_tools) == EXIT_FAILURE)
 		return (NULL);

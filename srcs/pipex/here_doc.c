@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/19 13:06:52 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/19 23:37:51 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,9 @@
 #include "pipex.h"
 #define CHILD_NUM 1
 
-static int	is_surrounded_by_quotas(char *str)
+static int	is_delimiter_included_encloser(char *delimiter)
 {
-	char	bos;
-	char	eos;
-
-	bos = str[0];
-	eos = str[ft_strlen(str) - 1];
-	if (bos == '\'' && eos == '\'' && bos == eos)
-		return (true);
-	else if (bos == '\"' && eos == '\"' && bos == eos)
-		return (true);
-	return (false);
+	return (ft_strchr(delimiter, '\'') || ft_strchr(delimiter, '\"'));
 }
 
 static char	*get_expanded_line(char *line, char **h_envp, char *delimiter,
@@ -34,7 +25,7 @@ static char	*get_expanded_line(char *line, char **h_envp, char *delimiter,
 	char	*tmp;
 
 	if (line == NULL || line[0] == '\0' || \
-	is_surrounded_by_quotas(delimiter) || is_match(line, delimiter))
+	is_delimiter_included_encloser(delimiter) || is_match(line, delimiter))
 		return (line);
 	if (find_dollar(line) && line[find_dollar(line) - 2] != '\''
 		&& line[find_dollar(line)])
@@ -46,7 +37,7 @@ static char	*get_expanded_line(char *line, char **h_envp, char *delimiter,
 	return (line);
 }
 
-static bool	do_proc_here_doc(char *delimiter, t_pipex *pipex, char **h_envp,
+static int	do_proc_here_doc(char *delimiter, t_pipex *pipex, char **h_envp,
 		t_tools *tools)
 {
 	char	*line;
@@ -63,7 +54,7 @@ static bool	do_proc_here_doc(char *delimiter, t_pipex *pipex, char **h_envp,
 		line = get_expanded_line \
 		(readline(HERE_DOC_PROMPT), h_envp, delimiter, tools);
 	}
-	return (free(line), free(delimiter_wo_quotas), true);
+	return (free(line), free(delimiter_wo_quotas), 0);
 }
 
 bool	proc_here_doc(char *delimiter, t_pipex *pipex, char **h_envp,
@@ -79,10 +70,7 @@ bool	proc_here_doc(char *delimiter, t_pipex *pipex, char **h_envp,
 	if (get_child(&child_pid) == false)
 		return (false);
 	if (child_pid == 0)
-	{
-		do_proc_here_doc(delimiter, pipex, h_envp, tools);
-		exit(0);
-	}
+		exit(do_proc_here_doc(delimiter, pipex, h_envp, tools));
 	else
 	{
 		g_in_cmd = HEREDOC_PARENT_CASE;
