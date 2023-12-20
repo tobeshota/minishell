@@ -3,18 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   trim_quotes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
+/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:20:33 by cjia              #+#    #+#             */
-/*   Updated: 2023/12/20 17:30:21 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/20 17:48:17 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
 #include "minishell.h"
 
-char *move_to_first(char *str, char c)
-//クオートを空白かstr「０」の後ろに移動させる
+char	*move_to_first(char *str, char c)
 {
 	int		i;
 	int		frags;
@@ -26,24 +25,24 @@ char *move_to_first(char *str, char c)
 	tmp = NULL;
 	tmp2 = NULL;
 	i = ft_strlen(str) - 1;
-	while(i > 0 && str[i])
+	while (i > 0 && str[i])
 	{
-		if (str[i] == c && frags == 0  && i > 0)
+		if (str[i] == c && frags == 0 && i > 0)
 			frags = 1;
-		else if(str[i] == c && frags == 1 && i > 0)
+		else if (str[i] == c && frags == 1 && i > 0)
 		{
 			tmp = omit_ith_c(str, i);
 			i--;
-			while(str[i])//str[0]はまだ考えていない
+			while (str[i])
 			{
-				if(i >= 0 || str[i - 1] == ' ')
+				if (i >= 0 || str[i - 1] == ' ')
 				{
-					tmp2 =  add_ith_c(tmp, '"', i);
+					tmp2 = add_ith_c(tmp, '"', i);
 					i--;
 					free(tmp);
 					free(str);
 					str = tmp2;
-					break;
+					break ;
 				}
 				i--;
 			}
@@ -52,9 +51,9 @@ char *move_to_first(char *str, char c)
 		i--;
 	}
 
-	if(tmp2 == NULL && (tmp == NULL || tmp != NULL))
+	if (tmp2 == NULL && (tmp == NULL || tmp != NULL))
 	{
-		if(tmp)
+		if (tmp)
 			free(tmp);
 		return (str);
 	}
@@ -66,11 +65,11 @@ char *move_to_first(char *str, char c)
 
 
 
-char *move_to_last(char *str, char c)
+char	*move_to_last(char *str, char c)
 {
 	int		i;
 	int		frags;
-	int 	len;
+	int		len;
 	char	*tmp;
 	char	*tmp2;
 
@@ -79,7 +78,7 @@ char *move_to_last(char *str, char c)
 	tmp = NULL;
 	tmp2 = NULL;
 	len = ft_strlen(str);
-	while(str && str[i] != '\0')
+	while (str && str[i] != '\0')
 	{
 		if (str[i] == c && frags == 0)
 			frags = 1;
@@ -87,16 +86,16 @@ char *move_to_last(char *str, char c)
 		{
 			tmp = omit_ith_c(str, i);
 			i++;
-			while(str[i])
+			while (str[i])
 			{
-				if(str[i] == ' ' || i >= 0)
+				if (str[i] == ' ' || i >= 0)
 				{
-					tmp2 =  add_ith_c(tmp, '"', i);
+					tmp2 = add_ith_c(tmp, '"', i);
 					i++;
 					free(tmp);
 					free(str);
 					str = tmp2;
-					break;
+					break ;
 				}
 				i++;
 			}
@@ -104,9 +103,9 @@ char *move_to_last(char *str, char c)
 		}
 		i++;
 	}
-	if(tmp2 == NULL && (tmp == NULL || tmp != NULL))
+	if (tmp2 == NULL && (tmp == NULL || tmp != NULL))
 	{
-		if(tmp)
+		if (tmp)
 			free(tmp);
 		return (str);
 	}
