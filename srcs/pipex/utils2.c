@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/19 23:47:23 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/20 16:21:27 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,8 @@ int	close_file(int fd, int default_fd)
 
 bool	close_pipe(int *pipe_fd)
 {
-	if (check_close(close(pipe_fd[0])) == false)
-		return (false);
-	if (check_close(close(pipe_fd[1])) == false)
-		return (false);
+	close(pipe_fd[1]);
+	close(pipe_fd[0]);
 	return (true);
 }
 
