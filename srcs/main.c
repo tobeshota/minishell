@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 13:58:05 by cjia              #+#    #+#             */
-/*   Updated: 2023/12/19 15:24:03 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/20 15:49:30 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	main(int argc, char **argv, char **envp)
 	return (put_error("minishell: too many arguments"), 1);
 }
 
-// __attribute__((destructor)) static void	destructor()
-// {
-// 	system("leaks -q minishell");
-// }
+__attribute__((destructor)) static void	destructor()
+{
+	system("leaks -q minishell");
+}
