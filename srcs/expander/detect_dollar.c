@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 16:02:58 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/20 16:19:06 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/20 17:13:06 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,10 @@ char *move_to_first(char *str, char c)
 
 	i = 0;
 	frags = 0;
-
+	tmp = NULL;
 	tmp2 = NULL;
 	i = ft_strlen(str) - 1;
-	while(str[i] != '\0' && i > 0)
+	while(i > 0 && str[i])
 	{
 		if (str[i] == c && frags == 0  && i > 0)
 			frags = 1;
@@ -73,7 +73,7 @@ char *move_to_first(char *str, char c)
 			i--;
 			while(str[i])//str[0]はまだ考えていない
 			{
-				if(i >= 0 && str[i - 1] == ' ')
+				if(i >= 0 || str[i - 1] == ' ')
 				{
 					tmp2 =  add_ith_c(tmp, '"', i);
 					i--;
@@ -89,13 +89,20 @@ char *move_to_first(char *str, char c)
 		i--;
 	}
 
-	if(tmp2 == NULL)
+	if(tmp2 == NULL && tmp == NULL)
+	{
+		if(tmp)
+			free(tmp);
+		return (str);
+	}
+	if(tmp2 == NULL && tmp != NULL)
 	{
 		if(tmp)
 			free(tmp);
 		return (str);
 	}
 	free(str);
+	str = NULL;
 	str = ft_strdup(tmp2);
 	return (str);
 }
@@ -113,6 +120,7 @@ char *move_to_last(char *str, char c)
 
 	i = 0;
 	frags = 0;
+	tmp = NULL;
 	tmp2 = NULL;
 	len = ft_strlen(str);
 	while(str && str[i] != '\0')
@@ -140,7 +148,13 @@ char *move_to_last(char *str, char c)
 		}
 		i++;
 	}
-	if(tmp2 == NULL)
+	if(tmp2 == NULL && tmp == NULL)
+	{
+		if(tmp)
+			free(tmp);
+		return (str);
+	}
+	if(tmp2 == NULL && tmp != NULL)
 	{
 		if(tmp)
 			free(tmp);
@@ -356,7 +370,7 @@ char	*detect_dollar(char *str, char **envp, t_tools *tools)
 			j += char_to_tmp(&tmp, str[j]);
 	}
 
-	if (ft_strchr(tmp, '\'') || ft_strchr(tmp, '\"') )//""の中に
+	if (ft_strchr(tmp, '\'') || ft_strchr(tmp, '\"') )
 	{
 		tmp = move_to_first(tmp, '"');
 		tmp = move_to_last(tmp, '"');
