@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/19 11:15:04 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/20 17:10:02 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,28 +37,33 @@ static bool	is_cmd_arg_num(char *cmd_arg)
 	return (*cmd_arg == '\0');
 }
 
+
+
+
+
 int	exec_exit(char **cmd, t_pipex *pipex)
 {
-	if (get_cmd_absolute_path_count(pipex) != 1)
-		return (true);
-	ft_putstr_fd(EXIT_MSG, pipex->outfile_fd);
+	if (get_pipe_count(pipex->argv) == 0)
+		ft_putstr_fd(EXIT_MSG, pipex->outfile_fd);
 	if (cmd[1])
 	{
 		if (is_cmd_arg_num(cmd[1]) == false)
-		{
-			put_error("minishell: exit: ");
-			put_error(cmd[1]);
-			put_error(": numeric argument required\n");
-			exit(2);
-		}
+			return (put_error_w_cmd_filename \
+			("exit", cmd[1], "numeric argument required", pipex), exit(2), false);
 		if (get_exit_argc(cmd) > 2)
 		{
 			*pipex->error_num = 1;
 			return (put_error("minishell: exit: too many arguments\n"), true);
 		}
-		exit((unsigned char)ft_atoi(cmd[1]));
+		if (get_cmd_absolute_path_count(pipex) == 1)
+			exit((unsigned char)ft_atoi(cmd[1]));
+		else
+		{
+			*pipex->error_num = (unsigned char)ft_atoi(cmd[1]);
+			return (true);
+		}
 	}
-	else
+	else if (get_cmd_absolute_path_count(pipex) == 1)
 		exit(*pipex->error_num);
 	return (true);
 }
