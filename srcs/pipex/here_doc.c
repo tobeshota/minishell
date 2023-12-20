@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/19 23:37:51 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/20 16:02:09 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,8 @@ bool	proc_here_doc(char *delimiter, t_pipex *pipex, char **h_envp,
 		pipex->infile_fd = open_file(HERE_DOC_FILE_PATH, INFILE_HERE_DOC);
 		if (check_open(pipex->infile_fd, "here_doc", pipex) == false)
 			return (false);
-		return (wait_children(CHILD_NUM, pipex));
+		waitpid(child_pid, NULL, 0);
+		return (true);
 	}
 }
 

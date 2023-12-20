@@ -6,11 +6,12 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/19 00:12:12 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/20 10:55:19 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+#define EQUAL 1
 
 size_t	get_larger(size_t n1, size_t n2)
 {
@@ -53,12 +54,12 @@ char	*getenv_from_h_envp(char **h_envp, char *varname)
 	varname_len = ft_strlen(varname);
 	while (h_envp[he_i])
 	{
-		if (ft_strlen(h_envp[he_i]) > 0 && !ft_strncmp(h_envp[he_i],
-				varname, varname_len))
-			break ;
+		if (ft_strlen(h_envp[he_i]) > 0 && !ft_strncmp(h_envp[he_i], varname,
+				varname_len))
+			return (h_envp[he_i] + ft_strlen(varname) + EQUAL);
 		he_i++;
 	}
-	return (h_envp[he_i]);
+	return (NULL);
 }
 
 char	*getenv_from_t_env(t_env *env, char *varname)
