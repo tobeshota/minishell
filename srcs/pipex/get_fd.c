@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   get_fd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 01:22:30 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/19 23:03:36 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/20 16:39:35 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+#include "expander.h"
 
 int	get_arg_i(int pipe_count, char **argv)
 {
@@ -42,7 +43,8 @@ bool	get_infile_fd(t_pipex *pipex, char **argv, char **h_envp,
 			if (check_open(pipex->infile_fd, argv[arg_i + 1], pipex) == false)
 				return (false);
 		}
-		else if (is_specified_here_doc(argv[arg_i]) && argv[arg_i + 1])
+		else if (is_specified_here_doc(argv[arg_i]) && argv[arg_i + 1] \
+		&& g_in_cmd != SIG_INT_COMING)
 		{
 			if (!check_close(close_file(pipex->infile_fd, STDIN_FILENO)))
 				return (false);
