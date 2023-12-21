@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 22:46:35 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/21 02:22:16 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/21 10:58:37 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ bool	do_pipex(char **h_envp, t_env **env, t_pipex *pipex, t_tools *tools)
 	cmd_i = 0;
 	while (pipex->cmd_absolute_path[cmd_i])
 	{
-		if (cmd_i < get_pipe_count(pipex->argv) && !get_pipe(pipex, cmd_i))
+		if (cmd_i < count_pipe(pipex->argv) && !get_pipe(pipex, cmd_i))
 			return (false);
 		if (is_cmd_builtin(pipex->cmd_absolute_path[cmd_i]))
 		{
@@ -96,6 +96,5 @@ bool	do_pipex(char **h_envp, t_env **env, t_pipex *pipex, t_tools *tools)
 		if (reset_pipex(h_envp, pipex, tools, cmd_i) == false || ++cmd_i < 0)
 			return (false);
 	}
-	return (close_fd(pipex), \
-	wait_children(cmd_i - get_builtin_count(pipex), pipex));
+	return (close_fd(pipex), wait_child(cmd_i - count_builtin(pipex), pipex));
 }

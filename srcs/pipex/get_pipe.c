@@ -6,13 +6,13 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 13:06:15 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/14 13:07:43 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/21 10:58:06 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	get_pipe_count(char **argv)
+int	count_pipe(char **argv)
 {
 	int	arg_i;
 	int	pipe_count;
@@ -34,7 +34,7 @@ void	malloc_multiple_pipe(t_pipex *pipex)
 	int	pipe_count;
 
 	i = 0;
-	pipe_count = get_pipe_count(pipex->argv);
+	pipe_count = count_pipe(pipex->argv);
 	if (pipe_count == 0)
 		return ;
 	pipex->pipe_fd = (int **)check_malloc \

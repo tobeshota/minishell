@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/21 00:25:40 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/21 10:58:06 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	exec_exit(char **cmd, t_pipex *pipex)
 	char	*cmd_arg;
 
 	cmd_arg = NULL;
-	if (get_pipe_count(pipex->argv) == 0)
+	if (count_pipe(pipex->argv) == 0)
 		ft_putstr_fd(EXIT_MSG, STDIN_FILENO);
 	check_is_double_hyphen(cmd, pipex);
 	if (cmd[1])
