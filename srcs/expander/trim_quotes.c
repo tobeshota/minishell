@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:20:33 by cjia              #+#    #+#             */
-/*   Updated: 2023/12/21 14:24:10 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/21 14:29:54 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*move_to_first(char *str, char c, char opp)
 			}
 			frags = 0;
 		}
-		else
+		else if (str[i] == c && frags == 1 && i > 0 && (str[i - 1] == ' ' || str[i - 1] == opp))
 			frags = 0;
 		i--;
 	}
@@ -107,9 +107,9 @@ char	*move_to_last(char *str, char c, char opp)
 			}
 			frags = 0;
 		}
-		else
+		else if(str[i] == c && frags == 1 && i < len - 1 && (str[i + 1] == ' ' || str[i + 1] == opp))
 			frags = 0;
-			i++;
+		i++;
 	}
 	// if (tmp2 == NULL && (tmp == NULL || tmp != NULL))
 	// {
