@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 16:02:58 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/20 17:23:06 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/21 09:44:32 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ char	*detect_dollar(char *str, char **envp, t_tools *tools)
 		else
 			j += char_to_tmp(&tmp, str[j]);
 	}
-	if (ft_strchr(tmp, '\'') || ft_strchr(tmp, '\"') )
+	if (ft_strchr(tmp, '\'') || ft_strchr(tmp, '\"'))
 	{
 		tmp = move_to_first(tmp, '"');
 		tmp = move_to_last(tmp, '"');

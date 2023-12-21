@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:39:54 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/19 10:15:27 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/21 10:13:27 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	**expander(t_tools *tools, char **str, char **envp)
 	{
 		if (check_case_herecoc(str, i) == true)
 			i++;
-		else if (str[i][find_dollar(str[i])] != '\0')
+		else
 		{
 			tmp = detect_dollar(str[i], envp, tools);
 			free(str[i]);
