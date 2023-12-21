@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   detect_dollar.c                                    :+:      :+:    :+:   */
+/*   process_dollar_quote.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 16:02:58 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/21 10:34:37 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/21 11:48:46 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,13 @@ int	str_to_tmp(char **tmp, char *str)
 
 void	handle_double_quotes(char **tmp, char *str, int *j, int *frags)
 {
-	if (str[*j] == '"' && *frags == 0 && str[*j + 1] != '"')
+	if((str[*j - 1] == ' ' &&  str[*j + 2] == '\0') && str[*j] == '"' && str[*j + 1] == '"')
 	{
-		if ((*j > 0 && str[*j - 1] == ' ') || first_quote(str, j) || search_space_quote_decre(str, j, '"'))
+		(*j) += str_to_tmp(tmp, "\"\"");
+	}
+	else if (str[*j] == '"' && *frags == 0 && str[*j + 1] != '"')
+	{
+		if ((*j > 0 && str[*j - 1] == ' ') || first_quote(str, j, '"') || search_space_quote_decre(str, j, '"'))
 			(*j) += char_to_tmp(tmp, str[(*j)]);
 		else
 			(*j) += 1;
@@ -52,7 +56,7 @@ void	handle_double_quotes(char **tmp, char *str, int *j, int *frags)
 	}
 	else if (str[*j] == '"' && *frags == 1 && str[*j + 1] != '"')
 	{
-		if (str[(*j) + 1] == ' ' || str[(*j) + 1] == '\0' || last_quote(str, j) || search_space_quote_incre(str, j, '"'))
+		if (str[(*j) + 1] == ' ' || str[(*j) + 1] == '\0' || last_quote(str, j, '"') || search_space_quote_incre(str, j, '"'))
 			(*j) += char_to_tmp(tmp, str[(*j)]);
 		else
 			(*j) += 1;
@@ -71,10 +75,21 @@ void	handle_single_quotes(char **tmp, char *str, int *j, int *frags)
 	{
 		tmp2 = check_malloc(ft_substr(str, *j + 1,
 					strlen_between_c(str + *j, '\'')));
-		tmp3 = check_malloc(ft_strjoin("\'", tmp2));
-		free(tmp2);
-		tmp2 = check_malloc(ft_strjoin(tmp3, "\'"));
-		free(tmp3);
+		tmp3 = tmp2;
+		if ((*j > 0 && str[*j - 1] == ' ') || first_quote(str, j, '\'')
+				|| search_space_quote_decre(str, j, '\''))
+		{
+			tmp3 = check_malloc(ft_strjoin("\'", tmp2));
+			free(tmp2);
+			tmp2 = tmp3;
+		}
+		if (str[(*j) + strlen_between_c(str + *j, '\'') + 2] == ' ' || str[(*j) + 1] == '\0'
+				|| last_quote(str, j + strlen_between_c(str + *j, '\'') + 1, '\'')
+				|| search_space_quote_incre(str, j, '\''))
+		{
+			tmp2 = check_malloc(ft_strjoin(tmp3, "\'"));
+			free(tmp3);
+		}
 		tmp3 = check_malloc(ft_strjoin(*tmp, tmp2));
 		free(tmp2);
 		if (*tmp)

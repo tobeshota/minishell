@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/21 10:34:28 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/21 11:32:59 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ char	*process_dollar_quote(char *str, char **envp, t_tools *tools);
 int		handle_digit_after_dollar(int j, char *str);
 bool	title(char *str, int j);
 int		strlen_between_c(char *str, char c);
-bool	last_quote(char *str, int *i);
-bool	first_quote(char *str, int *i);
+bool	last_quote(char *str, int *i, char c);
+bool	first_quote(char *str, int *i, char c);
 char	*add_ith_c(char *str, char add, int ith);
 char	*omit_ith_c(char *str, int ith);
 bool	search_space_quote_incre(char *str, int *i, char c);

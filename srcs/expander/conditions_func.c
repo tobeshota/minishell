@@ -6,14 +6,14 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:25:17 by cjia              #+#    #+#             */
-/*   Updated: 2023/12/20 17:25:41 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/21 11:35:12 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
 #include "minishell.h"
 
-bool 	first_quote(char *str, int *i)
+bool 	first_quote(char *str, int *i, char c)
 {
 	int		j;
 	int	 	num;
@@ -22,7 +22,7 @@ bool 	first_quote(char *str, int *i)
 	num = 0;
 	while (str[num])
 	{
-		if (str[num] == '"')
+		if (str[num] == c)
 		{
 			if(num == j)
 				return (true);
@@ -33,7 +33,7 @@ bool 	first_quote(char *str, int *i)
 	}
 	return (false);
 }
-bool	last_quote(char *str, int *i)
+bool	last_quote(char *str, int *i, char c)
 {
 	int		j;
 	int	 	num;
@@ -43,7 +43,7 @@ bool	last_quote(char *str, int *i)
 	num = ft_strlen(str) - 1;
 	while (str[num] && num != 0)
 	{
-		if (str[num] == '"')
+		if (str[num] == c)
 		{
 			if(num == j)
 				return (true);
