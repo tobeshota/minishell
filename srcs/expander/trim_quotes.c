@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trim_quotes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
+/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:20:33 by cjia              #+#    #+#             */
-/*   Updated: 2023/12/21 12:56:22 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/21 13:33:27 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,12 @@ char	*move_to_first(char *str, char c)
 			i--;
 			while (str[i])
 			{
-				if (i >= 0 || str[i - 1] == ' ')
+				if (str[i - 1] == ' ' || i == 0 || str[i] == '\0')
 				{
 					tmp2 = add_ith_c(tmp, c, i);
 					i--;
 					free(tmp);
+					tmp = NULL;
 					free(str);
 					str = tmp2;
 					break ;
@@ -53,15 +54,15 @@ char	*move_to_first(char *str, char c)
 		i--;
 	}
 
-	if (tmp2 == NULL && (tmp == NULL || tmp != NULL))
-	{
+	// if (tmp2 == NULL && (tmp == NULL || tmp != NULL))
+	// {
 		if (tmp)
 			free(tmp);
 		return (str);
-	}
-	free(str);
-	str = NULL;
-	str = ft_strdup(tmp2);
+	// }
+	// free(str);
+	// str = NULL;
+	// str = ft_strdup(tmp2);
 	return (str);
 }
 
@@ -95,6 +96,7 @@ char	*move_to_last(char *str, char c)
 					tmp2 = add_ith_c(tmp, c, i);
 					i++;
 					free(tmp);
+					tmp = NULL;
 					free(str);
 					str = tmp2;
 					break ;
@@ -107,14 +109,14 @@ char	*move_to_last(char *str, char c)
 			frags = 0;
 		i++;
 	}
-	if (tmp2 == NULL && (tmp == NULL || tmp != NULL))
-	{
+	// if (tmp2 == NULL && (tmp == NULL || tmp != NULL))
+	// {
 		if (tmp)
 			free(tmp);
 		return (str);
-	}
-	free(str);
-	str = ft_strdup(tmp2);
+	// }
+	// free(str);
+	// str = ft_strdup(tmp2);
 	return (str);
 }
 
