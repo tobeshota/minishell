@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:39:54 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/21 14:44:11 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/21 15:06:13 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	**expander(t_tools *tools, char **str, char **envp)
 			tmp = process_dollar_quote(str[i], envp, tools);
 			free(str[i]);
 			str[i] = tmp;
-			// printf("str[%d] = %s\n", i, str[i]);
+			printf("str[%d] = %s\n", i, str[i]);
 		}
 		i++;
 	}

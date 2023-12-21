@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_dollar_quote.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 16:02:58 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/21 14:15:41 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/21 15:04:29 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,11 @@ void	handle_double_quotes(char **tmp, char *str, int *j, int *frags)
 		(*frags) = 0;
 	}
 	else if (str[*j] == '"' && str[*j + 1] == '"')
+	{
+		if(str[*j - 1] == '\'')
+			char_to_tmp(tmp, '\'');
 		(*j) += 2;
+	}
 }
 
 void	handle_single_quotes(char **tmp, char *str, int *j, int *frags)
@@ -103,7 +107,11 @@ void	handle_single_quotes(char **tmp, char *str, int *j, int *frags)
 		(*j) = (*j) + num + 2;
 	}
 	else if (str[*j] == '\'' && str[*j + 1] == '\'')
+	{
+		if(str[*j - 1] == '\'')
+			char_to_tmp(tmp, '\'');
 		(*j) += 2;
+	}
 }
 
 char	*process_dollar_quote(char *str, char **envp, t_tools *tools)
