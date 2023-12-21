@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:39:54 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/21 10:13:27 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/21 10:34:20 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	**expander(t_tools *tools, char **str, char **envp)
 			i++;
 		else
 		{
-			tmp = detect_dollar(str[i], envp, tools);
+			tmp = process_dollar_quote(str[i], envp, tools);
 			free(str[i]);
 			str[i] = tmp;
 		}

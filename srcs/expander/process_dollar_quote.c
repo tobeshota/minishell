@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 16:02:58 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/21 09:44:32 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/21 10:34:37 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	handle_single_quotes(char **tmp, char *str, int *j, int *frags)
 		(*j) += 2;
 }
 
-char	*detect_dollar(char *str, char **envp, t_tools *tools)
+char	*process_dollar_quote(char *str, char **envp, t_tools *tools)
 {
 	int		j;
 	int		frags;

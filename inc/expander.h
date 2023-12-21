@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/21 02:23:17 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/21 10:34:28 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ size_t	find_equal(char *str);
 size_t	find_dollar(char *str);
 int		loop_if_dollar_sign(char **envp, char *str, char **tmp, int j);
 int		question_mark(char **tmp, t_tools *tools);
-char	*detect_dollar(char *str, char **envp, t_tools *tools);
+char	*process_dollar_quote(char *str, char **envp, t_tools *tools);
 int		handle_digit_after_dollar(int j, char *str);
 bool	title(char *str, int j);
 int		strlen_between_c(char *str, char c);

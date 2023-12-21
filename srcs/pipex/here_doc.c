@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/20 16:02:09 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/21 10:34:49 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static char	*get_expanded_line(char *line, char **h_envp, char *delimiter,
 	if (find_dollar(line) && line[find_dollar(line) - 2] != '\''
 		&& line[find_dollar(line)])
 	{
-		tmp = detect_dollar(line, h_envp, tools);
+		tmp = process_dollar_quote(line, h_envp, tools);
 		free(line);
 		line = tmp;
 	}
