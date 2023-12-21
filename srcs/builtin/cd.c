@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/19 12:18:29 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/21 17:06:47 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ int	exec_cd(char **cmd, t_env **env, t_pipex *pipex)
 	if (get_path_from_cd(&path_from_cd, cmd, env, pipex) == false)
 		return (false);
 	if (get_element_count(cmd) > 2)
-		return (put_error_w_cmd_filename \
-		("cd", NULL, "too many arguments", pipex), true);
+		return (free(path_from_cd), \
+		put_error_w_cmd_filename("cd", 0, "too many arguments", pipex), true);
 	if (is_match(path_from_cd, ".") || is_match(path_from_cd, "./"))
 	{
 		if (getcwd(cwd, PATH_MAX) == NULL)

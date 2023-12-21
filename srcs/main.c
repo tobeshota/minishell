@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 13:58:05 by cjia              #+#    #+#             */
-/*   Updated: 2023/12/21 12:39:38 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/21 17:02:28 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	main(int argc, char **argv, char **envp)
 	return (put_error("minishell: too many arguments"), 1);
 }
 
-// __attribute__((destructor)) static void	destructor()
-// {
-// 	system("leaks -q minishell");
-// }
+__attribute__((destructor)) static void	destructor()
+{
+	system("leaks -q minishell");
+}
