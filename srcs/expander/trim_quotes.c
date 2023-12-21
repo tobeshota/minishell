@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:20:33 by cjia              #+#    #+#             */
-/*   Updated: 2023/12/21 10:28:28 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/21 12:56:22 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*move_to_first(char *str, char c)
 			{
 				if (i >= 0 || str[i - 1] == ' ')
 				{
-					tmp2 = add_ith_c(tmp, '"', i);
+					tmp2 = add_ith_c(tmp, c, i);
 					i--;
 					free(tmp);
 					free(str);
@@ -84,7 +84,7 @@ char	*move_to_last(char *str, char c)
 	{
 		if (str[i] == c && frags == 0)
 			frags = 1;
-		else if (str[i] == c && frags == 1 && i < len - 1)
+		else if (str[i] == c && frags == 1 && i < len - 1 && str[i + 1] != ' ')
 		{
 			tmp = omit_ith_c(str, i);
 			i++;
@@ -92,7 +92,7 @@ char	*move_to_last(char *str, char c)
 			{
 				if (str[i] == ' ' || str[i + 1] == '\0')
 				{
-					tmp2 = add_ith_c(tmp, '"', i);
+					tmp2 = add_ith_c(tmp, c, i);
 					i++;
 					free(tmp);
 					free(str);
@@ -103,6 +103,8 @@ char	*move_to_last(char *str, char c)
 			}
 			frags = 0;
 		}
+		else if(str[i] == c && frags == 1 && i > 0 && str[i + 1] == ' ')
+			frags = 0;
 		i++;
 	}
 	if (tmp2 == NULL && (tmp == NULL || tmp != NULL))

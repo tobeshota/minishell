@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trim_quotes_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:15 by cjia              #+#    #+#             */
-/*   Updated: 2023/12/20 17:45:46 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/21 11:57:22 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ bool	search_space_quote_incre(char *str, int *i, char c)
 	j = *i + 1;
 	while (str[j])
 	{
-		if (str[j] && str[j] == '"')
+		if (str[j] && str[j] == c)
 			return (false);
 		if (str[j] && str[j] == ' ')
 		{
@@ -82,7 +82,7 @@ bool	search_space_quote_decre(char *str, int *i, char c)
 	frag = 0;
 	while (str[j] && str[j] != str[0])
 	{
-		if (str[j] && str[j] == '"')
+		if (str[j] && str[j] == c)
 			return (false);
 		if (str[j] && str[j] == ' ' && frag == 0)
 		{
