@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
+/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/21 11:32:59 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/21 14:15:56 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ char	*add_ith_c(char *str, char add, int ith);
 char	*omit_ith_c(char *str, int ith);
 bool	search_space_quote_incre(char *str, int *i, char c);
 bool	search_space_quote_decre(char *str, int *i, char c);
-char	*move_to_last(char *str, char c);
-char	*move_to_first(char *str, char c);
+char	*move_to_last(char *str, char c, char opp);
+char	*move_to_first(char *str, char c, char opp);
 
 // expand_wildcard
 void	expand_wildcard(char **h_argv);

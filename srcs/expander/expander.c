@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 10:39:54 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/21 13:54:53 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/21 14:09:48 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	**expander(t_tools *tools, char **str, char **envp)
 			tmp = process_dollar_quote(str[i], envp, tools);
 			free(str[i]);
 			str[i] = tmp;
-			// printf("str[%d] = %s\n", i, str[i]);
+			printf("str[%d] = %s\n", i, str[i]);
 		}
 		i++;
 	}

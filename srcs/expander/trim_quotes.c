@@ -6,14 +6,14 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:20:33 by cjia              #+#    #+#             */
-/*   Updated: 2023/12/21 13:33:27 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/21 14:24:10 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
 #include "minishell.h"
 
-char	*move_to_first(char *str, char c)
+char	*move_to_first(char *str, char c, char opp)
 {
 	int		i;
 	int		frags;
@@ -29,7 +29,8 @@ char	*move_to_first(char *str, char c)
 	{
 		if (str[i] == c && frags == 0 && i > 0)
 			frags = 1;
-		else if (str[i] == c && frags == 1 && i > 0 && str[i - 1] != ' ')
+		else if (str[i] == c && frags == 1 && i > 0 
+			&& str[i - 1] != ' ' && str[i - 1] != opp)
 		{
 			tmp = omit_ith_c(str, i);
 			i--;
@@ -49,7 +50,7 @@ char	*move_to_first(char *str, char c)
 			}
 			frags = 0;
 		}
-		else if(str[i] == c && frags == 1 && i > 0 && str[i - 1] == ' ')
+		else
 			frags = 0;
 		i--;
 	}
@@ -68,7 +69,7 @@ char	*move_to_first(char *str, char c)
 
 
 
-char	*move_to_last(char *str, char c)
+char	*move_to_last(char *str, char c, char opp)
 {
 	int		i;
 	int		frags;
@@ -85,7 +86,8 @@ char	*move_to_last(char *str, char c)
 	{
 		if (str[i] == c && frags == 0)
 			frags = 1;
-		else if (str[i] == c && frags == 1 && i < len - 1 && str[i + 1] != ' ')
+		else if (str[i] == c && frags == 1 && i < len - 1
+			&& str[i + 1] != ' ' && str[i + 1] != opp)
 		{
 			tmp = omit_ith_c(str, i);
 			i++;
@@ -105,9 +107,9 @@ char	*move_to_last(char *str, char c)
 			}
 			frags = 0;
 		}
-		else if(str[i] == c && frags == 1 && i > 0 && str[i + 1] == ' ')
+		else
 			frags = 0;
-		i++;
+			i++;
 	}
 	// if (tmp2 == NULL && (tmp == NULL || tmp != NULL))
 	// {
