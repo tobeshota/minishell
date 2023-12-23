@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:20:33 by cjia              #+#    #+#             */
-/*   Updated: 2023/12/22 20:27:41 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/23 10:40:59 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ char	*move_to_last(char *str, char c, char opp)
 				if (str[i] == ' ' || str[i + 1] == '\0')
 				{
 					j++;
-					tmp2 = add_ith_c(tmp, c, i - j + 1);
+					tmp2 = add_ith_c(tmp, c, i - j);
 					i++;
 					free(tmp);
 					tmp = NULL;

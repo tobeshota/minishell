@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 16:02:58 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/22 18:12:37 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/23 10:26:37 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	handle_double_quotes(char **tmp, char *str, int *j, int *frags)
 {
 	if(((str[*j - 1] == ' ' &&  str[*j + 2] == '\0') || (str[*j - 1] == ' ' &&  str[*j + 2] == ' ')) && str[*j] == '"' && str[*j + 1] == '"')
 		(*j) += str_to_tmp(tmp, "\"\"");
-	else if (str[*j] == '"' && *frags == 0 && str[*j + 1] != '"')
+	else if (str[*j] == '"' && *frags == 0)
 	{
 		if ((*j > 0 && str[*j - 1] == ' ') || str[(*j) + 1] == '\t' || first_quote(str, j, '"') || search_space_quote_decre(str, j, '"'))
 			(*j) += char_to_tmp(tmp, str[(*j)]);
@@ -52,7 +52,7 @@ void	handle_double_quotes(char **tmp, char *str, int *j, int *frags)
 			(*j) += 1;
 		(*frags) = 1;
 	}
-	else if (str[*j] == '"' && *frags == 1 && str[*j + 1] != '"')
+	else if (str[*j] == '"' && *frags == 1)
 	{
 		if (str[(*j) + 1] == ' ' || str[(*j) + 1] == '\t' || str[(*j) + 1] == '\0' || last_quote(str, j, '"') || search_space_quote_incre(str, j, '"'))
 			(*j) += char_to_tmp(tmp, str[(*j)]);
@@ -79,7 +79,7 @@ void	handle_single_quotes(char **tmp, char *str, int *j, int *frags)
 	i = (*j) + num + 1;
 	if(((str[*j - 1] == ' ' &&  str[*j + 2] == '\0') || (str[*j - 1] == ' ' &&  str[*j + 2] == ' ')) && str[*j] == '\'' && str[*j + 1] == '\'')
 		(*j) += str_to_tmp(tmp, "\"\"");
-	else if (str[*j] == '\'' && *frags == 0 && str[*j + 1] != '\'')
+	else if (str[*j] == '\'' && *frags == 0)
 	{
 		tmp2 = check_malloc(ft_substr(str, *j + 1,
 					num));
