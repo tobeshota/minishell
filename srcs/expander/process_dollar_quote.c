@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 16:02:58 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/23 10:26:37 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/25 20:37:40 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ char	*process_dollar_quote(char *str, char **envp, t_tools *tools)
 			j += question_mark(&tmp, tools);
 		else if (str[j] == '$' && str[j + 1] == '$')
 			j += str_to_tmp(&tmp, "$$");
-		else if (title(str, j) == true)
+		else if (check_conditions(str, j) == true)
 			j += loop_if_dollar_sign(envp, str, &tmp, j);
 		else
 			j += char_to_tmp(&tmp, str[j]);

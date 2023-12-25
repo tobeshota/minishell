@@ -6,13 +6,13 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 10:35:37 by cjia              #+#    #+#             */
-/*   Updated: 2023/12/22 17:11:22 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/25 20:39:01 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/expander.h"
 
-bool	title(char *str, int j)
+bool	check_conditions(char *str, int j)
 {
 	return (str[j] == '$'
 		&& (str[j + 1] != ' ') && str[j + 1] != '\0'

@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/21 14:15:56 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/25 20:37:36 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		loop_if_dollar_sign(char **envp, char *str, char **tmp, int j);
 int		question_mark(char **tmp, t_tools *tools);
 char	*process_dollar_quote(char *str, char **envp, t_tools *tools);
 int		handle_digit_after_dollar(int j, char *str);
-bool	title(char *str, int j);
+bool	check_conditions(char *str, int j);
 int		strlen_between_c(char *str, char c);
 bool	last_quote(char *str, int *i, char c);
 bool	first_quote(char *str, int *i, char c);
