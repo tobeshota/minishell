@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 16:02:58 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/26 11:17:07 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/26 13:39:16 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,8 @@ void	handle_single_quotes(char **tmp, char *str, int *j, int *frags)
 			free(tmp2);
 			tmp2 = tmp3;
 		}
-		if (str[(*j) + num + 2] == ' '
-			|| str[(*j) + num + 2] == '\t'
-			|| str[num + 2] == '\0'
-			|| last_quote(str, &i, '\'')
+		if (str[(*j) + num + 2] == ' ' || str[(*j) + num + 2] == '\t'
+			|| str[num + 2] == '\0' || last_quote(str, &i, '\'')
 			|| search_space_quote_incre(str, j, '\''))
 		{
 			tmp2 = check_malloc(ft_strjoin(tmp3, "\'"));
