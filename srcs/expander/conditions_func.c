@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:25:17 by cjia              #+#    #+#             */
-/*   Updated: 2023/12/26 10:59:26 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/26 18:24:10 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,12 @@ bool	last_quote(char *str, int *i, char c)
 		num--;
 	}
 	return (false);
+}
+
+void	judge_opp_frag(char *str, int opp, int *opp_quote_frags, int *i)
+{
+	if (str[(*i)] == opp && *opp_quote_frags == 0)
+		*opp_quote_frags = 1;
+	else if (str[(*i)] == opp && *opp_quote_frags == 1)
+		*opp_quote_frags = 0;
 }

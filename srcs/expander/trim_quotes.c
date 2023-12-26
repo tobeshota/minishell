@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:20:33 by cjia              #+#    #+#             */
-/*   Updated: 2023/12/26 13:37:10 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/26 18:24:00 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,6 @@ char	*omit_and_add_ver_last(char *str, int c, int *i, int *j)
 		(*i)++;
 	}
 	return (str);
-}
-
-void	judge_opp_frag(char *str, int opp, int *opp_quote_frags, int *i)
-{
-	if (str[(*i)] == opp && *opp_quote_frags == 0)
-		*opp_quote_frags = 1;
-	else if (str[(*i)] == opp && *opp_quote_frags == 1)
-		*opp_quote_frags = 0;
 }
 
 char	*move_to_last(char *str, char c, char opp)

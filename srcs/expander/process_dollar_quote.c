@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 16:02:58 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/26 13:39:16 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/26 18:22:30 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,86 +40,16 @@ int	str_to_tmp(char **tmp, char *str)
 	return (2);
 }
 
-void	handle_double_quotes(char **tmp, char *str, int *j, int *frags)
+char	*move_to_first_and_last(char *tmp)
 {
-	if (((str[*j - 1] == ' ' && str[*j + 2] == '\0')
-			|| (str[*j - 1] == ' ' && str[*j + 2] == ' '))
-		&& str[*j] == '"' && str[*j + 1] == '"')
-		(*j) += str_to_tmp(tmp, "\"\"");
-	else if (str[*j] == '"' && *frags == 0)
+	if (ft_strchr(tmp, '\'') || ft_strchr(tmp, '\"'))
 	{
-		if ((*j > 0 && str[*j - 1] == ' ') || str[(*j) + 1] == '\t'
-			|| first_quote(str, j, '"')
-			|| search_space_quote_decre(str, j, '"'))
-			(*j) += char_to_tmp(tmp, str[(*j)]);
-		else
-			(*j) += 1;
-		(*frags) = 1;
+		tmp = move_to_first(tmp, '"', '\'');
+		tmp = move_to_last(tmp, '"', '\'');
+		tmp = move_to_first(tmp, '\'', '"');
+		tmp = move_to_last(tmp, '\'', '"');
 	}
-	else if (str[*j] == '"' && *frags == 1)
-	{
-		if (str[(*j) + 1] == ' ' || str[(*j) + 1] == '\t'
-			|| str[(*j) + 1] == '\0' || last_quote(str, j, '"')
-			|| search_space_quote_incre(str, j, '"'))
-			(*j) += char_to_tmp(tmp, str[(*j)]);
-		else
-			(*j) += 1;
-		(*frags) = 0;
-	}
-	else if (str[*j] == '"' && str[*j + 1] == '"')
-	{
-		if (str[*j - 1] == '\'')
-			char_to_tmp(tmp, '\'');
-		(*j) += 2;
-	}
-}
-
-void	handle_single_quotes(char **tmp, char *str, int *j, int *frags)
-{
-	char	*tmp2;
-	char	*tmp3;
-	int		i;
-	int		num;
-
-	num = strlen_between_c(str + *j, '\'');
-	i = (*j) + num + 1;
-	if (((str[*j - 1] == ' ' && str[*j + 2] == '\0')
-			|| (str[*j - 1] == ' ' && str[*j + 2] == ' '))
-		&& str[*j] == '\'' && str[*j + 1] == '\'')
-		(*j) += str_to_tmp(tmp, "\"\"");
-	else if (str[*j] == '\'' && *frags == 0)
-	{
-		tmp2 = check_malloc(ft_substr(str, *j + 1,
-					num));
-		tmp3 = tmp2;
-		if ((*j > 0 && str[*j - 1] == ' ') || str[(*j) + 1] == '\t'
-			|| first_quote(str, j, '\'')
-			|| search_space_quote_decre(str, j, '\''))
-		{
-			tmp3 = check_malloc(ft_strjoin("\'", tmp2));
-			free(tmp2);
-			tmp2 = tmp3;
-		}
-		if (str[(*j) + num + 2] == ' ' || str[(*j) + num + 2] == '\t'
-			|| str[num + 2] == '\0' || last_quote(str, &i, '\'')
-			|| search_space_quote_incre(str, j, '\''))
-		{
-			tmp2 = check_malloc(ft_strjoin(tmp3, "\'"));
-			free(tmp3);
-		}
-		tmp3 = check_malloc(ft_strjoin(*tmp, tmp2));
-		free(tmp2);
-		if (*tmp)
-			free(*tmp);
-		*tmp = tmp3;
-		(*j) = (*j) + num + 2;
-	}
-	else if (str[*j] == '\'' && str[*j + 1] == '\'')
-	{
-		if (str[*j - 1] == '\'')
-			char_to_tmp(tmp, '\'');
-		(*j) += 2;
-	}
+	return (tmp);
 }
 
 char	*process_dollar_quote(char *str, char **envp, t_tools *tools)
@@ -147,12 +77,6 @@ char	*process_dollar_quote(char *str, char **envp, t_tools *tools)
 		else
 			j += char_to_tmp(&tmp, str[j]);
 	}
-	if (ft_strchr(tmp, '\'') || ft_strchr(tmp, '\"'))
-	{
-		tmp = move_to_first(tmp, '"', '\'');
-		tmp = move_to_last(tmp, '"', '\'');
-		tmp = move_to_first(tmp, '\'', '"');
-		tmp = move_to_last(tmp, '\'', '"');
-	}
+	tmp = move_to_first_and_last(tmp);
 	return (tmp);
 }
