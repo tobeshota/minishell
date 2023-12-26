@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
+/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 13:46:33 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/19 14:12:39 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/26 10:41:13 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,10 @@ static int	process_input(t_tools *tools)
 		|| tools->lexer_list->token == AND_AND
 		|| tools->lexer_list->token == OR_OR)
 	{
-		if (parser_token_error(tools, tools->lexer_list->token) == EXIT_FAILURE)
-			return (0);
+		parser_token_error(tools, tools->lexer_list->token);
+		ft_lexerclear(&tools->lexer_list);
+		free(tools->str);
+		return (0);
 	}
 	if (tools->lexer_list->token == 0 && tools->lexer_list->str[0] == '\0')
 	{

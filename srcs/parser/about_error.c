@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 13:17:23 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/20 13:00:54 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/26 10:45:41 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ bool	check_double_operator(t_simple_cmds *new, t_simple_cmds *tmp,
 				|| new->redirections->token == OR_OR
 				|| new->redirections->token == PIPE))
 		{
+			parser_token_error(tools, new->redirections->token);
 			free(tools->str);
 			tools->str = NULL;
 			ft_simple_cmdsclear(&tools->simple_cmds);
 			ft_lexerclear(&tools->lexer_list);
 			implement_tools(tools);
-			ft_error(0, tools);
 			return (false);
 		}
 	}
@@ -88,8 +88,6 @@ int	parser_token_error(t_tools *tools, t_tokens token)
 		ft_putstr_fd("`||'\n", STDERR_FILENO);
 	else
 		ft_putstr_fd("\n", STDERR_FILENO);
-	ft_lexerclear(&tools->lexer_list);
-	free(tools->str);
 	return (EXIT_FAILURE);
 }
 
@@ -98,6 +96,8 @@ int	handle_operator_error(t_tools *tools, t_tokens token)
 	if (token == PIPE)
 	{
 		parser_token_error(tools, tools->lexer_list->token);
+		ft_lexerclear(&tools->lexer_list);
+		free(tools->str);
 		return (EXIT_FAILURE);
 	}
 	if (!tools->lexer_list || (tools->lexer_list->str
