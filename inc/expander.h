@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/26 18:28:52 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/26 18:30:11 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	add_double_auote_frag1(char *str, int *j, char **tmp, int *frags);
 void	handle_double_quotes(char **tmp, char *str, int *j, int *frags);
 void	handle_single_quotes(char **tmp, char *str, int *j, int *frags);
 void	judge_opp_frag(char *str, int opp, int *opp_quote_frags, int *i);
-int	    str_to_tmp(char **tmp, char *str);
+int		str_to_tmp(char **tmp, char *str);
 int		char_to_tmp(char **tmp, char c);
 
 
