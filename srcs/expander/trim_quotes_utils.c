@@ -6,17 +6,16 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:15 by cjia              #+#    #+#             */
-/*   Updated: 2023/12/26 13:31:15 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/26 19:20:09 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
 #include "minishell.h"
 
-void	init_move_to_last(int *i, int *frags, int *opp_quote_frags, int *j)
+void	init_move_to_last(int *i, int *frags, int *opp_quote_frags)
 {
 	*i = 0;
-	*j = 0;
 	*frags = 0;
 	*opp_quote_frags = 0;
 }

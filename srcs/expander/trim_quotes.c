@@ -6,14 +6,14 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:20:33 by cjia              #+#    #+#             */
-/*   Updated: 2023/12/26 18:24:00 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/26 19:19:30 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
 #include "minishell.h"
 
-char	*omit_and_add_ver_last(char *str, int c, int *i, int *j)
+char	*omit_and_add_ver_last(char *str, int c, int *i)
 {
 	char	*tmp;
 	char	*tmp2;
@@ -24,8 +24,7 @@ char	*omit_and_add_ver_last(char *str, int c, int *i, int *j)
 	{
 		if (str[(*i) + 1] == ' ' || str[(*i) + 1] == '\0')
 		{
-			(*j)++;
-			tmp2 = add_ith_c(tmp, c, (*i) - (*j) + 1);
+			tmp2 = add_ith_c(tmp, c, (*i));
 			(*i)++;
 			free(tmp);
 			free(str);
@@ -43,10 +42,9 @@ char	*move_to_last(char *str, char c, char opp)
 	int		frags;
 	int		opp_quote_frags;
 	int		len;
-	int		j;
 
 	len = ft_strlen(str) - 1;
-	init_move_to_last(&i, &frags, &opp_quote_frags, &j);
+	init_move_to_last(&i, &frags, &opp_quote_frags);
 	while (str && str[i] != '\0')
 	{
 		judge_opp_frag(str, opp, &opp_quote_frags, &i);
@@ -55,7 +53,7 @@ char	*move_to_last(char *str, char c, char opp)
 		else if (str[i] == c && frags == 1 && i <= len - 1
 			&& str[i + 1] != ' ' && str[i + 1] != opp && opp_quote_frags == 0)
 		{
-			str = omit_and_add_ver_last(str, c, &i, &j);
+			str = omit_and_add_ver_last(str, c, &i);
 			frags = 0;
 		}
 		else if (str[i] == c && frags == 1 && i < len - 1

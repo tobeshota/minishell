@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/26 18:30:11 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/26 19:19:38 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ bool	search_space_quote_incre(char *str, int *i, char c);
 bool	search_space_quote_decre(char *str, int *i, char c);
 char	*move_to_last(char *str, char c, char opp);
 char	*move_to_first(char *str, char c, char opp);
-void	init_move_to_last(int *i, int *frags, int *opp_quote_frags, int *j);
+void	init_move_to_last(int *i, int *frags, int *opp_quote_frags);
 char	*add_single_quote(char *str, int *j, int num, char **tmp);
 void	add_double_auote_frag0(char *str, int *j, char **tmp, int *frags);
 void	add_double_auote_frag1(char *str, int *j, char **tmp, int *frags);

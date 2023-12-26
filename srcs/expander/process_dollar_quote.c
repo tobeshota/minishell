@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 16:02:58 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/26 18:22:30 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/26 18:56:32 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ char	*process_dollar_quote(char *str, char **envp, t_tools *tools)
 	tmp = check_malloc(ft_strdup("\0"));
 	while (str[j])
 	{
-		j += handle_digit_after_dollar(j, str);
 		if (str[j] == '"')
 			handle_double_quotes(&tmp, str, &j, &frags);
 		else if (str[j] == '\'' && frags == 0)
