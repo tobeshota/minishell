@@ -6,7 +6,7 @@
 /*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:27:15 by cjia              #+#    #+#             */
-/*   Updated: 2023/12/22 18:25:59 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/26 11:11:30 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,14 @@ char	*omit_ith_c(char *str, int ith)
 bool	search_space_quote_incre(char *str, int *i, char c)
 {
 	int		j;
-	int		frag;
 
 	j = *i + 1;
-	frag = 0;
 	while (str[j])
 	{
 		if (str[j] && str[j] == c)
 			return (false);
 		if (str[j] && str[j] == ' ')
 		{
-			frag = 1;
 			while (str[j])
 			{
 				if (str[j] == c)
@@ -67,27 +64,20 @@ bool	search_space_quote_incre(char *str, int *i, char c)
 		}
 		j++;
 	}
-	if (frag == 0)
-		return (true);
 	return (false);
 }
-
-
 
 bool	search_space_quote_decre(char *str, int *i, char c)
 {
 	int		j;
-	int		frag;
 
 	j = *i - 1;
-	frag = 0;
 	while (str[j] && str[j] != str[0])
 	{
 		if (str[j] && str[j] == c)
 			return (false);
-		if (str[j] && str[j] == ' ' && frag == 0)
+		if (str[j] && str[j] == ' ')
 		{
-			frag = 1;
 			while (str[j] && j != 0)
 			{
 				if (str[j] == c)
@@ -97,7 +87,5 @@ bool	search_space_quote_decre(char *str, int *i, char c)
 		}
 		j--;
 	}
-	// if (frag == 0)
-	// 	return (true);
 	return (false);
 }

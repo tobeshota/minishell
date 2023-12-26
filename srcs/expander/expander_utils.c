@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
+/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 10:11:50 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/21 15:56:29 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/26 11:05:59 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	after_dol_lenght(char *str, int j)
 	i = j + 1;
 	while (str[i] != '\0' && str[i] != '$' && str[i] != ' '
 		&& str[i] != '\"' && str[i] != '\'' && str[i] != '=' && str[i] != '-'
-		&& str[i] != ':'  && str[i] != '|' && str[i] != ';' && str[i] != '/'
+		&& str[i] != ':' && str[i] != '|' && str[i] != ';' && str[i] != '/'
 		&& str[i] != '\t' && str[i] != '\n')
 		i++;
 	return (i);

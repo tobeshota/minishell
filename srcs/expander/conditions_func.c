@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   conditions_func.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
+/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:25:17 by cjia              #+#    #+#             */
-/*   Updated: 2023/12/21 11:35:12 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/26 10:59:26 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
 #include "minishell.h"
 
-bool 	first_quote(char *str, int *i, char c)
+bool	first_quote(char *str, int *i, char c)
 {
 	int		j;
-	int	 	num;
+	int		num;
 
 	j = *i;
 	num = 0;
@@ -24,7 +24,7 @@ bool 	first_quote(char *str, int *i, char c)
 	{
 		if (str[num] == c)
 		{
-			if(num == j)
+			if (num == j)
 				return (true);
 			else
 				return (false);
@@ -33,10 +33,11 @@ bool 	first_quote(char *str, int *i, char c)
 	}
 	return (false);
 }
+
 bool	last_quote(char *str, int *i, char c)
 {
 	int		j;
-	int	 	num;
+	int		num;
 
 	j = *i;
 	num = 0;
@@ -45,7 +46,7 @@ bool	last_quote(char *str, int *i, char c)
 	{
 		if (str[num] == c)
 		{
-			if(num == j)
+			if (num == j)
 				return (true);
 			else
 				return (false);
