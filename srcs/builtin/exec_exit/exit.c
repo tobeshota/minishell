@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/28 15:51:14 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/28 17:25:20 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,12 @@ static bool	is_cmd_arg_num(char *cmd_arg)
 		return (abs_ull <= LLONG_MAX);
 }
 
-static void	check_is_cmd_arg_num(bool ret, char *cmd_arg, t_pipex *pipex)
+static void	check_is_cmd_arg_num(bool ret, char **cmd, t_pipex *pipex)
 {
 	if (ret == false)
 	{
 		put_error_w_cmd_filename \
-		("exit", cmd_arg, "numeric argument required", pipex);
-		free(cmd_arg);
+		("exit", cmd[1], "numeric argument required", pipex);
 		exit(2);
 	}
 }
@@ -85,7 +84,7 @@ int	exec_exit(char **cmd, t_pipex *pipex)
 	if (cmd[1])
 	{
 		cmd_arg = omit_str(cmd[1], "\'\" ");
-		check_is_cmd_arg_num(is_cmd_arg_num(cmd_arg), cmd_arg, pipex);
+		check_is_cmd_arg_num(is_cmd_arg_num(cmd_arg), cmd, pipex);
 		if (check_exit_argc_is_more_than_2(cmd, pipex, cmd_arg) == true)
 			return (true);
 		if (get_cmd_absolute_path_count(pipex) == 1)
