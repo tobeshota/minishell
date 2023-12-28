@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 11:53:59 by cjia              #+#    #+#             */
-/*   Updated: 2023/12/19 20:20:52 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/28 19:09:13 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,13 @@ void	grouping_cmd(int arg_size, char **str, t_parser_tools *parser_tools)
 	}
 }
 
-t_simple_cmds	*creat_ast(t_parser_tools *parser_tools)
+t_simple_cmds	*creat_ast(t_parser_tools *parser_tools, t_tools *tools)
 {
 	char	**str;
 	int		arg_size;
 
 	str = NULL;
-	if (grouping_redirections(parser_tools) == EXIT_FAILURE)
+	if (grouping_redirections(parser_tools, tools) == EXIT_FAILURE)
 		return (NULL);
 	arg_size = count_args(parser_tools->lexer_list);
 	str = (char **)check_malloc(ft_calloc(arg_size + 1, sizeof(char *)));

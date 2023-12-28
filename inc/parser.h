@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 12:55:55 by cjia              #+#    #+#             */
-/*   Updated: 2023/12/28 17:31:18 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/28 19:23:30 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void						erase_token(t_lexer **lexer_list, int i);
 int							count_args(t_lexer *lexer_list);
 t_simple_cmds				*recreated_node(char **str, int num_redirections,
 								t_lexer *redirections);
-int							grouping_redirections(t_parser_tools *parser_tools);
+int							grouping_redirections(t_parser_tools *parser_tools,
+								t_tools *tools);
 void						parser_error(int error, t_tools *tools);
 int							parser_token_error(t_tools *tools, t_tokens token);
 int							handle_operator_error(t_tools *tools,
@@ -62,7 +63,8 @@ bool						add_list(t_simple_cmds **list, t_simple_cmds *new,
 								t_tools *tools);
 void						grouping_cmd(int arg_size, char **str,
 								t_parser_tools *parser_tools);
-t_simple_cmds				*creat_ast(t_parser_tools *parser_tools);
+t_simple_cmds				*creat_ast(t_parser_tools *parser_tools,
+								t_tools *tools);
 t_parser_tools				init_parser_tools(t_tools *tools);
 t_simple_cmds				*create_a_node(t_tools *tools);
 

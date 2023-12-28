@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 13:27:33 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/19 13:48:03 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/28 18:59:06 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	handle_b_case(t_tools *tools, t_simple_cmds **node,
 {
 	if (handle_operator_error(tools, tools->lexer_list->token))
 		return (0);
-	*node = creat_ast(parser_tools);
+	*node = creat_ast(parser_tools, tools);
 	if (!*node)
 	{
 		return (0);
