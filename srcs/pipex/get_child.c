@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_child.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 13:09:42 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/28 17:08:30 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/28 20:53:46 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	get_child_exit_status(int status)
 	{
 		if (g_in_cmd == SIG_INT_COMING)
 			return (130);
-		return (131);
+		return (0);
 	}
 	else if (WIFSTOPPED(status))
 		return (WSTOPSIG(status));
