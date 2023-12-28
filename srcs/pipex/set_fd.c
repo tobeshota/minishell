@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_fd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 13:19:51 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/19 23:37:26 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/28 13:08:29 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,9 @@ bool	set_input_fd(t_pipex *pipex, int cmd_i)
 
 bool	set_output_fd(t_pipex *pipex, int cmd_i)
 {
-	if (is_fd_default(pipex->outfile_fd, STDOUT_FILENO)
-		&& pipex->cmd_absolute_path[cmd_i + 1] != NULL)
+	if ((is_fd_default(pipex->outfile_fd, STDOUT_FILENO) && \
+	pipex->cmd_absolute_path[cmd_i + 1] != NULL) || \
+	cmd_i < count_pipe(pipex->argv))
 	{
 		if (check_dup(dup2(pipex->pipe_fd[cmd_i][1], STDOUT_FILENO)) == false)
 			return (false);
