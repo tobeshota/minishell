@@ -6,16 +6,15 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:32:48 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/28 15:33:25 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/28 19:58:20 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include "expander.h"
 
-static int	is_true(int ret, t_pipex *pipex, t_tools *tools)
+static int	is_true(int ret, t_pipex *pipex)
 {
-	(void)tools;
 	if (ret == false)
 	{
 		if (*pipex->error_num == 0)
@@ -26,16 +25,20 @@ static int	is_true(int ret, t_pipex *pipex, t_tools *tools)
 	}
 	else if (*pipex->error_num != 0)
 		*pipex->error_num = 0;
-	return (true);
+	return (ret);
 }
 
 int	pipex(char **argv, char **h_envp, t_env **env, t_tools *tools)
 {
 	t_pipex	pipex;
+	int		ret;
 
-	if (is_true(get_pipex(argv, h_envp, &pipex, tools), &pipex, tools) == false)
+	ret = is_true(get_pipex(argv, h_envp, &pipex, tools), &pipex);
+	if (ret == NOT_FOUND)
+		return (is_true(end_pipex(&pipex), &pipex));
+	if (ret == false)
 		return (end_pipex(&pipex), false);
-	if (is_true(do_pipex(h_envp, env, &pipex, tools), &pipex, tools) == false)
+	if (is_true(do_pipex(h_envp, env, &pipex, tools), &pipex) == false)
 		return (end_pipex(&pipex), false);
-	return (is_true(end_pipex(&pipex), &pipex, tools));
+	return (is_true(end_pipex(&pipex), &pipex));
 }
