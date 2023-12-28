@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/21 10:58:32 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/28 12:20:35 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	open_file(char *file, int file_type)
 
 int	close_file(int fd, int default_fd)
 {
-	if (fd != default_fd)
+	if (fd != default_fd && fd >= 0)
 		return (close(fd));
 	return (0);
 }

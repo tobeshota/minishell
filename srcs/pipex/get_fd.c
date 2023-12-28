@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 01:22:30 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/20 16:39:35 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/28 12:24:10 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ bool	close_fd(t_pipex *pipex)
 
 	infd_ret = check_close(close_file(pipex->infile_fd, STDIN_FILENO));
 	outfd_ret = check_close(close_file(pipex->outfile_fd, STDOUT_FILENO));
+	pipex->infile_fd = STDIN_FILENO;
+	pipex->outfile_fd = STDOUT_FILENO;
 	if (infd_ret == false || outfd_ret == false)
 		return (false);
 	return (true);
