@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:09:54 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/28 19:22:50 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/28 20:00:24 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,11 @@ bool	check_redirections_error(t_lexer *tmp, t_parser_tools *parser_tools,
 {
 	if (!tmp->next)
 	{
-		ft_lexerclear(&parser_tools->lexer_list);
-		ft_lexerclear(&parser_tools->redirections);
 		free(parser_tools->tools->str);
+		parser_tools->tools->str = NULL;
+		ft_simple_cmdsclear(&tools->simple_cmds);
+		ft_lexerclear(&parser_tools->redirections);
+		ft_lexerclear(&parser_tools->tools->lexer_list);
 		ft_error(0, parser_tools->tools);
 		return (true);
 	}
