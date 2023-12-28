@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 13:19:51 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/28 13:08:29 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/28 13:26:17 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ bool	set_input_fd(t_pipex *pipex, int cmd_i)
 	{
 		if (check_dup(dup2(pipex->infile_fd, STDIN_FILENO)) == false)
 			return (false);
-		return (check_close(close(pipex->infile_fd)));
+		if (is_cmd_builtin(pipex->cmd_absolute_path[cmd_i]) == false)
+			return (check_close(close(pipex->infile_fd)));
 	}
 	return (true);
 }
@@ -62,7 +63,8 @@ bool	set_output_fd(t_pipex *pipex, int cmd_i)
 	{
 		if (check_dup(dup2(pipex->outfile_fd, STDOUT_FILENO)) == false)
 			return (false);
-		return (check_close(close(pipex->outfile_fd)));
+		if (is_cmd_builtin(pipex->cmd_absolute_path[cmd_i]) == false)
+			return (check_close(close(pipex->outfile_fd)));
 	}
 	return (true);
 }
