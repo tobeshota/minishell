@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/26 19:19:38 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/28 17:28:55 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void	handle_single_quotes(char **tmp, char *str, int *j, int *frags);
 void	judge_opp_frag(char *str, int opp, int *opp_quote_frags, int *i);
 int		str_to_tmp(char **tmp, char *str);
 int		char_to_tmp(char **tmp, char c);
-
 
 // expand_wildcard
 void	expand_wildcard(char **h_argv);
