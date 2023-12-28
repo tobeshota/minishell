@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   detect_dollar_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 10:35:37 by cjia              #+#    #+#             */
-/*   Updated: 2023/12/26 10:29:56 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/28 20:23:23 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ bool	check_conditions(char *str, int j)
 {
 	return (str[j] == '$'
 		&& (str[j + 1] != ' ') && str[j + 1] != '\0'
-		&& str[j + 1] != '/' && str[j + 1] != '-');
+		&& str[j + 1] != '/' && str[j + 1] != '-' && str[j + 1] != '"');
 }
 
 size_t	find_equal(char *str)
