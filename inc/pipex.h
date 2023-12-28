@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/28 17:12:23 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/28 19:59:07 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int		is_cmd(char *cunnret_argv, char *prev_argv, char **h_envp);
 bool	is_specified_redirect(char *str);
 bool	is_io_file(char *argv, char *prev_argv);
 bool	is_argv_exist(char **argv);
-bool	get_cmd_absolute_path(char **h_envp, t_pipex *pipex);
+int		get_cmd_absolute_path(char **h_envp, t_pipex *pipex);
 bool	add_absolute_path_to_cmd_name(char **h_envp,
 			char ***cmd_absolute_path);
 char	**add_slash_eos(char **path);
@@ -89,7 +89,7 @@ bool	is_cmd_alreadly_absollute_path(char ***cmd_absolute_path, int cmd_i);
 bool	wait_child(int cmd_i, t_pipex *pipex);
 bool	reset_pipex(char **h_envp, t_pipex *pipex, t_tools *tools, int cmd_i);
 int		pipex(char **argv, char **h_envp, t_env **env, t_tools *tools);
-bool	get_pipex(char **argv, char **h_envp, t_pipex *pipex, t_tools *tools);
+int		get_pipex(char **argv, char **h_envp, t_pipex *pipex, t_tools *tools);
 bool	do_pipex(char **h_envp, t_env **env, t_pipex *pipex, t_tools *tools);
 bool	end_pipex(t_pipex *pipex);
 

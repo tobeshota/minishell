@@ -6,23 +6,25 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/20 23:03:17 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/28 19:54:02 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static bool	get_cmd_name_from_arg(char **h_envp, t_pipex *pipex)
+static int	get_cmd_name_from_arg(char **h_envp, t_pipex *pipex)
 {
 	int		arg_i;
 	int		cmd_i;
 	char	*cunnret_argv;
 	char	*prev_argv;
+	int		cmd_count;
 
-	if (get_cmd_count(pipex, h_envp) == false)
-		return (false);
+	cmd_count = get_cmd_count(pipex, h_envp);
+	if (cmd_count == NOT_FOUND || cmd_count == false)
+		return (cmd_count);
 	pipex->cmd_absolute_path = (char **)check_malloc \
-	(malloc(sizeof(char *) * (get_cmd_count_wo_error_msg(pipex, h_envp) + 1)));
+	(malloc(sizeof(char *) * (cmd_count + 1)));
 	arg_i = -1;
 	cmd_i = 0;
 	while (pipex->argv[++arg_i])
@@ -84,12 +86,14 @@ t_pipex *pipex)
 	pipex->cmd_absolute_path_with_parameter[cmd_i] = NULL;
 }
 
-bool	get_cmd_absolute_path(char **h_envp, t_pipex *pipex)
+int	get_cmd_absolute_path(char **h_envp, t_pipex *pipex)
 {
 	char	**cmd_parameter;
+	int		ret;
 
-	if (get_cmd_name_from_arg(h_envp, pipex) == false)
-		return (false);
+	ret = get_cmd_name_from_arg(h_envp, pipex);
+	if (ret != true)
+		return (ret);
 	cmd_parameter = get_cmd_parameter(h_envp, pipex);
 	if (add_absolute_path_to_cmd_name \
 	(h_envp, &pipex->cmd_absolute_path) == false)
