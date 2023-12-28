@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 13:12:10 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/19 13:06:52 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/28 16:36:58 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <dirent.h>
 # include <errno.h>
 # include <stdbool.h>
+# include <unistd.h>
 
 typedef enum e_file_type	t_file_type;
 typedef struct s_file		t_file;
@@ -102,6 +103,7 @@ typedef struct s_pipex
 	char					**argv;
 	int						**pipe_fd;
 	int						*error_num;
+	pid_t					*pid;
 }							t_pipex;
 
 typedef struct s_env

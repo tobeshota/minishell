@@ -22,6 +22,12 @@ static bool	init_pipex(char **argv, t_pipex *pipex, t_tools *tools)
 	return (rm_here_doc());
 }
 
+static void	malloc_multiple_pid(t_pipex *pipex)
+{
+	pipex->pid = (pid_t *)check_malloc(malloc \
+	(sizeof(pid_t) * get_element_count(pipex->cmd_absolute_path)));
+}
+
 bool	get_pipex(char **argv, char **h_envp, t_pipex *pipex, t_tools *tools)
 {
 	if (init_pipex(argv, pipex, tools) == false)
@@ -31,5 +37,6 @@ bool	get_pipex(char **argv, char **h_envp, t_pipex *pipex, t_tools *tools)
 	if (get_cmd_absolute_path(h_envp, pipex) == false)
 		return (false);
 	malloc_multiple_pipe(pipex);
+	malloc_multiple_pid(pipex);
 	return (true);
 }

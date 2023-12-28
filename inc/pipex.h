@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/28 12:52:07 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/28 17:12:23 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ bool	check_pipe(int ret);
 bool	check_fork(pid_t child_pid);
 bool	check_dup(int ret);
 bool	check_execve(int ret, char *cmd, t_pipex *pipex);
-bool	check_exec_builtin(int ret, char *cmd, t_pipex *pipex);
+bool	check_exec_builtin(int ret, t_pipex *pipex);
 bool	check_is_dir(char *filename, int ret, t_pipex *pipex);
 bool	check_cmd_exist(char *filename, int ret, t_pipex *pipex);
 bool	check_is_dot(int ret, t_pipex *pipex);

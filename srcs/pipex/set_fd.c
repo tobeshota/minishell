@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 13:19:51 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/28 13:26:17 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/28 17:16:38 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,13 @@ bool	set_input_fd(t_pipex *pipex, int cmd_i)
 		return (false);
 	if (get_cmd_arg_fd(pipex, cmd_i) != NOT_SPECIFIED)
 	{
-		if (check_dup \
-		(dup2(get_cmd_arg_fd(pipex, cmd_i), STDIN_FILENO)) == false)
+		if (!check_dup(dup2(get_cmd_arg_fd(pipex, cmd_i), STDIN_FILENO)))
 			return (false);
 		return (check_close(close(get_cmd_arg_fd(pipex, cmd_i))));
 	}
 	else if (is_fd_default(pipex->infile_fd, STDIN_FILENO) && cmd_i != 0)
 	{
-		if (check_dup \
-		(dup2(pipex->pipe_fd[cmd_i - 1][0], STDIN_FILENO)) == false)
+		if (!check_dup(dup2(pipex->pipe_fd[cmd_i - 1][0], STDIN_FILENO)))
 			return (false);
 		pipex->infile_fd = pipex->pipe_fd[cmd_i - 1][0];
 		if (is_cmd_builtin(pipex->cmd_absolute_path[cmd_i]) == false)
@@ -39,7 +37,7 @@ bool	set_input_fd(t_pipex *pipex, int cmd_i)
 	}
 	else if (!is_fd_default(pipex->infile_fd, STDIN_FILENO))
 	{
-		if (check_dup(dup2(pipex->infile_fd, STDIN_FILENO)) == false)
+		if (!check_dup(dup2(pipex->infile_fd, STDIN_FILENO)))
 			return (false);
 		if (is_cmd_builtin(pipex->cmd_absolute_path[cmd_i]) == false)
 			return (check_close(close(pipex->infile_fd)));
@@ -53,7 +51,7 @@ bool	set_output_fd(t_pipex *pipex, int cmd_i)
 	pipex->cmd_absolute_path[cmd_i + 1] != NULL) || \
 	cmd_i < count_pipe(pipex->argv))
 	{
-		if (check_dup(dup2(pipex->pipe_fd[cmd_i][1], STDOUT_FILENO)) == false)
+		if (!check_dup(dup2(pipex->pipe_fd[cmd_i][1], STDOUT_FILENO)))
 			return (false);
 		pipex->outfile_fd = pipex->pipe_fd[cmd_i][1];
 		if (is_cmd_builtin(pipex->cmd_absolute_path[cmd_i]) == false)
@@ -61,7 +59,7 @@ bool	set_output_fd(t_pipex *pipex, int cmd_i)
 	}
 	else if (!is_fd_default(pipex->outfile_fd, STDOUT_FILENO))
 	{
-		if (check_dup(dup2(pipex->outfile_fd, STDOUT_FILENO)) == false)
+		if (!check_dup(dup2(pipex->outfile_fd, STDOUT_FILENO)))
 			return (false);
 		if (is_cmd_builtin(pipex->cmd_absolute_path[cmd_i]) == false)
 			return (check_close(close(pipex->outfile_fd)));

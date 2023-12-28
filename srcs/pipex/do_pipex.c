@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_pipex.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 22:46:35 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/21 10:58:37 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/28 17:14:52 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,7 @@ static bool	do_execve(char **h_envp, t_pipex *pipex, int cmd_i)
 
 static bool	do_exec_builtin(t_env **env, t_pipex *pipex, int cmd_i)
 {
-	return (check_exec_builtin(exec_builtin \
-	(env, pipex, cmd_i), pipex->cmd_absolute_path[cmd_i], pipex));
+	return (check_exec_builtin(exec_builtin(env, pipex, cmd_i), pipex));
 }
 
 static bool	exec(char **h_envp, t_env **env, t_pipex *pipex, int cmd_i)
@@ -74,7 +73,6 @@ static bool	exec(char **h_envp, t_env **env, t_pipex *pipex, int cmd_i)
 bool	do_pipex(char **h_envp, t_env **env, t_pipex *pipex, t_tools *tools)
 {
 	int		cmd_i;
-	pid_t	child_pid;
 
 	cmd_i = 0;
 	while (pipex->cmd_absolute_path[cmd_i])
@@ -83,14 +81,15 @@ bool	do_pipex(char **h_envp, t_env **env, t_pipex *pipex, t_tools *tools)
 			return (false);
 		if (is_cmd_builtin(pipex->cmd_absolute_path[cmd_i]))
 		{
-			if (exec(h_envp, env, pipex, cmd_i) == false)
+			if (!exec(h_envp, env, pipex, cmd_i))
 				return (false);
 		}
 		else
 		{
-			if (!get_child(&child_pid) && close_pipe(pipex->pipe_fd[cmd_i]))
+			if (!get_child(&pipex->pid[cmd_i]) && \
+			close_pipe(pipex->pipe_fd[cmd_i]))
 				return (close_pipe(pipex->pipe_fd[cmd_i - 1]), false);
-			if (child_pid == 0 && exec(h_envp, env, pipex, cmd_i) == false)
+			if (pipex->pid[cmd_i] == 0 && !exec(h_envp, env, pipex, cmd_i))
 				return (false);
 		}
 		if (reset_pipex(h_envp, pipex, tools, cmd_i) == false || ++cmd_i < 0)

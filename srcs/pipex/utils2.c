@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/28 12:20:35 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/28 17:09:16 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,18 +60,24 @@ bool	is_path_found(char *path)
 
 bool	wait_child(int cmd_i, t_pipex *pipex)
 {
-	int	i;
-	int	status;
-	int	ret;
+	int		i;
+	int		wait_ret;
+	int		status;
+	int		child_exit_status;
+	bool	flag;
 
 	i = 0;
+	flag = true;
 	while (i < cmd_i)
 	{
-		ret = wait(&status);
-		*pipex->error_num = get_child_exit_status(status);
-		if (check_wait(ret) == false)
+		wait_ret = waitpid(pipex->pid[i], &status, 0);
+		child_exit_status = get_child_exit_status(status);
+		*pipex->error_num = child_exit_status;
+		if (check_wait(wait_ret) == false)
 			return (false);
+		if (child_exit_status != 0)
+			flag = false;
 		i++;
 	}
-	return (true);
+	return (flag);
 }
