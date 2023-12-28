@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   loop_pipex.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 09:23:37 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/19 22:00:12 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/28 12:52:11 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static bool	is_argv_exist(char **argv)
+bool	is_argv_exist(char **argv)
 {
 	char	*argv_wo_space;
 

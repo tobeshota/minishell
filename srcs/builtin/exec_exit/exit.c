@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/21 10:58:06 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/28 12:53:14 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ static bool	is_cmd_arg_num(char *cmd_arg)
 	unsigned long long	abs_ull;
 	unsigned long long	abs_llong_min;
 
+	if (is_argv_exist(&cmd_arg) == false)
+		return (false);
 	i = 0;
 	if ((cmd_arg[i] == '+' || cmd_arg[i] == '-') && cmd_arg[i + 1])
 		i++;
