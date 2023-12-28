@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/28 12:53:14 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/28 15:51:14 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ static bool	check_exit_argc_is_more_than_2(char **cmd, t_pipex *pipex,
 		*pipex->error_num = 1;
 		put_error("minishell: exit: too many arguments\n");
 		free(cmd_arg);
-		return (true);
 	}
 	return (false);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   about_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 13:17:23 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/26 10:45:41 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/28 15:31:32 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ bool	check_double_operator(t_simple_cmds *new, t_simple_cmds *tmp,
 
 int	ft_error(int error, t_tools *tools)
 {
-	tools->error_num = 258;
+	tools->error_num = 2;
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	if (error == 0)
 		ft_putstr_fd("syntax error near unexpected token `newline'\n",
@@ -67,7 +67,7 @@ void	parser_error(int error, t_tools *tools)
 
 int	parser_token_error(t_tools *tools, t_tokens token)
 {
-	tools->error_num = 258;
+	tools->error_num = 2;
 	ft_putstr_fd("minishell: syntax error near unexpected token ",
 		STDERR_FILENO);
 	if (token == GREAT)

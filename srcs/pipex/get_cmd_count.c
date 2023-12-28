@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmd_count.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 09:00:12 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/21 10:57:31 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/28 15:47:16 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,17 @@ void	get_argv_wo_param(char **argv, int arg_i, char **cunnret_argv,
 	}
 }
 
+bool	is_arg_false(char *cunnret_argv, int ret, t_pipex *pipex)
+{
+	if (check_cmd_exist(cunnret_argv, ret, pipex) == false)
+		return (false);
+	if (check_is_dot(ret, pipex) == false)
+		return (false);
+	if (check_is_dir(cunnret_argv, ret, pipex) == false)
+		return (false);
+	return (true);
+}
+
 int	get_cmd_count(t_pipex *pipex, char **h_envp)
 {
 	int		cmd_count;
@@ -48,9 +59,11 @@ int	get_cmd_count(t_pipex *pipex, char **h_envp)
 		ret = is_cmd(cunnret_argv, prev_argv, h_envp);
 		if (ret == true)
 			cmd_count++;
-		check_cmd_exist(cunnret_argv, ret, pipex);
-		check_is_dot(ret, pipex);
-		check_is_dir(cunnret_argv, ret, pipex);
+		if (is_arg_false(cunnret_argv, ret, pipex) == false)
+			return (false);
+		// check_cmd_exist(cunnret_argv, ret, pipex);
+		// check_is_dot(ret, pipex);
+		// check_is_dir(cunnret_argv, ret, pipex);
 		arg_i++;
 		free_tab(cunnret_argv);
 		free_tab(prev_argv);

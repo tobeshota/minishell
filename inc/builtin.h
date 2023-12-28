@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 16:15:47 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/21 00:27:08 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/28 16:11:17 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ unsigned long long	ascii_to_abs_ull(const char *str, int *sign);
 // exec_export
 int					exec_export(char **cmd, t_env **env, t_pipex *pipex);
 void				show_env(t_env **env, t_pipex *pipex);
-void				add_new_value(char *added_value, t_env **env,
+bool				add_new_value(char *added_value, t_env **env,
 						t_pipex *pipex);
 void				update_value(char *added, t_env **env);
 bool				update_envp(t_env **env, char *varname, char *new_data);

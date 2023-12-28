@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_func3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 12:04:48 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/19 00:18:49 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/28 15:24:34 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,15 @@ bool	check_execve(int ret, char *cmd, t_pipex *pipex)
 
 bool	check_exec_builtin(int ret, char *cmd, t_pipex *pipex)
 {
+	(void)cmd;
 	if (ret == -1 || ret == false)
 	{
-		if (errno != 0)
-			put_error_w_cmd(cmd, strerror(errno));
-		else
-			put_error("failed to exec_builtin\n");
-		*pipex->error_num = 126;
+		// if (errno != 0)
+		// 	put_error_w_cmd(cmd, strerror(errno));
+		// else
+		// 	put_error("failed to exec_builtin\n");
+		if (*pipex->error_num == 0)
+			*pipex->error_num = 126;
 		return (false);
 	}
 	return (true);

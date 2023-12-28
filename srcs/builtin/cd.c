@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 11:39:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/21 17:06:47 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/28 15:30:03 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,9 @@ int	exec_cd(char **cmd, t_env **env, t_pipex *pipex)
 		return (false);
 	if (get_element_count(cmd) > 2)
 		return (free(path_from_cd), \
-		put_error_w_cmd_filename("cd", 0, "too many arguments", pipex), true);
-	if (is_match(path_from_cd, ".") || is_match(path_from_cd, "./"))
+		put_error_w_cmd_filename("cd", 0, "too many arguments", pipex), false);
+	if (is_match(path_from_cd, ".") || is_match(path_from_cd, "./") || \
+	is_match(path_from_cd, """") || is_match(path_from_cd, "''"))
 	{
 		if (getcwd(cwd, PATH_MAX) == NULL)
 			put_parent_dir_error();
@@ -102,12 +103,12 @@ int	exec_cd(char **cmd, t_env **env, t_pipex *pipex)
 	}
 	if (is_parameter_dir(path_from_cd) == false)
 		return (put_file_error("cd", path_from_cd, pipex), \
-		free(path_from_cd), true);
+		free(path_from_cd), false);
 	update_oldpwd(env, pipex);
 	if (chdir(path_from_cd) == -1)
 		return (free(path_from_cd), false);
 	free(path_from_cd);
 	if (getcwd(cwd, PATH_MAX) == NULL)
-		return (put_parent_dir_error(), true);
+		return (put_parent_dir_error(), false);
 	return (update_envp(env, "PWD=", cwd));
 }

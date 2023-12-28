@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_new_value.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 23:08:47 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/19 11:58:24 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/28 16:19:57 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static bool	is_append_properly_written(char current_c, char next_c)
 
 static void	put_identifier_error(char *identifier)
 {
-	ft_putstr_fd("minishell: export: '", STDERR_FILENO);
+	ft_putstr_fd("minishell: export: `", STDERR_FILENO);
 	ft_putstr_fd(identifier, STDERR_FILENO);
 	ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
 }
@@ -53,15 +53,16 @@ bool	check_identifier(char *identifier, t_pipex *pipex)
 	return (true);
 }
 
-void	add_new_value(char *added_value, t_env **env, t_pipex *pipex)
+bool	add_new_value(char *added_value, t_env **env, t_pipex *pipex)
 {
 	char	*added_value_without_plus;
 
 	if (check_identifier(added_value, pipex) == false)
-		return ;
+		return (false);
 	added_value_without_plus = omit_c(added_value, '+');
 	*env = ft_nodelast(*env);
 	ft_nodeadd_back(env, check_malloc(ft_nodenew(added_value_without_plus)));
 	ft_nodenext(env);
 	free(added_value_without_plus);
+	return (true);
 }
