@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop_pipex.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 09:23:37 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/28 12:52:11 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/28 22:45:23 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	loop_pipex(t_tools *tools, t_env **env)
 	char	**h_envp;
 
 	if (is_argv_exist(tools->tmp_array) == false)
-		return (true);
+		return (0);
 	if (is_splitter_exist(tools->tmp_array) == false)
 	{
 		h_envp = node_to_array(*env);
