@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 12:55:55 by cjia              #+#    #+#             */
-/*   Updated: 2023/12/19 13:47:32 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/28 17:31:18 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define EXIT_FAILURE 1
 # define EXIT_SUCCESS 0
 
-//about lexer
+// about lexer
 int							lexer(t_tools *lexer_tools);
 int							handle_token(char *str, int i,
 								t_lexer **lexer_list);
@@ -36,7 +36,7 @@ t_lexer						*make_node(char *str, int token);
 int							check_token(char *str, int i);
 void						free_lexer(t_lexer *lexer);
 
-//about parser
+// about parser
 int							parser(t_tools *tools);
 void						erase_token(t_lexer **lexer_list, int i);
 int							count_args(t_lexer *lexer_list);

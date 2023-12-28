@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/28 17:28:55 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/28 17:30:39 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,14 @@ void	expand_wildcard(char **h_argv);
 bool	is_specified_wildcard(char *str);
 void	expand_argv_w_wildcard(char **argv_to_be_updated);
 
-//main_utils
+// main_utils
 bool	ft_simple_cmdsclear(t_simple_cmds **lst);
 void	ft_lexerclear(t_lexer **lst);
 int		free_tools(t_tools *tools);
 int		implement_tools(t_tools *tools);
 int		count_quotes(char *line);
 
-//グローバル変数(終了ステータス)
+// about signal
 void	signal_init_main(void);
 void	sigquit_handler(int sig);
 void	sigint_handler(int sig);
