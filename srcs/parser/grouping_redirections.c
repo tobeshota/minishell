@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:09:54 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/28 16:38:45 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/28 18:09:34 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	add_new_redirection(t_lexer *tmp, t_parser_tools *parser_tools)
 		parser_error(4, parser_tools->tools);
 		return (1);
 	}
-	node = make_node(ft_strdup(tmp->next->str), tmp->token);
+	node = make_node(check_malloc(ft_strdup(tmp->next->str)), tmp->token);
 	if (!node)
 	{
 		parser_error(1, parser_tools->tools);
