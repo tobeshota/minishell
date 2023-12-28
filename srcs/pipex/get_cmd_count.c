@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmd_count.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 09:00:12 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/28 15:47:16 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/28 17:06:00 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	get_cmd_count(t_pipex *pipex, char **h_envp)
 		if (ret == true)
 			cmd_count++;
 		if (is_arg_false(cunnret_argv, ret, pipex) == false)
-			return (false);
+			return (free_tab(cunnret_argv), free_tab(prev_argv), false);
 		// check_cmd_exist(cunnret_argv, ret, pipex);
 		// check_is_dot(ret, pipex);
 		// check_is_dir(cunnret_argv, ret, pipex);
