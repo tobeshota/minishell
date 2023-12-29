@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 10:35:37 by cjia              #+#    #+#             */
-/*   Updated: 2023/12/28 20:23:23 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/29 11:52:21 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ bool	check_conditions(char *str, int j)
 {
 	return (str[j] == '$'
 		&& (str[j + 1] != ' ') && str[j + 1] != '\0'
-		&& str[j + 1] != '/' && str[j + 1] != '-' && str[j + 1] != '"');
+		&& str[j + 1] != '/' && str[j + 1] != '-' && str[j + 1] != '"'
+		&& str[j + 1] != '\'');
 }
 
 size_t	find_equal(char *str)

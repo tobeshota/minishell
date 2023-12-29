@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 12:11:42 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/13 12:24:05 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/29 11:14:01 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,73 +53,3 @@ int	lexer(t_tools *tools)
 	}
 	return (EXIT_SUCCESS);
 }
-
-// void	nodefirst_ver_lexer(t_lexer **node)
-// {
-// 	if (node == NULL || *node == NULL)
-// 		return ;
-// 	while ((*node)->prev != NULL)
-// 		*node = (*node)->prev;
-// }
-
-// int main() {
-//     t_tools tools;  // lexer 用のデータ構造を作成
-
-//     // tools 構造体を初期化または必要に応じて設定
-//     tools.lexer_list = NULL;
-
-//     // 入力文字列を設定
-//     tools.str = "echo 'Hello, World!' > output.txt";
-
-//     // lexer プログラムを呼び出す
-//     lexer(&tools);
-//     while(tools.lexer_list && (tools.lexer_list->str
-// || tools.lexer_list->token))
-//     {
-//         if(tools.lexer_list->str)
-//         {
-//             printf("%s\n", tools.lexer_list->str);
-//         }
-//         else if(tools.lexer_list->token)
-//             printf("%d\n", tools.lexer_list->token);
-
-//         if(tools.lexer_list->next)
-//             tools.lexer_list = tools.lexer_list->next;
-//         else
-//             break ;
-//     }
-//     nodefirst_ver_lexer(&tools.lexer_list);
-
-//     free_lexer(tools.lexer_list);
-
-//     // t_lexer *tmp = tools.lexer_list;
-//     // while(tmp)
-//     // {
-//     //     if(tmp->str)
-//     //          printf("lexer_list->str = %s\n", tmp->str);
-//     //     else
-//     //         printf("lexer_list->token = %d\n", tmp->token);
-//     //     tmp = tmp->next;
-//     // }
-
-//     // tools.simple_cmds = NULL;
-//     // parser(&tools);
-
-//     // printf("parser_list = %s\n", tools.simple_cmds->str[0]);
-
-//     // while(tools.simple_cmds)
-//     // {
-//     //    if(tools.simple_cmds->str)
-//     //         printf("simple_cmds->str = %s\n", tools.simple_cmds->str[0]);
-//     //     else if(tools.simple_cmds->file_name)
-//     //         printf("simple_cmds->file_name = %s\n",
-// tools.simple_cmds->file_name);
-//     //     else
-//     //         printf("simple_cmds->num_redirections = %d\n",
-// tools.simple_cmds->num_redirections);
-//     //     tools.simple_cmds = tools.simple_cmds->next;
-//     // }
-
-//     // printf("lexer_list = %p\n", tools.lexer_list);
-//     return (0);
-// }
