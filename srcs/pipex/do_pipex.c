@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 22:46:35 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/29 11:22:51 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/29 11:52:44 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,21 +50,6 @@ static bool	do_exec_builtin(t_env **env, t_pipex *pipex, int cmd_i)
 	return (check_exec_builtin(exec_builtin(env, pipex, cmd_i), pipex));
 }
 
-bool	check_iofd(t_pipex *pipex)
-{
-	if (pipex->infile_fd == -1)
-	{
-		*pipex->error_num = 1;
-		return (false);
-	}
-	if (pipex->outfile_fd == -1)
-	{
-		*pipex->error_num = 1;
-		return (false);
-	}
-	return (true);
-}
-
 static bool	exec(char **h_envp, t_env **env, t_pipex *pipex, int cmd_i)
 {
 	int		stdin_fileno;
@@ -89,20 +74,6 @@ static bool	exec(char **h_envp, t_env **env, t_pipex *pipex, int cmd_i)
 	}
 	else
 		return (do_execve(h_envp, pipex, cmd_i));
-}
-
-int	get_final_cmd_exit_status(t_pipex *pipex, int cmd_i)
-{
-	int	final_builtin_cmd_exit_status;
-	int	final_execve_cmd_exit_status;
-
-	final_execve_cmd_exit_status = wait_child(cmd_i - count_builtin(pipex), pipex);
-	final_builtin_cmd_exit_status = *pipex->error_num;
-	if (is_cmd_builtin(pipex->cmd_absolute_path[cmd_i - 1]))
-		*pipex->error_num = final_builtin_cmd_exit_status;
-	else
-		*pipex->error_num = final_execve_cmd_exit_status;
-	return (*pipex->error_num == 0);
 }
 
 bool	do_pipex(char **h_envp, t_env **env, t_pipex *pipex, t_tools *tools)

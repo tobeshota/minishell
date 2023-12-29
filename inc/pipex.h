@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/29 10:19:35 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/29 11:53:02 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ bool	check_getenv(char *ptr);
 bool	check_opendir(DIR *dir, char *path);
 bool	check_closedir(int ret);
 bool	check_open(int fd, char *file, t_pipex *pipex);
+bool	check_iofd(t_pipex *pipex);
 bool	check_close(int ret);
 bool	check_pipe(int ret);
 bool	check_fork(pid_t child_pid);
@@ -72,6 +73,7 @@ void	get_argv_wo_param(char **argv, int arg_i, char **cunnret_argv,
 			char **prev_argv);
 char	*getenv_from_h_envp(char **h_envp, char *varname);
 char	*getenv_from_t_env(t_env *env, char *varname);
+int		get_final_cmd_exit_status(t_pipex *pipex, int cmd_i);
 int		is_cmd(char *cunnret_argv, char *prev_argv, char **h_envp);
 bool	is_specified_redirect(char *str);
 bool	is_io_file(char *argv, char *prev_argv);
