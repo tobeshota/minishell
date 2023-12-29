@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/28 17:09:16 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/29 10:19:28 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,26 +58,22 @@ bool	is_path_found(char *path)
 	return (true);
 }
 
-bool	wait_child(int cmd_i, t_pipex *pipex)
+int	wait_child(int cmd_i, t_pipex *pipex)
 {
 	int		i;
-	int		wait_ret;
+	int		ret;
 	int		status;
-	int		child_exit_status;
-	bool	flag;
+	int		final_cmd_exit_status;
 
 	i = 0;
-	flag = true;
+	final_cmd_exit_status = 0;
 	while (i < cmd_i)
 	{
-		wait_ret = waitpid(pipex->pid[i], &status, 0);
-		child_exit_status = get_child_exit_status(status);
-		*pipex->error_num = child_exit_status;
-		if (check_wait(wait_ret) == false)
+		ret = waitpid(pipex->pid[i], &status, 0);
+		final_cmd_exit_status = get_child_exit_status(status);
+		if (check_wait(ret) == false)
 			return (false);
-		if (child_exit_status != 0)
-			flag = false;
 		i++;
 	}
-	return (flag);
+	return (final_cmd_exit_status);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:29:26 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/28 19:59:07 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/29 10:19:35 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ bool	proc_here_doc(char *delimiter, t_pipex *pipex, char **h_envp,
 bool	rm_here_doc(void);
 bool	is_cmd_relative_path(char ***cmd_absolute_path, int cmd_i);
 bool	is_cmd_alreadly_absollute_path(char ***cmd_absolute_path, int cmd_i);
-bool	wait_child(int cmd_i, t_pipex *pipex);
+int		wait_child(int cmd_i, t_pipex *pipex);
 bool	reset_pipex(char **h_envp, t_pipex *pipex, t_tools *tools, int cmd_i);
 int		pipex(char **argv, char **h_envp, t_env **env, t_tools *tools);
 int		get_pipex(char **argv, char **h_envp, t_pipex *pipex, t_tools *tools);
