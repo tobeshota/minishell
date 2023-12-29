@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_dollar_quote.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 16:02:58 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/26 18:56:32 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/12/29 12:03:54 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	str_to_tmp(char **tmp, char *str)
 
 char	*move_to_first_and_last(char *tmp)
 {
+	char	*tmp2;
 	if (ft_strchr(tmp, '\'') || ft_strchr(tmp, '\"'))
 	{
 		tmp = move_to_first(tmp, '"', '\'');
@@ -49,7 +50,9 @@ char	*move_to_first_and_last(char *tmp)
 		tmp = move_to_first(tmp, '\'', '"');
 		tmp = move_to_last(tmp, '\'', '"');
 	}
-	return (tmp);
+	tmp2 = ft_strtrim(tmp, " ");
+	free(tmp);
+	return (tmp2);
 }
 
 char	*process_dollar_quote(char *str, char **envp, t_tools *tools)
