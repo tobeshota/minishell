@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_pipex.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 22:46:35 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/29 10:22:09 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/29 11:22:51 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,15 @@ static bool	do_exec_builtin(t_env **env, t_pipex *pipex, int cmd_i)
 bool	check_iofd(t_pipex *pipex)
 {
 	if (pipex->infile_fd == -1)
+	{
+		*pipex->error_num = 1;
 		return (false);
+	}
 	if (pipex->outfile_fd == -1)
+	{
+		*pipex->error_num = 1;
 		return (false);
+	}
 	return (true);
 }
 
@@ -104,28 +110,25 @@ bool	do_pipex(char **h_envp, t_env **env, t_pipex *pipex, t_tools *tools)
 	int		cmd_i;
 
 	cmd_i = 0;
-	/* 実行部の入出力ファイルがエラーだった場合，実行しない！ */
 	while (pipex->cmd_absolute_path[cmd_i])
 	{
 		if (cmd_i < count_pipe(pipex->argv) && !get_pipe(pipex, cmd_i))
 			return (false);
 		if (is_cmd_builtin(pipex->cmd_absolute_path[cmd_i]))
 		{
-			if (!exec(h_envp, env, pipex, cmd_i))
-				return (false);
+			if (exec(h_envp, env, pipex, cmd_i))
+				*pipex->error_num = 0;
 		}
 		else
 		{
 			if (!get_child(&pipex->pid[cmd_i]) && \
 			close_pipe(pipex->pipe_fd[cmd_i]))
 				return (close_pipe(pipex->pipe_fd[cmd_i - 1]), false);
-			if (pipex->pid[cmd_i] == 0 && !exec(h_envp, env, pipex, cmd_i))
-				return (false);
+			if (pipex->pid[cmd_i] == 0 && exec(h_envp, env, pipex, cmd_i))
+				*pipex->error_num = 0;
 		}
 		if (reset_pipex(h_envp, pipex, tools, cmd_i) == false || ++cmd_i < 0)
 			return (false);
 	}
-	// これだと最後のコマンドがbuiltinコマンドであったとき，その終了ステータスを取得できない！
-	// 最後のコマンドがbuiltinコマンドであったとき，その終了ステータスを格納するようにする！
 	return (close_fd(pipex), get_final_cmd_exit_status(pipex, cmd_i));
 }

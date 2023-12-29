@@ -16,5 +16,6 @@ minishell
 # test files
 tmp/
 test*
+minishell_tester/
 *.txt
 *mpanic/
