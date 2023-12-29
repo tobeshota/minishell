@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:36:07 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/18 21:09:09 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/29 19:08:38 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,5 @@ int	exec_unset(char **cmd, t_env **env, t_pipex *pipex)
 			unset_middle_node(unseted_env);
 		ft_nodefirst(env);
 	}
-	return (true);
+	return (*pipex->error_num == 0);
 }
