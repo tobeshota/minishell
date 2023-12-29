@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 16:02:58 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/29 12:20:37 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/29 12:38:14 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*move_to_first_and_last(char *tmp)
 		tmp = move_to_first(tmp, '\'', '"');
 		tmp = move_to_last(tmp, '\'', '"');
 	}
-	tmp2 = ft_strtrim(tmp, " ");
+	tmp2 = check_malloc(ft_strtrim(tmp, " "));
 	free(tmp);
 	return (tmp2);
 }
