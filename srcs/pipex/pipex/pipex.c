@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:32:48 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/29 13:15:09 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/29 19:18:04 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ int	pipex(char **argv, char **h_envp, t_env **env, t_tools *tools)
 	t_pipex	pipex;
 	int		ret;
 
-	ret = is_true(get_pipex(argv, h_envp, &pipex, tools), &pipex);
+	ret = get_pipex(argv, h_envp, &pipex, tools);
 	if (ret == NOT_FOUND)
-		return (end_pipex(&pipex), true);
+		return (end_pipex(&pipex), is_true(ret, &pipex), true);
 	if (ret == false)
-		return (end_pipex(&pipex), false);
+		return (end_pipex(&pipex), is_true(ret, &pipex), false);
 	if (is_true(do_pipex(h_envp, env, &pipex, tools), &pipex) == false)
 		return (end_pipex(&pipex), false);
 	return (is_true(end_pipex(&pipex), &pipex));
