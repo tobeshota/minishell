@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 16:02:58 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/29 12:03:54 by cjia             ###   ########.fr       */
+/*   Updated: 2023/12/29 12:20:37 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	str_to_tmp(char **tmp, char *str)
 char	*move_to_first_and_last(char *tmp)
 {
 	char	*tmp2;
+
 	if (ft_strchr(tmp, '\'') || ft_strchr(tmp, '\"'))
 	{
 		tmp = move_to_first(tmp, '"', '\'');
