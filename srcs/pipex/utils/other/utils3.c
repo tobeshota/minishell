@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 00:14:56 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/19 23:35:04 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/29 12:01:33 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,38 +47,4 @@ size_t	strlen_until_c(char *str, char c)
 	while (str[len] != '\0' && str[len] != c)
 		len++;
 	return (len);
-}
-
-bool	check_is_dir(char *filename, int ret, t_pipex *pipex)
-{
-	if (ret == IS_A_DIRECTORY)
-	{
-		put_error_w_cmd(filename, "is a directory");
-		*pipex->error_num = 126;
-		return (false);
-	}
-	return (true);
-}
-
-bool	check_cmd_exist(char *filename, int ret, t_pipex *pipex)
-{
-	if (ret == NOT_FOUND)
-	{
-		put_error_w_cmd(filename, "command not found");
-		*pipex->error_num = 127;
-		return (false);
-	}
-	return (true);
-}
-
-bool	check_is_dot(int ret, t_pipex *pipex)
-{
-	if (ret == IS_DOT)
-	{
-		put_error("minishell: .: filename argument required\n.\
-		: usage: . filename [arguments]\n");
-		*pipex->error_num = 2;
-		return (false);
-	}
-	return (true);
 }
