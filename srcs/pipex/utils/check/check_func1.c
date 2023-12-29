@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 12:14:49 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/16 21:57:19 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/29 13:09:08 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ bool	check_open(int fd, char *file, t_pipex *pipex)
 
 	if (fd == -1)
 	{
+		*pipex->error_num = 1;
 		if (stat(file, &st) < 0)
 			return (put_file_error(NULL, file, pipex), false);
 		else if (S_ISDIR(st.st_mode))

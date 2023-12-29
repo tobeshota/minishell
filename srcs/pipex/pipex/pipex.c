@@ -6,7 +6,7 @@
 /*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:32:48 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/28 19:58:20 by toshota          ###   ########.fr       */
+/*   Updated: 2023/12/29 13:15:09 by toshota          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	is_true(int ret, t_pipex *pipex)
 			*pipex->error_num = 130;
 		return (false);
 	}
-	else if (*pipex->error_num != 0)
+	else if (ret != NOT_FOUND)
 		*pipex->error_num = 0;
 	return (ret);
 }
@@ -35,7 +35,7 @@ int	pipex(char **argv, char **h_envp, t_env **env, t_tools *tools)
 
 	ret = is_true(get_pipex(argv, h_envp, &pipex, tools), &pipex);
 	if (ret == NOT_FOUND)
-		return (is_true(end_pipex(&pipex), &pipex));
+		return (end_pipex(&pipex), true);
 	if (ret == false)
 		return (end_pipex(&pipex), false);
 	if (is_true(do_pipex(h_envp, env, &pipex, tools), &pipex) == false)
