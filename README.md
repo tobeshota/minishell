@@ -1,9 +1,10 @@
 <p align="center">
- <img width="480" alt="minishell" src="https://github.com/JIA0010/minishell/assets/103044771/9ada2db0-97b8-43e4-bac7-8843415eedda">
+ <img width="480" alt="minishell" src="https://github.com/JIA0010/minishell/assets/103044771/0051d502-083f-41fb-817b-dfbae963a337">
 </p>
 
 **minishell is one of the [42](https://42tokyo.jp/) projects.**  
 **It is a reimplementation of `bash`.**
+
 
 ---
 
