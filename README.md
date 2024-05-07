@@ -3,7 +3,7 @@
 </p>
 
 **minishell is one of the [42](https://42tokyo.jp/) projects.**  
-**It is a reimplementation of `bash`.**
+**It is a reimplementation of *bash*.**
 
 
 ---
@@ -24,3 +24,28 @@ We implemented the following bash functions.
 * expand exit status: **`$?`**
 * expand wildcards: **`*`**
 * control operators: **`;`, `&&`, `||`**
+
+# Usage
+### Requirements
+- [ ] `readline` (It is used where the shell accepts commands)
+```shell
+brew install readline
+```
+
+### Installation
+Clone this repository.
+```shell
+git clone https://github.com/JIA0010/minishell.git
+```
+Change directory to this repository.
+```shell
+cd minishell
+```
+Compile to create an executable file: `minishell`.
+```shell
+make
+```
+Execute.
+```shell
+./minishell
+```
