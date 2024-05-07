@@ -18,7 +18,7 @@ We implemented the main features of bash.
 * Search and launch the right executable (e.g. **`./a.out`, `/bin/ls`** ..)
 * builtins: **`echo`, `cd`, `pwd`, `export`, `unset`, `env`, `exit`**
 * File I/O management by redirection: **`>`, `>>`, `<`, `<<`**
-* interprocess communication by pipes: **`|`**
+* interprocess communication by [pipes](https://github.com/tobeshota/pipex.git): **`|`**
 * signal: **`Ctrl-C`, `Ctrl-D`, `Ctrl-\`**
 * expand environment variables (e.g. **`$PWD`, `$PATH`** ..)
 * expand exit status: **`$?`**
