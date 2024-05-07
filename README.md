@@ -35,7 +35,7 @@ brew install readline
 ### Installation
 Clone this repository.
 ```shell
-git clone https://github.com/JIA0010/minishell.git
+git clone https://github.com/tobeshota/minishell.git
 ```
 Change directory to this repository.
 ```shell
