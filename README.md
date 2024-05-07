@@ -14,8 +14,7 @@
   <img width=350 src="https://github.com/JIA0010/minishell/assets/103044771/6a86318f-09f3-46b3-a9f1-2aa328f6dbc6">
 </p>
 
-We implemented the following bash functions in c language.  
-We learned how the shell works through implementation.  
+We implemented the following bash functions.
 * Search and launch the right executable (e.g. **`./a.out`, `/bin/ls`** ..)
 * builtins: **`echo`, `cd`, `pwd`, `export`, `unset`, `env`, `exit`**
 * File I/O management by redirection: **`>`, `>>`, `<`, `<<`**
