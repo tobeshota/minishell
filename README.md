@@ -2,7 +2,7 @@
  <img width="480" alt="minishell" src="https://github.com/JIA0010/minishell/assets/103044771/0051d502-083f-41fb-817b-dfbae963a337">
 </p>
 
-**minishell is one of the [42](https://42tokyo.jp/) projects.**  
+**Minishell is one of the [42](https://42tokyo.jp/) projects.**  
 **It is a reimplementation of [bash](https://www.gnu.org/software/bash/).**
 
 
