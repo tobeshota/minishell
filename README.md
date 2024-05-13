@@ -3,7 +3,7 @@
 </p>
 
 **Minishell is one of the [42](https://42tokyo.jp/) projects.**  
-**It is a reimplementation of [bash](https://www.gnu.org/software/bash/).**
+**It is a reimplementation of [bash](https://www.gnu.org/software/bash/)🐚**
 
 
 ---
