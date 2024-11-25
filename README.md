@@ -15,12 +15,12 @@
 </p>
 
 We implemented the main features of bash.
-* Search and launch the right executable (e.g. **`./a.out`, `/bin/ls`** ..)
+* search and launch the right executable (e.g. **`./a.out`, `/bin/ls`** ..)
 * builtins: **`echo`, `cd`, `pwd`, `export`, `unset`, `env`, `exit`**
-* File I/O management by redirection: **`>`, `>>`, `<`, `<<`**
+* file I/O management by redirection: **`>`, `>>`, `<`, `<<`**
 * interprocess communication by [pipes](https://github.com/tobeshota/pipex.git): **`|`**
 * signal: **`Ctrl-C`, `Ctrl-D`, `Ctrl-\`**
-* expand environment variables with/without single/double quotes (e.g. **`$PWD`, `"$PATH"`, `'$HOME'`** ..)
+* expand environment variables with/without single/double quotes (e.g. **`$PWD`, `'$PATH'`, `"$HOME"`** ..)
 * expand exit status: **`$?`**
 * expand wildcards: **`*`**
 * control operators: **`;`, `&&`, `||`**
