@@ -20,7 +20,7 @@ We implemented the main features of bash.
 * File I/O management by redirection: **`>`, `>>`, `<`, `<<`**
 * interprocess communication by [pipes](https://github.com/tobeshota/pipex.git): **`|`**
 * signal: **`Ctrl-C`, `Ctrl-D`, `Ctrl-\`**
-* expand environment variables (e.g. **`$PWD`, `$PATH`** ..)
+* expand environment variables with/without single/double quotes (e.g. **`$PWD`, `"$PATH"`, `'$HOME'`** ..)
 * expand exit status: **`$?`**
 * expand wildcards: **`*`**
 * control operators: **`;`, `&&`, `||`**
