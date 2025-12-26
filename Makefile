@@ -28,7 +28,7 @@ bonus:		all
 
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
 	@ mkdir -p $(@D)
-	@ $(CC) $(CFLAGS) $(INCS) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCS) -c $< -o $@
 
 clean:
 	@ make clean -C $(LIBFT_DIR)
