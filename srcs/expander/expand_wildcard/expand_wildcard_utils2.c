@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_wildcard_utils2.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: tobeshota <tobeshota@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 00:20:21 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/19 10:46:57 by toshota          ###   ########.fr       */
+/*   Updated: 2026/02/28 17:34:44 by tobeshota        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,17 +65,9 @@ static t_env	*del_unmatched_node(t_env *expanded, char *prefix,
 	{
 		if (is_pattern_match(expanded->content, prefix, backward) == false)
 		{
-			if (is_node_only_one(expanded) == true)
-				return (ft_nodedelone(&expanded), NULL);
-			else if (is_node_last(expanded) == true)
-				unset_last_node(&expanded);
-			else if (is_node_first(expanded) == true)
-			{
-				unset_first_node(&expanded, NULL);
-				continue ;
-			}
-			else
-				unset_middle_node(expanded);
+			if (del_node(&expanded) == false)
+				return (NULL);
+			continue ;
 		}
 		if (expanded->next == NULL)
 			break ;

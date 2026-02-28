@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tobeshota <tobeshota@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:18:00 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/12/28 17:30:39 by toshota          ###   ########.fr       */
+/*   Updated: 2026/02/28 17:34:44 by tobeshota        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int		char_to_tmp(char **tmp, char c);
 void	expand_wildcard(char **h_argv);
 bool	is_specified_wildcard(char *str);
 void	expand_argv_w_wildcard(char **argv_to_be_updated);
+bool	del_node(t_env **expanded);
 
 // main_utils
 bool	ft_simple_cmdsclear(t_simple_cmds **lst);

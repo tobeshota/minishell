@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_wildcard_utils1.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshota <toshota@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: tobeshota <tobeshota@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 16:43:07 by toshota           #+#    #+#             */
-/*   Updated: 2023/12/19 09:49:00 by toshota          ###   ########.fr       */
+/*   Updated: 2026/02/28 17:34:44 by tobeshota        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static char	get_prefix_encloser(char *prefix)
 {
 	size_t	i;
 
+	if (ft_strlen(prefix) == 0)
+		return ('\0');
 	i = ft_strlen(prefix) - 1;
 	while (i != 0)
 	{
